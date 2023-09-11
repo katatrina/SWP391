@@ -18,9 +18,9 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  /* --primary: #007bff; */
+  /* --primary: #007bff;
+  --secondary: #6c757d; */
   --primary: #7AB730;
-  /* --secondary: #6c757d; */
   --secondary: #FFD33C;
   --success: #28a745;
   --info: #17a2b8;
@@ -2918,8 +2918,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #7AB730;
+  border-color: #7AB730;
 }
 
 .btn-primary:hover {
@@ -3236,15 +3236,15 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5);
 }
 
-/* .btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
-} */
+.btn-outline-primary {
+  color: #7AB730;
+  border-color: #7AB730;
+}
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #5eff00f0;
-  border-color: #5eff00f0;
+  background-color: #7AB730;
+  border-color: #7AB730;
 }
 
 .btn-outline-primary:focus,
@@ -7468,16 +7468,16 @@ a.close.disabled {
   vertical-align: text-top !important;
 }
 
-.bg-primary {
-  background-color: #7AB730 !important;
-}
+/* .bg-primary {
+  background-color: #007bff !important;
+} */
 
-a.bg-primary:hover,
+/* a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #7AB730 !important;
-}
+  background-color: #0062cc !important;
+} */
 
 .bg-secondary {
   background-color: #6c757d !important;
@@ -7535,7 +7535,7 @@ button.bg-danger:focus {
 }
 
 .bg-light {
-  background-color: #F3F3F3 !important;
+  background-color: #f8f9fa !important;
 }
 
 a.bg-light:hover,
@@ -9316,7 +9316,7 @@ button.bg-dark:focus {
 }
 
 .m-5 {
-  margin: 3rem !important;
+  margin: 0rem !important;
 }
 
 .mt-5,
@@ -11364,7 +11364,7 @@ button.bg-dark:focus {
 }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .text-justify {
@@ -11712,7 +11712,7 @@ a.text-dark:focus {
 }
 
 body {
-  font-family: "Lato", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.8;
   font-weight: normal;
@@ -11724,7 +11724,7 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #f35588;
+  color: #7fa998;
 }
 
 a:hover,
@@ -11747,20 +11747,16 @@ h5,
 .h5 {
   line-height: 1.5;
   font-weight: 400;
-  font-family: "Lato", Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   color: #000;
 }
 
-.bg-primary {
-  background: #7AB730 !important;
-}
+/* .bg-primary {
+  background: #7fa998 !important;
+} */
 
 .ftco-section {
-  padding: 3em 0;
-  background-image: url(https://wallpaperset.com/w/full/e/e/2/219289.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-
+  padding: 2em 0;
 }
 
 .ftco-no-pt {
@@ -11773,7 +11769,7 @@ h5,
 
 .heading-section {
   font-size: 28px;
-  color: red;
+  color: #000;
 }
 
 .img {
@@ -11784,6 +11780,9 @@ h5,
 
 .wrap {
   width: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
   border-radius: 5px;
   -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
   -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
@@ -11792,33 +11791,39 @@ h5,
 
 .text-wrap,
 .login-wrap {
-  width: 50%;
+  width: 100%;
 }
 
-@media (max-width: 991.98px) {
+@media (min-width: 992px) {
 
   .text-wrap,
   .login-wrap {
-    width: 100%;
+    width: 50%;
   }
 }
 
 .text-wrap {
-  background: #a0f759;
-  background: -moz-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, #f75959), color-stop(100%, #f35587));
-  background: -webkit-linear-gradient(-45deg, #63f759 0%, #55f3c1 100%);
-  background: -o-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-  background: -ms-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-  background: -webkit-linear-gradient(315deg, #5df759 0%, #55f399 100%);
-  background: -o-linear-gradient(315deg, #f75959 0%, #f35587 100%);
-  background: linear-gradient(135deg, #f75959 0%, 7AB730 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f75959', endColorstr='#f35587', GradientType=1);
-  color: #fff;
+  background-image: url(https://img.freepik.com/premium-vector/vector-bird-cat-dog-butterfly-white-background-pet-care-banners-animal_132416-3376.jpg?w=2000);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.text-wrap .text {
+  color: #000;
 }
 
 .text-wrap .text h2 {
-  font-weight: 900;
+  font-weight: 700;
+  color: #fff;
+}
+
+.text-wrap .text .icon {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.text-wrap .text .icon span {
+  font-size: 80px;
   color: #fff;
 }
 
@@ -11828,67 +11833,55 @@ h5,
 }
 
 .login-wrap h3 {
-  font-weight: 300;
-}
-
-.form-group {
-  position: relative;
-}
-
-.form-group .label {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #000;
   font-weight: 700;
 }
 
-.form-group a {
-  color: gray;
+.login-wrap h3 span {
+  font-size: 16px;
+  display: block;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.form-group label {
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.3);
+  margin-bottom: 0;
 }
 
 .form-control {
-  height: 48px;
-  background: rgba(0, 0, 0, 0.05);
+  height: 40px;
+  background: #fff;
   color: #000;
-  font-size: 16px;
-  border-radius: 50px;
+  font-size: 18px;
+  border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border: 1px solid transparent;
-  padding-left: 20px;
-  padding-right: 20px;
-  -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .form-control {
-    -webkit-transition: none;
-    -o-transition: none;
-    transition: none;
-  }
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .form-control::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color: rgba(0, 0, 0, 0.2) !important;
+  color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .form-control::-moz-placeholder {
   /* Firefox 19+ */
-  color: rgba(0, 0, 0, 0.2) !important;
+  color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .form-control:-ms-input-placeholder {
   /* IE 10+ */
-  color: rgba(0, 0, 0, 0.2) !important;
+  color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .form-control:-moz-placeholder {
   /* Firefox 18- */
-  color: rgba(0, 0, 0, 0.2) !important;
+  color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .form-control:focus,
@@ -11896,8 +11889,19 @@ h5,
   outline: none !important;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: rgba(0, 0, 0, 0.07);
-  border-color: transparent;
+  border-color: #7fa998;
+}
+
+textarea.form-control {
+  height: inherit !important;
+}
+
+.social-wrap {
+  text-align: center;
+}
+
+.social-wrap span {
+  display: block;
 }
 
 .social-media {
@@ -11912,17 +11916,25 @@ h5,
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.05);
   font-size: 16px;
-  margin-right: 5px;
+  margin: 0 10px;
   border-radius: 50%;
 }
 
+.social-media .social-icon.facebook {
+  background: #44629b;
+}
+
+.social-media .social-icon.twitter {
+  background: #1dade9;
+}
+
 .social-media .social-icon span {
-  color: #999999;
+  color: #fff;
 }
 
 .social-media .social-icon:hover,
 .social-media .social-icon:focus {
-  background: #f35588;
+  background: #7fa998;
 }
 
 .social-media .social-icon:hover span,
@@ -11930,81 +11942,12 @@ h5,
   color: #fff;
 }
 
-.checkbox-wrap {
-  display: block;
-  position: relative;
-  padding-left: 30px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.checkbox-wrap input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "\f0c8";
-  font-family: "FontAwesome";
-  position: absolute;
-  color: rgba(0, 0, 0, 0.1);
-  font-size: 20px;
-  margin-top: -4px;
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .checkmark:after {
-    -webkit-transition: none;
-    -o-transition: none;
-    transition: none;
-  }
-}
-
-/* Show the checkmark when checked */
-.checkbox-wrap input:checked~.checkmark:after {
-  display: block;
-  content: "\f14a";
-  font-family: "FontAwesome";
-  color: rgba(0, 0, 0, 0.2);
-}
-
-/* Style the checkmark/indicator */
-.checkbox-primary {
-  color: #5df759;
-}
-
-.checkbox-primary input:checked~.checkmark:after {
-  color: #5df759;
-}
-
 .btn {
   cursor: pointer;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
+  border-radius: 40px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
   font-size: 15px;
-  padding: 10px 20px;
-  border-radius: 50px;
 }
 
 .btn:hover,
@@ -12013,37 +11956,30 @@ h5,
   outline: none;
 }
 
-.btn.btn-primary {
-  background: #5df759;
-  border: 1px solid #aef355;
-  /* color: #fff; */
-  /* background: #f75959; */
-  background: -moz-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, #f75959), color-stop(100%, #f35587));
-  /* background: -webkit-linear-gradient(-45deg, #f75959 0%, #f35587 100%); */
-  background: -o-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-  background: -ms-linear-gradient(-45deg, #f75959 0%, #f35587 100%);
-  /* background: -webkit-linear-gradient(315deg, #f75959 0%, #f35587 100%); */
-  background: -o-linear-gradient(315deg, #f75959 0%, #f35587 100%);
-  background: linear-gradient(135deg, #5df759 0%, #59f7e8 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f75959', endColorstr='#f35587', GradientType=1);
-}
+/* .btn.btn-primary {
+  background: #7fa998 !important;
+  border: 1px solid #7fa998 !important;
+  color: #fff !important;
+  -webkit-box-shadow: 0px 10px 19px -16px rgba(0, 0, 0, 0.29) !important;
+  -moz-box-shadow: 0px 10px 19px -16px rgba(0, 0, 0, 0.29) !important;
+  box-shadow: 0px 10px 19px -16px rgba(0, 0, 0, 0.29) !important;
+} */
 
 .btn.btn-primary:hover {
-  border: 1px solid #171616;
-  background: #0d0d0d;
-  color: #fff;
+  border: 1px solid #7fa998;
+  background: transparent;
+  color: #7fa998;
 }
 
 .btn.btn-primary.btn-outline-primary {
-  border: 1px solid #f35588;
+  border: 1px solid #7fa998;
   background: transparent;
-  color: #f35588;
+  color: #7fa998;
 }
 
 .btn.btn-primary.btn-outline-primary:hover {
   border: 1px solid transparent;
-  background: #f35588;
+  background: #7fa998;
   color: #fff;
 }
 
@@ -12060,13 +11996,17 @@ h5,
 }
 
 .btn.btn-white.btn-outline-white {
-  border: 1px solid #fff;
+  border: 1px solid #000;
   background: transparent;
-  color: #fff;
+  color: #000;
 }
 
 .btn.btn-white.btn-outline-white:hover {
   border: 1px solid transparent;
   background: #fff;
   color: #000;
+}
+
+.submit {
+  width: 100%;
 }
