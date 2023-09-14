@@ -5,13 +5,53 @@
 package sqlc
 
 import (
+	"database/sql"
 	"time"
 )
+
+type Category struct {
+	ID   int32          `json:"id"`
+	Name sql.NullString `json:"name"`
+}
+
+type Order struct {
+	ID           int32     `json:"id"`
+	UserID       int32     `json:"user_id"`
+	CreatedAt    time.Time `json:"created_at"`
+	DeliveryDate time.Time `json:"delivery_date"`
+	DeliveredTo  string    `json:"delivered_to"`
+	Status       string    `json:"status"`
+	Price        int32     `json:"price"`
+}
+
+type Role struct {
+	ID   int32  `json:"id"`
+	Name string `json:"name"`
+}
+
+type Service struct {
+	ID          int32     `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Price       int32     `json:"price"`
+	CategoryID  int32     `json:"category_id"`
+	UserID      int32     `json:"user_id"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+type Session struct {
+	Token  string    `json:"token"`
+	Data   []byte    `json:"data"`
+	Expiry time.Time `json:"expiry"`
+}
 
 type User struct {
 	ID        int32     `json:"id"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
+	Phone     string    `json:"phone"`
+	Address   string    `json:"address"`
+	RoleID    int32     `json:"role_id"`
 	Password  string    `json:"hashed_password"`
 	CreatedAt time.Time `json:"created_at"`
 }
