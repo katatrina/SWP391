@@ -14,6 +14,8 @@ func (app *application) routes() http.Handler {
 
 	dynamic := alice.New(app.sessionManager.LoadAndSave, app.authenticate)
 
+	router.Handler(http.MethodGet, "/404", dynamic.ThenFunc(app.pageNotFound))
+
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 	router.Handler(http.MethodGet, "/services", dynamic.ThenFunc(app.displayServicePage))
 	router.Handler(http.MethodGet, "/products", dynamic.ThenFunc(app.displayProductPage))
@@ -23,6 +25,15 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/user/login", dynamic.ThenFunc(app.displayUserLoginPage))
 	//router.Handler(http.MethodPost, "/user/login", dynamic.ThenFunc(app.doLoginUser))
 	router.Handler(http.MethodGet, "/about", dynamic.ThenFunc(app.about))
+
+	protected := dynamic.Append(app.requireAuthentication)
+
+	router.Handler(http.MethodGet, "/user/logout", protected.ThenFunc(app.viewAccount))
+
+	advanced := protected.Append(app.authenticateProvider, app.requireProviderPermission)
+
+	router.Handler(http.MethodGet, "/service/create", advanced.ThenFunc(app.doCreateService))
+	router.Handler(http.MethodGet, "/product/create", advanced.ThenFunc(app.doCreateProduct))
 
 	standard := alice.New(app.logRequest)
 	return standard.Then(router)

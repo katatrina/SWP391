@@ -18,12 +18,14 @@ type templateData struct {
 	Flash           string
 	User            sqlc.User
 	IsAuthenticated bool
+	IsProvider      bool
 }
 
 func (app *application) newTemplateData(r *http.Request) *templateData {
 	return &templateData{
 		CurrentYear:     time.Now().Year(),
 		IsAuthenticated: app.isAuthenticated(r),
+		IsProvider:      app.isProvider(r),
 	}
 }
 

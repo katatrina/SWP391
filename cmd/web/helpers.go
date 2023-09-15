@@ -77,3 +77,12 @@ func (app *application) isAuthenticated(r *http.Request) bool {
 
 	return isAuthenticated
 }
+
+func (app *application) isProvider(r *http.Request) bool {
+	isProvider, ok := r.Context().Value(isProviderContextKey).(bool)
+	if !ok {
+		return false
+	}
+
+	return isProvider
+}

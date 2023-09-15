@@ -9,46 +9,8 @@ import (
 	"context"
 )
 
-const createUser = `-- name: CreateUser :exec
-INSERT INTO users (name, email, hashed_password, created_at)
-VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
-`
-
-type CreateUserParams struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"hashed_password"`
-}
-
-func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
-	_, err := q.db.ExecContext(ctx, createUser, arg.Name, arg.Email, arg.Password)
-	return err
-}
-
-const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, name, email, phone, address, role_id, hashed_password, created_at
-FROM users
-WHERE email = $1
-`
-
-func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
-	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Email,
-		&i.Phone,
-		&i.Address,
-		&i.RoleID,
-		&i.Password,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
 const getUserByID = `-- name: GetUserByID :one
-SELECT id, name, email, phone, address, role_id, hashed_password, created_at
+SELECT id, name, phone, address, role_id, hashed_password, created_at
 FROM users
 WHERE id = $1
 `
@@ -59,7 +21,6 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
-		&i.Email,
 		&i.Phone,
 		&i.Address,
 		&i.RoleID,
@@ -67,6 +28,20 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const isProviderRole = `-- name: IsProviderRole :one
+SELECT EXISTS (SELECT 1
+               FROM users u
+               WHERE u.id = $1
+                 AND u.role_id = (SELECT id FROM roles WHERE name = 'provider')) AS is_provider
+`
+
+func (q *Queries) IsProviderRole(ctx context.Context, id int32) (bool, error) {
+	row := q.db.QueryRowContext(ctx, isProviderRole, id)
+	var is_provider bool
+	err := row.Scan(&is_provider)
+	return is_provider, err
 }
 
 const isUserExist = `-- name: IsUserExist :one
@@ -78,20 +53,4 @@ func (q *Queries) IsUserExist(ctx context.Context, id int32) (bool, error) {
 	var exists bool
 	err := row.Scan(&exists)
 	return exists, err
-}
-
-const updateUserPassword = `-- name: UpdateUserPassword :exec
-UPDATE users
-SET hashed_password = $1
-WHERE id = $2
-`
-
-type UpdateUserPasswordParams struct {
-	Password string `json:"hashed_password"`
-	ID       int32  `json:"id"`
-}
-
-func (q *Queries) UpdateUserPassword(ctx context.Context, arg UpdateUserPasswordParams) error {
-	_, err := q.db.ExecContext(ctx, updateUserPassword, arg.Password, arg.ID)
-	return err
 }

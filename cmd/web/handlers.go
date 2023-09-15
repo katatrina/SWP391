@@ -45,3 +45,36 @@ func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Requ
 
 	app.render(w, http.StatusOK, "login.html", data)
 }
+
+func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+
+	user, err := app.GetUserByID(r.Context(), int32(userID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	data := app.newTemplateData(r)
+	data.User = user
+
+	app.render(w, http.StatusOK, "account.html", data)
+}
+
+func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "provider-assets.html", data)
+}
+
+func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "provider-assets.html", data)
+}
+
+func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "notfound.html", data)
+}

@@ -17,11 +17,11 @@ type Category struct {
 type Order struct {
 	ID           int32     `json:"id"`
 	UserID       int32     `json:"user_id"`
-	CreatedAt    time.Time `json:"created_at"`
 	DeliveryDate time.Time `json:"delivery_date"`
 	DeliveredTo  string    `json:"delivered_to"`
 	Status       string    `json:"status"`
 	Price        int32     `json:"price"`
+	CreatedAt    time.Time `json:"created_at"`
 }
 
 type Role struct {
@@ -48,7 +48,6 @@ type Session struct {
 type User struct {
 	ID        int32     `json:"id"`
 	Name      string    `json:"name"`
-	Email     string    `json:"email"`
 	Phone     string    `json:"phone"`
 	Address   string    `json:"address"`
 	RoleID    int32     `json:"role_id"`
