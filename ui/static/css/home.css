@@ -1,3 +1,284 @@
-h1 {
-    background: aqua;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#main {
+    position: relative;
+}
+
+/* Navigation */
+.navigation {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Banner */
+#banner {
+    width: 100%;
+    height: 680px;
+    background-image: url('/static/img/banner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* position: relative; */
+}
+
+#banner .text-content {
+    position: absolute;
+    top: 175px;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+#banner .text-heading {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#banner .text-description p {
+    text-align: justify;
+    padding: 5px 290px;
+    font-size: 21px;
+}
+
+/* Content */
+#content {
+    /* padding: 80px; */
+}
+
+/* Content-header */
+#content .content-heading {
+    margin: 60px;
+}
+
+.content-space {
+    height: 10px;
+    width: 96px;
+    background-color: #396AFC;
+    margin: auto
+}
+
+.content-heading h1 {
+    font-size: 48px;
+    color: #396AFC;
+    font-size: 48px;
+    font-weight: 800;
+    padding: 18px 0;
+}
+
+
+/* Content-Dịch vụ nổi bật */
+.content-popular-infor {
+    display: flex;
+    justify-content: center;
+    margin: 0 60px 60px 60px;
+}
+
+.popular-card {
+    padding: 24px;
+    border: 1px solid rgb(225, 233, 255);
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 4px 4px 15px;
+    cursor: pointer;
+    margin-right: 24px;
+}
+
+.popular-card img {
+    width: 100%;
+    height: 250px;
+}
+
+.popular-card .card-body .card-text {
+    height: 200px;
+    text-align: justify;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content-Trải nghiệm dịch vụ */
+.content-exp {
+    width: 100%;
+    height: 1160px;
+    background-color: #f4f4f4;
+}
+
+.content-header-body {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    padding-top: 16px;
+}
+
+.content-header-body img {
+    background-repeat: no-repeat;
+    background-size: 30px;
+    height: 100px;
+    margin-right: 16px;
+    margin-left: 70px;
+}
+
+.content-header-body .infor-col {
+    border-right: 5px solid #396AFC;
+}
+
+.content-header-body .infor-text {
+    padding-top: 16px;
+    margin-left: 16px;
+}
+
+.content-header-body .infor-text h1 {
+    font-size: 2.125rem;
+    line-height: 1.235;
+    color: #396AFC;
+    font-weight: 700
+}
+
+.content-header-body .infor-text p {
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.334;
+    color: #396AFC;
+}
+
+.content-exp-infor {
+    padding: 80px;
+    padding-bottom: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.content-exp-infor .exp-infor-container {
+    display: flex;
+    padding: 24px;
+    max-width: 1200px;
+    box-shadow: 0px 1px 20px 0px rgb(231 231 231 / 71%);
+    border: 1px solid #E1E9FF;
+    background-color: #ffffff;
+    border-radius: 16px;
+}
+
+.content-exp-infor .exp-infor-container .card {
+    margin-left: 16px;
+    border: none;
+    text-align: center;
+}
+
+.exp-infor-container .card-text {
+    align-items: center;
+}
+
+.exp-infor-container .card-img-top {
+    max-width: 100px;
+    height: auto;
+    margin-left: 32%;
+}
+
+/* Các Dịch Vụ */
+.content-service .service-sub-heading {
+    margin: 57px;
+}
+
+.service-body .carousel-inner .card-group {
+    max-width: 1200px;
+}
+
+.service-body .carousel-inner .card {
+    margin-right: 16px;
+}
+
+.service-body .carousel-inner .card img {
+    padding: 0px 21px 21px 21px;
+    /* border-radius: 54px; */
+}
+
+/* Các Sản Phẩm */
+.content-product .product-sub-heading {
+    margin: 57px;
+}
+
+.product-body .carousel-inner .card-group {
+    max-width: 1200px;
+}
+
+.product-body .carousel-inner .card {
+    margin-right: 16px;
+}
+
+.product-body .carousel-inner .card img {
+    padding: 0px 21px 21px 21px;
+    /* border-radius: 54px; */
+}
+
+.service-body .carousel-inner .card img {
+    padding: 0px 21px 21px 21px;
+    /* border-radius: 54px; */
+}
+
+/* Banner 2 */
+#sub-banner {
+    position: relative;
+}
+
+#sub-banner img {
+    max-height: 550px;
+    width: 100%;
+    height: auto;
+}
+
+#sub-banner .sub-banner-header {
+    position: absolute;
+    top: 25%;
+    right: 25%;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+
+/* Về Chúng Tôi */
+.content-about-us {
+    margin-top: 60px;
+    height: 420px;
+    background-color: #f4f4f4;
+}
+
+.about-us-body .about-us-body-content {
+    display: flex;
+    position: relative;
+}
+
+.content-about-us .about-us-body .text-column {
+    position: relative;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+.content-about-us .about-us-body .text-column p {
+    position: absolute;
+    padding: 32px;
+    text-align: justify;
+}
+
+.content-about-us .about-us-body .img-column {
+    position: relative;
+    right: 0;
+}
+
+.content-about-us .about-us-body .img-column img {
+    position: absolute;
+    max-height: 420px;
+    width: 100%;
+    height: auto;
+}
+
+
+/* FOOTER */
+.footer-main {
+    margin-top: 60px;
 }
