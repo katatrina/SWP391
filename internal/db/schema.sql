@@ -11,19 +11,32 @@ VALUES ('customer'),
 CREATE TABLE users
 (
     id              SERIAL PRIMARY KEY,
-    name            VARCHAR(50)  NOT NULL,
-    phone           CHAR(10)     NOT NULL,
-    address         VARCHAR(350) NOT NULL DEFAULT '',
+    full_name       VARCHAR(50)  NOT NULL,
+    email           VARCHAR(150) NOT NULL,
+    phone_number    CHAR(10)     NOT NULL,
+    address         VARCHAR(200) NOT NULL DEFAULT '',
     role_id         INT          NOT NULL,
     hashed_password CHAR(60)     NOT NULL,
     created_at      timestamptz  NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE users
-    ADD CONSTRAINT users_uc_phone UNIQUE (phone);
+    ADD CONSTRAINT users_uc_phone_number UNIQUE (phone_number);
+
+ALTER TABLE users
+    ADD CONSTRAINT users_uc_email UNIQUE (email);
 
 ALTER TABLE users
     ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
+
+CREATE TABLE providerDetails
+(
+    id           SERIAL PRIMARY KEY,
+    user_id      INT         NOT NULL,
+    company_name VARCHAR(50) NOT NULL,
+    tax_code     VARCHAR(50) NOT NULL,
+    created_at   timestamptz NOT NULL DEFAULT NOW()
+);
 
 CREATE TABLE sessions
 (
@@ -34,16 +47,10 @@ CREATE TABLE sessions
 
 CREATE INDEX sessions_expiry_idx ON sessions (expiry);
 
-CREATE TABLE categorys
+CREATE TABLE category
 (
     id   SERIAL PRIMARY KEY,
-    name VARCHAR
-);
-
-CREATE TABLE genres
-(
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR
+    name VARCHAR(100)
 );
 
 CREATE TABLE services
@@ -52,27 +59,52 @@ CREATE TABLE services
     title            VARCHAR(350) NOT NULL,
     description      TEXT         NOT NULL,
     price            INT          NOT NULL,
-    genre_id         INT          NOT NULL,
+    genre            TEXT         NOT NULL,
+    thumbnail_url    TEXT         NOT NULL,
     category_id      INT          NOT NULL,
     owned_by_user_id INT          NOT NULL,
+    status           TEXT         NOT NULL DEFAULT 'inactive',
     created_at       timestamptz  NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE "services"
-    ADD FOREIGN KEY ("category_id") REFERENCES "categorys" ("id");
+    ADD FOREIGN KEY ("category_id") REFERENCES "category" ("id");
 
 ALTER TABLE "services"
+    ADD FOREIGN KEY ("owned_by_user_id") REFERENCES "users" ("id");
+
+CREATE TABLE feedbacks
+(
+    id         SERIAL PRIMARY KEY,
+    service_id INT         NOT NULL,
+    user_id    INT         NOT NULL,
+    content    TEXT        NOT NULL,
+    created_at timestamptz NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE "feedbacks"
+    ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id");
+
+ALTER TABLE "feedbacks"
     ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+
+CREATE TABLE blogs
+(
+    id         SERIAL PRIMARY KEY,
+    title      VARCHAR(350) NOT NULL,
+    content    TEXT         NOT NULL,
+    created_at timestamptz  NOT NULL DEFAULT NOW()
+);
 
 CREATE TABLE orders
 (
     id            SERIAL PRIMARY KEY,
-    buyer_id      INTEGER     NOT NULL,
-    seller_id     INTEGER     NOT NULL,
+    buyer_id      INT         NOT NULL,
+    seller_id     INT         NOT NULL,
     delivery_date timestamptz NOT NULL,
     delivered_to  TEXT        NOT NULL,
     status        TEXT        NOT NULL,
-    total         INTEGER     NOT NULL DEFAULT 0,
+    total         INT         NOT NULL DEFAULT 0,
     created_at    timestamptz NOT NULL DEFAULT NOW()
 );
 
@@ -85,9 +117,9 @@ ALTER TABLE "orders"
 CREATE TABLE orderDetails
 (
     id         SERIAL PRIMARY KEY,
-    order_id   INTEGER     NOT NULL,
-    service_id INTEGER     NOT NULL,
-    quantity   INTEGER     NOT NULL,
-    price      INTEGER     NOT NULL,
+    order_id   INT         NOT NULL,
+    service_id INT         NOT NULL,
+    quantity   INT         NOT NULL,
+    price      INT         NOT NULL,
     created_at timestamptz NOT NULL DEFAULT NOW()
 );

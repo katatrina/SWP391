@@ -9,19 +9,50 @@ import (
 	"time"
 )
 
+type Blog struct {
+	ID        int32     `json:"id"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type Category struct {
+	ID   int32          `json:"id"`
+	Name sql.NullString `json:"name"`
+}
+
+type Feedback struct {
+	ID        int32     `json:"id"`
+	ServiceID int32     `json:"service_id"`
+	UserID    int32     `json:"user_id"`
+	Rating    int32     `json:"rating"`
+	Comment   string    `json:"comment"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type Genre struct {
 	ID   int32          `json:"id"`
 	Name sql.NullString `json:"name"`
 }
 
 type Order struct {
 	ID           int32     `json:"id"`
-	UserID       int32     `json:"user_id"`
+	BuyerID      int32     `json:"buyer_id"`
+	SellerID     int32     `json:"seller_id"`
 	DeliveryDate time.Time `json:"delivery_date"`
 	DeliveredTo  string    `json:"delivered_to"`
 	Status       string    `json:"status"`
-	Price        int32     `json:"price"`
+	Total        int32     `json:"total"`
 	CreatedAt    time.Time `json:"created_at"`
+}
+
+type Orderdetail struct {
+	ID        int32     `json:"id"`
+	OrderID   int32     `json:"order_id"`
+	ServiceID int32     `json:"service_id"`
+	Quantity  int32     `json:"quantity"`
+	Price     int32     `json:"price"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type Role struct {
@@ -30,13 +61,14 @@ type Role struct {
 }
 
 type Service struct {
-	ID          int32     `json:"id"`
-	Title       string    `json:"title"`
-	Description string    `json:"description"`
-	Price       int32     `json:"price"`
-	CategoryID  int32     `json:"category_id"`
-	UserID      int32     `json:"user_id"`
-	CreatedAt   time.Time `json:"created_at"`
+	ID            int32     `json:"id"`
+	Title         string    `json:"title"`
+	Description   string    `json:"description"`
+	Price         int32     `json:"price"`
+	GenreID       int32     `json:"genre_id"`
+	CategoryID    int32     `json:"category_id"`
+	OwnedByUserID int32     `json:"owned_by_user_id"`
+	CreatedAt     time.Time `json:"created_at"`
 }
 
 type Session struct {
@@ -47,7 +79,8 @@ type Session struct {
 
 type User struct {
 	ID        int32     `json:"id"`
-	Name      string    `json:"name"`
+	FullName  string    `json:"full_name"`
+	Email     string    `json:"email"`
 	Phone     string    `json:"phone"`
 	Address   string    `json:"address"`
 	RoleID    int32     `json:"role_id"`
