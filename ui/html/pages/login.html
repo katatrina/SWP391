@@ -1,13 +1,54 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
-		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/ui/static/css/login.css">
+
+	<title>Bird Service</title>
 </head>
+
 <body>
-	<h1>This is Login page</h1>
+	<!-- Navigation -->
+	{{template "navbar" .}}
+	<!-- End Navigation -->
+
+	<form action="" method="post" class="body">
+		<div class="imgcontainer">
+			<img src="..." alt="Your Avatar" class="avatar">
+		</div>
+
+		<div class="container">
+			<label for="uname"><b>Email</b></label>
+			<input type="text" placeholder="Enter email" name="uname" required>
+
+			<label for="psw"><b>Password</b></label>
+			<input type="password" placeholder="Enter Password" name="psw" required>
+
+			<button type="submit">Login</button>
+			<label>
+				<input type="checkbox" checked="checked" name="remember"> Remember me
+			</label>
+		</div>
+
+		<div class="container" style="background-color:#f1f1f1">
+			<button type="button" class="cancelbtn">Cancel</button>
+			<span class="psw">Forgot <a href="#">password?</a></span>
+		</div>
+	</form>
+
+
+	<!-- Footer -->
+	{{template "footer" .}}
+	<!-- End Footer -->
+
+	<!-- <script type="text/javascript" src="/ui/static/js/login.js"></script> -->
+
 </body>
+
 </html>
