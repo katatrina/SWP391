@@ -1,0 +1,25 @@
+.navigation .dropdown-cart-container .cart-container {
+    width: 380px;
+}
+
+.navigation .dropdown-cart-container .cart-container .cart-img {
+    position: relative;
+}
+
+.navigation .dropdown-cart-container .cart-container img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 25%;
+    object-fit: cover;
+}
+
+.navigation .dropdown-cart-container .button-cart {
+    padding: 10px;
+    margin-left: 16px;
+}
+
+.navigation .dropdown-cart-container .button-cart a {
+    color: #fff;
+    text-decoration: none;
+}

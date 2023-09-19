@@ -30,12 +30,98 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
+                <!-- Cart Icon -->
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-dark h5" href="/html/pages/login.html" target="blank">Sign In</a>
+                    <div class="dropdown">
+                        <div class="dropdown-cart-container">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ti-shopping-cart"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                <li>
+                                    <div class="cart-container row">
+                                        <div class="cart-img col-4">
+                                            <img src="/static/img/health.jpg" alt="">
+                                        </div>
+                                        <div class="cart-content col-8">
+                                            <ul>
+                                                <li>[Tên hàng]</li>
+                                                <li>[Đơn giá]</li>
+                                                <li>[Số lượng]</li>
+                                                <li>[Tổng]</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    </br>
+                                </li>
+                                <li>
+                                    <div class="cart-container row">
+                                        <div class="cart-img col-4">
+                                            <img src="/static/img/health.jpg" alt="">
+                                        </div>
+                                        <div class="cart-content col-8">
+                                            <ul>
+                                                <li>[Tên hàng]</li>
+                                                <li>[Đơn giá]</li>
+                                                <li>[Số lượng]</li>
+                                                <li>[Tổng]</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    </br>
+                                </li>
+                                <button type="button" class="button-cart btn btn-primary"><a href="#">Đi đến giỏ
+                                        hàng</a></button>
+                            </ul>
+
+                        </div>
+                    </div>
+                </li>
+                <!-- End Cart Icon -->
+
+                <!-- Guest -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-dark h5" href="/ui/html/pages/login.html" target="blank">Sign In</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-dark h5" href="/html/pages/signup.html" target="blank">Sign Up</a>
+                    <a class="nav-link text-dark h5" href="/ui/html/pages/signup.html" target="blank">Sign
+                        Up</a>
                 </li>
+                <!-- End Guest -->
+
+                <!-- User -->
+                <li class="nav-item mx-2">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ti-user"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Tài khoản</i></a></li>
+                            <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
+                            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- End User -->
+
+                <!-- Provider -->
+                <li class="nav-item mx-2">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="ti-user"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Tài khoản</i></a></li>
+                            <li><a class="dropdown-item" href="#">Dịch vụ</i></a></li>
+                            <li><a class="dropdown-item" href="#">Giỏ hàng</a></li>
+                            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- End Provider -->
 
             </ul>
         </div>
