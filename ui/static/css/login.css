@@ -1,4 +1,10 @@
 /* Bordered form */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 form {
     width: 50%;
     border: 3px solid #f1f1f1;
