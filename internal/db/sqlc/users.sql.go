@@ -9,8 +9,54 @@ import (
 	"context"
 )
 
+const createUser = `-- name: CreateUser :exec
+INSERT INTO users (full_name, email, phone, role_id, hashed_password)
+VALUES ($1, $2, $3, $4, $5)
+`
+
+type CreateUserParams struct {
+	FullName string `json:"full_name"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	RoleID   int32  `json:"role_id"`
+	Password string `json:"hashed_password"`
+}
+
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
+	_, err := q.db.ExecContext(ctx, createUser,
+		arg.FullName,
+		arg.Email,
+		arg.Phone,
+		arg.RoleID,
+		arg.Password,
+	)
+	return err
+}
+
+const getUserByEmail = `-- name: GetUserByEmail :one
+SELECT id, full_name, email, phone, address, role_id, hashed_password, created_at
+FROM users
+WHERE email = $1
+`
+
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.FullName,
+		&i.Email,
+		&i.Phone,
+		&i.Address,
+		&i.RoleID,
+		&i.Password,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getUserByID = `-- name: GetUserByID :one
-SELECT id, name, phone, address, role_id, hashed_password, created_at
+SELECT id, full_name, email, phone, address, role_id, hashed_password, created_at
 FROM users
 WHERE id = $1
 `
@@ -20,7 +66,8 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.Name,
+		&i.FullName,
+		&i.Email,
 		&i.Phone,
 		&i.Address,
 		&i.RoleID,
