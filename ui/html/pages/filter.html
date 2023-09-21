@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Sản Phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Danh Sách Sản Phẩm</h1>
+        <ul class="list-group">
+            <li class="list-group-item" data-filter="all">Tất Cả</li>
+            <li class="list-group-item" data-filter="electronics">Điện Tử</li>
+            <li class="list-group-item" data-filter="clothing">Thời Trang</li>
+            <li class="list-group-item" data-filter="books">Sách</li>
+        </ul>
+
+        <div class="row mt-4" id="product-list">
+            <div class="col-md-4 product electronics">
+                <h3>Sản Phẩm Điện Tử 1</h3>
+                <p>Mô tả sản phẩm điện tử 1.</p>
+            </div>
+            <div class="col-md-4 product clothing">
+                <h3>Sản Phẩm Thời Trang 1</h3>
+                <p>Mô tả sản phẩm thời trang 1.</p>
+            </div>
+            <div class="col-md-4 product books">
+                <h3>Sản Phẩm Sách 1</h3>
+                <p>Mô tả sản phẩm sách 1.</p>
+            </div>
+            <!-- Thêm thêm sản phẩm ở đây -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterItems = document.querySelectorAll('.list-group-item');
+            const productList = document.getElementById('product-list').children;
+
+            filterItems.forEach((item) => {
+                item.addEventListener('click', function () {
+                    const filter = item.getAttribute('data-filter');
+
+                    // Hiển thị tất cả sản phẩm nếu "Tất Cả" được chọn
+                    if (filter === 'all') {
+                        for (const product of productList) {
+                            product.style.display = 'block';
+                        }
+                    } else {
+                        for (const product of productList) {
+                            if (product.classList.contains(filter)) {
+                                product.style.display = 'block';
+                            } else {
+                                product.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

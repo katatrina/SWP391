@@ -8,13 +8,6 @@
     position: relative;
 }
 
-/* Navigation */
-.navigation {
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-}
-
 /* Banner */
 #banner {
     width: 100%;
