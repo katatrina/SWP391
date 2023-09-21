@@ -10,7 +10,7 @@
             display: none;
         }
 
-        body {
+        /* body {
             font-family: Arial, sans-serif;
         }
 
@@ -53,6 +53,148 @@
             border: none;
             padding: 10px 20px;
             cursor: pointer;
+        } */
+        /* CSS để cải thiện giao diện trang web */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            transition: background-color 0.3s, transform 0.3s;
+            /* Thêm hiệu ứng mà bạn muốn ở đây */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Áp dụng animation vào phần tử bạn muốn */
+        .container {
+            animation: fadeIn 1s;
+        }
+
+        /* Thêm hình ảnh nếu cần */
+        .logo {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Tùy chỉnh các phần tử form khác nhau nếu cần */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Thêm hình nền nếu cần */
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* Hiệu ứng hiển thị form khi nó xuất hiện */
+        @keyframes fadeInForm {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hiệu ứng ẩn form khi nó biến mất */
+        @keyframes fadeOutForm {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Ứng dụng hiệu ứng cho form */
+        #userForm,
+        #providerForm {
+            animation-duration: 0.5s;
+            animation-timing-function: ease-in-out;
+            animation-fill-mode: both;
+            opacity: 0;
+            display: none;
+        }
+
+        /* Khi hiển thị form */
+        #userForm.show,
+        #providerForm.show {
+            display: block;
+            animation-name: fadeInForm;
+            opacity: 1;
+        }
+
+        /* Khi ẩn form */
+        #userForm.hide,
+        #providerForm.hide {
+            display: block;
+            animation-name: fadeOutForm;
+            opacity: 0;
         }
     </style>
 </head>
@@ -60,23 +202,14 @@
 <body>
     <div class="container">
         <h1>Đăng ký tài khoản</h1>
-        <form action="process_registration.php" method="post">
-            <div class="form-group">
-                <label for="role">Vai trò:</label>
-                <select id="role" name="role" onchange="showHideForms()">
-                    <option value="doanhnghiep">Doanh nghiệp</option>
-                    <option value="canhan">Cá nhân</option>
-                </select>
-            </div>
+        <div>
+            <button onclick="showUserForm()">User</button>
+            <button onclick="showProviderForm()">Provider</button>
+        </div>
+        <form id="userForm" action="process_user_registration.php" method="post" class="hidden">
             <div class="form-group">
                 <label for="name">Họ và tên:</label>
                 <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group" id="businessInfo" class="hidden">
-                <label for="businessName">Tên doanh nghiệp:</label>
-                <input type="text" id="businessName" name="businessName">
-                <label for="taxID">Mã số thuế:</label>
-                <input type="text" id="taxID" name="taxID">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -88,17 +221,50 @@
             </div>
             <button type="submit">Đăng ký</button>
         </form>
+        <form id="providerForm" action="process_provider_registration.php" method="post" class="hidden">
+            <div class="form-group">
+                <label for="companyName">Tên công ty:</label>
+                <input type="text" id="companyName" name="companyName">
+            </div>
+            <div class="form-group">
+                <label for="taxID">Mã số thuế:</label>
+                <input type="text" id="taxID" name="taxID">
+            </div>
+            <div class="form-group">
+                <label for="emailProvider">Email:</label>
+                <input type="email" id="emailProvider" name="emailProvider" required>
+            </div>
+            <div class="form-group">
+                <label for="passwordProvider">Mật khẩu:</label>
+                <input type="password" id="passwordProvider" name="passwordProvider" required>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
     </div>
     <script>
-        function showHideForms() {
-            var roleSelect = document.getElementById("role");
-            var businessInfo = document.getElementById("businessInfo");
+        // function showUserForm() {
+        //     document.getElementById("userForm").style.display = "block";
+        //     document.getElementById("providerForm").style.display = "none";
+        // }
 
-            if (roleSelect.value === "doanhnghiep") {
-                businessInfo.style.display = "block";
-            } else {
-                businessInfo.style.display = "none";
-            }
+        // function showProviderForm() {
+        //     document.getElementById("userForm").style.display = "none";
+        //     document.getElementById("providerForm").style.display = "block";
+        // }
+        function showUserForm() {
+            document.getElementById("userForm").classList.add("show");
+            document.getElementById("userForm").classList.remove("hide");
+
+            document.getElementById("providerForm").classList.remove("show");
+            document.getElementById("providerForm").classList.add("hide");
+        }
+
+        function showProviderForm() {
+            document.getElementById("providerForm").classList.add("show");
+            document.getElementById("providerForm").classList.remove("hide");
+
+            document.getElementById("userForm").classList.remove("show");
+            document.getElementById("userForm").classList.add("hide");
         }
     </script>
 </body>

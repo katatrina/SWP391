@@ -2,14 +2,11 @@
      display: none;
  }
 
- body {
-     /* font-family: Arial, sans-serif; */
- }
-
- .container {
+ .body {
      max-width: 600px;
-     margin: 0 auto;
-     padding: 20px;
+     margin: auto auto;
+     padding-top: 110px;
+     background-color: #f8f9fa;
  }
 
  h1 {

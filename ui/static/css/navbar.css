@@ -1,3 +1,9 @@
+.navigation {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
 #id .navigation .nav-right {
     margin-left: 11%;
 }
