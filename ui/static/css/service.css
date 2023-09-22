@@ -180,7 +180,7 @@
     margin: 64px 0;
 }
 
-.body-root .body-item {
+.body-root .body {
     width: 100%;
     max-width: 1200px;
     height: 100%;
@@ -192,7 +192,7 @@
     position: relative;
 }
 
-.search .search-body {
+.search .search-main {
     position: absolute;
     right: 0;
     width: 35%;
