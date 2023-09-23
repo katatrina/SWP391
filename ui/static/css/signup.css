@@ -4,8 +4,8 @@
 
  .body {
      max-width: 600px;
-     margin: auto auto;
-     padding-top: 110px;
+     margin: 64px auto;
+     /* padding-top: 110px; */
      background-color: #f8f9fa;
  }
 
