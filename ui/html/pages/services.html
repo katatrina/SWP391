@@ -44,7 +44,7 @@
                     <h2>Dịch vụ</h2>
                     <div class="banner-sub-text">
                         <button>
-                            <a href="#">Trang chủ</a>
+                            <a href="/">Trang chủ</a>
                         </button>
                         <p> / </p>
                         <button>
@@ -78,14 +78,17 @@
 
             <!-- Body -->
             <div class="body-root">
-                <div class="aside">
-                    <!-- Filter -->
-
-                    <!-- End Filter -->
-                </div>
-
-
                 <div class="body">
+                    <div class="body-header">
+                        <div class="body-header-text">
+                            <p>Chọn các dịch vụ bạn cần
+                                Chưa rõ dịch vụ nào phù hợp với bạn? Hãy để lại thông tin và đội ngũ
+                                chúng tôi sẽ tư vấn cho bạn</p>
+                            <div class="body-header-btn">
+                                <button type="submit">Tư vấn cho tôi</button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Seearch -->
                     <div class="search">
                         <div class="search-main">
@@ -99,21 +102,79 @@
                     <!-- End Search -->
                     <!-- Item -->
                     <div class="item">
-
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col">
+                                <div class="card-item card">
+                                    <img src="/static/img/service-item-1.jpg" class="card-img-top" alt="Ser-Pic-1">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Bảo dưỡng lồng</h5>
+                                        <p class="card-text">Cung cấp không gian an toàn cho chim cưng để sống và di
+                                            chuyển.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/service-item-2.jpg" class="card-img-top" alt="Ser-Pic-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Dinh Dưỡng và Thức Ăn</h5>
+                                        <p class="card-text">Cung cấp thức ăn cần thiết để duy trì sức khỏe và sự phát
+                                            triển của chim.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/service-item-3.jpg" class="card-img-top" alt="Ser-Pic-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Y Tế và Chăm Sóc Sức Khỏe</h5>
+                                        <p class="card-text">Đảm bảo sức khỏe và phòng ngừa bệnh tật cho chim cưng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/service-item-4.jpg" class="card-img-top" alt="Ser-Pic-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Sữa chữa Đồ Chơi</h5>
+                                        <p class="card-text">Cung cấp sự giải trí và kích thích tinh thần cho chim.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/sua-tam.jfif" class="card-img-top" alt="Ser-Pic-5">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Grooming</h5>
+                                        <p class="card-text">Chăm sóc, tạo phong cách và làm đẹp lông của chim.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <img src="/static/img/service-item-5.jpg" class="card-img-top" alt="Ser-Pic-6">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Đào Tạo và Xã Giao</h5>
+                                        <p class="card-text">Đào tạo và tương tác để cải thiện mối quan hệ và kỹ năng
+                                            của chim cưng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- End Item -->
 
                 </div>
-
             </div>
-            <!-- End Body -->
-
         </div>
-        <!-- End Service Page -->
+        <!-- End Body -->
 
-        <!-- Footer -->
+    </div>
+    <!-- End Service Page -->
 
-        <!-- End Footer -->
+    <!-- Footer -->
+    {{template "footer" .}}
+    <!-- End Footer -->
     </div>
 </body>
 
