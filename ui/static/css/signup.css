@@ -9,12 +9,26 @@
     display: none;
 }
 
+/* Body */
 .body {
-    max-width: 600px;
-    margin: 64px auto;
-    /* padding-top: 110px; */
-    background-color: #f8f9fa;
+    width: 100%;
+    background-color: #09c17d;
 }
+
+/* container */
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Sign Up */
+.sign-up {
+    background-color: #fff;
+    padding: 30px;
+    margin: 16px;
+    border-radius: 16px;
+}
+
 
 h1 {
     text-align: center;
@@ -50,4 +64,28 @@ button {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+/* Banner */
+/* Banner */
+.login-banner {
+    display: flex;
+    justify-content: center;
+}
+
+.login-welcome {
+    margin: auto;
+}
+
+.login-welcome img {
+    width: 100%;
+    max-width: 280px;
+}
+
+.login-text {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
