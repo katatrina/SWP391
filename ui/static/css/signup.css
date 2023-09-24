@@ -1,46 +1,53 @@
- .hidden {
-     display: none;
- }
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
- .body {
-     max-width: 600px;
-     margin: 64px auto;
-     /* padding-top: 110px; */
-     background-color: #f8f9fa;
- }
 
- h1 {
-     text-align: center;
- }
+.hidden {
+    display: none;
+}
 
- .form-group {
-     margin-bottom: 20px;
- }
+.body {
+    max-width: 600px;
+    margin: 64px auto;
+    /* padding-top: 110px; */
+    background-color: #f8f9fa;
+}
 
- label {
-     display: block;
-     margin-bottom: 5px;
- }
+h1 {
+    text-align: center;
+}
 
- input[type="text"],
- input[type="email"],
- input[type="password"] {
-     width: 100%;
-     padding: 10px;
-     margin-bottom: 10px;
- }
+.form-group {
+    margin-bottom: 20px;
+}
 
- select {
-     width: 100%;
-     padding: 10px;
-     margin-bottom: 10px;
- }
+label {
+    display: block;
+    margin-bottom: 5px;
+}
 
- button {
-     width: 100%;
-     background-color: #007bff;
-     color: #fff;
-     border: none;
-     padding: 10px 20px;
-     cursor: pointer;
- }
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
