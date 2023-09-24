@@ -34,20 +34,47 @@
     {{template "navbar" .}}
     <!-- End Navigation -->
 
-    <div class="container">
-        <h1 class="text-center">Đăng Nhập</h1>
-        <form action="" method="post" class="body">
-            <div class="container">
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Nhập Email" name="email" required>
+    <div class="fake-nav" style="height: 88px; width: 100%;">
 
-                <label for="pass"><b>Password</b></label>
-                <input type="password" placeholder="Nhập mật khẩu" name="pass" required>
-
-                <button type="submit">Login</button>
-            </div>
-        </form>
     </div>
+
+    <!-- Body -->
+    <div class="container">
+        <div class="body">
+            <div class="login-welcome">
+                <div class="login-banner">
+                    <img src="/static/img/Login-banner.png" alt="Login-banner" srcset="">
+                </div>
+                <div class="login-text">
+                    <div class="header">
+                        <h1 style="font-family: Arial, sans-serif; color: #333; font-weight: bold; ">
+                            Bird Service</h1>
+                    </div>
+                    <div class="sub-header">
+                        <h4 style="font-family: Arial, sans-serif; color: #333;">
+                            Nền tảng thương
+                            mại điện tử yêu thích ở FPT.</h4>
+                    </div>
+                </div>
+
+            </div>
+            <form action="" method="post" class="body">
+                <div class="Login">
+                    <div class="login-text">
+                        <h1 class="text-center">Đăng Nhập</h1>
+                    </div>
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Nhập Email" name="email" required>
+
+                    <label for="pass"><b>Password</b></label>
+                    <input type="password" placeholder="Nhập mật khẩu" name="pass" required>
+
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ENd Body -->
 
     <!-- Footer -->
     {{template "footer" .}}
