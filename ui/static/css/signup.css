@@ -5,12 +5,8 @@
 }
 
 
-.hidden {
-    display: none;
-}
-
 /* Body */
-.body {
+#main {
     width: 100%;
     background-color: #09c17d;
 }
@@ -25,48 +21,33 @@
 .sign-up {
     background-color: #fff;
     padding: 30px;
-    margin: 16px;
+    margin: auto;
     border-radius: 16px;
 }
 
-
 h1 {
     text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-weight: bold;
 }
 
-.form-group {
-    margin-bottom: 20px;
+h4 {
+    font-weight: 100;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
+.sign-up button {
+    margin: 16px 16px 16px 26px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-button {
-    width: 100%;
-    background-color: #007bff;
+.sign-up button a {
+    text-decoration: none;
     color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
 }
 
-/* Banner */
 /* Banner */
 .login-banner {
     display: flex;
@@ -88,4 +69,47 @@ button {
     align-content: space-between;
     align-items: center;
     justify-content: center;
+}
+
+/* Form */
+.sign-up-user {
+    max-width: 400px;
+    margin: auto auto;
+    padding: 20px;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
 }

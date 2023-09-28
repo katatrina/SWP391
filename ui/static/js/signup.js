@@ -1,11 +1,18 @@
 function showHideForms() {
     var roleSelect = document.getElementById("role");
-    console.log(roleSelect);
-    var businessInfo = document.getElementById("businessInfo");
+    var userInfo = document.getElementById("userInfo");
+    var providerInfo = document.getElementById("providerInfo");
+
+    if (roleSelect.value === "user") {
+        userInfo.style.display = "block";
+    } else {
+        providerInfo.style.display = "none";
+    }
 
     if (roleSelect.value === "provider") {
-        businessInfo.style.display = "block";
+        providerInfo.style.display = "block";
     } else {
-        businessInfo.style.display = "none";
+        userInfo.style.display = "none";
     }
+
 }
