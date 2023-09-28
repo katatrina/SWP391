@@ -25,14 +25,8 @@ type Feedback struct {
 	ID        int32     `json:"id"`
 	ServiceID int32     `json:"service_id"`
 	UserID    int32     `json:"user_id"`
-	Rating    int32     `json:"rating"`
-	Comment   string    `json:"comment"`
+	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
-}
-
-type Genre struct {
-	ID   int32          `json:"id"`
-	Name sql.NullString `json:"name"`
 }
 
 type Order struct {
@@ -55,6 +49,14 @@ type Orderdetail struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+type Providerdetail struct {
+	ID          int32     `json:"id"`
+	UserID      int32     `json:"user_id"`
+	CompanyName string    `json:"company_name"`
+	TaxCode     string    `json:"tax_code"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
 type Role struct {
 	ID   int32  `json:"id"`
 	Name string `json:"name"`
@@ -65,9 +67,11 @@ type Service struct {
 	Title         string    `json:"title"`
 	Description   string    `json:"description"`
 	Price         int32     `json:"price"`
-	GenreID       int32     `json:"genre_id"`
+	Genre         string    `json:"genre"`
+	ThumbnailUrl  string    `json:"thumbnail_url"`
 	CategoryID    int32     `json:"category_id"`
 	OwnedByUserID int32     `json:"owned_by_user_id"`
+	Status        string    `json:"status"`
 	CreatedAt     time.Time `json:"created_at"`
 }
 

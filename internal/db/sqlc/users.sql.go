@@ -9,27 +9,69 @@ import (
 	"context"
 )
 
-const createUser = `-- name: CreateUser :exec
-INSERT INTO users (full_name, email, phone, role_id, hashed_password)
-VALUES ($1, $2, $3, $4, $5)
+const createCustomer = `-- name: CreateCustomer :exec
+INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
+VALUES ($1, $2, $3, $4, 1, $5)
 `
 
-type CreateUserParams struct {
+type CreateCustomerParams struct {
 	FullName string `json:"full_name"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
-	RoleID   int32  `json:"role_id"`
+	Address  string `json:"address"`
 	Password string `json:"hashed_password"`
 }
 
-func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
-	_, err := q.db.ExecContext(ctx, createUser,
+func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) error {
+	_, err := q.db.ExecContext(ctx, createCustomer,
 		arg.FullName,
 		arg.Email,
 		arg.Phone,
-		arg.RoleID,
+		arg.Address,
 		arg.Password,
 	)
+	return err
+}
+
+const createProvider = `-- name: CreateProvider :one
+INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
+VALUES ($1, $2, $3, $4, 2, $5) RETURNING id
+`
+
+type CreateProviderParams struct {
+	FullName string `json:"full_name"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Address  string `json:"address"`
+	Password string `json:"hashed_password"`
+}
+
+func (q *Queries) CreateProvider(ctx context.Context, arg CreateProviderParams) (int32, error) {
+	row := q.db.QueryRowContext(ctx, createProvider,
+		arg.FullName,
+		arg.Email,
+		arg.Phone,
+		arg.Address,
+		arg.Password,
+	)
+	var id int32
+	err := row.Scan(&id)
+	return id, err
+}
+
+const createProviderDetails = `-- name: CreateProviderDetails :exec
+INSERT INTO providerDetails (user_id, company_name, tax_code)
+VALUES ($1, $2, $3)
+`
+
+type CreateProviderDetailsParams struct {
+	UserID      int32  `json:"user_id"`
+	CompanyName string `json:"company_name"`
+	TaxCode     string `json:"tax_code"`
+}
+
+func (q *Queries) CreateProviderDetails(ctx context.Context, arg CreateProviderDetailsParams) error {
+	_, err := q.db.ExecContext(ctx, createProviderDetails, arg.UserID, arg.CompanyName, arg.TaxCode)
 	return err
 }
 

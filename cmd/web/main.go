@@ -18,14 +18,14 @@ import (
 var (
 	infoLog        = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog       = log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-	dataSourceName = "postgres://postgres:12345@localhost:5432/SWP391?sslmode=disable"
+	dataSourceName = "postgres://postgres:12345@localhost:5432/bird_service_platform?sslmode=disable"
 )
 
 type application struct {
-	infoLog  *log.Logger
-	errorLog *log.Logger
-	db       *sql.DB
-	*sqlc.Queries
+	infoLog        *log.Logger
+	errorLog       *log.Logger
+	db             *sql.DB
+	store          *sqlc.Store
 	templateCache  map[string]*template.Template
 	formDecoder    *form.Decoder
 	sessionManager *scs.SessionManager
@@ -38,7 +38,7 @@ func main() {
 	}
 	infoLog.Print("Connected to database")
 
-	q := sqlc.New(db)
+	store := sqlc.NewStore(db)
 
 	templateCache, err := initializeTemplateCache()
 	if err != nil {
@@ -55,7 +55,7 @@ func main() {
 		infoLog:        infoLog,
 		errorLog:       errorLog,
 		db:             db,
-		Queries:        q,
+		store:          store,
 		templateCache:  templateCache,
 		formDecoder:    formDecoder,
 		sessionManager: sessionManager,

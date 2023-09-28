@@ -13,15 +13,15 @@ CREATE TABLE users
     id              SERIAL PRIMARY KEY,
     full_name       VARCHAR(50)  NOT NULL,
     email           VARCHAR(150) NOT NULL,
-    phone_number    CHAR(10)     NOT NULL,
-    address         VARCHAR(200) NOT NULL DEFAULT '',
+    phone           CHAR(10)     NOT NULL,
+    address         VARCHAR(200) NOT NULL,
     role_id         INT          NOT NULL,
     hashed_password CHAR(60)     NOT NULL,
     created_at      timestamptz  NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE users
-    ADD CONSTRAINT users_uc_phone_number UNIQUE (phone_number);
+    ADD CONSTRAINT users_uc_phone UNIQUE (phone);
 
 ALTER TABLE users
     ADD CONSTRAINT users_uc_email UNIQUE (email);
@@ -32,11 +32,14 @@ ALTER TABLE users
 CREATE TABLE providerDetails
 (
     id           SERIAL PRIMARY KEY,
-    user_id      INT         NOT NULL,
+    user_id      INT         NOT NULL UNIQUE ON DELETE CASCADE,
     company_name VARCHAR(50) NOT NULL,
     tax_code     VARCHAR(50) NOT NULL,
     created_at   timestamptz NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE providerDetails
+    ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 CREATE TABLE sessions
 (
@@ -59,7 +62,7 @@ CREATE TABLE services
     title            VARCHAR(350) NOT NULL,
     description      TEXT         NOT NULL,
     price            INT          NOT NULL,
-    genre            TEXT         NOT NULL,
+    genre            VARCHAR(50)  NOT NULL,
     thumbnail_url    TEXT         NOT NULL,
     category_id      INT          NOT NULL,
     owned_by_user_id INT          NOT NULL,

@@ -34,7 +34,7 @@ func (app *application) authenticate(next http.Handler) http.Handler {
 			return
 		}
 
-		exists, err := app.IsUserExist(r.Context(), int32(id))
+		exists, err := app.store.IsUserExist(r.Context(), int32(id))
 		if err != nil {
 			app.serverError(w, err)
 			return
@@ -57,7 +57,7 @@ func (app *application) authenticateProvider(next http.Handler) http.Handler {
 			return
 		}
 
-		isProvider, err := app.IsProviderRole(r.Context(), int32(id))
+		isProvider, err := app.store.IsProviderRole(r.Context(), int32(id))
 		if err != nil {
 			app.serverError(w, err)
 			return

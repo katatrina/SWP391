@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
 	"github.com/katatrina/SWP391/internal/validator"
 	"github.com/lib/pq"
@@ -43,33 +44,26 @@ func (app *application) about(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) displayUserSignupPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
-	data.Form = customerSignupFormResult{}
+	data.Form = userSignupFormResult{}
 
 	app.render(w, http.StatusOK, "signup.html", data)
 }
 
-type customerSignupFormResult struct {
+type userSignupFormResult struct {
+	Role                string `form:"role"`
+	SelectedRole        string `form:"-"`
 	FullName            string `form:"fullName"`
 	Email               string `form:"email"`
 	Phone               string `form:"phone"`
-	Password            string `form:"password"`
-	validator.Validator `form:"-"`
-}
-
-type providerSignupFormResult struct {
-	FullName            string `form:"fullName"`
-	Email               string `form:"email"`
-	Phone               string `form:"phone"`
-	Password            string `form:"password"`
-	TaxCode             string `form:"tax_code"`
-	CompanyName         string `form:"company_name"`
 	Address             string `form:"address"`
+	CompanyName         string `form:"companyName"`
+	TaxCode             string `form:"taxCode"`
+	Password            string `form:"password"`
 	validator.Validator `form:"-"`
 }
 
 func (app *application) doSignupUser(w http.ResponseWriter, r *http.Request) {
-
-	var form customerSignupFormResult
+	var form userSignupFormResult
 
 	err := app.decodePostForm(r, &form)
 	if err != nil {
@@ -77,84 +71,141 @@ func (app *application) doSignupUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Validate the form contents using our helper functions.
-	if !validator.IsNotBlank(form.FullName) {
-		form.AddFieldError("fullName", "This field cannot be blank")
-	}
-
-	if !validator.IsNotBlank(form.Email) {
-		form.AddFieldError("email", "This field cannot be blank")
-	}
-
 	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
 		form.AddFieldError("email", "This field must be a valid email address")
-	}
-
-	if !validator.IsNotBlank(form.Phone) {
-		form.AddFieldError("phone", "This field cannot be blank")
 	}
 
 	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
 		form.AddFieldError("phone", "This field must be a valid phone number")
 	}
 
-	if !validator.IsNotBlank(form.Password) {
-		form.AddFieldError("password", "This field cannot be blank")
-	}
+	// TODO: Validate address more detailed.
 
 	if !validator.IsStringNotLessThanLimit(form.Password, 8) {
 		form.AddFieldError("password", "This field must be at least 8 characters long")
 	}
 
-	// If there are any errors, redisplay the signup form along with a 422
-	// status code.
-	if !form.IsNoErrors() {
-		data := app.newTemplateData(r)
-		data.Form = form
+	app.infoLog.Println(form.Role)
 
-		app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
-		return
-	}
+	// Register a Provider account.
+	if form.Role == "provider" {
+		form.SelectedRole = "provider"
+		app.infoLog.Println(form)
 
-	// Else, try to insert user's information to database.
+		if !validator.IsNotBlank(form.CompanyName) {
+			form.AddFieldError("companyName", "This field cannot be blank")
+		}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
+		if !validator.IsNotBlank(form.TaxCode) {
+			form.AddFieldError("taxCode", "This field cannot be blank")
+		}
 
-	arg := sqlc.CreateUserParams{
-		FullName: form.FullName,
-		Email:    form.Email,
-		Phone:    form.Phone,
-		RoleID:   0,
-		Password: string(hashedPassword),
-	}
+		// TODO: Validate company name more detailed.
 
-	err = app.CreateUser(r.Context(), arg)
-	if err != nil {
-		var postgreSQLError *pq.Error
-		if errors.As(err, &postgreSQLError) {
-			code := postgreSQLError.Code.Name()
-			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
-				form.AddFieldError("email", "Email address is already in use")
+		// TODO: Validate tax code more detailed.
+		fmt.Println("CCCCC")
+
+		if !form.IsNoErrors() {
+			data := app.newTemplateData(r)
+			data.Form = form
+			fmt.Println(form)
+
+			app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
+			return
+		}
+
+		fmt.Println("WTF")
+		app.errorLog.Println(form)
+
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		err = app.store.CreateProviderTx(r.Context(), sqlc.CreateProviderTxParams{
+			FullName:    form.FullName,
+			Email:       form.Email,
+			Phone:       form.Phone,
+			Address:     form.Address,
+			CompanyName: form.CompanyName,
+			TaxCode:     form.TaxCode,
+			Password:    string(hashedPassword),
+		})
+		app.errorLog.Println(err)
+		if err != nil {
+			var postgreSQLError *pq.Error
+			if errors.As(err, &postgreSQLError) {
+				code := postgreSQLError.Code.Name()
+				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
+					form.AddFieldError("email", "Email address is already in use")
+				}
+
+				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
+					form.AddFieldError("phone", "Phone number is already in use")
+				}
 
 				data := app.newTemplateData(r)
 				data.Form = form
 				app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
 				return
 			}
+
+			app.serverError(w, err)
+			return
+		}
+	} else {
+		form.SelectedRole = "customer"
+		// Register a Customer account.
+		if !form.IsNoErrors() {
+			data := app.newTemplateData(r)
+			data.Form = form
+
+			app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
+			return
 		}
 
-		app.serverError(w, err)
-		return
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		arg := sqlc.CreateCustomerParams{
+			FullName: form.FullName,
+			Email:    form.Email,
+			Phone:    form.Phone,
+			Address:  form.Address,
+			Password: string(hashedPassword),
+		}
+
+		err = app.store.CreateCustomer(r.Context(), arg)
+		if err != nil {
+			var postgreSQLError *pq.Error
+			if errors.As(err, &postgreSQLError) {
+				code := postgreSQLError.Code.Name()
+				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
+					form.AddFieldError("email", "Email address is already in use")
+				}
+
+				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
+					form.AddFieldError("phone", "Phone number is already in use")
+				}
+
+				data := app.newTemplateData(r)
+				data.Form = form
+				app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
+				return
+			}
+
+			app.serverError(w, err)
+			return
+		}
 	}
 
 	app.sessionManager.Put(r.Context(), "flash", "Your signup was successful. Please log in.")
 
-	// Redirect user to the login page.
-	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 func (app *application) displayLoginPage(w http.ResponseWriter, r *http.Request) {
@@ -166,6 +217,7 @@ func (app *application) displayLoginPage(w http.ResponseWriter, r *http.Request)
 
 func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
+	data.Form = userLoginFormResult{}
 
 	app.render(w, http.StatusOK, "login.html", data)
 }
@@ -206,7 +258,7 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check whether user with the email provided exists.
-	user, err := app.GetUserByEmail(r.Context(), form.Email)
+	user, err := app.store.GetUserByEmail(r.Context(), form.Email)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			form.AddGenericError("Email or password is incorrect")
@@ -266,7 +318,7 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
 	userID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
 
-	user, err := app.GetUserByID(r.Context(), int32(userID))
+	user, err := app.store.GetUserByID(r.Context(), int32(userID))
 	if err != nil {
 		app.serverError(w, err)
 		return
