@@ -152,7 +152,73 @@ func (app *application) displaySignupProviderPage(w http.ResponseWriter, r *http
 }
 
 func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request) {
+	var form providerSignupFormResult
 
+	err := app.decodePostForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
+		form.AddFieldError("email", "This field must be a valid email address")
+	}
+
+	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
+		form.AddFieldError("phone", "This field must be a valid phone number")
+	}
+
+	// TODO: Validate more detailed.
+
+	if !form.IsNoErrors() {
+		data := app.newTemplateData(r)
+		data.Form = form
+
+		app.render(w, http.StatusUnprocessableEntity, "signup_provider.html", data)
+		return
+	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = app.store.CreateProviderTx(r.Context(), sqlc.CreateProviderTxParams{
+		FullName:    form.FullName,
+		Email:       form.Email,
+		Phone:       form.Phone,
+		Address:     form.Address,
+		CompanyName: form.CompanyName,
+		TaxCode:     form.TaxCode,
+		Password:    string(hashedPassword),
+	})
+	if err != nil {
+		var postgreSQLError *pq.Error
+		if errors.As(err, &postgreSQLError) {
+			code := postgreSQLError.Code.Name()
+			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
+				form.AddFieldError("email", "Email address is already in use")
+			}
+
+			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
+				form.AddFieldError("phone", "Phone number is already in use")
+			}
+
+			data := app.newTemplateData(r)
+			data.Form = form
+
+			app.render(w, http.StatusUnprocessableEntity, "signup_provider.html", data)
+			return
+		}
+
+		app.serverError(w, err)
+		return
+	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Your signup was successful. Please log in.")
+
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 //func (app *application) doSignupUser(w http.ResponseWriter, r *http.Request) {

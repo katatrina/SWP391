@@ -32,10 +32,10 @@ ALTER TABLE users
 CREATE TABLE providerDetails
 (
     id           SERIAL PRIMARY KEY,
-    user_id      INT         NOT NULL UNIQUE ON DELETE CASCADE,
-    company_name VARCHAR(50) NOT NULL,
-    tax_code     VARCHAR(50) NOT NULL,
-    created_at   timestamptz NOT NULL DEFAULT NOW()
+    user_id      INT          NOT NULL UNIQUE,
+    company_name VARCHAR(100) NOT NULL,
+    tax_code     VARCHAR(50)  NOT NULL,
+    created_at   timestamptz  NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE providerDetails
