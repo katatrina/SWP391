@@ -21,7 +21,7 @@
 .sign-up {
     background-color: #fff;
     padding: 30px;
-    margin: auto;
+    margin: 30px 0;
     border-radius: 16px;
 }
 
@@ -39,8 +39,15 @@ h4 {
     color: #333;
 }
 
-.sign-up button {
+button {
     margin: 16px 16px 16px 26px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }
 
 .sign-up button a {

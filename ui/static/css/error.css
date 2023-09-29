@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#main {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.error-header {
+    margin-bottom: 20px;
+}
+
+.error-header h1 {
+    font-size: 36px;
+    color: #f44336;
+    text-transform: uppercase;
+}
+
+.sub-heading p {
+    font-size: 18px;
+    color: #777;
+}
+
+.error-img img {
+    max-width: 100%;
+    height: auto;
+}
