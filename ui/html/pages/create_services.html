@@ -1,0 +1,174 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Service Website</title>
+
+    <!-- Bootstrap CSS -->
+    <link type="text/css" href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link type="text/css" href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Themify Icon -->
+    <link rel="stylesheet" href="/static/icon/themify-icons.css">
+
+    <!-- Online Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- NavBar CSS -->
+    <link rel="stylesheet" href="/static/css/navbar.css">
+
+    <!-- Banner CSS -->
+    <link rel="stylesheet" href="/static/css/banner.css">
+
+    <!-- Create_New_Service_Form CSS -->
+    <link rel="stylesheet" href="/static/css/create_services.css">
+
+</head>
+
+<body>
+    <div id="main">
+        <!-- Nav -->
+        {{template "navbar" .}}
+
+        <!-- Banner -->
+        <div class="banner">
+            <img src="/static/img/Bird-banner.jpg" alt="Service Banner" class="banner-service">
+            <div class="banner-text">
+                <h2>Dịch vụ</h2>
+                <div class="banner-sub-text">
+                    <button>
+                        <a href="/">Trang chủ</a>
+                    </button>
+                    <p> / </p>
+                    <button>
+                        <a href="#">Dịch vụ của tôi</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- End Banner -->
+
+        <!-- Content -->
+        <div class="container">
+            <div class="row gutters">
+                <!-- Form Account -->
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="account-settings">
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                            alt="Maxwell Admin">
+                                    </div>
+                                    <h5 class="user-name">Yuki Hayashi</h5>
+                                    <h6 class="user-email">yuki@Maxwell.com</h6>
+                                </div>
+                                <div class="about">
+                                    <h5>About</h5>
+                                    <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human
+                                        experiences.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form Fill New Service Info -->
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <!-- Start Firt Form -->
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="text-primary float-start">Personal Details</h6>
+                                    <div class="float-end">
+                                        <button type="button" id="submit" name="submit"
+                                            class="btn btn-success">Update</button>
+                                    </div>
+                                </div>
+
+                                <!-- Title Form -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="title">Tilte</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="title"
+                                            placeholder="Nhập tên dịch vụ">
+                                    </div>
+                                </div>
+
+                                <!-- Price Form -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="price">Giá</label>
+                                        <input type="text" class="form-control" id="price" name="price" value="price"
+                                            placeholder="Nhập giá dịch vụ">
+                                    </div>
+                                </div>
+
+                                <!-- Description Form -->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label for="description">Mô tả</label>
+                                        <textarea type="text" class="form-control" id="desc" name="desc"
+                                            placeholder="Nhập mô tả dịch vụ">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End First Form -->
+
+                            <!-- Start Second Form -->
+                            <!-- Pick a Type of Service -->
+                            <div class="row gutters">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected style="display: none;">Chọn kiểu dịch vụ</option>
+                                            <option value="1">Bảo dưỡng lồng</option>
+                                            <option value="2">Dinh dưỡng và thức ăn</option>
+                                            <option value="3">Y tế và chăm sóc sức khỏe</option>
+                                            <option value="4">Sửa chữa đồ chơi</option>
+                                            <option value="5">Grooming</option>
+                                            <option value="6">Đào tạo xã giao</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Second Form -->
+
+                            <!-- Start Third Form -->
+                            <!-- Add Picture for Service -->
+                            <div class="row gutters">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <button class="btn btn-success">
+                                            Thêm ảnh
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Third Form -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Form New Service Info -->
+            </div>
+            <!-- End Form -->
+        </div>
+        <!-- End Content -->
+
+        <!-- Footer -->
+        {{template "footer" .}}
+
+    </div>
+
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>

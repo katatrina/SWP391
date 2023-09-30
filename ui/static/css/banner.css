@@ -1,0 +1,100 @@
+/* Banner */
+.banner {
+    width: 100%;
+    padding-bottom: 19%;
+    position: relative;
+    height: calc(100vh - 1200px);
+    overflow: hidden;
+}
+
+.banner img {
+    position: absolute;
+    height: 250%;
+    width: 100%;
+    inset: 0px;
+    object-fit: cover;
+    color: transparent
+}
+
+.banner-text {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.banner-text h2 {
+    margin: 0px 0px 32px;
+    font-family: Montserrat;
+    font-size: 3rem;
+    line-height: 1.167;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-weight: 800;
+    padding-bottom: 4px;
+    position: relative;
+}
+
+.banner-text h2::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 9px;
+    background-color: rgb(255, 255, 255);
+}
+
+.banner-text .banner-sub-text {
+    flex-direction: row;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.banner-text .banner-sub-text button {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    outline: 0px;
+    border: 0px;
+    margin: 0px;
+    border-radius: 0px;
+    padding: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+.banner-text .banner-sub-text button a {
+    margin: 0px;
+    font-family: Montserrat;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.banner-sub-text p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin: 0 6px;
+    color: white;
+}
