@@ -73,11 +73,11 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 	}
 
 	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
-		form.AddFieldError("email", "This field must be a valid email address")
+		form.AddFieldError("email", "Địa chỉ email không hợp lệ")
 	}
 
 	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
-		form.AddFieldError("phone", "This field must be a valid phone number")
+		form.AddFieldError("phone", "Số điện thoại không hợp lệ")
 	}
 
 	// TODO: Validate other fields more detailed.
@@ -161,11 +161,11 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 	}
 
 	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
-		form.AddFieldError("email", "This field must be a valid email address")
+		form.AddFieldError("email", "Địa chỉ email không hợp lệ")
 	}
 
 	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
-		form.AddFieldError("phone", "This field must be a valid phone number")
+		form.AddFieldError("phone", "Số điện thoại không hợp lệ")
 	}
 
 	// TODO: Validate more detailed.
@@ -198,11 +198,11 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 		if errors.As(err, &postgreSQLError) {
 			code := postgreSQLError.Code.Name()
 			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
-				form.AddFieldError("email", "Email address is already in use")
+				form.AddFieldError("email", "Địa chỉ email đã được sử dụng")
 			}
 
 			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
-				form.AddFieldError("phone", "Phone number is already in use")
+				form.AddFieldError("phone", "Số điện thoại đã được sử dụng")
 			}
 
 			data := app.newTemplateData(r)
@@ -216,7 +216,7 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	app.sessionManager.Put(r.Context(), "flash", "Your signup was successful. Please log in.")
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đăng ký tài khoản thành công. Vui lòng đăng nhập.")
 
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
@@ -244,7 +244,7 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
-		form.AddFieldError("email", "This field must be a valid email address")
+		form.AddFieldError("email", "Địa chỉ email không hợp lệ")
 	}
 
 	if !form.IsNoErrors() {
@@ -259,7 +259,7 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 	user, err := app.store.GetUserByEmail(r.Context(), form.Email)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			form.AddGenericError("Email or password is incorrect")
+			form.AddGenericError("Email hoặc mật khẩu không chính xác")
 
 			data := app.newTemplateData(r)
 			data.Form = form
@@ -275,7 +275,7 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(form.Password))
 	if err != nil {
 		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-			form.AddGenericError("Email or password is incorrect")
+			form.AddGenericError("Email hoặc mật khẩu không chính xác")
 
 			data := app.newTemplateData(r)
 			data.Form = form
@@ -327,7 +327,7 @@ func (app *application) doLogoutUser(w http.ResponseWriter, r *http.Request) {
 
 	// Add a flash message to the session to confirm to the user that they've been
 	// logged out.
-	app.sessionManager.Put(r.Context(), "flash", "You've been logged out successfully!")
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đăng xuất thành công!")
 
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
@@ -347,16 +347,26 @@ func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
 	app.render(w, http.StatusOK, "account.html", data)
 }
 
+func (app *application) listProviderServices(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "provider_services.html", data)
+}
+
 func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
-	app.render(w, http.StatusOK, "provider-assets.html", data)
+	app.render(w, http.StatusOK, "create_service.html", data)
+}
+
+func (app *application) listProviderProducts(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "provider_products.html", data)
 }
 
 func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
 
-	app.render(w, http.StatusOK, "provider-assets.html", data)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {

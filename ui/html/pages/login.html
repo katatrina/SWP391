@@ -66,6 +66,9 @@
                 {{with .Flash}}
                 <div class="flash">{{.}}</div>
                 {{end}}
+                {{with .Form.GenericError}}
+                <div class='error'>{{.}}</div>
+                {{end}}
                 <label for="email"><b>Email</b></label>
                 <input type="text" placeholder="Nhập Email" name="email" value="{{.Form.Email}}" equired>
 
