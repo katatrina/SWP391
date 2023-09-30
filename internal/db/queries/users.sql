@@ -6,7 +6,7 @@ SELECT *
 FROM users
 WHERE id = $1;
 
--- name: IsProviderRole :one
+-- name: IsProvider :one
 SELECT EXISTS (SELECT 1
                FROM users u
                WHERE u.id = $1

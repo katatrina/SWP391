@@ -30,6 +30,12 @@
             </ul>
             <ul class="nav-right navbar-nav d-none d-lg-inline-flex" style="align-items: center;">
                 <!--marggin-left = 10%, height = 40px-->
+
+
+
+
+                <!-- User -->
+                {{if .IsAuthenticated}}
                 <!-- Cart Icon -->
                 <li class="nav-item">
                     <button class="nav-link mx-2"><!--margin-top = 0-->
@@ -37,7 +43,24 @@
                     </button>
                 </li>
                 <!-- End Cart Icon -->
-
+                <li class="nav-item mx-2">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"><!--margin-top=0-->
+                            <i class="ti-user"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Tài khoản</i></a></li>
+                            <li><a class="dropdown-item" href="#">Đơn mua</a></li>
+                            {{if .IsProvider}}
+                            <li><a class="dropdown-item" href="#">Đơn bán</a></li>
+                            <li><a class="dropdown-item" href="#">Dịch vụ của tôi</a></li>
+                            {{end}}
+                            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </li>
+                {{else}}
                 <!-- Login -->
                 <li class="nav-item">
                     <div class="login-text">
@@ -52,33 +75,7 @@
                     <a class="nav-link" href="/signup">Đăng Ký</a>
                 </li>
                 <!-- End Sign Up -->
-
-                {{if .IsAuthenticated}}
-                <!-- User -->
-                <li class="nav-item mx-2">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false"><!--margin-top=0-->
-                            <i class="ti-user"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Tài khoản</i></a></li>
-                            <li><a class="dropdown-item" href="#">Đơn mua</a></li>
-                            <li><a class="dropdown-item" href="#">Đơn bán</a></li>
-                            <li><a class="dropdown-item" href="#">Dịch vụ của tôi</a></li>
-                            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <!-- End User -->
                 {{end}}
-
-
-                <!-- Provider -->
-                <li class="nav-item mx-2">
-
-                </li>
-                <!-- End Provider -->
 
             </ul>
         </div>

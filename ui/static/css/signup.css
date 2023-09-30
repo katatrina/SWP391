@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 /* Body */
 #main {
     width: 100%;
@@ -120,3 +119,4 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
+

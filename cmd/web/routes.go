@@ -9,14 +9,15 @@ import (
 func (app *application) routes() http.Handler {
 	router := httprouter.New()
 
-	fileServer1 := http.FileServer(http.Dir("./ui/static"))
-	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static/", fileServer1))
+	fileServer := http.FileServer(http.Dir("./ui/static"))
+	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static/", fileServer))
 
 	dynamic := alice.New(app.sessionManager.LoadAndSave, app.authenticate)
 
 	// TODO: Create a NotFound html file.
 	router.Handler(http.MethodGet, "/404", dynamic.ThenFunc(app.pageNotFound))
 
+	// Guest permissions.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 
 	router.Handler(http.MethodGet, "/services", dynamic.ThenFunc(app.displayServicePage))
@@ -35,11 +36,15 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/login", dynamic.ThenFunc(app.displayUserLoginPage))
 	router.Handler(http.MethodPost, "/login", dynamic.ThenFunc(app.doLoginUser))
 
+	// User permissions.
 	protected := dynamic.Append(app.requireAuthentication)
 
-	router.Handler(http.MethodGet, "/user/logout", protected.ThenFunc(app.viewAccount))
+	router.Handler(http.MethodGet, "/logout", protected.ThenFunc(app.doLogoutUser))
 
-	advanced := protected.Append(app.authenticateProvider, app.requireProviderPermission)
+	router.Handler(http.MethodGet, "/account", protected.ThenFunc(app.viewAccount))
+
+	// Provider permissions.
+	advanced := protected.Append(app.requireProviderPermission)
 
 	router.Handler(http.MethodGet, "/service/create", advanced.ThenFunc(app.doCreateService))
 	router.Handler(http.MethodGet, "/product/create", advanced.ThenFunc(app.doCreateProduct))

@@ -221,157 +221,10 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
-//func (app *application) doSignupUser(w http.ResponseWriter, r *http.Request) {
-//	var form customerSignupFormResult
-//
-//	err := app.decodePostForm(r, &form)
-//	if err != nil {
-//		app.clientError(w, http.StatusBadRequest)
-//		return
-//	}
-//
-//	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
-//		form.AddFieldError("email", "This field must be a valid email address")
-//	}
-//
-//	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
-//		form.AddFieldError("phone", "This field must be a valid phone number")
-//	}
-//
-//	// TODO: Validate address more detailed.
-//
-//	if !validator.IsStringNotLessThanLimit(form.Password, 8) {
-//		form.AddFieldError("password", "This field must be at least 8 characters long")
-//	}
-//
-//	app.infoLog.Println(form.Role)
-//
-//	// Register a Provider account.
-//	if form.Role == "provider" {
-//		form.SelectedRole = "provider"
-//		app.infoLog.Println(form)
-//
-//		if !validator.IsNotBlank(form.CompanyName) {
-//			form.AddFieldError("companyName", "This field cannot be blank")
-//		}
-//
-//		if !validator.IsNotBlank(form.TaxCode) {
-//			form.AddFieldError("taxCode", "This field cannot be blank")
-//		}
-//
-//		// TODO: Validate company name more detailed.
-//
-//		// TODO: Validate tax code more detailed.
-//		fmt.Println("CCCCC")
-//
-//		if !form.IsNoErrors() {
-//			data := app.newTemplateData(r)
-//			data.Form = form
-//			fmt.Println(form)
-//
-//			app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
-//			return
-//		}
-//
-//		fmt.Println("WTF")
-//		app.errorLog.Println(form)
-//
-//		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
-//		if err != nil {
-//			app.serverError(w, err)
-//			return
-//		}
-//
-//		err = app.store.CreateProviderTx(r.Context(), sqlc.CreateProviderTxParams{
-//			FullName:    form.FullName,
-//			Email:       form.Email,
-//			Phone:       form.Phone,
-//			Address:     form.Address,
-//			CompanyName: form.CompanyName,
-//			TaxCode:     form.TaxCode,
-//			Password:    string(hashedPassword),
-//		})
-//		app.errorLog.Println(err)
-//		if err != nil {
-//			var postgreSQLError *pq.Error
-//			if errors.As(err, &postgreSQLError) {
-//				code := postgreSQLError.Code.Name()
-//				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
-//					form.AddFieldError("email", "Email address is already in use")
-//				}
-//
-//				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
-//					form.AddFieldError("phone", "Phone number is already in use")
-//				}
-//
-//				data := app.newTemplateData(r)
-//				data.Form = form
-//				app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
-//				return
-//			}
-//
-//			app.serverError(w, err)
-//			return
-//		}
-//	} else {
-//		form.SelectedRole = "customer"
-//		// Register a Customer account.
-//		if !form.IsNoErrors() {
-//			data := app.newTemplateData(r)
-//			data.Form = form
-//
-//			app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
-//			return
-//		}
-//
-//		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
-//		if err != nil {
-//			app.serverError(w, err)
-//			return
-//		}
-//
-//		arg := sqlc.CreateCustomerParams{
-//			FullName: form.FullName,
-//			Email:    form.Email,
-//			Phone:    form.Phone,
-//			Address:  form.Address,
-//			Password: string(hashedPassword),
-//		}
-//
-//		err = app.store.CreateCustomer(r.Context(), arg)
-//		if err != nil {
-//			var postgreSQLError *pq.Error
-//			if errors.As(err, &postgreSQLError) {
-//				code := postgreSQLError.Code.Name()
-//				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
-//					form.AddFieldError("email", "Email address is already in use")
-//				}
-//
-//				if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
-//					form.AddFieldError("phone", "Phone number is already in use")
-//				}
-//
-//				data := app.newTemplateData(r)
-//				data.Form = form
-//				app.render(w, http.StatusUnprocessableEntity, "signup.html", data)
-//				return
-//			}
-//
-//			app.serverError(w, err)
-//			return
-//		}
-//	}
-//
-//	app.sessionManager.Put(r.Context(), "flash", "Your signup was successful. Please log in.")
-//
-//	http.Redirect(w, r, "/login", http.StatusSeeOther)
-//}
-
-func (app *application) displayLoginPage(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
-	data.Form = userLoginFormResult{}
-
-	app.render(w, http.StatusOK, "login.html", data)
+type userLoginFormResult struct {
+	Email               string `form:"email"`
+	Password            string `form:"password"`
+	validator.Validator `form:"-"`
 }
 
 func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Request) {
@@ -379,12 +232,6 @@ func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Requ
 	data.Form = userLoginFormResult{}
 
 	app.render(w, http.StatusOK, "login.html", data)
-}
-
-type userLoginFormResult struct {
-	Email               string `form:"email"`
-	Password            string `form:"password"`
-	validator.Validator `form:"-"`
 }
 
 func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
@@ -396,16 +243,8 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !validator.IsNotBlank(form.Email) {
-		form.AddFieldError("email", "This field cannot be blank")
-	}
-
 	if !validator.IsMatchRegex(form.Email, validator.EmailRX) {
 		form.AddFieldError("email", "This field must be a valid email address")
-	}
-
-	if !validator.IsNotBlank(form.Password) {
-		form.AddFieldError("password", "This field cannot be blank")
 	}
 
 	if !form.IsNoErrors() {
@@ -470,8 +309,27 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Redirect the user to the create snippet page.
-	http.Redirect(w, r, "/snippet/create", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func (app *application) doLogoutUser(w http.ResponseWriter, r *http.Request) {
+	// Use the RenewToken() method on the current session to change the session
+	// ID again.
+	err := app.sessionManager.RenewToken(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	// Remove the authenticatedUserID from the session data so that user is
+	// 'logged out'.
+	app.sessionManager.Remove(r.Context(), "authenticatedUserID")
+
+	// Add a flash message to the session to confirm to the user that they've been
+	// logged out.
+	app.sessionManager.Put(r.Context(), "flash", "You've been logged out successfully!")
+
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {

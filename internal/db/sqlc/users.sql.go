@@ -119,15 +119,15 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 	return i, err
 }
 
-const isProviderRole = `-- name: IsProviderRole :one
+const isProvider = `-- name: IsProvider :one
 SELECT EXISTS (SELECT 1
                FROM users u
                WHERE u.id = $1
                  AND u.role_id = (SELECT id FROM roles WHERE name = 'provider')) AS is_provider
 `
 
-func (q *Queries) IsProviderRole(ctx context.Context, id int32) (bool, error) {
-	row := q.db.QueryRowContext(ctx, isProviderRole, id)
+func (q *Queries) IsProvider(ctx context.Context, id int32) (bool, error) {
+	row := q.db.QueryRowContext(ctx, isProvider, id)
 	var is_provider bool
 	err := row.Scan(&is_provider)
 	return is_provider, err
