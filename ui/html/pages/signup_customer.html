@@ -77,7 +77,7 @@
                         <div class="form-group">
                             <label for="phone">Số điện thoại:</label>
                             {{with .Form.FieldErrors.phone}}
-                            <label class='error'>{{.}}</label>
+                            <label class='error'><i class="ti-close"></i> {{.}} </label>
                             {{end}}
                             <input type="text" id="phone" name="phone" value="{{.Form.Phone}}" required>
                         </div>

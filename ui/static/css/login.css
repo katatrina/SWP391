@@ -117,3 +117,38 @@ span.psw {
     align-items: center;
     justify-content: center;
 }
+
+h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-weight: bold;
+}
+
+
+.flash {
+    color: green;
+    border: 1px solid rgb(125 221 33);
+    font-size: 0.9rem;
+    padding: 12px;
+}
+
+.flash ti {
+    margin-right: 6px;
+    font-size: .75rem;
+    min-height: 1rem;
+}
+
+.error {
+    color: #f44336;
+    border: 1px solid rgba(255, 66, 79, .2);
+    font-size: 0.9rem;
+    padding: 12px;
+}
+
+.error ti {
+    color: #ff424f;
+    font-size: .75rem;
+    min-height: 1rem;
+    margin-right: 6px;
+}

@@ -77,22 +77,22 @@
                             <input type="text" id="taxID" name="taxCode" value="{{.Form.TaxCode}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="address">Địa chỉ:</label>
-                            <input type="text" id="address" name="address" value="{{.Form.Address}}" required>
-                        </div>
-                        <div class="form-group">
                             <label for="email">Email:</label>
                             {{with .Form.FieldErrors.email}}
-                            <label class='error'>{{.}}</label>
+                            <label class='error'><i class="ti-close"></i>{{.}}</label>
                             {{end}}
                             <input type="email" id="email" name="email" value="{{.Form.Email}}" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Số điện thoại:</label>
                             {{with .Form.FieldErrors.phone}}
-                            <label class='error'>{{.}}</label>
+                            <label class='error'><i class="ti-close"></i>{{.}}</label>
                             {{end}}
                             <input type="text" id="phone" name="phone" value="{{.Form.Phone}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ:</label>
+                            <input type="text" id="address" name="address" value="{{.Form.Address}}" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu:</label>
