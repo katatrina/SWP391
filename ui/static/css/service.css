@@ -269,14 +269,10 @@
     padding-top: 120px;
 }
 
-.body .item .card-item {
-    /* position: relative;
-    width: 272px;
-    height: 180px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: rgba(0, 0, 0, 0.08) 2px 4px 24px 0px; */
+.card a {
+    text-align: center;
+    text-decoration: none;
+    color: black;
 }
 
 .body .item .card img {
@@ -286,4 +282,8 @@
     width: auto;
     height: auto;
     object-fit: contain;
+}
+
+.card .card-text {
+    text-align: center;
 }
