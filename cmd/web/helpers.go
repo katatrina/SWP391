@@ -5,7 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-playground/form/v4"
+	"io"
+	"mime/multipart"
 	"net/http"
+	"os"
 	"runtime/debug"
 	"time"
 )
@@ -63,6 +66,45 @@ func (app *application) decodePostForm(r *http.Request, dst any) error {
 			panic(err)
 		}
 
+		return err
+	}
+
+	return nil
+}
+
+func (app *application) decodeMultipartForm(r *http.Request, dst any) error {
+	err := r.ParseMultipartForm(10 << 20)
+	if err != nil {
+		app.errorLog.Print(err)
+		return err
+	}
+
+	err = app.formDecoder.Decode(dst, r.PostForm)
+	if err != nil {
+		var invalidDecoderError *form.InvalidDecoderError
+
+		if errors.As(err, &invalidDecoderError) {
+			panic(err)
+		}
+
+		return err
+	}
+
+	return nil
+}
+
+func (app *application) saveFileToDisk(file multipart.File, header *multipart.FileHeader) error {
+	dst, err := os.Create(fmt.Sprintf("./ui/static/img/%s", header.Filename))
+	if err != nil {
+		app.errorLog.Println(err)
+		return err
+	}
+
+	defer dst.Close()
+
+	_, err = io.Copy(dst, file)
+	if err != nil {
+		app.errorLog.Println(err)
 		return err
 	}
 

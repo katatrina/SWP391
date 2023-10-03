@@ -56,13 +56,17 @@ CREATE TABLE category
     name VARCHAR(100)
 );
 
+INSERT INTO category (name)
+VALUES ('Service'),
+       ('Product');
+
 CREATE TABLE services
 (
     id               SERIAL PRIMARY KEY,
     title            VARCHAR(350) NOT NULL,
     description      TEXT         NOT NULL,
     price            INT          NOT NULL,
-    genre            VARCHAR(50)  NOT NULL,
+    genre            VARCHAR(70)  NOT NULL,
     thumbnail_url    TEXT         NOT NULL,
     category_id      INT          NOT NULL,
     owned_by_user_id INT          NOT NULL,

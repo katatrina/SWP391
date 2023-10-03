@@ -353,16 +353,85 @@ func (app *application) listProviderServices(w http.ResponseWriter, r *http.Requ
 	app.render(w, http.StatusOK, "provider_services.html", data)
 }
 
-func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) {
+type createServiceFormResult struct {
+	Title               string `form:"title"`
+	Price               int32  `form:"price"`
+	Description         string `form:"description"`
+	Genre               string `form:"genre"`
+	validator.Validator `form:"-"`
+}
+
+func (app *application) displayCreateServicePage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "create_service.html", data)
+}
+
+func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) {
+	var form createServiceFormResult
+
+	err := app.decodeMultipartForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	file, header, err := r.FormFile("image")
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	defer file.Close()
+
+	// Now, form fields is kept to be not empty.
+	// TODO: Validate form fields more detailed and display error messages in HTML.
+
+	if !form.IsNoErrors() {
+		data := app.newTemplateData(r)
+		data.Form = form
+
+		app.render(w, http.StatusUnprocessableEntity, "create_service.html", data)
+		return
+	}
+
+	err = app.saveFileToDisk(file, header)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	fileName := header.Filename
+	thumbnailURL := "/static/img/" + fileName
+
+	userID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+
+	err = app.store.CreateService(r.Context(), sqlc.CreateServiceParams{
+		Title:         form.Title,
+		Description:   form.Description,
+		Price:         form.Price,
+		Genre:         form.Genre,
+		ThumbnailUrl:  thumbnailURL,
+		OwnedByUserID: int32(userID),
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã tạo dịch vụ thành công!")
+
+	http.Redirect(w, r, "/account/services", http.StatusSeeOther)
 }
 
 func (app *application) listProviderProducts(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "provider_products.html", data)
+}
+
+func (app *application) displayCreateProductPage(writer http.ResponseWriter, r *http.Request) {
+
 }
 
 func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) {
@@ -372,5 +441,5 @@ func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
-	app.render(w, http.StatusOK, "notfound.html", data)
+	app.render(w, http.StatusOK, "not_found.html", data)
 }
