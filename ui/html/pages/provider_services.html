@@ -53,14 +53,11 @@
         </div>
         <!-- End Banner -->
 
-        {{if .Flash}}
-        <div class="flash">{{.Flash}}</div>
-        {{end}}
 
         <!-- Content -->
         <div class="container">
             <div class="row gutters">
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card h-100">
                         <div class="card-body">
                             <!-- Top -->
@@ -70,9 +67,14 @@
                                         <button type="button" id="submit" name="submit" class="btn btn-success"><a
                                                 href="/service/create">Tạo một dịch vụ mới</a></button>
                                     </div>
-                                    <div class="text-right float-start">
-                                        <h2>Các Dịch vụ của tôi</h2>
+                                    <div class="text-center float-start">
+                                        <h3 style="color: #198754; font-family: sans-serif; font-weight: 400;">CÁC DỊCH
+                                            VỤ CỦA TÔI</h3>
                                     </div>
+                                    <!-- Đã Tạo dịch vụ Thành công -->
+                                    {{if .Flash}}
+                                    <div class="flash"><i class="ti-check"></i>{{.Flash}}</div>
+                                    {{end}}
                                 </div>
                             </div>
                             <!-- Body -->

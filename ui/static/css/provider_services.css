@@ -101,3 +101,20 @@ body {
     margin-left: -15px;
     margin-right: -15px;
 }
+
+/* Successfull Create Service */
+.flash {
+    margin-top: 4px;
+    margin-left: 35%;
+    border: 1px solid green;
+    /* display: flex; */
+    color: green;
+    text-align: center;
+    margin-right: 35%;
+}
+
+.flash i {
+    font-size: 13px;
+    margin: auto;
+    margin-right: 24px;
+}
