@@ -348,7 +348,16 @@ func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) listProviderServices(w http.ResponseWriter, r *http.Request) {
+	providerID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+
+	services, err := app.store.ListServiceByProvider(r.Context(), int32(providerID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
+	data.Services = services
 
 	app.render(w, http.StatusOK, "provider_services.html", data)
 }
@@ -415,6 +424,7 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 		OwnedByUserID: int32(userID),
 	})
 	if err != nil {
+		// TODO: Delete file from disk if necessary.
 		app.serverError(w, err)
 		return
 	}
@@ -424,19 +434,19 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	http.Redirect(w, r, "/account/services", http.StatusSeeOther)
 }
 
-func (app *application) listProviderProducts(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
+//func (app *application) listProviderProducts(w http.ResponseWriter, r *http.Request) {
+//	data := app.newTemplateData(r)
+//
+//	app.render(w, http.StatusOK, "provider_products.html", data)
+//}
 
-	app.render(w, http.StatusOK, "provider_products.html", data)
-}
+//func (app *application) displayCreateProductPage(writer http.ResponseWriter, r *http.Request) {
+//
+//}
 
-func (app *application) displayCreateProductPage(writer http.ResponseWriter, r *http.Request) {
-
-}
-
-func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) {
-
-}
+//func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) {
+//
+//}
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)

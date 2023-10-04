@@ -40,3 +40,43 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 	)
 	return err
 }
+
+const listServiceByProvider = `-- name: ListServiceByProvider :many
+SELECT id, title, description, price, genre, thumbnail_url, category_id, owned_by_user_id, status, created_at
+FROM services
+WHERE owned_by_user_id = $1
+`
+
+func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByUserID int32) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, listServiceByProvider, ownedByUserID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Service{}
+	for rows.Next() {
+		var i Service
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Description,
+			&i.Price,
+			&i.Genre,
+			&i.ThumbnailUrl,
+			&i.CategoryID,
+			&i.OwnedByUserID,
+			&i.Status,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}

@@ -16,10 +16,10 @@ type templateData struct {
 	CurrentYear     int
 	Form            any
 	Flash           string
-	User            sqlc.User
 	IsAuthenticated bool
 	IsProvider      bool
-	Selected        bool
+	Services        []sqlc.Service
+	User            sqlc.User
 }
 
 func (app *application) newTemplateData(r *http.Request) *templateData {

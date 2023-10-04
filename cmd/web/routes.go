@@ -14,7 +14,6 @@ func (app *application) routes() http.Handler {
 
 	dynamic := alice.New(app.sessionManager.LoadAndSave, app.authenticate)
 
-	// TODO: Create a NotFound html file.
 	router.Handler(http.MethodGet, "/404", dynamic.ThenFunc(app.pageNotFound))
 
 	// Guest permissions.
@@ -51,10 +50,10 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/service/create", advanced.ThenFunc(app.displayCreateServicePage))
 	router.Handler(http.MethodPost, "/service/create", advanced.ThenFunc(app.doCreateService))
 
-	router.Handler(http.MethodGet, "/account/products", advanced.ThenFunc(app.listProviderProducts))
+	//router.Handler(http.MethodGet, "/account/products", advanced.ThenFunc(app.listProviderProducts))
 
-	router.Handler(http.MethodGet, "/product/create", advanced.ThenFunc(app.displayCreateProductPage))
-	router.Handler(http.MethodPost, "/product/create", advanced.ThenFunc(app.doCreateProduct))
+	//router.Handler(http.MethodGet, "/product/create", advanced.ThenFunc(app.displayCreateProductPage))
+	//router.Handler(http.MethodPost, "/product/create", advanced.ThenFunc(app.doCreateProduct))
 
 	standard := alice.New(app.logRequest)
 	return standard.Then(router)

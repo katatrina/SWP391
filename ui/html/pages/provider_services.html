@@ -79,22 +79,21 @@
                             </div>
                             <!-- Body -->
                             <div class="row gutters">
+                                {{range .Services}}
                                 <div class="col-md-4">
                                     <div class="service-card">
                                         <div class="card-item card">
-                                            <img src="/static/img/service-item-1.jpg" class="card-img-top"
+                                            <img src="{{.ThumbnailUrl}}" class="card-img-top"
                                                 alt="Ser-Pic-1">
                                             <div class="card-body">
-                                                <h5 class="card-title text-center">Bảo dưỡng lồng</h5>
-                                                <p class="card-text"> Description: Cung cấp không gian an toàn cho chim
-                                                    cưng để sống
-                                                    và di
-                                                    chuyển.</p>
-                                                <p class="card-text text-left">Price: 20.000VND</p>
+                                                <h5 class="card-title text-center">{{.Title}}</h5>
+                                                <p class="card-text">Mô tả: {{.Description}}</p>
+                                                <p class="card-text text-left">Giá: {{.Price}} VND</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {{end}}
                                 <!-- Thêm các card dịch vụ khác tại đây -->
                             </div>
                         </div>
