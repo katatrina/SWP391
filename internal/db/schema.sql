@@ -60,13 +60,27 @@ INSERT INTO category (name)
 VALUES ('Service'),
        ('Product');
 
+CREATE TABLE genres
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+INSERT INTO genres (name)
+VALUES ('Bảo dưỡng lồng'),
+       ('Dinh dưỡng và thức ăn'),
+       ('Y tế và chăm sóc sức khỏe'),
+       ('Grooming'),
+       ('Đào tạo xã giao'),
+       ('Khác');
+
 CREATE TABLE services
 (
     id               SERIAL PRIMARY KEY,
     title            VARCHAR(350) NOT NULL,
     description      TEXT         NOT NULL,
     price            INT          NOT NULL,
-    genre            VARCHAR(70)  NOT NULL,
+    genre_id         VARCHAR(70)  NOT NULL,
     thumbnail_url    TEXT         NOT NULL,
     category_id      INT          NOT NULL,
     owned_by_user_id INT          NOT NULL,
@@ -79,6 +93,9 @@ ALTER TABLE "services"
 
 ALTER TABLE "services"
     ADD FOREIGN KEY ("owned_by_user_id") REFERENCES "users" ("id");
+
+ALTER TABLE "services"
+    ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
 
 CREATE TABLE feedbacks
 (

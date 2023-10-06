@@ -434,20 +434,6 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	http.Redirect(w, r, "/account/services", http.StatusSeeOther)
 }
 
-//func (app *application) listProviderProducts(w http.ResponseWriter, r *http.Request) {
-//	data := app.newTemplateData(r)
-//
-//	app.render(w, http.StatusOK, "provider_products.html", data)
-//}
-
-//func (app *application) displayCreateProductPage(writer http.ResponseWriter, r *http.Request) {
-//
-//}
-
-//func (app *application) doCreateProduct(w http.ResponseWriter, r *http.Request) {
-//
-//}
-
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
