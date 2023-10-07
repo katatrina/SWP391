@@ -80,7 +80,13 @@ body {
 
 .container .service-card {
     margin-bottom: 20px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .gutters .item {
+    border: 5px dashed #198754;
 }
 
 .container .service-card .card-item img {
