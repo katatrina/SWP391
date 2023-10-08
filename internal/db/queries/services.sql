@@ -2,11 +2,10 @@
 INSERT INTO services (title,
                       description,
                       price,
-                      genre,
-                      thumbnail_url,
                       category_id,
+                      thumbnail_url,
                       owned_by_user_id)
-VALUES ($1, $2, $3, $4, $5, 1, $6);
+VALUES ($1, $2, $3, $4, $5, $6);
 
 -- name: ListServiceByProvider :many
 SELECT *

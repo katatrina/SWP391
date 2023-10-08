@@ -50,29 +50,31 @@ CREATE TABLE sessions
 
 CREATE INDEX sessions_expiry_idx ON sessions (expiry);
 
-CREATE TABLE category
+CREATE TABLE categories
 (
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(100)
+    id            SERIAL PRIMARY KEY,
+    name          VARCHAR(100) NOT NULL,
+    slug          VARCHAR(100) NOT NULL,
+    thumbnail_url TEXT         NOT NULL,
+    description   TEXT         NOT NULL
 );
 
-INSERT INTO category (name)
-VALUES ('Service'),
-       ('Product');
+ALTER TABLE categories
+    ADD CONSTRAINT categories_uc_slug UNIQUE (slug);
 
-CREATE TABLE genres
-(
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(100)
-);
-
-INSERT INTO genres (name)
-VALUES ('Bảo dưỡng lồng'),
-       ('Dinh dưỡng và thức ăn'),
-       ('Y tế và chăm sóc sức khỏe'),
-       ('Grooming'),
-       ('Đào tạo xã giao'),
-       ('Khác');
+INSERT INTO categories (name, slug, thumbnail_url, description)
+VALUES ('Phụ kiện', 'phu-kien', '/static/img/accessories-category.jpg',
+        'Các dịch vụ cung cấp đầy đủ các sản phẩm cần thiết cho chim cảnh'),
+       ('Dinh dưỡng và thức ăn', 'dinh-duong-va-thuc-an', '/static/img/nutrition-category.jpg',
+        'Các dịch vụ cung cấp đầy đủ các dinh dưỡng cần thiết cho chim cảnh'),
+       ('Y tế và chăm sóc sức khỏe', 'y-te-va-cham-soc-suc-khoe', '/static/img/healthcare-category.jpg',
+        'Đảm bảo sức khỏe và phòng ngừa bệnh tật cho chim cảnh'),
+       ('Grooming', 'grooming', '/static/img/grooming-category.jfif',
+        'Chăm sóc, tạo phong cách và làm đẹp cho chim cảnh'),
+       ('Đào tạo và huấn luyện', 'dao-tao-va-huan-luyen', '/static/img/training-category.jpg',
+        'Đào tạo và tương tác để cải thiện mối quan hệ và kỹ năng cho chim cảnh'),
+       ('Khác', 'khac', '/static/img/others-category.png',
+        'Những dịch vụ khác nhằm đảm bảo pet yêu của bạn khỏe mạnh cũng như tăng thêm mối quan hệ thân thiết');
 
 CREATE TABLE services
 (
@@ -80,22 +82,18 @@ CREATE TABLE services
     title            VARCHAR(350) NOT NULL,
     description      TEXT         NOT NULL,
     price            INT          NOT NULL,
-    genre_id         VARCHAR(70)  NOT NULL,
-    thumbnail_url    TEXT         NOT NULL,
     category_id      INT          NOT NULL,
+    thumbnail_url    TEXT         NOT NULL,
     owned_by_user_id INT          NOT NULL,
     status           TEXT         NOT NULL DEFAULT 'inactive',
     created_at       timestamptz  NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE "services"
-    ADD FOREIGN KEY ("category_id") REFERENCES "category" ("id");
-
-ALTER TABLE "services"
     ADD FOREIGN KEY ("owned_by_user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "services"
-    ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
+    ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
 
 CREATE TABLE feedbacks
 (

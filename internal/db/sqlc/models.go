@@ -5,7 +5,6 @@
 package sqlc
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -17,8 +16,11 @@ type Blog struct {
 }
 
 type Category struct {
-	ID   int32          `json:"id"`
-	Name sql.NullString `json:"name"`
+	ID           int32  `json:"id"`
+	Name         string `json:"name"`
+	Slug         string `json:"slug"`
+	ThumbnailUrl string `json:"thumbnail_url"`
+	Description  string `json:"description"`
 }
 
 type Feedback struct {
@@ -67,9 +69,8 @@ type Service struct {
 	Title         string    `json:"title"`
 	Description   string    `json:"description"`
 	Price         int32     `json:"price"`
-	Genre         string    `json:"genre"`
-	ThumbnailUrl  string    `json:"thumbnail_url"`
 	CategoryID    int32     `json:"category_id"`
+	ThumbnailUrl  string    `json:"thumbnail_url"`
 	OwnedByUserID int32     `json:"owned_by_user_id"`
 	Status        string    `json:"status"`
 	CreatedAt     time.Time `json:"created_at"`

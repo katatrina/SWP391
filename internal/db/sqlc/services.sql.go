@@ -13,18 +13,17 @@ const createService = `-- name: CreateService :exec
 INSERT INTO services (title,
                       description,
                       price,
-                      genre,
-                      thumbnail_url,
                       category_id,
+                      thumbnail_url,
                       owned_by_user_id)
-VALUES ($1, $2, $3, $4, $5, 1, $6)
+VALUES ($1, $2, $3, $4, $5, $6)
 `
 
 type CreateServiceParams struct {
 	Title         string `json:"title"`
 	Description   string `json:"description"`
 	Price         int32  `json:"price"`
-	Genre         string `json:"genre"`
+	CategoryID    int32  `json:"category_id"`
 	ThumbnailUrl  string `json:"thumbnail_url"`
 	OwnedByUserID int32  `json:"owned_by_user_id"`
 }
@@ -34,7 +33,7 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 		arg.Title,
 		arg.Description,
 		arg.Price,
-		arg.Genre,
+		arg.CategoryID,
 		arg.ThumbnailUrl,
 		arg.OwnedByUserID,
 	)
@@ -42,7 +41,7 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 }
 
 const listServiceByProvider = `-- name: ListServiceByProvider :many
-SELECT id, title, description, price, genre, thumbnail_url, category_id, owned_by_user_id, status, created_at
+SELECT id, title, description, price, category_id, thumbnail_url, owned_by_user_id, status, created_at
 FROM services
 WHERE owned_by_user_id = $1
 `
@@ -61,9 +60,8 @@ func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByUserID int32
 			&i.Title,
 			&i.Description,
 			&i.Price,
-			&i.Genre,
-			&i.ThumbnailUrl,
 			&i.CategoryID,
+			&i.ThumbnailUrl,
 			&i.OwnedByUserID,
 			&i.Status,
 			&i.CreatedAt,

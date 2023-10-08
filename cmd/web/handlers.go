@@ -17,16 +17,17 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	app.render(w, http.StatusOK, "home.html", data)
 }
 
-func (app *application) displayServicePage(w http.ResponseWriter, r *http.Request) {
+func (app *application) displayCategoryPage(w http.ResponseWriter, r *http.Request) {
+	categories, err := app.store.ListCategories(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
+	data.Categories = categories
 
 	app.render(w, http.StatusOK, "services.html", data)
-}
-
-func (app *application) displayProductPage(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
-
-	app.render(w, http.StatusOK, "products.html", data)
 }
 
 func (app *application) displayBlogPage(w http.ResponseWriter, r *http.Request) {
@@ -366,12 +367,19 @@ type createServiceFormResult struct {
 	Title               string `form:"title"`
 	Price               int32  `form:"price"`
 	Description         string `form:"description"`
-	Genre               string `form:"genre"`
+	CategoryID          int32  `form:"category"`
 	validator.Validator `form:"-"`
 }
 
 func (app *application) displayCreateServicePage(w http.ResponseWriter, r *http.Request) {
+	categories, err := app.store.ListCategories(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
+	data.Categories = categories
 
 	app.render(w, http.StatusOK, "create_service.html", data)
 }
@@ -419,12 +427,12 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 		Title:         form.Title,
 		Description:   form.Description,
 		Price:         form.Price,
-		Genre:         form.Genre,
+		CategoryID:    form.CategoryID,
 		ThumbnailUrl:  thumbnailURL,
 		OwnedByUserID: int32(userID),
 	})
 	if err != nil {
-		// TODO: Delete file from disk if necessary.
+		// TODO: Delete uploaded file from disk if creating service fails.
 		app.serverError(w, err)
 		return
 	}
@@ -432,6 +440,12 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	app.sessionManager.Put(r.Context(), "flash", "Bạn đã tạo dịch vụ thành công!")
 
 	http.Redirect(w, r, "/account/services", http.StatusSeeOther)
+}
+
+func (app *application) displayServiceByCategoryPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "services_by_category.html", data)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {

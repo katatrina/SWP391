@@ -104,92 +104,24 @@
                     <!-- Item -->
                     <div class="item">
                         <div class="row row-cols-1 row-cols-md-3 g-4">
+                            {{range .Categories}}
                             <div class="col">
                                 <div class="card-item card">
-                                    <a href="/html/pages/filter_service.html">
-                                        <img src="/static/img/Fix-service.jpg" class="card-img-top" alt="Ser-Pic-1">
+                                    <a href="/services/danh-muc/{{.Slug}}">
+                                        <img src="{{.ThumbnailUrl}}" class="card-img-top" alt="Ser-Pic-1">
                                     </a>
                                     <div class="card-body">
-                                        <a href="/html/pages/filter_service.html">
-                                            <h5 class="card-title text-center">Phụ kiện</h5>
+                                        <a href="/services/danh-muc/{{.Slug}}">
+                                            <h5 class="card-title text-center">{{.Name}}</h5>
                                         </a>
-                                        <p class="card-text">"Dịch vụ cung cấp đầy đủ các sản phẩm cần thiết
-                                            cho chim cảnh của bạn."</p>
+                                        <p class="card-text">{{.Description}}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="card">
-                                    <a href="/html/pages/filter_service.html">
-                                        <img src="/static/img/service-item-2.jpg" class="card-img-top" alt="Ser-Pic-2">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="/html/pages/filter_service.html">
-                                            <h5 class="card-title text-center">Dinh dưỡng và thức ăn</h5>
-                                        </a>
-                                        <p class="card-text">Dịch vụ cung cấp đầy đủ các dinh dưỡng cần thiết cho chim
-                                            cảnh của bạn.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <a href="/html/pages/filter_service.html">
-                                        <img src="/static/img/service-item-3.jpg" class="card-img-top" alt="Ser-Pic-3">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="/html/pages/filter_service.html">
-                                            <h5 class="card-title text-center">Y tế và chăm sóc sức khỏe</h5>
-                                        </a>
-                                        <p class="card-text">Đảm bảo sức khỏe và phòng ngừa bệnh tật cho chim cưng.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <a href="/html/pages/filter_service.html">
-                                        <img src="/static/img/sua-tam.jfif" class="card-img-top" alt="Ser-Pic-5">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="/html/pages/filter_service.html">
-                                            <h5 class="card-title text-center">Grooming</h5>
-                                        </a>
-                                        <p class="card-text">Chăm sóc, tạo phong cách và làm đẹp lông của chim.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <a href="/html/pages/filter_service.html">
-                                        <img src="/static/img/service-item-5.jpg" class="card-img-top" alt="Ser-Pic-6">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="/html/pages/filter_service.html">
-                                            <h5 class="card-title text-center">Đào tạo và huấn luyện</h5>
-                                        </a>
-                                        <p class="card-text">Đào tạo và tương tác để cải thiện mối quan hệ và kỹ năng
-                                            của chim cưng.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card">
-                                    <a href="/html/pages/filter_service.html">
-                                        <img src="/static/img/others_service.png" class="card-img-top" alt="Ser-Pic-6">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="/html/pages/filter_service.html">
-                                            <h5 class="card-title text-center">Khác</h5>
-                                        </a>
-                                        <p class="card-text">Những dịch vụ khác nhằm đảm bảo pet yêu của bạn khỏe mạnh
-                                            cũng như tăng thêm mối quan hệ thân thiết.</p>
-                                    </div>
-                                </div>
-                            </div>
+                            {{end}}
                         </div>
                     </div>
                     <!-- End Item -->
-
                 </div>
             </div>
         </div>

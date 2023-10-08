@@ -20,6 +20,7 @@ type templateData struct {
 	IsProvider      bool
 	Services        []sqlc.Service
 	User            sqlc.User
+	Categories      []sqlc.Category
 }
 
 func (app *application) newTemplateData(r *http.Request) *templateData {
