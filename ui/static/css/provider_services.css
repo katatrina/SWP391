@@ -83,10 +83,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .container .gutters .item {
-    border: 5px dashed #198754;
+    /* border: 5px dashed #198754; */
 }
 
 .container .service-card .card-item img {
@@ -123,4 +124,13 @@ body {
     font-size: 13px;
     margin: auto;
     margin-right: 24px;
+}
+
+/* Other else */
+.non-service {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    font-weight: 500;
 }

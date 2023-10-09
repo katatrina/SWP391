@@ -287,3 +287,8 @@
 .card .card-text {
     text-align: center;
 }
+
+.item .card-body {
+    height: 112px;
+    overflow: scroll;
+}
