@@ -29,17 +29,17 @@ ALTER TABLE users
 ALTER TABLE users
     ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 
-CREATE TABLE providerDetails
+CREATE TABLE provider_details
 (
     id           SERIAL PRIMARY KEY,
-    user_id      INT          NOT NULL UNIQUE,
+    provider_id  INT          NOT NULL UNIQUE,
     company_name VARCHAR(100) NOT NULL,
     tax_code     VARCHAR(50)  NOT NULL,
     created_at   timestamptz  NOT NULL DEFAULT NOW()
 );
 
-ALTER TABLE providerDetails
-    ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE provider_details
+    ADD FOREIGN KEY ("provider_id") REFERENCES "users" ("id");
 
 CREATE TABLE sessions
 (
@@ -63,17 +63,17 @@ ALTER TABLE categories
     ADD CONSTRAINT categories_uc_slug UNIQUE (slug);
 
 INSERT INTO categories (name, slug, thumbnail_url, description)
-VALUES ('Phụ kiện', 'phu-kien', '/static/img/accessories-category.jpg',
+VALUES ('Phụ kiện', 'accessory', '/static/img/accessories-category.jpg',
         'Các dịch vụ cung cấp đầy đủ các sản phẩm cần thiết cho chim cảnh'),
-       ('Dinh dưỡng và thức ăn', 'dinh-duong-va-thuc-an', '/static/img/nutrition-category.jpg',
+       ('Dinh dưỡng và thức ăn', 'nutrition-and-food', '/static/img/nutrition-category.jpg',
         'Các dịch vụ cung cấp đầy đủ các dinh dưỡng cần thiết cho chim cảnh'),
-       ('Y tế và chăm sóc sức khỏe', 'y-te-va-cham-soc-suc-khoe', '/static/img/healthcare-category.jpg',
+       ('Y tế và chăm sóc sức khỏe', 'health-care', '/static/img/healthcare-category.jpg',
         'Đảm bảo sức khỏe và phòng ngừa bệnh tật cho chim cảnh'),
        ('Grooming', 'grooming', '/static/img/grooming-category.jfif',
         'Chăm sóc, tạo phong cách và làm đẹp cho chim cảnh'),
-       ('Đào tạo và huấn luyện', 'dao-tao-va-huan-luyen', '/static/img/training-category.jpg',
+       ('Đào tạo và huấn luyện', 'training', '/static/img/training-category.jpg',
         'Đào tạo và tương tác để cải thiện mối quan hệ và kỹ năng cho chim cảnh'),
-       ('Khác', 'khac', '/static/img/others-category.png',
+       ('Khác', 'other', '/static/img/others-category.png',
         'Những dịch vụ khác nhằm đảm bảo pet yêu của bạn khỏe mạnh cũng như tăng thêm mối quan hệ thân thiết');
 
 CREATE TABLE services
@@ -109,6 +109,25 @@ ALTER TABLE "feedbacks"
 
 ALTER TABLE "feedbacks"
     ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+
+CREATE TABLE carts
+(
+    id         serial PRIMARY KEY,
+    user_id    INT NOT NULL UNIQUE, -- each user has only one cart
+    created_at timestamptz DEFAULT NOW()
+);
+
+ALTER TABLE "carts"
+    ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+
+CREATE TABLE cart_items
+(
+    id         SERIAL PRIMARY KEY,
+    cart_id    INTEGER REFERENCES carts (id) ON DELETE CASCADE    NOT NULL, -- link to cart
+    service_id INTEGER REFERENCES services (id) ON DELETE CASCADE NOT NULL, -- service in cart
+    quantity   INTEGER                                            NOT NULL,
+    price      INTEGER                                            NOT NULL
+);
 
 CREATE TABLE blogs
 (

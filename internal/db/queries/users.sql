@@ -17,14 +17,14 @@ SELECT *
 FROM users
 WHERE email = $1;
 
--- name: CreateCustomer :exec
+-- name: CreateCustomer :one
 INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
-VALUES ($1, $2, $3, $4, 1, $5);
+VALUES ($1, $2, $3, $4, 1, $5) RETURNING id;
 
 -- name: CreateProvider :one
 INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
 VALUES ($1, $2, $3, $4, 2, $5) RETURNING id;
 
 -- name: CreateProviderDetails :exec
-INSERT INTO providerDetails (user_id, company_name, tax_code)
+INSERT INTO provider_details (provider_id, company_name, tax_code)
 VALUES ($1, $2, $3);

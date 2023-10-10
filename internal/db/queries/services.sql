@@ -11,3 +11,8 @@ VALUES ($1, $2, $3, $4, $5, $6);
 SELECT *
 FROM services
 WHERE owned_by_user_id = $1;
+
+-- name: GetServicesByCategorySlug :many
+SELECT *
+FROM services
+WHERE category_id = (SELECT id FROM categories WHERE slug = $1);

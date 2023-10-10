@@ -9,9 +9,9 @@ import (
 	"context"
 )
 
-const createCustomer = `-- name: CreateCustomer :exec
+const createCustomer = `-- name: CreateCustomer :one
 INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
-VALUES ($1, $2, $3, $4, 1, $5)
+VALUES ($1, $2, $3, $4, 1, $5) RETURNING id
 `
 
 type CreateCustomerParams struct {
@@ -22,15 +22,17 @@ type CreateCustomerParams struct {
 	Password string `json:"hashed_password"`
 }
 
-func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) error {
-	_, err := q.db.ExecContext(ctx, createCustomer,
+func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) (int32, error) {
+	row := q.db.QueryRowContext(ctx, createCustomer,
 		arg.FullName,
 		arg.Email,
 		arg.Phone,
 		arg.Address,
 		arg.Password,
 	)
-	return err
+	var id int32
+	err := row.Scan(&id)
+	return id, err
 }
 
 const createProvider = `-- name: CreateProvider :one
@@ -60,18 +62,18 @@ func (q *Queries) CreateProvider(ctx context.Context, arg CreateProviderParams) 
 }
 
 const createProviderDetails = `-- name: CreateProviderDetails :exec
-INSERT INTO providerDetails (user_id, company_name, tax_code)
+INSERT INTO provider_details (provider_id, company_name, tax_code)
 VALUES ($1, $2, $3)
 `
 
 type CreateProviderDetailsParams struct {
-	UserID      int32  `json:"user_id"`
+	ProviderID  int32  `json:"provider_id"`
 	CompanyName string `json:"company_name"`
 	TaxCode     string `json:"tax_code"`
 }
 
 func (q *Queries) CreateProviderDetails(ctx context.Context, arg CreateProviderDetailsParams) error {
-	_, err := q.db.ExecContext(ctx, createProviderDetails, arg.UserID, arg.CompanyName, arg.TaxCode)
+	_, err := q.db.ExecContext(ctx, createProviderDetails, arg.ProviderID, arg.CompanyName, arg.TaxCode)
 	return err
 }
 

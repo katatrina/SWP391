@@ -33,11 +33,10 @@ type CreateProviderTxParams struct {
 }
 
 func (store *Store) CreateProviderTx(ctx context.Context, arg CreateProviderTxParams) error {
-
 	err := store.execTx(ctx, func(qtx *Queries) error {
 		var err error
 
-		id, err := qtx.CreateProvider(ctx, CreateProviderParams{
+		providerID, err := qtx.CreateProvider(ctx, CreateProviderParams{
 			FullName: arg.FullName,
 			Email:    arg.Email,
 			Phone:    arg.Phone,
@@ -49,10 +48,19 @@ func (store *Store) CreateProviderTx(ctx context.Context, arg CreateProviderTxPa
 		}
 
 		err = qtx.CreateProviderDetails(ctx, CreateProviderDetailsParams{
-			UserID:      id,
+			ProviderID:  providerID,
 			CompanyName: arg.CompanyName,
 			TaxCode:     arg.TaxCode,
 		})
+		if err != nil {
+			return err
+		}
+
+		// Create an empty cart for the provider.
+		err = qtx.CreateCart(ctx, providerID)
+		if err != nil {
+			return err
+		}
 
 		return nil
 	})

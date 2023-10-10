@@ -40,6 +40,45 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 	return err
 }
 
+const getServicesByCategorySlug = `-- name: GetServicesByCategorySlug :many
+SELECT id, title, description, price, category_id, thumbnail_url, owned_by_user_id, status, created_at
+FROM services
+WHERE category_id = (SELECT id FROM categories WHERE slug = $1)
+`
+
+func (q *Queries) GetServicesByCategorySlug(ctx context.Context, slug string) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, getServicesByCategorySlug, slug)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Service{}
+	for rows.Next() {
+		var i Service
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Description,
+			&i.Price,
+			&i.CategoryID,
+			&i.ThumbnailUrl,
+			&i.OwnedByUserID,
+			&i.Status,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listServiceByProvider = `-- name: ListServiceByProvider :many
 SELECT id, title, description, price, category_id, thumbnail_url, owned_by_user_id, status, created_at
 FROM services

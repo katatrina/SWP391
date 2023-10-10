@@ -9,19 +9,6 @@ import (
 	"context"
 )
 
-const getCategoryIDBySlug = `-- name: GetCategoryIDBySlug :one
-SELECT id
-FROM categories
-WHERE slug = $1
-`
-
-func (q *Queries) GetCategoryIDBySlug(ctx context.Context, slug string) (int32, error) {
-	row := q.db.QueryRowContext(ctx, getCategoryIDBySlug, slug)
-	var id int32
-	err := row.Scan(&id)
-	return id, err
-}
-
 const listCategories = `-- name: ListCategories :many
 SELECT id, name, slug, thumbnail_url, description
 FROM categories

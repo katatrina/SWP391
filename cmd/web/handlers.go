@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"github.com/julienschmidt/httprouter"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
 	"github.com/katatrina/SWP391/internal/validator"
 	"github.com/lib/pq"
@@ -17,7 +18,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	app.render(w, http.StatusOK, "home.html", data)
 }
 
-func (app *application) displayCategoryPage(w http.ResponseWriter, r *http.Request) {
+func (app *application) displayCategoriesPage(w http.ResponseWriter, r *http.Request) {
 	categories, err := app.store.ListCategories(r.Context())
 	if err != nil {
 		app.serverError(w, err)
@@ -27,7 +28,7 @@ func (app *application) displayCategoryPage(w http.ResponseWriter, r *http.Reque
 	data := app.newTemplateData(r)
 	data.Categories = categories
 
-	app.render(w, http.StatusOK, "services.html", data)
+	app.render(w, http.StatusOK, "categories.html", data)
 }
 
 func (app *application) displayBlogPage(w http.ResponseWriter, r *http.Request) {
@@ -105,17 +106,17 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 		Password: string(hashedPassword),
 	}
 
-	err = app.store.CreateCustomer(r.Context(), arg)
+	userID, err := app.store.CreateCustomer(r.Context(), arg)
 	if err != nil {
 		var postgreSQLError *pq.Error
 		if errors.As(err, &postgreSQLError) {
 			code := postgreSQLError.Code.Name()
 			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_email") {
-				form.AddFieldError("email", "Email address is already in use")
+				form.AddFieldError("email", "Địa chỉ email đã được sử dụng")
 			}
 
 			if code == "unique_violation" && strings.Contains(postgreSQLError.Message, "users_uc_phone") {
-				form.AddFieldError("phone", "Phone number is already in use")
+				form.AddFieldError("phone", "Số điện thoại đã được sử dụng")
 			}
 
 			data := app.newTemplateData(r)
@@ -129,7 +130,14 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	app.sessionManager.Put(r.Context(), "flash", "Your signup was successful. Please log in.")
+	// Create an empty cart for the customer.
+	err = app.store.CreateCart(r.Context(), userID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đăng ký tài khoản thành công. Vui lòng đăng nhập.")
 
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
@@ -302,7 +310,15 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 
 	// Add the ID of the current user to the session, so that they are now
 	// 'logged in'.
-	app.sessionManager.Put(r.Context(), "authenticatedUserID", int(user.ID))
+	app.sessionManager.Put(r.Context(), "authenticatedUserID", user.ID)
+
+	cartID, err := app.store.GetCartIDByUserId(r.Context(), user.ID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.sessionManager.Put(r.Context(), "cartID", cartID)
 
 	path := app.sessionManager.PopString(r.Context(), "redirectPathAfterLogin")
 	if path != "" {
@@ -334,9 +350,9 @@ func (app *application) doLogoutUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
-	userID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
-	user, err := app.store.GetUserByID(r.Context(), int32(userID))
+	user, err := app.store.GetUserByID(r.Context(), userID)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -349,9 +365,9 @@ func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) listProviderServices(w http.ResponseWriter, r *http.Request) {
-	providerID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+	providerID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
-	services, err := app.store.ListServiceByProvider(r.Context(), int32(providerID))
+	services, err := app.store.ListServiceByProvider(r.Context(), providerID)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -421,7 +437,7 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	fileName := header.Filename
 	thumbnailURL := "/static/img/" + fileName
 
-	userID := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
 	err = app.store.CreateService(r.Context(), sqlc.CreateServiceParams{
 		Title:         form.Title,
@@ -429,7 +445,7 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 		Price:         form.Price,
 		CategoryID:    form.CategoryID,
 		ThumbnailUrl:  thumbnailURL,
-		OwnedByUserID: int32(userID),
+		OwnedByUserID: userID,
 	})
 	if err != nil {
 		// TODO: Delete uploaded file from disk if creating service fails.
@@ -439,13 +455,74 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 
 	app.sessionManager.Put(r.Context(), "flash", "Bạn đã tạo dịch vụ thành công!")
 
-	http.Redirect(w, r, "/account/services", http.StatusSeeOther)
+	http.Redirect(w, r, "/account/my-services", http.StatusSeeOther)
 }
 
-func (app *application) displayServiceByCategoryPage(w http.ResponseWriter, r *http.Request) {
+func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *http.Request) {
+	params := httprouter.ParamsFromContext(r.Context())
+
+	categorySlug := params.ByName("slug")
+
+	services, err := app.store.GetServicesByCategorySlug(r.Context(), categorySlug)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
+	data.Services = services
 
 	app.render(w, http.StatusOK, "services_by_category.html", data)
+}
+
+type addItemToCartFormResult struct {
+	ServiceID int32 `form:"service_id"`
+	Quantity  int32 `form:"quantity"`
+}
+
+func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
+	var form addItemToCartFormResult
+
+	err := app.decodePostForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+
+	_, err = app.store.IsServiceExists(r.Context(), sqlc.IsServiceExistsParams{
+		CartID:    cartID,
+		ServiceID: form.ServiceID,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	//if isServiceExists {
+	//	err = app.store.UpdateCartItemQuantity(r.Context(), sqlc.UpdateCartItemQuantityParams{
+	//		CartID:    cartID,
+	//		ServiceID: form.ServiceID,
+	//		Quantity:  form.Quantity,
+	//	})
+	//	if err != nil {
+	//		app.serverError(w, err)
+	//		return
+	//	}
+	//} else {
+	//	err = app.store.AddServiceToCart(r.Context(), sqlc.AddServiceToCartParams{
+	//		CartID:    cartID,
+	//		ServiceID: form.ServiceID,
+	//		Quantity:  form.Quantity,
+	//		Price:     0,
+	//	})
+	//	if err != nil {
+	//		app.serverError(w, err)
+	//		return
+	//	}
+	//}
+
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {

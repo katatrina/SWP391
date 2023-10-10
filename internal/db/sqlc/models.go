@@ -5,6 +5,7 @@
 package sqlc
 
 import (
+	"database/sql"
 	"time"
 )
 
@@ -13,6 +14,20 @@ type Blog struct {
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+type Cart struct {
+	ID        int32        `json:"id"`
+	UserID    int32        `json:"user_id"`
+	CreatedAt sql.NullTime `json:"created_at"`
+}
+
+type CartItem struct {
+	ID        int32 `json:"id"`
+	CartID    int32 `json:"cart_id"`
+	ServiceID int32 `json:"service_id"`
+	Quantity  int32 `json:"quantity"`
+	Price     int32 `json:"price"`
 }
 
 type Category struct {
@@ -51,9 +66,9 @@ type Orderdetail struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-type Providerdetail struct {
+type ProviderDetail struct {
 	ID          int32     `json:"id"`
-	UserID      int32     `json:"user_id"`
+	ProviderID  int32     `json:"provider_id"`
 	CompanyName string    `json:"company_name"`
 	TaxCode     string    `json:"tax_code"`
 	CreatedAt   time.Time `json:"created_at"`

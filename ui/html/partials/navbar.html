@@ -13,13 +13,13 @@
                     <a class="nav-link mx-2" aria-current="page" href="/">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="/services">Dịch vụ</a>
+                    <a class="nav-link mx-2" href="/service">Dịch vụ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Blog</a>
+                    <a class="nav-link mx-2" href="/blog">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Về chúng tôi</a>
+                    <a class="nav-link mx-2" href="/about">Về chúng tôi</a>
                 </li>
             </ul>
             <ul class="nav-right navbar-nav d-none d-lg-inline-flex" style="align-items: center;">
@@ -39,11 +39,11 @@
                             <i class="ti-user"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="/account/view">Tài khoản</i></a></li>
+                            <li><a class="dropdown-item" href="/account">Tài khoản</i></a></li>
                             <li><a class="dropdown-item" href="#">Đơn mua</a></li>
                             {{if .IsProvider}}
                             <li><a class="dropdown-item" href="#">Đơn bán</a></li>
-                            <li><a class="dropdown-item" href="/account/services">Dịch vụ đã đăng</a></li>
+                            <li><a class="dropdown-item" href="/account/my-services">Dịch vụ đã đăng</a></li>
                             {{end}}
                             <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
                         </ul>

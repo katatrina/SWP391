@@ -19,9 +19,9 @@ func (app *application) routes() http.Handler {
 	// Guest permissions.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 
-	router.Handler(http.MethodGet, "/services", dynamic.ThenFunc(app.displayCategoryPage))
-	router.Handler(http.MethodGet, "/services/danh-muc/:slug", dynamic.ThenFunc(app.displayServiceByCategoryPage))
-	router.Handler(http.MethodGet, "/blogs", dynamic.ThenFunc(app.displayBlogPage))
+	router.Handler(http.MethodGet, "/service", dynamic.ThenFunc(app.displayCategoriesPage))
+	router.Handler(http.MethodGet, "/service/category/:slug", dynamic.ThenFunc(app.displayServicesByCategoryPage))
+	router.Handler(http.MethodGet, "/blog", dynamic.ThenFunc(app.displayBlogPage))
 	router.Handler(http.MethodGet, "/about", dynamic.ThenFunc(app.about))
 
 	router.Handler(http.MethodGet, "/signup", dynamic.ThenFunc(app.displayMainSignupPage))
@@ -38,14 +38,15 @@ func (app *application) routes() http.Handler {
 	// User permissions.
 	protected := dynamic.Append(app.requireAuthentication)
 
+	router.Handler(http.MethodGet, "/account", protected.ThenFunc(app.viewAccount))
 	router.Handler(http.MethodGet, "/logout", protected.ThenFunc(app.doLogoutUser))
 
-	router.Handler(http.MethodGet, "/account/view", protected.ThenFunc(app.viewAccount))
+	router.Handler(http.MethodPost, "/add-item-to-cart", protected.ThenFunc(app.addItemToCart))
 
 	// Provider permissions.
 	advanced := protected.Append(app.requireProviderPermission)
 
-	router.Handler(http.MethodGet, "/account/services", advanced.ThenFunc(app.listProviderServices))
+	router.Handler(http.MethodGet, "/account/my-services", advanced.ThenFunc(app.listProviderServices))
 
 	router.Handler(http.MethodGet, "/service/create", advanced.ThenFunc(app.displayCreateServicePage))
 	router.Handler(http.MethodPost, "/service/create", advanced.ThenFunc(app.doCreateService))
