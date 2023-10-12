@@ -290,5 +290,8 @@
 
 .item .card-body {
     height: 112px;
+}
+
+.item .card-body p:last-child {
     overflow: scroll;
 }

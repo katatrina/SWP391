@@ -1,0 +1,203 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.spacer {
+    height: 72px;
+}
+
+/* Container */
+.container {
+    margin: 64px auto;
+}
+
+/* Card Service Img */
+.service-img {
+    position: relative;
+    width: 504px;
+    height: 504px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.08) 2px 4px 24px 0px;
+    border-radius: 14px;
+}
+
+.service-img img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0px;
+    object-fit: contain;
+}
+
+/* Card Service Provider Info */
+.provider-info {
+    display: flex;
+    width: 504px;
+    height: 100px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.08) 2px 4px 24px 0px;
+    border-radius: 14px;
+    margin-top: 21px;
+}
+
+.provider-img {
+    position: relative;
+    width: 100px;
+    height: -webkit-fill-available;
+}
+
+.provider-img img {
+    position: absolute;
+    height: 100%;
+    inset: 0px;
+    object-fit: contain;
+}
+
+.provider-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.provider-name p {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.provider-line {
+    margin: 0 16px;
+    font-size: 54px;
+    display: flex;
+    font-weight: 200;
+}
+
+
+/* Card Service Script */
+.service-script {
+    box-shadow: rgba(0, 0, 0, 0.08) 2px 4px 24px 0px;
+    border-radius: 14px;
+}
+
+.service-script .detail-text {
+    height: fit-content;
+    border-top: 1px solid grey;
+    padding: 32px;
+}
+
+.detail-text:first-child {
+    height: fit-content;
+    border-top: none;
+    margin: 0;
+}
+
+.detail-text h3 {
+    margin: 0px;
+    line-height: 1.5;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+label {
+    margin: 0;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Quantity */
+input,
+textarea {
+    border: 1px solid #eeeeee;
+    box-sizing: border-box;
+    margin: 0;
+    outline: none;
+    padding: 10px;
+}
+
+input[type="button"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.input-group {
+    clear: both;
+    margin: 15px 0;
+    position: relative;
+}
+
+.input-group input[type='button'] {
+    background-color: #eeeeee;
+    min-width: 38px;
+    width: auto;
+    transition: all 300ms ease;
+}
+
+.input-group .button-minus,
+.input-group .button-plus {
+    font-weight: bold;
+    height: 38px;
+    padding: 0;
+    width: 38px;
+    position: relative;
+}
+
+.input-group .quantity-field {
+    position: relative;
+    height: 38px;
+    left: -6px;
+    text-align: center;
+    width: 62px;
+    display: inline-block;
+    font-size: 13px;
+    margin: 0 0 5px;
+    resize: vertical;
+}
+
+.button-plus {
+    left: -13px;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+}
+
+.quantity button {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    border: 0px;
+    margin: 0px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    min-width: 64px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    color: rgb(255, 255, 255);
+    text-transform: none;
+    background: linear-gradient(rgb(57, 106, 252) 0%, rgb(41, 72, 255) 100%);
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    padding-block: 12px;
+    width: 209px;
+    padding-inline: 24px;
+}
