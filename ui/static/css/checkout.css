@@ -1,0 +1,59 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* heading */
+.heading {
+    background-color: #e3e5e8;
+}
+
+.heading a {
+    text-decoration: none;
+    color: black;
+}
+
+.table a {
+    text-decoration: none;
+    color: black;
+}
+
+.i-icon {
+    text-align: center;
+    position: relative;
+}
+
+.table i {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Ảnh Dịch vụ */
+img {
+    background-size: cover;
+    width: 100px;
+    height: fit-content;
+}
+
+/* Thông tin Provider */
+.provider-detail {
+    border-bottom: 1px solid;
+}
+
+.provider-detail a {
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+    color: rgba(0, 0, 0, .87);
+    font-weight: 500;
+    min-width: 50px;
+    display: flex;
+    align-items: center
+}
+
+/* Tổng thanh toán */
+.pay-check td {
+    text-align: right;
+}
