@@ -1,6 +1,9 @@
 package sqlc
 
-import "context"
+import (
+	"context"
+	"golang.org/x/crypto/bcrypt"
+)
 
 func (store *Store) execTx(ctx context.Context, fn func(*Queries) error) error {
 	tx, err := store.db.BeginTx(ctx, nil)
@@ -36,12 +39,17 @@ func (store *Store) CreateProviderTx(ctx context.Context, arg CreateProviderTxPa
 	err := store.execTx(ctx, func(qtx *Queries) error {
 		var err error
 
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(arg.Password), bcrypt.DefaultCost)
+		if err != nil {
+			return err
+		}
+
 		providerID, err := qtx.CreateProvider(ctx, CreateProviderParams{
 			FullName: arg.FullName,
 			Email:    arg.Email,
 			Phone:    arg.Phone,
 			Address:  arg.Phone,
-			Password: arg.Password,
+			Password: string(hashedPassword),
 		})
 		if err != nil {
 			return err
@@ -58,6 +66,38 @@ func (store *Store) CreateProviderTx(ctx context.Context, arg CreateProviderTxPa
 
 		// Create an empty cart for the provider.
 		err = qtx.CreateCart(ctx, providerID)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	return err
+}
+
+func (store *Store) CreateCustomerTx(ctx context.Context, arg CreateCustomerParams) error {
+	err := store.execTx(ctx, func(qtx *Queries) error {
+		var err error
+
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(arg.Password), bcrypt.DefaultCost)
+		if err != nil {
+			return err
+		}
+
+		customerID, err := qtx.CreateCustomer(ctx, CreateCustomerParams{
+			FullName: arg.FullName,
+			Email:    arg.Email,
+			Phone:    arg.Phone,
+			Address:  arg.Address,
+			Password: string(hashedPassword),
+		})
+		if err != nil {
+			return err
+		}
+
+		// Create an empty cart for the customer.
+		err = qtx.CreateCart(ctx, customerID)
 		if err != nil {
 			return err
 		}

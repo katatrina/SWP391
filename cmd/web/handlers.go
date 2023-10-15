@@ -31,18 +31,6 @@ func (app *application) displayCategoriesPage(w http.ResponseWriter, r *http.Req
 	app.render(w, http.StatusOK, "categories.html", data)
 }
 
-func (app *application) displayBlogPage(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
-
-	app.render(w, http.StatusOK, "blogs.html", data)
-}
-
-func (app *application) about(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
-
-	app.render(w, http.StatusOK, "about.html", data)
-}
-
 func (app *application) displayMainSignupPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
@@ -50,7 +38,7 @@ func (app *application) displayMainSignupPage(w http.ResponseWriter, r *http.Req
 }
 
 type customerSignupFormResult struct {
-	FullName            string `form:"fullName"`
+	FullName            string `form:"full_name"`
 	Email               string `form:"email"`
 	Phone               string `form:"phone"`
 	Address             string `form:"address"`
@@ -106,7 +94,7 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 		Password: string(hashedPassword),
 	}
 
-	userID, err := app.store.CreateCustomer(r.Context(), arg)
+	err = app.store.CreateCustomerTx(r.Context(), arg)
 	if err != nil {
 		var postgreSQLError *pq.Error
 		if errors.As(err, &postgreSQLError) {
@@ -130,25 +118,18 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// Create an empty cart for the customer.
-	err = app.store.CreateCart(r.Context(), userID)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
 	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đăng ký tài khoản thành công. Vui lòng đăng nhập.")
 
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 type providerSignupFormResult struct {
-	FullName            string `form:"fullName"`
+	FullName            string `form:"full_name"`
 	Email               string `form:"email"`
 	Phone               string `form:"phone"`
 	Address             string `form:"address"`
-	CompanyName         string `form:"companyName"`
-	TaxCode             string `form:"taxCode"`
+	CompanyName         string `form:"company_name"`
+	TaxCode             string `form:"tax_code"`
 	Password            string `form:"password"`
 	validator.Validator `form:"-"`
 }
@@ -435,17 +416,17 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	}
 
 	fileName := header.Filename
-	thumbnailURL := "/static/img/" + fileName
+	imagePath := "/static/img/" + fileName
 
-	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+	providerID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
 	err = app.store.CreateService(r.Context(), sqlc.CreateServiceParams{
-		Title:         form.Title,
-		Description:   form.Description,
-		Price:         form.Price,
-		CategoryID:    form.CategoryID,
-		ThumbnailUrl:  thumbnailURL,
-		OwnedByUserID: userID,
+		Title:             form.Title,
+		Description:       form.Description,
+		Price:             form.Price,
+		CategoryID:        form.CategoryID,
+		ImagePath:         imagePath,
+		OwnedByProviderID: providerID,
 	})
 	if err != nil {
 		// TODO: Delete uploaded file from disk if creating service fails.
@@ -475,6 +456,12 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 	app.render(w, http.StatusOK, "services_by_category.html", data)
 }
 
+func (app *application) displayCartPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "cart.html", data)
+}
+
 type addItemToCartFormResult struct {
 	ServiceID int32 `form:"service_id"`
 	Quantity  int32 `form:"quantity"`
@@ -491,38 +478,54 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 
 	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
 
-	_, err = app.store.IsServiceExists(r.Context(), sqlc.IsServiceExistsParams{
+	service, err := app.store.GetServiceByID(r.Context(), form.ServiceID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	isServiceAlreadyInCart, err := app.store.IsServiceAlreadyInCart(r.Context(), sqlc.IsServiceAlreadyInCartParams{
 		CartID:    cartID,
-		ServiceID: form.ServiceID,
+		ServiceID: service.ID,
 	})
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	//if isServiceExists {
-	//	err = app.store.UpdateCartItemQuantity(r.Context(), sqlc.UpdateCartItemQuantityParams{
-	//		CartID:    cartID,
-	//		ServiceID: form.ServiceID,
-	//		Quantity:  form.Quantity,
-	//	})
-	//	if err != nil {
-	//		app.serverError(w, err)
-	//		return
-	//	}
-	//} else {
-	//	err = app.store.AddServiceToCart(r.Context(), sqlc.AddServiceToCartParams{
-	//		CartID:    cartID,
-	//		ServiceID: form.ServiceID,
-	//		Quantity:  form.Quantity,
-	//		Price:     0,
-	//	})
-	//	if err != nil {
-	//		app.serverError(w, err)
-	//		return
-	//	}
-	//}
+	// If the service is already in the cart, update the quantity and sub-total.
+	if isServiceAlreadyInCart {
+		cartItem, err := app.store.GetCartItemByCartIDAndServiceID(r.Context(), sqlc.GetCartItemByCartIDAndServiceIDParams{
+			CartID:    cartID,
+			ServiceID: service.ID,
+		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
 
+		err = app.store.UpdateCartItemQuantity(r.Context(), sqlc.UpdateCartItemQuantityParams{
+			Quantity:  cartItem.Quantity + form.Quantity,
+			SubTotal:  cartItem.SubTotal + service.Price*form.Quantity,
+			CartID:    cartID,
+			ServiceID: service.ID,
+		})
+
+	} else {
+		// If the service is not in the cart, add it to the cart.
+		err = app.store.AddServiceToCart(r.Context(), sqlc.AddServiceToCartParams{
+			CartID:    cartID,
+			ServiceID: service.ID,
+			Quantity:  form.Quantity,
+			SubTotal:  service.Price * form.Quantity,
+		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+	}
+
+	http.Redirect(w, r, r.URL.Path, http.StatusSeeOther)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {

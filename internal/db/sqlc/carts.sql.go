@@ -10,7 +10,7 @@ import (
 )
 
 const addServiceToCart = `-- name: AddServiceToCart :exec
-INSERT INTO cart_items (cart_id, service_id, quantity, price)
+INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
 VALUES ($1, $2, $3, $4)
 `
 
@@ -18,7 +18,7 @@ type AddServiceToCartParams struct {
 	CartID    int32 `json:"cart_id"`
 	ServiceID int32 `json:"service_id"`
 	Quantity  int32 `json:"quantity"`
-	Price     int32 `json:"price"`
+	SubTotal  int32 `json:"sub_total"`
 }
 
 func (q *Queries) AddServiceToCart(ctx context.Context, arg AddServiceToCartParams) error {
@@ -26,7 +26,7 @@ func (q *Queries) AddServiceToCart(ctx context.Context, arg AddServiceToCartPara
 		arg.CartID,
 		arg.ServiceID,
 		arg.Quantity,
-		arg.Price,
+		arg.SubTotal,
 	)
 	return err
 }
@@ -42,7 +42,9 @@ func (q *Queries) CreateCart(ctx context.Context, userID int32) error {
 }
 
 const getCartIDByUserId = `-- name: GetCartIDByUserId :one
-SELECT id FROM carts WHERE user_id = $1
+SELECT id
+FROM carts
+WHERE user_id = $1
 `
 
 func (q *Queries) GetCartIDByUserId(ctx context.Context, userID int32) (int32, error) {
@@ -52,18 +54,71 @@ func (q *Queries) GetCartIDByUserId(ctx context.Context, userID int32) (int32, e
 	return id, err
 }
 
-const isServiceExists = `-- name: IsServiceExists :one
-SELECT EXISTS(SELECT 1 FROM cart_items WHERE cart_id = $1 AND service_id = $2)
+const getCartItemByCartIDAndServiceID = `-- name: GetCartItemByCartIDAndServiceID :one
+SELECT id, cart_id, service_id, quantity, sub_total
+FROM cart_items
+WHERE cart_id = $1
+  AND service_id = $2
 `
 
-type IsServiceExistsParams struct {
+type GetCartItemByCartIDAndServiceIDParams struct {
 	CartID    int32 `json:"cart_id"`
 	ServiceID int32 `json:"service_id"`
 }
 
-func (q *Queries) IsServiceExists(ctx context.Context, arg IsServiceExistsParams) (bool, error) {
-	row := q.db.QueryRowContext(ctx, isServiceExists, arg.CartID, arg.ServiceID)
+func (q *Queries) GetCartItemByCartIDAndServiceID(ctx context.Context, arg GetCartItemByCartIDAndServiceIDParams) (CartItem, error) {
+	row := q.db.QueryRowContext(ctx, getCartItemByCartIDAndServiceID, arg.CartID, arg.ServiceID)
+	var i CartItem
+	err := row.Scan(
+		&i.ID,
+		&i.CartID,
+		&i.ServiceID,
+		&i.Quantity,
+		&i.SubTotal,
+	)
+	return i, err
+}
+
+const isServiceAlreadyInCart = `-- name: IsServiceAlreadyInCart :one
+SELECT EXISTS(SELECT 1
+              FROM cart_items
+              WHERE cart_id = $1
+                AND service_id = $2)
+`
+
+type IsServiceAlreadyInCartParams struct {
+	CartID    int32 `json:"cart_id"`
+	ServiceID int32 `json:"service_id"`
+}
+
+func (q *Queries) IsServiceAlreadyInCart(ctx context.Context, arg IsServiceAlreadyInCartParams) (bool, error) {
+	row := q.db.QueryRowContext(ctx, isServiceAlreadyInCart, arg.CartID, arg.ServiceID)
 	var exists bool
 	err := row.Scan(&exists)
 	return exists, err
+}
+
+const updateCartItemQuantity = `-- name: UpdateCartItemQuantity :exec
+UPDATE cart_items
+SET quantity  = $1,
+    sub_total = $2
+WHERE cart_id = $3
+  AND service_id = $4
+`
+
+type UpdateCartItemQuantityParams struct {
+	Quantity  int32 `json:"quantity"`
+	SubTotal  int32 `json:"sub_total"`
+	CartID    int32 `json:"cart_id"`
+	ServiceID int32 `json:"service_id"`
+}
+
+func (q *Queries) UpdateCartItemQuantity(ctx context.Context, arg UpdateCartItemQuantityParams) error {
+	_, err := q.db.ExecContext(ctx, updateCartItemQuantity,
+		arg.Quantity,
+		arg.SubTotal,
+		arg.CartID,
+		arg.ServiceID,
+	)
+	return err
 }

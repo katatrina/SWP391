@@ -10,7 +10,7 @@ import (
 )
 
 const listCategories = `-- name: ListCategories :many
-SELECT id, name, slug, thumbnail_url, description
+SELECT id, name, slug, image_path, description
 FROM categories
 ORDER BY id ASC
 `
@@ -28,12 +28,41 @@ func (q *Queries) ListCategories(ctx context.Context) ([]Category, error) {
 			&i.ID,
 			&i.Name,
 			&i.Slug,
-			&i.ThumbnailUrl,
+			&i.ImagePath,
 			&i.Description,
 		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listCategoryIDs = `-- name: ListCategoryIDs :many
+SELECT id
+FROM categories
+ORDER BY id ASC
+`
+
+func (q *Queries) ListCategoryIDs(ctx context.Context) ([]int32, error) {
+	rows, err := q.db.QueryContext(ctx, listCategoryIDs)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []int32{}
+	for rows.Next() {
+		var id int32
+		if err := rows.Scan(&id); err != nil {
+			return nil, err
+		}
+		items = append(items, id)
 	}
 	if err := rows.Close(); err != nil {
 		return nil, err

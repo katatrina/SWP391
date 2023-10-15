@@ -7,6 +7,7 @@ package sqlc
 
 import (
 	"context"
+	"time"
 )
 
 const createCustomer = `-- name: CreateCustomer :one
@@ -144,4 +145,61 @@ func (q *Queries) IsUserExist(ctx context.Context, id int32) (bool, error) {
 	var exists bool
 	err := row.Scan(&exists)
 	return exists, err
+}
+
+const listProviders = `-- name: ListProviders :many
+SELECT u.id,
+       u.full_name,
+       u.email,
+       u.phone,
+       u.address,
+       u.created_at,
+       pd.company_name,
+       pd.tax_code
+FROM users u
+         JOIN provider_details pd ON u.id = pd.provider_id
+WHERE u.role_id = (SELECT id FROM roles WHERE name = 'provider')
+`
+
+type ListProvidersRow struct {
+	ID          int32     `json:"id"`
+	FullName    string    `json:"full_name"`
+	Email       string    `json:"email"`
+	Phone       string    `json:"phone"`
+	Address     string    `json:"address"`
+	CreatedAt   time.Time `json:"created_at"`
+	CompanyName string    `json:"company_name"`
+	TaxCode     string    `json:"tax_code"`
+}
+
+func (q *Queries) ListProviders(ctx context.Context) ([]ListProvidersRow, error) {
+	rows, err := q.db.QueryContext(ctx, listProviders)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListProvidersRow{}
+	for rows.Next() {
+		var i ListProvidersRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.FullName,
+			&i.Email,
+			&i.Phone,
+			&i.Address,
+			&i.CreatedAt,
+			&i.CompanyName,
+			&i.TaxCode,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

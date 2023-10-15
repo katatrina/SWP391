@@ -28,3 +28,16 @@ VALUES ($1, $2, $3, $4, 2, $5) RETURNING id;
 -- name: CreateProviderDetails :exec
 INSERT INTO provider_details (provider_id, company_name, tax_code)
 VALUES ($1, $2, $3);
+
+-- name: ListProviders :many
+SELECT u.id,
+       u.full_name,
+       u.email,
+       u.phone,
+       u.address,
+       u.created_at,
+       pd.company_name,
+       pd.tax_code
+FROM users u
+         JOIN provider_details pd ON u.id = pd.provider_id
+WHERE u.role_id = (SELECT id FROM roles WHERE name = 'provider');

@@ -10,22 +10,17 @@ import (
 )
 
 const createService = `-- name: CreateService :exec
-INSERT INTO services (title,
-                      description,
-                      price,
-                      category_id,
-                      thumbnail_url,
-                      owned_by_user_id)
+INSERT INTO services (title, description, price, image_path, category_id, owned_by_provider_id)
 VALUES ($1, $2, $3, $4, $5, $6)
 `
 
 type CreateServiceParams struct {
-	Title         string `json:"title"`
-	Description   string `json:"description"`
-	Price         int32  `json:"price"`
-	CategoryID    int32  `json:"category_id"`
-	ThumbnailUrl  string `json:"thumbnail_url"`
-	OwnedByUserID int32  `json:"owned_by_user_id"`
+	Title             string `json:"title"`
+	Description       string `json:"description"`
+	Price             int32  `json:"price"`
+	ImagePath         string `json:"image_path"`
+	CategoryID        int32  `json:"category_id"`
+	OwnedByProviderID int32  `json:"owned_by_provider_id"`
 }
 
 func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) error {
@@ -33,15 +28,38 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 		arg.Title,
 		arg.Description,
 		arg.Price,
+		arg.ImagePath,
 		arg.CategoryID,
-		arg.ThumbnailUrl,
-		arg.OwnedByUserID,
+		arg.OwnedByProviderID,
 	)
 	return err
 }
 
+const getServiceByID = `-- name: GetServiceByID :one
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+FROM services
+WHERE id = $1
+`
+
+func (q *Queries) GetServiceByID(ctx context.Context, id int32) (Service, error) {
+	row := q.db.QueryRowContext(ctx, getServiceByID, id)
+	var i Service
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Description,
+		&i.Price,
+		&i.ImagePath,
+		&i.CategoryID,
+		&i.OwnedByProviderID,
+		&i.Status,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getServicesByCategorySlug = `-- name: GetServicesByCategorySlug :many
-SELECT id, title, description, price, category_id, thumbnail_url, owned_by_user_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services
 WHERE category_id = (SELECT id FROM categories WHERE slug = $1)
 `
@@ -60,9 +78,9 @@ func (q *Queries) GetServicesByCategorySlug(ctx context.Context, slug string) ([
 			&i.Title,
 			&i.Description,
 			&i.Price,
+			&i.ImagePath,
 			&i.CategoryID,
-			&i.ThumbnailUrl,
-			&i.OwnedByUserID,
+			&i.OwnedByProviderID,
 			&i.Status,
 			&i.CreatedAt,
 		); err != nil {
@@ -80,13 +98,13 @@ func (q *Queries) GetServicesByCategorySlug(ctx context.Context, slug string) ([
 }
 
 const listServiceByProvider = `-- name: ListServiceByProvider :many
-SELECT id, title, description, price, category_id, thumbnail_url, owned_by_user_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services
-WHERE owned_by_user_id = $1
+WHERE owned_by_provider_id = $1
 `
 
-func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByUserID int32) ([]Service, error) {
-	rows, err := q.db.QueryContext(ctx, listServiceByProvider, ownedByUserID)
+func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByProviderID int32) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, listServiceByProvider, ownedByProviderID)
 	if err != nil {
 		return nil, err
 	}
@@ -99,9 +117,9 @@ func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByUserID int32
 			&i.Title,
 			&i.Description,
 			&i.Price,
+			&i.ImagePath,
 			&i.CategoryID,
-			&i.ThumbnailUrl,
-			&i.OwnedByUserID,
+			&i.OwnedByProviderID,
 			&i.Status,
 			&i.CreatedAt,
 		); err != nil {

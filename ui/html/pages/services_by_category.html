@@ -103,7 +103,7 @@
                     <div class="col-md-4">
                         <div class="card-item card">
                             <a href="#">
-                                <img src="{{.ThumbnailUrl}}" class="card-img-top" alt="Ser-Pic-1">
+                                <img src="{{.ImagePath}}" class="card-img-top" alt="Ser-Pic-1">
                             </a>
                             <div class="card-body">
                                 <a href="#">
@@ -112,8 +112,9 @@
 
                                 <div class="card-bottom">
                                     <p>Giá: {{.Price}} VNĐ</p>
-                                    <form action="/add-item-to-cart?quantity=1" method="POST">
+                                    <form action="/cart/add" method="POST">
                                         <input type="hidden" name="service_id" value="{{.ID}}">
+                                        <input type="hidden" name="quantity" value="1"/>
                                         <button type="submit">Thêm vào giỏ hàng</button>
                                     </form>
 
@@ -122,132 +123,6 @@
                         </div>
                     </div>
                     {{end}}
-                    <!-- End Fake Item -->
-                    <!-- Thêm Các dịch vụ tại đây -->
-                    <!--                        <div class="col-md-4">-->
-                    <!--                            <div class="card-item card">-->
-                    <!--                                &lt;!&ndash; Start Service's Img &ndash;&gt;-->
-                    <!--                                <a href="#">-->
-                    <!--                                    <img src="/static/img/service-item-1.jpg" class="card-img-top" alt="Ser-Pic-1">-->
-                    <!--                                </a>-->
-                    <!--                                &lt;!&ndash; End Service's Img &ndash;&gt;-->
-                    <!--                                <div class="card-body">-->
-                    <!--                                    &lt;!&ndash; Start Service's Title &ndash;&gt;-->
-                    <!--                                    <a href="#">-->
-                    <!--                                        <h5 class="card-title text-center">Bảo dưỡng lồng</h5>-->
-                    <!--                                    </a>-->
-                    <!--                                    &lt;!&ndash; End Service's Title &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; Start  Service's Description&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; <p class="card-text">Cung cấp không gian an toàn cho chim cưng để sống và di-->
-                    <!--                                                                    chuyển.-->
-                    <!--                                                                </p> &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; End Service's Description &ndash;&gt;-->
-
-                    <!--                                    <div class="card-bottom">-->
-                    <!--                                        &lt;!&ndash; Start Service's Price &ndash;&gt;-->
-                    <!--                                        <p>Giá: 292,000đ</p>-->
-                    <!--                                        &lt;!&ndash; End Service's Price &ndash;&gt;-->
-
-                    <!--                                        &lt;!&ndash; Click Button &ndash;&gt;-->
-                    <!--                                        <button type="submit">Thêm vào giỏ hàng</button>-->
-                    <!--                                        &lt;!&ndash; End Button &ndash;&gt;-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="col-md-4">-->
-                    <!--                            <div class="card-item card">-->
-                    <!--                                &lt;!&ndash; Start Service's Img &ndash;&gt;-->
-                    <!--                                <a href="#">-->
-                    <!--                                    <img src="/static/img/service-item-1.jpg" class="card-img-top" alt="Ser-Pic-1">-->
-                    <!--                                </a>-->
-                    <!--                                &lt;!&ndash; End Service's Img &ndash;&gt;-->
-                    <!--                                <div class="card-body">-->
-                    <!--                                    &lt;!&ndash; Start Service's Title &ndash;&gt;-->
-                    <!--                                    <a href="#">-->
-                    <!--                                        <h5 class="card-title text-center">Bảo dưỡng lồng</h5>-->
-                    <!--                                    </a>-->
-                    <!--                                    &lt;!&ndash; End Service's Title &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; Start  Service's Description&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; <p class="card-text">Cung cấp không gian an toàn cho chim cưng để sống và di-->
-                    <!--                                                                    chuyển.-->
-                    <!--                                                                </p> &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; End Service's Description &ndash;&gt;-->
-
-                    <!--                                    <div class="card-bottom">-->
-                    <!--                                        &lt;!&ndash; Start Service's Price &ndash;&gt;-->
-                    <!--                                        <p>Giá: 292,000đ</p>-->
-                    <!--                                        &lt;!&ndash; End Service's Price &ndash;&gt;-->
-
-                    <!--                                        &lt;!&ndash; Click Button &ndash;&gt;-->
-                    <!--                                        <button type="submit">Thêm vào giỏ hàng</button>-->
-                    <!--                                        &lt;!&ndash; End Button &ndash;&gt;-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="col-md-4">-->
-                    <!--                            <div class="card-item card">-->
-                    <!--                                &lt;!&ndash; Start Service's Img &ndash;&gt;-->
-                    <!--                                <a href="#">-->
-                    <!--                                    <img src="/static/img/service-item-1.jpg" class="card-img-top" alt="Ser-Pic-1">-->
-                    <!--                                </a>-->
-                    <!--                                &lt;!&ndash; End Service's Img &ndash;&gt;-->
-                    <!--                                <div class="card-body">-->
-                    <!--                                    &lt;!&ndash; Start Service's Title &ndash;&gt;-->
-                    <!--                                    <a href="#">-->
-                    <!--                                        <h5 class="card-title text-center">Bảo dưỡng lồng</h5>-->
-                    <!--                                    </a>-->
-                    <!--                                    &lt;!&ndash; End Service's Title &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; Start  Service's Description&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; <p class="card-text">Cung cấp không gian an toàn cho chim cưng để sống và di-->
-                    <!--                                                                    chuyển.-->
-                    <!--                                                                </p> &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; End Service's Description &ndash;&gt;-->
-
-                    <!--                                    <div class="card-bottom">-->
-                    <!--                                        &lt;!&ndash; Start Service's Price &ndash;&gt;-->
-                    <!--                                        <p>Giá: 292,000đ</p>-->
-                    <!--                                        &lt;!&ndash; End Service's Price &ndash;&gt;-->
-
-                    <!--                                        &lt;!&ndash; Click Button &ndash;&gt;-->
-                    <!--                                        <button type="submit">Thêm vào giỏ hàng</button>-->
-                    <!--                                        &lt;!&ndash; End Button &ndash;&gt;-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="col-md-4">-->
-                    <!--                            <div class="card-item card">-->
-                    <!--                                &lt;!&ndash; Start Service's Img &ndash;&gt;-->
-                    <!--                                <a href="#">-->
-                    <!--                                    <img src="/static/img/service-item-1.jpg" class="card-img-top" alt="Ser-Pic-1">-->
-                    <!--                                </a>-->
-                    <!--                                &lt;!&ndash; End Service's Img &ndash;&gt;-->
-                    <!--                                <div class="card-body">-->
-                    <!--                                    &lt;!&ndash; Start Service's Title &ndash;&gt;-->
-                    <!--                                    <a href="#">-->
-                    <!--                                        <h5 class="card-title text-center">Bảo dưỡng lồng</h5>-->
-                    <!--                                    </a>-->
-                    <!--                                    &lt;!&ndash; End Service's Title &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; Start  Service's Description&ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; <p class="card-text">Cung cấp không gian an toàn cho chim cưng để sống và di-->
-                    <!--                                                                    chuyển.-->
-                    <!--                                                                </p> &ndash;&gt;-->
-                    <!--                                    &lt;!&ndash; End Service's Description &ndash;&gt;-->
-
-                    <!--                                    <div class="card-bottom">-->
-                    <!--                                        &lt;!&ndash; Start Service's Price &ndash;&gt;-->
-                    <!--                                        <p>Giá: 292,000đ</p>-->
-                    <!--                                        &lt;!&ndash; End Service's Price &ndash;&gt;-->
-
-                    <!--                                        &lt;!&ndash; Click Button &ndash;&gt;-->
-                    <!--                                        <button type="submit">Thêm vào giỏ hàng</button>-->
-                    <!--                                        &lt;!&ndash; End Button &ndash;&gt;-->
-                    <!--                                    </div>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
 
                 </div>
             </div>

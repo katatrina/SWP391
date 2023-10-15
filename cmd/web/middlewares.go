@@ -43,13 +43,13 @@ func (app *application) requireAuthentication(next http.Handler) http.Handler {
 
 func (app *application) authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id := app.sessionManager.GetInt(r.Context(), "authenticatedUserID")
+		id := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 		if id == 0 {
 			next.ServeHTTP(w, r)
 			return
 		}
 
-		exists, err := app.store.IsUserExist(r.Context(), int32(id))
+		exists, err := app.store.IsUserExist(r.Context(), id)
 		if err != nil {
 			app.serverError(w, err)
 			return
@@ -60,7 +60,7 @@ func (app *application) authenticate(next http.Handler) http.Handler {
 			r = r.WithContext(ctx)
 		}
 
-		isProvider, err := app.store.IsProvider(r.Context(), int32(id))
+		isProvider, err := app.store.IsProvider(r.Context(), id)
 		if err != nil {
 			app.serverError(w, err)
 			return
