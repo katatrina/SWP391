@@ -459,7 +459,7 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 func (app *application) displayCartPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
-	app.render(w, http.StatusOK, "cart.html", data)
+	app.render(w, http.StatusOK, "cart-demo.html", data)
 }
 
 type addItemToCartFormResult struct {

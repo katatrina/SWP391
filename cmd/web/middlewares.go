@@ -22,21 +22,6 @@ func (app *application) requireAuthentication(next http.Handler) http.Handler {
 
 		w.Header().Add("Cache-Control", "no-store")
 
-		endpoints := []string{
-			"/signup",
-			"/signup/customer",
-			"/signup/provider",
-			"/login",
-		}
-
-		// Redirect to account page if user is already logged in.
-		for _, route := range endpoints {
-			if r.URL.Path == route {
-				http.Redirect(w, r, "/account", http.StatusSeeOther)
-				return
-			}
-		}
-
 		next.ServeHTTP(w, r)
 	})
 }
