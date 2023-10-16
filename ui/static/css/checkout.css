@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+.container {
+    max-width: 960px;
+    background-color: #fff;
+    border-radius: 4px;
+    margin: 16px auto;
+}
+
 /* heading */
 .heading {
     background-color: #e3e5e8;
@@ -14,9 +21,35 @@
     color: black;
 }
 
+/* Table */
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 5px;
+}
+
+.table-head {
+    margin-bottom: 0;
+    margin: 12px 0;
+}
+
+.table-head th {
+    border-bottom: none;
+    width: 12px;
+}
+
 .table a {
     text-decoration: none;
     color: black;
+}
+
+.table-service {
+    margin: 32px 0px;
 }
 
 .i-icon {
@@ -28,13 +61,16 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    font-size: 9px;
+    color: blue;
+    font-weight: 700;
 }
 
 /* Ảnh Dịch vụ */
 img {
     background-size: cover;
-    width: 100px;
-    height: fit-content;
+    width: 60px;
+    height: 70px;
 }
 
 /* Thông tin Provider */
@@ -54,6 +90,93 @@ img {
 }
 
 /* Tổng thanh toán */
+.pay-check {
+    padding-left: 50%;
+}
+
 .pay-check td {
     text-align: right;
+    margin-top: 16px;
+}
+
+.custom-alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 5px;
+    display: none;
+}
+
+/* Address */
+.location {
+    padding: 28px 30px 24px;
+}
+
+.location-item {
+    display: flex;
+    align-items: center;
+}
+
+.location-item:first-child {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    color: #ee4d2d;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    flex: 1 1 auto;
+}
+
+.location-item:first-child h2 {
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin-left: 16px;
+}
+
+.address-detail {
+    display: block;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.user-info .name,
+.phone {
+    font-weight: 700;
+    color: #222;
+}
+
+.user-info .phone {
+    margin-left: 20px;
+}
+
+.user-info .address {
+    margin-left: 20px;
+    word-break: break-word;
+}
+
+.location-item button {
+    color: #4080ee;
+    text-transform: capitalize;
+    margin-left: 2.5rem;
+    cursor: pointer;
+    display: block;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: inherit;
+    margin-left: 20px;
 }

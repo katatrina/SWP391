@@ -18,238 +18,201 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- CheckOut CSS -->
+    <!-- Home CSS -->
     <link rel="stylesheet" href="/static/css/checkout.css">
 
     <!-- NavBar CSS -->
     <link rel="stylesheet" href="/static/css/navbar.css">
+
+    <!-- Banner CSS -->
+    <link rel="stylesheet" href="/static/css/banner.css">
 </head>
 
 <body>
     <!-- Navigation -->
-    <nav class="navigation navbar navbar-expand-lg navbar-light bg-light p-3">
-        <div class="container-fluid">
-            <div class=" collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: space-between;">
-                <a class="navbar-brand" href="/"><i class="ti-home"></i></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link mx-2" aria-current="page" href="/">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2" href="/service">Dịch vụ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2" href="/blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2" href="/about">Về chúng tôi</a>
-                    </li>
-                </ul>
-                <ul class="nav-right navbar-nav d-none d-lg-inline-flex" style="align-items: center;">
-                    <!-- User -->
-
-                    <!-- Cart Icon -->
-                    <li class="nav-item">
-                        <button class="nav-link mx-2">
-                            <i class="cart-icon ti-shopping-cart"></i>
-                        </button>
-                    </li>
-                    <!-- End Cart Icon -->
-                    <li class="nav-item mx-2">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="ti-user"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="/account">Tài khoản</i></a></li>
-                                <li><a class="dropdown-item" href="#">Đơn mua</a></li>
-
-                                <li><a class="dropdown-item" href="#">Đơn bán</a></li>
-                                <li><a class="dropdown-item" href="/account/my-services">Dịch vụ đã đăng</a></li>
-
-                                <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <!-- Login -->
-                    <li class="nav-item">
-                        <div class="login-text">
-                            <a class="nav-link" href="/login">Đăng Nhập</a>
-                        </div>
-
-                    </li>
-                    <!-- End Login -->
-
-                    <!-- Sign Up -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/signup">Đăng Ký</a>
-                    </li>
-                    <!-- End Sign Up -->
-
-
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {{template "navbar" .}}
     <!-- End Navigation -->
 
     <div class="spacer" style="height: 72px;"></div>
 
     <!-- Body Page -->
-    <section class="heading breadcrumb-section pb-3 pt-3">
-        <div class="container">
+    <section class="heading breadcrumb-section pb-3 pt-3" style="background-color: #dedcdc;">
+        <div class="container" style="background-color: #dedcdc;">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
             </ol>
         </div>
     </section>
-    <section class="product-page pb-4 pt-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-title">
-                        <h2 class="text-center">Bird Service | Giỏ Hàng</h2>
+
+    <section class="product-page pb-4 pt-4" style="background-color: #ebebeb;">
+
+        <div class="container" style="height: fit-content;">
+            <div class="Location">
+                <div class="Location-item">
+                    <i class="ti-location-pin"></i>
+                    <h2>Địa chỉ</h2>
+                </div>
+
+                <div class="location-item">
+
+                    <div class="address-detail">
+                        <div class="user-info">
+                            <div class="name">Nguyễn Văn A</div>
+                            <div class="phone">+84 023549168</div>
+                            <div class="address">123/AB, Nguyễn Văn Trỗi, Phường 5, Quận 1, Thành phố Hồ Chí Minh
+                            </div>
+                        </div>
                     </div>
+                    <button>Thay đổi</button>
+
                 </div>
             </div>
+        </div>
+
+        <div class="container">
             <!-- Table 1 -->
             <div class="row">
                 <!-- <div class="table-responsive mt-5"> -->
-                <div class="col-lg-8">
-                    <form method="POST" action="">
-                        <!-- Nhà cung cấp 1 -->
-                        <div class="service-item">
-                            <!-- Thông tin Provider -->
+                <div class="col-lg-12">
+                    <div class="service-item">
+                        <table class="table-head table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 2%;">#</th>
+                                    <th style="width: 3%;">Ảnh</th>
+                                    <th style="width: 8%;">Dịch vụ</th>
+                                    <th style="width: 8%;">Giá</th>
+                                    <th style="width: 3%;">Số lượng</th>
+                                    <th style="width: 8%;" class="text-center">Số tiền</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <!-- Form Bảng Cart Dịch vụ -->
+                        <form method="POST" action="">
+                            <!-- Nhà cung cấp 1 -->
+                            <!-- Phần hiển thị Nhà cung cấp -->
                             <div class="provider-detail">
                                 <a href="#">
                                     <span><i class="ti-shopping-cart-full"> - </i>BirdServiceProvider</span>
                                 </a>
                             </div>
-                            <!-- End Thông tin Provider -->
+                            <!-- Phần hiển thị Nhà cung cấp -->
 
                             <!-- Bảng hiển thị các Dịch vụ trong Cart -->
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Ảnh</th>
-                                        <th>Dịch vụ</th>
-                                        <th>Giá</th>
-                                        <th width="10%">Số lượng</th>
-                                        <th>Tổng</th>
-                                    </tr>
-                                </thead>
+                            <table class="table-service table table-striped">
                                 <tbody>
-                                    <!-- Bảng hiển thị các Dịch vụ trong Cart -->
                                     <tr>
-                                        <td><img src="/static/img/banner.jpg" class="" /></td>
-                                        <td>Tỉa lông chim</td>
-                                        <td>49.000vnd</td>
-                                        <td>3</td>
-                                        <td>49.000vnd</td>
+                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
+                                                    class="ti-close"></i></a></td>
+                                        <td style="width: 3%;"><img src="/static/img/banner.jpg" class="" /></td>
+                                        <td style="width: 8%;">Tỉa lông chim</td>
+                                        <td style="width: 8%;">49.000vnd</td>
+                                        <td style="width: 3%;">1</td>
+                                        <td style="width: 8%;" class="text-center">49.000vnd</td>
                                     </tr>
 
                                     <tr>
-                                        <td><img src="/static/img/Bird-banner.jpg" class="" /></td>
-                                        <td>Tỉa lông chim</td>
-                                        <td>49.000vnd</td>
-                                        <td>2</td>
-                                        <td>49.000vnd</td>
+                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
+                                                    class="ti-close"></i></a></td>
+                                        <td style="width: 3%;"><img src="/static/img/banner.jpg" class="" /></td>
+                                        <td style="width: 8%;">Tỉa lông chim</td>
+                                        <td style="width: 8%;">49.000vnd</td>
+                                        <td style="width: 3%;">1</td>
+                                        <td style="width: 8%;" class="text-center">49.000vnd</td>
                                     </tr>
 
                                     <tr>
-                                        <td><img src="/static/img/bird-cartoon.png" class="" /></td>
-                                        <td>Tỉa lông chim</td>
-                                        <td>49.000vnd</td>
-                                        <td>6</td>
-                                        <td>49.000vnd</td>
+                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
+                                                    class="ti-close"></i></a></td>
+                                        <td style="width: 3%;"><img src="/static/img/banner.jpg" class="" /></td>
+                                        <td style="width: 8%;">Tỉa lông chim</td>
+                                        <td style="width: 8%;">49.000vnd</td>
+                                        <td style="width: 3%;">1</td>
+                                        <td style="width: 8%;" class="text-center">49.000vnd</td>
                                     </tr>
-
+                                    <!-- Thêm các Dịch vụ vào Cart dưới đây -->
+                                    <!-- .... -->
+                                    <!-- Thêm các Dịch vụ vào Cart dưới đây -->
                                 </tbody>
                             </table>
-                        </div>
-                        <!-- End Nhà cung cấp 1 -->
+                            <!-- Bảng hiển thị các Dịch vụ trong Cart -->
+                            <!-- Nhà cung cấp 1 -->
 
-                        <!-- Nhà cung cấp 2 -->
-                        <div class="service-item">
-                            <!-- Thông tin Provider -->
+                            <!-- Nhà cung cấp 2 -->
+                            <!-- Phần hiển thị Nhà cung cấp -->
                             <div class="provider-detail">
                                 <a href="#">
                                     <span><i class="ti-shopping-cart-full"> - </i>BirdServiceProvider</span>
                                 </a>
                             </div>
-                            <!-- End Thông tin Provider -->
+                            <!-- Phần hiển thị Nhà cung cấp -->
 
                             <!-- Bảng hiển thị các Dịch vụ trong Cart -->
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Ảnh</th>
-                                        <th>Dịch vụ</th>
-                                        <th>Giá</th>
-                                        <th width="10%">Số lượng</th>
-                                        <th>Tổng</th>
-                                    </tr>
-                                </thead>
+                            <table class="table-service table table-striped">
                                 <tbody>
-                                    <!-- Bảng hiển thị các Dịch vụ trong Cart -->
                                     <tr>
-                                        <td><img src="/static/img/banner.jpg" class="" /></td>
-                                        <td>Tỉa lông chim</td>
-                                        <td>49.000vnd</td>
-                                        <td>3</td>
-                                        <td>49.000vnd</td>
+                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
+                                                    class="ti-close"></i></a></td>
+                                        <td style="width: 3%;"><img src="/static/img/banner.jpg" class="" /></td>
+                                        <td style="width: 8%;">Tỉa lông chim</td>
+                                        <td style="width: 8%;">49.000vnd</td>
+                                        <td style="width: 3%;">1</td>
+                                        <td style="width: 8%;" class="text-center">49.000vnd</td>
                                     </tr>
 
                                     <tr>
-                                        <td><img src="/static/img/Bird-banner.jpg" class="" /></td>
-                                        <td>Tỉa lông chim</td>
-                                        <td>49.000vnd</td>
-                                        <td>2</td>
-                                        <td>49.000vnd</td>
+                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
+                                                    class="ti-close"></i></a></td>
+                                        <td style="width: 3%;"><img src="/static/img/banner.jpg" class="" /></td>
+                                        <td style="width: 8%;">Tỉa lông chim</td>
+                                        <td style="width: 8%;">49.000vnd</td>
+                                        <td style="width: 3%;">1</td>
+                                        <td style="width: 8%;" class="text-center">49.000vnd</td>
                                     </tr>
 
                                     <tr>
-                                        <td><img src="/static/img/bird-cartoon.png" class="" /></td>
-                                        <td>Tỉa lông chim</td>
-                                        <td>49.000vnd</td>
-                                        <td>6</td>
-                                        <td>49.000vnd</td>
+                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
+                                                    class="ti-close"></i></a></td>
+                                        <td style="width: 3%;"><img src="/static/img/banner.jpg" class="" /></td>
+                                        <td style="width: 8%;">Tỉa lông chim</td>
+                                        <td style="width: 8%;">49.000vnd</td>
+                                        <td style="width: 3%;">1</td>
+                                        <td style="width: 8%;" class="text-center">49.000vnd</td>
                                     </tr>
-
+                                    <!-- Thêm các Dịch vụ vào Cart dưới đây -->
+                                    <!-- .... -->
+                                    <!-- Thêm các Dịch vụ vào Cart dưới đây -->
                                 </tbody>
                             </table>
-                        </div>
-                        <!-- End Nhà cung cấp 2 -->
+                            <!-- Bảng hiển thị các Dịch vụ trong Cart -->
+                            <!-- Nhà cung cấp 2 -->
+                        </form>
+                    </div>
 
-                        <!-- Những nhà cung cấp khác -->
-                        <!-- ... -->
-                        <!-- Những nhà cung cấp khác -->
+                    <!-- Những nhà cung cấp khác -->
+                    <!-- ... -->
+                    <!-- Những nhà cung cấp khác -->
 
-                    </form>
+                    <!-- End Form Bảng Cart Dịch vụ -->
                 </div>
+                <!-- <div id="customAlert" class="custom-alert"></div> -->
                 <!-- End Table 1 -->
 
                 <!-- Table 2 -->
                 <!-- <div class="col-6">&nbsp;</div> -->
-                <div class="col-lg-4 pay-check">
-                    <h4>Thanh Toán</h4>
+                <div class="pay-check">
+                    <h4>Tổng tiền</h4>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <tr>
-                                <th>Tổng tiền hàng
+                                <th>Tổng số tiền
                                 <td>50.000vnd</td>
                             </tr>
 
                             <tr>
-                                <th>Các chi phí khác
+                                <th>Các chi phí phát sinh
                                 <td>12.000vnd</td>
                             </tr>
 
@@ -259,10 +222,10 @@
                             </tr>
 
                             <tr>
-                                <th>
-                                <td>
-                                    <button type="submit" class="btn btn-success"><a href="#" class="text-white">Thanh
-                                            toán</a></button>
+                                <th style="border-bottom: none;">
+                                <td style="border-bottom: none;">
+                                    <button type="submit" class="btn btn-success"><a href="#" class="text-white">Đặt
+                                            dịch vụ</a></button>
                                 </td>
                             </tr>
                         </table>
@@ -275,68 +238,9 @@
     <!-- End Body Page -->
 
     <!-- Footer -->
-    <footer class="footer-main text-center text-lg-start bg-light text-muted">
-        <section class="container-fluid">
-            <div class="text-center text-md-start mt-5">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                    <!-- Grid column -->
-                    <div class="text- col-md-3 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Về Bird Serivce
-                        </h6>
-                        <p>
-                            <a href="#!" class="text-reset text-decoration-none">Công ty Cổ phần Bird Serivce</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset text-decoration-none">Tax Code:000000 do sở kế hoạch và đầu
-                                tư thành phố Hồ Chí
-                                Minh cấp ngày 20/09/2023</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset text-decoration-none">Chi nhánh: Lô E2a-7, Đường D1, Đ. D1,
-                                Long Thạnh Mỹ, Thành
-                                Phố Thủ Đức, Thành phố Hồ Chí Minh</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Dịch vụ khách hàng
-                        </h6>
-                        <p>
-                            <a href="#!" class="text-reset text-decoration-none">Hotline: +84 234 659</a>
-                        </p>
-                        <p><a href="#" class="text-decoration-none"><i class="ti-email"></i>
-                                Email: customerservice@gmail.com</a>
-
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                        <p><a href="" class="text-decoration-none"><i class="ti-facebook"></i> Facebook</a></p>
-                        <p> <a href="" class="text-decoration-none"><i class="ti-instagram"></i> Instagram</a></p>
-                        <p><a href="" class="text-decoration-none"><i class="ti-email"></i>
-                                Email: birdservice@gmail.com</a>
-
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
-            </div>
-        </section>
-        <!-- Section: Links  -->
-    </footer>
+    {{template "footer" .}}
     <!-- End Footer -->
+    <script type="text/javascript" src="/static/js/cart.js"></script>
     <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

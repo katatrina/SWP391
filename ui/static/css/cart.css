@@ -1,34 +1,110 @@
-@media (min-width: 1025px) {
-    .h-custom {
-        height: 100vh !important;
-    }
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.card-registration .select-input.form-control[readonly]:not([disabled]) {
-    font-size: 1rem;
-    line-height: 2.15;
-    padding-left: .75em;
-    padding-right: .75em;
+.container {
+    max-width: 960px;
+    background-color: #fff;
+    border-radius: 4px;
 }
 
-.card-registration .select-arrow {
-    top: 13px;
+/* heading */
+.heading {
+    background-color: #e3e5e8;
 }
 
-.bg-grey {
-    background-color: #eae8e8;
+.heading a {
+    text-decoration: none;
+    color: black;
 }
 
-@media (min-width: 992px) {
-    .card-registration-2 .bg-grey {
-        border-top-right-radius: 16px;
-        border-bottom-right-radius: 16px;
-    }
+/* Table */
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
-@media (max-width: 991px) {
-    .card-registration-2 .bg-grey {
-        border-bottom-left-radius: 16px;
-        border-bottom-right-radius: 16px;
-    }
+th,
+td {
+    padding: 5px;
+}
+
+.table-head {
+    margin-bottom: 0;
+    margin: 12px 0;
+}
+
+.table-head th {
+    border-bottom: none;
+    width: 12px;
+}
+
+.table a {
+    text-decoration: none;
+    color: black;
+}
+
+.table-service {
+    margin: 32px 0px;
+}
+
+.i-icon {
+    text-align: center;
+    position: relative;
+}
+
+.table i {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 9px;
+    color: blue;
+    font-weight: 700;
+}
+
+/* Ảnh Dịch vụ */
+img {
+    background-size: cover;
+    width: 60px;
+    height: 70px;
+}
+
+/* Thông tin Provider */
+.provider-detail {
+    border-bottom: 1px solid;
+}
+
+.provider-detail a {
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+    color: rgba(0, 0, 0, .87);
+    font-weight: 500;
+    min-width: 50px;
+    display: flex;
+    align-items: center
+}
+
+/* Tổng thanh toán */
+.pay-check {
+    padding-left: 50%;
+}
+
+.pay-check td {
+    text-align: right;
+    margin-top: 16px;
+}
+
+.custom-alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 5px;
+    display: none;
 }
