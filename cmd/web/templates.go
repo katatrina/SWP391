@@ -21,6 +21,7 @@ type templateData struct {
 	Services        []sqlc.Service
 	User            sqlc.User
 	Categories      []sqlc.Category
+	Cart            any
 }
 
 func (app *application) newTemplateData(r *http.Request) *templateData {

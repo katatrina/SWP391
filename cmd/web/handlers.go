@@ -456,10 +456,44 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 	app.render(w, http.StatusOK, "services_by_category.html", data)
 }
 
-func (app *application) displayCartPage(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
+type cartItems struct {
+	ImagePath string
+	Title     string
+	Quantity  int32
+	SubTotal  int32
+}
 
-	app.render(w, http.StatusOK, "cart-demo.html", data)
+func (app *application) displayCartPage(w http.ResponseWriter, r *http.Request) {
+	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+
+	// cart is a map of provider names and their services.
+	cart := make(map[string][]cartItems)
+
+	items, err := app.store.GetCartItemsByCartID(r.Context(), cartID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, item := range items {
+		providerName, err := app.store.GetProviderNameByServiceID(r.Context(), item.ServiceID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		cart[providerName] = append(cart[providerName], cartItems{
+			ImagePath: item.ImagePath,
+			Title:     item.Title,
+			Quantity:  item.Quantity,
+			SubTotal:  item.SubTotal,
+		})
+	}
+
+	data := app.newTemplateData(r)
+	data.Cart = cart
+
+	app.render(w, http.StatusOK, "cart.html", data)
 }
 
 type addItemToCartFormResult struct {
@@ -504,28 +538,29 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		err = app.store.UpdateCartItemQuantity(r.Context(), sqlc.UpdateCartItemQuantityParams{
-			Quantity:  cartItem.Quantity + form.Quantity,
-			SubTotal:  cartItem.SubTotal + service.Price*form.Quantity,
-			CartID:    cartID,
-			ServiceID: service.ID,
+		err = app.store.UpdateCartItemQuantityAndSubTotal(r.Context(), sqlc.UpdateCartItemQuantityAndSubTotalParams{
+			Quantity: form.Quantity + cartItem.Quantity,
+			SubTotal: cartItem.SubTotal + service.Price*form.Quantity,
+			ID:       cartItem.ID,
 		})
-
-	} else {
-		// If the service is not in the cart, add it to the cart.
-		err = app.store.AddServiceToCart(r.Context(), sqlc.AddServiceToCartParams{
-			CartID:    cartID,
-			ServiceID: service.ID,
-			Quantity:  form.Quantity,
-			SubTotal:  service.Price * form.Quantity,
-		})
-		if err != nil {
-			app.serverError(w, err)
-			return
-		}
 	}
 
-	http.Redirect(w, r, r.URL.Path, http.StatusSeeOther)
+	// If the service is not in the cart, create a new cart item.
+	err = app.store.CreateCartItem(r.Context(), sqlc.CreateCartItemParams{
+		CartID:    cartID,
+		ServiceID: service.ID,
+		Quantity:  form.Quantity,
+		SubTotal:  service.Price * form.Quantity,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	// TODO: Display flash message.
+
+	// Re-render the current page.
+	http.Redirect(w, r, "/cart", http.StatusSeeOther)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {

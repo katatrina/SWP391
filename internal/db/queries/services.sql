@@ -16,3 +16,8 @@ WHERE category_id = (SELECT id FROM categories WHERE slug = $1);
 SELECT *
 FROM services
 WHERE id = $1;
+
+-- name: GetProviderNameByServiceID :one
+SELECT full_name
+FROM users
+WHERE id = (SELECT owned_by_provider_id FROM services as S WHERE S.id = $1);

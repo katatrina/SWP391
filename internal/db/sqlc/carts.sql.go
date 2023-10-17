@@ -41,6 +41,28 @@ func (q *Queries) CreateCart(ctx context.Context, userID int32) error {
 	return err
 }
 
+const createCartItem = `-- name: CreateCartItem :exec
+INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
+VALUES ($1, $2, $3, $4)
+`
+
+type CreateCartItemParams struct {
+	CartID    int32 `json:"cart_id"`
+	ServiceID int32 `json:"service_id"`
+	Quantity  int32 `json:"quantity"`
+	SubTotal  int32 `json:"sub_total"`
+}
+
+func (q *Queries) CreateCartItem(ctx context.Context, arg CreateCartItemParams) error {
+	_, err := q.db.ExecContext(ctx, createCartItem,
+		arg.CartID,
+		arg.ServiceID,
+		arg.Quantity,
+		arg.SubTotal,
+	)
+	return err
+}
+
 const getCartIDByUserId = `-- name: GetCartIDByUserId :one
 SELECT id
 FROM carts
@@ -79,6 +101,66 @@ func (q *Queries) GetCartItemByCartIDAndServiceID(ctx context.Context, arg GetCa
 	return i, err
 }
 
+const getCartItemsByCartID = `-- name: GetCartItemsByCartID :many
+SELECT cart_items.id,
+       cart_items.cart_id,
+       cart_items.service_id,
+       cart_items.quantity,
+       cart_items.sub_total,
+       services.title,
+       services.price,
+       services.image_path,
+       services.owned_by_provider_id
+FROM cart_items
+         INNER JOIN services ON cart_items.service_id = services.id
+WHERE cart_items.cart_id = $1
+`
+
+type GetCartItemsByCartIDRow struct {
+	ID                int32  `json:"id"`
+	CartID            int32  `json:"cart_id"`
+	ServiceID         int32  `json:"service_id"`
+	Quantity          int32  `json:"quantity"`
+	SubTotal          int32  `json:"sub_total"`
+	Title             string `json:"title"`
+	Price             int32  `json:"price"`
+	ImagePath         string `json:"image_path"`
+	OwnedByProviderID int32  `json:"owned_by_provider_id"`
+}
+
+func (q *Queries) GetCartItemsByCartID(ctx context.Context, cartID int32) ([]GetCartItemsByCartIDRow, error) {
+	rows, err := q.db.QueryContext(ctx, getCartItemsByCartID, cartID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetCartItemsByCartIDRow{}
+	for rows.Next() {
+		var i GetCartItemsByCartIDRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.CartID,
+			&i.ServiceID,
+			&i.Quantity,
+			&i.SubTotal,
+			&i.Title,
+			&i.Price,
+			&i.ImagePath,
+			&i.OwnedByProviderID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const isServiceAlreadyInCart = `-- name: IsServiceAlreadyInCart :one
 SELECT EXISTS(SELECT 1
               FROM cart_items
@@ -98,27 +180,20 @@ func (q *Queries) IsServiceAlreadyInCart(ctx context.Context, arg IsServiceAlrea
 	return exists, err
 }
 
-const updateCartItemQuantity = `-- name: UpdateCartItemQuantity :exec
+const updateCartItemQuantityAndSubTotal = `-- name: UpdateCartItemQuantityAndSubTotal :exec
 UPDATE cart_items
 SET quantity  = $1,
     sub_total = $2
-WHERE cart_id = $3
-  AND service_id = $4
+WHERE id = $3
 `
 
-type UpdateCartItemQuantityParams struct {
-	Quantity  int32 `json:"quantity"`
-	SubTotal  int32 `json:"sub_total"`
-	CartID    int32 `json:"cart_id"`
-	ServiceID int32 `json:"service_id"`
+type UpdateCartItemQuantityAndSubTotalParams struct {
+	Quantity int32 `json:"quantity"`
+	SubTotal int32 `json:"sub_total"`
+	ID       int32 `json:"id"`
 }
 
-func (q *Queries) UpdateCartItemQuantity(ctx context.Context, arg UpdateCartItemQuantityParams) error {
-	_, err := q.db.ExecContext(ctx, updateCartItemQuantity,
-		arg.Quantity,
-		arg.SubTotal,
-		arg.CartID,
-		arg.ServiceID,
-	)
+func (q *Queries) UpdateCartItemQuantityAndSubTotal(ctx context.Context, arg UpdateCartItemQuantityAndSubTotalParams) error {
+	_, err := q.db.ExecContext(ctx, updateCartItemQuantityAndSubTotal, arg.Quantity, arg.SubTotal, arg.ID)
 	return err
 }

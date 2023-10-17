@@ -5,7 +5,6 @@
 package sqlc
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -24,11 +23,11 @@ type CartItem struct {
 }
 
 type Category struct {
-	ID          int32          `json:"id"`
-	Name        sql.NullString `json:"name"`
-	Slug        string         `json:"slug"`
-	ImagePath   string         `json:"image_path"`
-	Description string         `json:"description"`
+	ID          int32  `json:"id"`
+	Name        string `json:"name"`
+	Slug        string `json:"slug"`
+	ImagePath   string `json:"image_path"`
+	Description string `json:"description"`
 }
 
 type ProviderDetail struct {
@@ -54,6 +53,12 @@ type Service struct {
 	OwnedByProviderID int32     `json:"owned_by_provider_id"`
 	Status            string    `json:"status"`
 	CreatedAt         time.Time `json:"created_at"`
+}
+
+type Session struct {
+	Token  string    `json:"token"`
+	Data   []byte    `json:"data"`
+	Expiry time.Time `json:"expiry"`
 }
 
 type User struct {
