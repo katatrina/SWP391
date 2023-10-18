@@ -180,6 +180,17 @@ func (q *Queries) IsServiceAlreadyInCart(ctx context.Context, arg IsServiceAlrea
 	return exists, err
 }
 
+const removeItemFromCart = `-- name: RemoveItemFromCart :exec
+DELETE
+FROM cart_items
+WHERE id = $1
+`
+
+func (q *Queries) RemoveItemFromCart(ctx context.Context, id int32) error {
+	_, err := q.db.ExecContext(ctx, removeItemFromCart, id)
+	return err
+}
+
 const updateCartItemQuantityAndSubTotal = `-- name: UpdateCartItemQuantityAndSubTotal :exec
 UPDATE cart_items
 SET quantity  = $1,

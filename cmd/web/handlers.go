@@ -605,6 +605,25 @@ func (app *application) updateCart(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/cart", http.StatusSeeOther)
 }
 
+func (app *application) removeItemFromCart(w http.ResponseWriter, r *http.Request) {
+	params := httprouter.ParamsFromContext(r.Context())
+
+	cartItemID, err := strconv.ParseInt(params.ByName("id"), 10, 32)
+	if err != nil {
+		app.errorLog.Println(err)
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	err = app.store.RemoveItemFromCart(r.Context(), int32(cartItemID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	http.Redirect(w, r, "/cart", http.StatusSeeOther)
+}
+
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 

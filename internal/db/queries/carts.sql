@@ -47,3 +47,9 @@ WHERE id = $3;
 -- name: CreateCartItem :exec
 INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
 VALUES ($1, $2, $3, $4);
+
+
+-- name: RemoveItemFromCart :exec
+DELETE
+FROM cart_items
+WHERE id = $1;
