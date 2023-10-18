@@ -8,7 +8,6 @@
     max-width: 960px;
     background-color: #fff;
     border-radius: 4px;
-    margin: 16px auto;
 }
 
 /* heading */
@@ -69,8 +68,8 @@ td {
 /* Ảnh Dịch vụ */
 img {
     background-size: cover;
-    width: 60px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
 }
 
 /* Thông tin Provider */
@@ -90,9 +89,7 @@ img {
 }
 
 /* Tổng thanh toán */
-.pay-check {
-    padding-left: 50%;
-}
+.pay-check {}
 
 .pay-check td {
     text-align: right;
@@ -110,73 +107,83 @@ img {
     display: none;
 }
 
-/* Address */
-.location {
-    padding: 28px 30px 24px;
+/* Pay - Thanh toán */
+.container .pay-sumary {
+    padding: 12px 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    -ms-grid-column-span: 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    width: 100%;
 }
 
-.location-item {
+.pay-sumary .pay-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.pay-text .pay-cover {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pay-cover .pay-detail {
+    margin-left: 20px;
     display: flex;
     align-items: center;
 }
 
-.location-item:first-child {
-    display: flex;
-    align-items: center;
-    font-size: 1.125rem;
-    color: #ee4d2d;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-    flex: 1 1 auto;
-}
-
-.location-item:first-child h2 {
-    margin: 0;
-    padding: 0;
-    font-size: inherit;
-    font-weight: inherit;
-    line-height: inherit;
-    color: inherit;
-    margin-left: 16px;
-}
-
-.address-detail {
-    display: block;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    word-break: break-word;
-}
-
-.user-info .name,
-.phone {
-    font-weight: 700;
+.total {
+    font-size: 16px;
     color: #222;
+    line-height: 19px;
 }
 
-.user-info .phone {
-    margin-left: 20px;
+.unit {
+    font-size: 24px;
+    line-height: 28px;
+    margin-left: 5px;
+    color: #198754;
 }
 
-.user-info .address {
-    margin-left: 20px;
-    word-break: break-word;
-}
-
-.location-item button {
-    color: #4080ee;
+.pay-btn {
+    padding: 13px 36px;
+    margin: 0 22px 0 15px;
     text-transform: capitalize;
-    margin-left: 2.5rem;
+    font-weight: 300;
+    height: 2.5rem;
+    box-sizing: border-box;
+    font-size: .875rem;
+    border-radius: 2px;
+    width: 13.125rem;
+    position: relative;
+    overflow: visible;
+    outline: 0;
+    background: #198754;
     cursor: pointer;
-    display: block;
-    background: none;
     border: 0;
-    padding: 0;
-    margin: 0;
+    line-height: 1;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: opacity .2s ease;
+    user-select: none;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .09);
+}
+
+.pay-button span {
+    text-transform: capitalize;
+    font-weight: 300;
+    font-size: .875rem;
     cursor: pointer;
-    text-align: inherit;
-    margin-left: 20px;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #fff;
+    user-select: none;
 }
