@@ -39,8 +39,9 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/account", protected.ThenFunc(app.viewAccount))
 	router.Handler(http.MethodGet, "/logout", protected.ThenFunc(app.doLogoutUser))
 
-	router.Handler(http.MethodGet, "/cart", protected.ThenFunc(app.displayCartPage))
+	router.Handler(http.MethodGet, "/cart", protected.ThenFunc(app.displayCart))
 	router.Handler(http.MethodPost, "/cart/add", protected.ThenFunc(app.addItemToCart))
+	router.Handler(http.MethodPost, "/cart/update", protected.ThenFunc(app.updateCart))
 
 	// Provider permissions.
 	advanced := protected.Append(app.requireProviderPermission)

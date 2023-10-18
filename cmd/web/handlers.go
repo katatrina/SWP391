@@ -9,6 +9,7 @@ import (
 	"github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -457,17 +458,21 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 }
 
 type cartItems struct {
+	ItemID    int32
 	ImagePath string
 	Title     string
 	Quantity  int32
 	SubTotal  int32
 }
 
-func (app *application) displayCartPage(w http.ResponseWriter, r *http.Request) {
+func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
 	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
 
 	// cart is a map of provider names and their services.
-	cart := make(map[string][]cartItems)
+	cart := Cart{
+		GrandTotal: 0,
+		Items:      make(map[string][]cartItems),
+	}
 
 	items, err := app.store.GetCartItemsByCartID(r.Context(), cartID)
 	if err != nil {
@@ -482,12 +487,15 @@ func (app *application) displayCartPage(w http.ResponseWriter, r *http.Request) 
 			return
 		}
 
-		cart[providerName] = append(cart[providerName], cartItems{
+		cart.Items[providerName] = append(cart.Items[providerName], cartItems{
+			ItemID:    item.ID,
 			ImagePath: item.ImagePath,
 			Title:     item.Title,
 			Quantity:  item.Quantity,
 			SubTotal:  item.SubTotal,
 		})
+
+		cart.GrandTotal += int64(item.SubTotal)
 	}
 
 	data := app.newTemplateData(r)
@@ -560,6 +568,40 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 	// TODO: Display flash message.
 
 	// Re-render the current page.
+	http.Redirect(w, r, "/cart", http.StatusSeeOther)
+}
+
+func (app *application) updateCart(w http.ResponseWriter, r *http.Request) {
+	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+
+	items, err := app.store.GetCartItemsByCartID(r.Context(), cartID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, item := range items {
+		itemID := strconv.Itoa(int(item.ID))
+		quantity, err := strconv.ParseInt(r.PostFormValue("qty-"+itemID), 10, 32)
+		if err != nil {
+			app.errorLog.Println(err)
+			app.clientError(w, http.StatusBadRequest)
+			return
+		}
+
+		// TODO: Handle the case when quantity is 0.
+
+		err = app.store.UpdateCartItemQuantityAndSubTotal(r.Context(), sqlc.UpdateCartItemQuantityAndSubTotalParams{
+			Quantity: int32(quantity),
+			SubTotal: item.Price * int32(quantity),
+			ID:       item.ID,
+		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+	}
+
 	http.Redirect(w, r, "/cart", http.StatusSeeOther)
 }
 
