@@ -551,6 +551,13 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 			SubTotal: cartItem.SubTotal + service.Price*form.Quantity,
 			ID:       cartItem.ID,
 		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		http.Redirect(w, r, "/cart", http.StatusSeeOther)
+		return
 	}
 
 	// If the service is not in the cart, create a new cart item.
