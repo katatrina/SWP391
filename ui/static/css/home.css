@@ -10,13 +10,17 @@
 
 /* Banner */
 #banner {
+    margin-top: 25px;
     width: 100%;
-    height: 680px;
-    background-image: url('/static/img/banner.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /* position: relative; */
+    height: 530px;
+    overflow: hidden;
 }
+
+#banner img {
+    width: 100%;
+    height: auto;
+}
+
 
 #banner .text-content {
     position: absolute;
@@ -40,6 +44,7 @@
 /* Content */
 #content {
     /* padding: 80px; */
+    margin-top: 150px;
 }
 
 /* Content-header */
@@ -50,13 +55,13 @@
 .content-space {
     height: 10px;
     width: 96px;
-    background-color: #396AFC;
+    background-color: #198754;
     margin: auto
 }
 
 .content-heading h1 {
     font-size: 48px;
-    color: #396AFC;
+    color: #198754;
     font-size: 48px;
     font-weight: 800;
     padding: 18px 0;
@@ -116,7 +121,7 @@
 }
 
 .content-header-body .infor-col {
-    border-right: 5px solid #396AFC;
+    border-right: 5px solid #198754;
 }
 
 .content-header-body .infor-text {
@@ -127,7 +132,7 @@
 .content-header-body .infor-text h1 {
     font-size: 2.125rem;
     line-height: 1.235;
-    color: #396AFC;
+    color: #198754;
     font-weight: 700
 }
 
@@ -135,7 +140,7 @@
     font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.334;
-    color: #396AFC;
+    color: #198754;
 }
 
 .content-exp-infor {
@@ -233,7 +238,7 @@
 
 
 /* Về Chúng Tôi */
-.content-about-us {
+#content-about-us {
     margin-top: 60px;
     height: 420px;
     background-color: #f4f4f4;
@@ -244,7 +249,7 @@
     position: relative;
 }
 
-.content-about-us .about-us-body .text-column {
+.about-us-body .text-column {
     position: relative;
     padding-top: 80px;
     padding-bottom: 80px;
@@ -252,18 +257,18 @@
     padding-right: 120px;
 }
 
-.content-about-us .about-us-body .text-column p {
+.about-us-body .text-column p {
     position: absolute;
     padding: 32px;
     text-align: justify;
 }
 
-.content-about-us .about-us-body .img-column {
+.about-us-body .img-column {
     position: relative;
     right: 0;
 }
 
-.content-about-us .about-us-body .img-column img {
+.about-us-body .img-column img {
     position: absolute;
     max-height: 420px;
     width: 100%;

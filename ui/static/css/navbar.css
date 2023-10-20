@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+nav {
+    height: 82px;
+}
+
 .navigation {
     position: fixed;
     top: 0;
