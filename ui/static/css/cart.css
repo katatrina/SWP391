@@ -8,11 +8,57 @@
     max-width: 960px;
     background-color: #fff;
     border-radius: 4px;
+    box-shadow: rgba(231, 231, 231, 0.71) 0px 1px 20px 0px;
 }
 
 /* heading */
 .heading {
     background-color: #e3e5e8;
+}
+
+.heading .container {
+    background-color: #dedcdc;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+}
+
+.heading .container ol {
+    margin-bottom: 0;
+}
+
+.heading .container .breadcrumb-item {
+    margin-left: 0.9375rem;
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+    height: 1.875rem;
+    padding-left: 0.9375rem;
+    margin-bottom: 0.0625rem;
+    text-transform: capitalize
+}
+
+.heading .container .breadcrumb .nav-home a {
+    color: #eeee2d;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    height: 1.875rem;
+    padding-left: 0.9375rem;
+    margin-bottom: 0.0625rem;
+    text-transform: capitalize;
+}
+
+.heading .container .breadcrumb .nav-cart a {
+    margin-left: 0.9375rem;
+    border-left: 0.0625rem solid #eeee2d;
+    color: #eeee2d;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+    height: 1.875rem;
+    padding-left: 0.9375rem;
+    margin-bottom: 0.0625rem;
+    text-transform: capitalize;
 }
 
 .heading a {
@@ -47,8 +93,13 @@ td {
     color: black;
 }
 
+.table a:hover {
+    color: red;
+}
+
 .table-service {
     margin: 32px 0px;
+    vertical-align: middle;
 }
 
 .i-icon {
@@ -61,7 +112,7 @@ td {
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 9px;
-    color: blue;
+    color: red;
     font-weight: 700;
 }
 
@@ -74,7 +125,7 @@ img {
 
 /* Thông tin Provider */
 .provider-detail {
-    border-bottom: 1px solid;
+    /* border-bottom: 1px solid; */
 }
 
 .provider-detail a {
@@ -163,7 +214,7 @@ img {
     position: relative;
     overflow: visible;
     outline: 0;
-    background: #198754;
+    background: #4CAF50;
     cursor: pointer;
     border: 0;
     line-height: 1;
@@ -186,4 +237,98 @@ img {
     letter-spacing: 0;
     color: #fff;
     user-select: none;
+}
+
+.pay-button a {
+    text-decoration: none;
+    text-transform: capitalize;
+    font-weight: 300;
+    font-size: .875rem;
+    cursor: pointer;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #fff;
+    user-select: none;
+}
+
+/* Empty Cart */
+.empty-cart {
+    width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Maison Neue';
+    font-weight: 300;
+    padding-bottom: 16px;
+}
+
+.empty-cart svg {
+    max-width: 60%;
+    padding: 5rem 3rem;
+}
+
+.empty-cart svg #oval,
+.empty-cart svg #plus,
+.empty-cart svg #diamond,
+.empty-cart svg #bubble-rounded {
+    animation: plopp 4s ease-out infinite;
+}
+
+.empty-cart svg #oval:nth-child(1),
+.empty-cart svg #plus:nth-child(1),
+.empty-cart svg #diamond:nth-child(1),
+.empty-cart svg #bubble-rounded:nth-child(1) {
+    animation-delay: -240ms;
+}
+
+/* Add styles for other child elements similarly */
+
+.empty-cart svg #bg-line:nth-child(2) {
+    fill-opacity: 0.3;
+}
+
+.empty-cart svg #bg-line:nth-child(3) {
+    fill-opacity: 0.4;
+}
+
+@keyframes plopp {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0, -10px);
+        opacity: 0;
+    }
+}
+
+.empty-cart h3 {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+}
+
+.empty-cart p {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    line-height: 24px;
+    max-width: 80%;
+    margin: 1.25rem auto 0 auto;
+}
+
+.empty-cart a {
+    display: inline-block;
+    padding: 0.3em 1em;
+    margin-top: 1em;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.empty-cart a:hover {
+    background-color: #45a049;
 }

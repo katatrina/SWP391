@@ -8,11 +8,57 @@
     max-width: 960px;
     background-color: #fff;
     border-radius: 4px;
+    box-shadow: rgba(231, 231, 231, 0.71) 0px 1px 20px 0px;
 }
 
 /* heading */
 .heading {
     background-color: #e3e5e8;
+}
+
+.heading .container {
+    background-color: #dedcdc;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+}
+
+.heading .container ol {
+    margin-bottom: 0;
+}
+
+.heading .container .breadcrumb-item {
+    margin-left: 0.9375rem;
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+    height: 1.875rem;
+    padding-left: 0.9375rem;
+    margin-bottom: 0.0625rem;
+    text-transform: capitalize
+}
+
+.heading .container .breadcrumb .nav-home a {
+    color: #eeee2d;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    height: 1.875rem;
+    padding-left: 0.9375rem;
+    margin-bottom: 0.0625rem;
+    text-transform: capitalize;
+}
+
+.heading .container .breadcrumb .nav-cart a {
+    margin-left: 0.9375rem;
+    border-left: 0.0625rem solid #eeee2d;
+    color: #eeee2d;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+    height: 1.875rem;
+    padding-left: 0.9375rem;
+    margin-bottom: 0.0625rem;
+    text-transform: capitalize;
 }
 
 .heading a {
@@ -47,8 +93,13 @@ td {
     color: black;
 }
 
+.table a:hover {
+    color: red;
+}
+
 .table-service {
     margin: 32px 0px;
+    vertical-align: middle;
 }
 
 .i-icon {
@@ -61,7 +112,7 @@ td {
     top: 50%;
     transform: translate(-50%, -50%);
     font-size: 9px;
-    color: blue;
+    color: red;
     font-weight: 700;
 }
 
@@ -74,7 +125,7 @@ img {
 
 /* Thông tin Provider */
 .provider-detail {
-    border-bottom: 1px solid;
+    /* border-bottom: 1px solid; */
 }
 
 .provider-detail a {
@@ -89,24 +140,11 @@ img {
 }
 
 /* Tổng thanh toán */
-.pay-check {
-    padding-left: 50%;
-}
+.pay-check {}
 
 .pay-check td {
     text-align: right;
     margin-top: 16px;
-}
-
-.custom-alert {
-    padding: 15px;
-    background-color: #f44336;
-    color: white;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    border-radius: 5px;
-    display: none;
 }
 
 /* Pay - Thanh toán */
@@ -165,7 +203,7 @@ img {
     position: relative;
     overflow: visible;
     outline: 0;
-    background: #198754;
+    background: #4CAF50;
     cursor: pointer;
     border: 0;
     line-height: 1;
@@ -180,6 +218,18 @@ img {
 }
 
 .pay-button span {
+    text-transform: capitalize;
+    font-weight: 300;
+    font-size: .875rem;
+    cursor: pointer;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #fff;
+    user-select: none;
+}
+
+.pay-button a {
+    text-decoration: none;
     text-transform: capitalize;
     font-weight: 300;
     font-size: .875rem;
@@ -259,4 +309,37 @@ img {
     cursor: pointer;
     text-align: inherit;
     margin-left: 20px;
+}
+
+/* Checkout-payments */
+.checkout-payments {
+    border-bottom: 1px solid #d5d3d3;
+}
+
+.checkout-payments .wrapper {
+    display: flex;
+    align-items: center;
+    min-height: 5.625rem;
+    box-sizing: border-box;
+    padding-left: 1.875rem;
+    padding-right: 1.875rem;
+}
+
+.checkout-payments-title {
+    font-size: 1.125rem;
+    width: 12.5rem;
+    color: #222;
+}
+
+.checkout-payments button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.checkout-payments button.active {
+    background-color: #4CAF50;
+    color: white;
 }

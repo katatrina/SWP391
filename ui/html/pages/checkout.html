@@ -36,16 +36,16 @@
     <div class="spacer" style="height: 72px;"></div>
 
     <!-- Body Page -->
-    <section class="heading breadcrumb-section pb-3 pt-3" style="background-color: #dedcdc;">
-        <div class="container" style="background-color: #dedcdc;">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
-            </ol>
+    <section class="heading breadcrumb-section pb-3 pt-3" style="background-color: #197845; height: 108px;">
+        <div class="container" style="background-color: #197845;">
+            <div class="breadcrumb">
+                <li class="nav-home"><a href="/">Trang chủ</a></li>
+                <li class="nav-cart"><a href="#">Thanh Toán</a></li>
+            </div>
         </div>
     </section>
 
-    <section class="product-page pb-4 pt-4" style="background-color: #ebebeb;">
+    <section class="product-page pb-4 pt-4 bg-light">
         <div class="container" style="height: fit-content;">
             <div class="Location">
                 <div class="Location-item">
@@ -69,104 +69,119 @@
             </div>
         </div>
 
-        <div class="container">
-            <!-- Table 1 -->
-            <div class="row">
-                <!-- <div class="table-responsive mt-5"> -->
-                <div class="col-lg-12">
-                    <div class="service-item">
-                        <table class="table-head table table-striped">
-                            <thead>
-                                <tr>
-                                    <th style="width: 2%;" class="text-center">#</th>
-                                    <th style="width: 3%; padding-left: 36px;" class="">Ảnh</th>
-                                    <th style="width: 8%;">Dịch vụ</th>
-                                    <th style="width: 2%;" class="text-center">Số lượng</th>
-                                    <th style="width: 2%;" class="text-center">Số tiền</th>
-                                </tr>
-                            </thead>
-                        </table>
-
-                        <!-- Form Bảng Cart Dịch vụ -->
-                        <form method="POST" action="">
-                            {{ range $providerName, $items := .Cart }}
-                            <!-- Nhà cung cấp 1 -->
-                            <!-- Phần hiển thị Nhà cung cấp -->
-                            <div class="provider-detail">
-                                <span><i class="ti-shopping-cart-full"> - </i>{{ $providerName }}</span>
-                            </div>
-                            <!-- Phần hiển thị Nhà cung cấp -->
-
-
-                            <!-- Bảng hiển thị các Dịch vụ trong Cart -->
-                            <table class="table-service table table-striped">
-                                <tbody>
-                                    {{ range $items }}
+        <!-- {{ if .Cart.Items }} -->
+        <section class="product-page pb-4 pt-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="service-item">
+                            <table class="table-head table table-striped">
+                                <thead>
                                     <tr>
-                                        <td style="width: 2%;" scope="row" class="i-icon"><a href="#"><i
-                                                    class="ti-close"></i></a></td> <!-- Xóa Dịch vụ -->
-                                        <td style="width: 3%;"><img src="{{ .ImagePath }}" class="" /></td>
-                                        <td style="width: 8%;">{{ .Title }}</td>
-                                        <td style="width: 1.25%;">{{ .Quantity }}</td>
-                                        <td style="width: 2%;" class="text-end">{{ .SubTotal }}vnd</td>
+                                        <th style="width: 2%;" class="text-center">Dịch vụ</th>
+                                        <th style="width: 8%;"></th>
+                                        <th style="width: 2%;">Đơn giá</th>
+                                        <th style="width: 2%;">Số lượng</th>
+                                        <th style="width: 2%;">Thành tiền</th>
                                     </tr>
-                                    {{ end }}
-
-                                    <!-- Thêm các Dịch vụ vào Cart dưới đây -->
-                                    <!-- .... -->
-                                    <!-- Thêm các Dịch vụ vào Cart dưới đây -->
-                                </tbody>
+                                </thead>
                             </table>
-                            {{ end }}
-                            <!-- Bảng hiển thị các Dịch vụ trong Cart -->
-                            <!-- Nhà cung cấp 1 -->
-
-                            <div class="">&nbsp;</div>
-                        </form>
+                        </div>
                     </div>
-
-                    <!-- Những nhà cung cấp khác -->
-                    <!-- ... -->
-                    <!-- Những nhà cung cấp khác -->
-
-                    <!-- End Form Bảng Cart Dịch vụ -->
                 </div>
-                <!-- <div id="customAlert" class="custom-alert"></div> -->
-                <!-- End Table 1 -->
-
-                <!-- Table 2 -->
-
             </div>
-            <!-- End Table 2 -->
-        </div>
 
-        <div class="spacer" style="height: 16px;"></div>
-        <div class="container">
-            <div class="pay-sumary">
-                <div class="pay-text">
-                    <div class="pay-cover">
-                        <div class="pay-detail-cover">
-                            <div class="pay-detail">
-                                <div class="total">Tổng thanh toán:</div>
-                                <div class="unit">đ0</div>
+            <div class="">&nbsp;</div>
+
+            <div class="container">
+                <!-- Table 1 -->
+                <div class="row">
+                    <!-- <div class="table-responsive mt-5"> -->
+                    <div class="col-lg-12">
+                        <div class="service-item">
+                            <!-- Form Bảng Cart Dịch vụ -->
+                            <form method="POST" action="">
+                                <!-- Đơn hàng -->
+                                <div class="services">
+                                    <!-- Phần hiển thị Nhà cung cấp -->
+                                    <div class="provider-detail">
+                                        <span><i class="ti-shopping-cart-full"> - </i>ProviderName</span>
+                                    </div>
+                                    <!-- Phần hiển thị Nhà cung cấp -->
+
+                                    <!-- Phần hiển thị các Dịch vụ trong Cart -->
+                                    <table class="table-service table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <!-- Ảnh dịch vụ -->
+                                                <td style="width: 2%;"><img
+                                                        src="/static/img/accessories-category.jpg" /></td>
+
+                                                <!-- Tiêu đề -->
+                                                <td style="width: 8%;">Tiêu đề</td>
+
+                                                <!-- Giá gốc dịch vụ -->
+                                                <td style="width: 2%;" class="text-start">30.000vnd</td>
+
+                                                <!-- Số lượng -->
+                                                <td style="width: 2%;"><input type="number" min="1" name=""
+                                                        class="form-control" value="" /></td>
+
+                                                <!-- Giá nhân theo SỐ lượng -->
+                                                <td style="width: 2%;" class="text-end">120.000vnd</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- Phần hiển thị các Dịch vụ trong Cart -->
+                                </div>
+                                <!-- Đơn hàng -->
+                            </form>
+                        </div>
+                        <!-- End Form Bảng Cart Dịch vụ -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="">&nbsp;</div>
+            <div class="container">
+                <div class="checkout-payments">
+                    <div class="wrapper">
+                        <div class="checkout-payments-title">Phương thức thanh toán:</div>
+                        <div class="checkout-payments-type">
+                            <div role="radiogroup">
+                                <span><button>Thanh toán khi xong dịch vụ</button></span>
+                                <span><button>Thanh toán ngân hàng</button></span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="pay-button">
-                    <button class="pay-btn"><span>Thanh toán</span></button>
+                <div class="pay-sumary">
+                    <div class="pay-text">
+                        <div class="pay-cover">
+                            <div class="pay-detail-cover">
+                                <div class="pay-detail">
+                                    <div class="total">Tổng thanh toán:</div>
+                                    <div class="unit">{{ .Cart.GrandTotal }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pay-button">
+                        <button class="pay-btn"><span><a href="#">Thanh toán</a></span></button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
     <!-- End Body Page -->
 
     <!-- Footer -->
     {{template "footer" .}}
     <!-- End Footer -->
-    <script type="text/javascript" src="/static/js/cart.js"></script>
+    <script type="text/javascript" src="/static/js/checkout.js"></script>
     <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
