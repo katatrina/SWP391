@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
 	"html/template"
 	"net/http"
@@ -9,7 +10,8 @@ import (
 )
 
 var functionTemplates = template.FuncMap{
-	"humanDate": humanDate,
+	"humanDate":   humanDate,
+	"formatPrice": formatVietnamesePrice,
 }
 
 type templateData struct {
@@ -25,7 +27,7 @@ type templateData struct {
 }
 
 type Cart struct {
-	GrandTotal int64
+	GrandTotal int32
 	Items      map[string][]cartItems
 }
 
@@ -54,11 +56,13 @@ func initializeTemplateCache() (map[string]*template.Template, error) {
 
 		ts, err = ts.ParseGlob("./ui/html/partials/*.html")
 		if err != nil {
+			//fmt.Println(err)
 			return nil, err
 		}
 
 		ts, err = ts.ParseFiles(page)
 		if err != nil {
+			fmt.Println(err)
 			return nil, err
 		}
 

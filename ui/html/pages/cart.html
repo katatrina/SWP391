@@ -52,8 +52,8 @@
                         <table class="table-head table table-striped">
                             <thead>
                                 <tr>
-                                    <th style="width: 2%;" class="">Ảnh</th>
-                                    <th style="width: 8%;">Dịch vụ</th>
+                                    <th style="width: 2%;" class="">Dịch vụ</th>
+                                    <th style="width: 8%;"></th>
                                     <th style="width: 2%;">Đơn giá</th>
                                     <th style="width: 2%;">Số lượng</th>
                                     <th style="width: 2%;">Thành tiền</th>
@@ -97,14 +97,14 @@
                                             <td style="width: 8%;">{{ .Title }}</td>
 
                                             <!-- Giá gốc dịch vụ -->
-                                            <td style="width: 2%;" class="text-start">30.000vnd</td>
+                                            <td style="width: 2%;" class="text-start">₫{{ formatPrice .Price }}</td>
 
                                             <!-- Số lượng -->
                                             <td style="width: 2%;"><input type="number" min="1" name="qty-{{ .ItemID }}"
                                                     class="form-control" value="{{ .Quantity }}" /></td>
 
                                             <!-- Giá nhân theo SỐ lượng -->
-                                            <td style="width: 2%;" class="text-end">{{ .SubTotal }}vnd</td>
+                                            <td style="width: 2%;" class="text-end">₫{{ formatPrice .SubTotal }}</td>
 
                                             <!-- Thao tác -->
                                             <td style="width: 2%;" scope="row" class="i-icon"><a
@@ -140,13 +140,13 @@
                         <div class="pay-detail-cover">
                             <div class="pay-detail">
                                 <div class="total">Tổng thanh toán:</div>
-                                <div class="unit">{{ .Cart.GrandTotal }}</div>
+                                <div class="unit">₫{{ formatPrice .Cart.GrandTotal }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="pay-button">
-                    <button class="pay-btn"><span><a href="#">Thanh toán</a></span></button>
+                    <button class="pay-btn"><span><a href="/checkout">Thanh toán</a></span></button>
                 </div>
             </div>
         </div>

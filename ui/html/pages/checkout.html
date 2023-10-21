@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <!-- {{ if .Cart.Items }} -->
+
         <section class="product-page pb-4 pt-4 bg-light">
             <div class="container">
                 <div class="row">
@@ -161,7 +161,7 @@
                             <div class="pay-detail-cover">
                                 <div class="pay-detail">
                                     <div class="total">Tổng thanh toán:</div>
-                                    <div class="unit">{{ .Cart.GrandTotal }}</div>
+                                    <div class="unit"></div>
                                 </div>
                             </div>
                         </div>
@@ -178,10 +178,12 @@
     <!-- Footer -->
     {{template "footer" .}}
     <!-- End Footer -->
-    <script type="text/javascript" src="/static/js/checkout.js"></script>
-    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
+
+<script type="text/javascript" src="/static/js/checkout.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

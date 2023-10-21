@@ -461,6 +461,7 @@ type cartItems struct {
 	ItemID    int32
 	ImagePath string
 	Title     string
+	Price     int32
 	Quantity  int32
 	SubTotal  int32
 }
@@ -491,11 +492,12 @@ func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
 			ItemID:    item.ID,
 			ImagePath: item.ImagePath,
 			Title:     item.Title,
+			Price:     item.Price,
 			Quantity:  item.Quantity,
 			SubTotal:  item.SubTotal,
 		})
 
-		cart.GrandTotal += int64(item.SubTotal)
+		cart.GrandTotal += item.SubTotal
 	}
 
 	data := app.newTemplateData(r)
@@ -574,7 +576,6 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 
 	// TODO: Display flash message.
 
-	// Re-render the current page.
 	http.Redirect(w, r, "/cart", http.StatusSeeOther)
 }
 
@@ -629,6 +630,13 @@ func (app *application) removeItemFromCart(w http.ResponseWriter, r *http.Reques
 	}
 
 	http.Redirect(w, r, "/cart", http.StatusSeeOther)
+}
+
+func (app *application) displayCheckoutPage(w http.ResponseWriter, r *http.Request) {
+	//cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "checkout.html", data)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {

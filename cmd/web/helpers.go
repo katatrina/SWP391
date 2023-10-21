@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"runtime/debug"
+	"strings"
 	"time"
 )
 
@@ -26,6 +27,27 @@ func (app *application) clientError(w http.ResponseWriter, status int) {
 
 func humanDate(t time.Time) string {
 	return t.Format("02 Jan 2006 at 15:04")
+}
+
+func formatVietnamesePrice(price int32) string {
+	priceStr := fmt.Sprintf("%d", price)
+	formattedPrice := ""
+
+	length := len(priceStr)
+	remainder := length % 3
+
+	if remainder > 0 {
+		formattedPrice += priceStr[:remainder] + "."
+	}
+
+	for i := remainder; i < length; i += 3 {
+		formattedPrice += priceStr[i:i+3] + "."
+	}
+
+	// Remove the trailing dot and add the currency symbol if needed
+	formattedPrice = strings.TrimRight(formattedPrice, ".")
+
+	return formattedPrice
 }
 
 func (app *application) render(w http.ResponseWriter, status int, page string, data *templateData) {

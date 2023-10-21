@@ -44,6 +44,8 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodPost, "/cart/update", protected.ThenFunc(app.updateCart))
 	router.Handler(http.MethodGet, "/cart/remove/:id", protected.ThenFunc(app.removeItemFromCart))
 
+	router.Handler(http.MethodGet, "/checkout", protected.ThenFunc(app.displayCheckoutPage))
+
 	// Provider permissions.
 	advanced := protected.Append(app.requireProviderPermission)
 
