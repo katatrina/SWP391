@@ -126,6 +126,11 @@ img {
 /* Thông tin Provider */
 .provider-detail {
     /* border-bottom: 1px solid; */
+    padding-top: 15px;
+}
+
+.provider-detail span {
+    margin: 0px 0 0 26px;
 }
 
 .provider-detail a {
@@ -226,6 +231,10 @@ img {
     transition: opacity .2s ease;
     user-select: none;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .09);
+}
+
+.pay-btn:hover {
+    background-color: #3e8e41;
 }
 
 .pay-button span {

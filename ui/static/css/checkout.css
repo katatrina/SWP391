@@ -126,6 +126,11 @@ img {
 /* Thông tin Provider */
 .provider-detail {
     /* border-bottom: 1px solid; */
+    padding-top: 15px;
+}
+
+.provider-detail span {
+    margin: 0px 0 0 26px;
 }
 
 .provider-detail a {
@@ -342,4 +347,8 @@ img {
 .checkout-payments button.active {
     background-color: #4CAF50;
     color: white;
+}
+
+.pay-btn:hover {
+    background-color: #3e8e41;
 }

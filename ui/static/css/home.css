@@ -12,7 +12,7 @@
 #banner {
     margin-top: 25px;
     width: 100%;
-    height: 530px;
+    height: 570px;
     overflow: hidden;
 }
 
@@ -242,6 +242,7 @@
     margin-top: 60px;
     height: 420px;
     background-color: #f4f4f4;
+    margin-top: 40px;
 }
 
 .about-us-body .about-us-body-content {
@@ -251,10 +252,6 @@
 
 .about-us-body .text-column {
     position: relative;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    padding-left: 120px;
-    padding-right: 120px;
 }
 
 .about-us-body .text-column p {

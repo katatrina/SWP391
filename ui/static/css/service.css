@@ -285,13 +285,9 @@
 }
 
 .card .card-text {
-    text-align: center;
+    text-align: justify;
 }
 
 .item .card-body {
-    height: 112px;
-}
-
-.item .card-body p:last-child {
-    overflow: scroll;
+    height: 126px;
 }
