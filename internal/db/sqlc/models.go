@@ -15,11 +15,11 @@ type Cart struct {
 }
 
 type CartItem struct {
-	ID        int32 `json:"id"`
-	CartID    int32 `json:"cart_id"`
-	ServiceID int32 `json:"service_id"`
-	Quantity  int32 `json:"quantity"`
-	SubTotal  int32 `json:"sub_total"`
+	UUID      string `json:"uuid"`
+	CartID    int32  `json:"cart_id"`
+	ServiceID int32  `json:"service_id"`
+	Quantity  int32  `json:"quantity"`
+	SubTotal  int32  `json:"sub_total"`
 }
 
 type Category struct {

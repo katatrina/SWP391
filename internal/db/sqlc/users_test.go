@@ -8,72 +8,71 @@ import (
 )
 
 func createFakeCustomer(t *testing.T) {
+	fullNames := []string{
+		"Trần Văn A",
+		"Nguyễn Văn B",
+		"Lê Văn C",
+		"Phạm Văn D",
+		"Đặng Văn E",
+	}
+
+	addresses := []string{
+		"89 Nguyễn Thị Minh Khai",
+		"88 Nguyễn Trãi",
+		"99 Nguyễn Văn Cừ",
+		"100 Nguyễn Văn Linh",
+		"101 Nguyễn Văn Trỗi",
+	}
+
 	for i := 0; i < 5; i++ {
-		fullName := util.RandomString(10)
 		err := testStore.CreateCustomerTx(context.Background(), CreateCustomerParams{
-			FullName: fullName,
-			Email:    fullName + "@gmail.com",
+			FullName: fullNames[i],
+			Email:    util.RandomString(7) + "@gmail.com",
 			Phone:    util.RandomPhone(10),
-			Address:  "89 Nguyễn Thị Minh Khai",
+			Address:  addresses[i],
 			Password: "123456",
 		})
 		require.NoError(t, err)
 	}
-	//err := testStore.CreateCustomerTx(context.Background(), CreateCustomerParams{
-	//	FullName: "Nguyễn Văn A",
-	//	Email:    "nguyenvanA@gmail.com",
-	//	Phone:    "0123456789",
-	//	Address:  "123 Lê Lợi",
-	//	Password: "123456",
-	//})
-	//require.NoError(t, err)
-	//
-	//err = testStore.CreateCustomerTx(context.Background(), CreateCustomerParams{
-	//	FullName: "Trần Văn B",
-	//	Email:    "tranvanB@gmail.com",
-	//	Phone:    "0123456788",
-	//	Address:  "67 Nguyễn Huệ",
-	//	Password: "123456",
-	//})
-	//require.NoError(t, err)
-
 }
 
 func createFakeProvider(t *testing.T) {
+	fullNames := []string{
+		"Nguyễn Lê Văn",
+		"Trần Văn Luyến",
+		"Nguyễn Thị Thanh",
+		"Trần Thị Thúy",
+		"Nguyễn Trung Trực",
+	}
+
+	addresses := []string{
+		"44 Lê Văn Lương",
+		"55 Nguyễn Văn Cừ",
+		"66 Nguyễn Văn Linh",
+		"77 Nguyễn Văn Trỗi",
+		"88 Nguyễn Thị Minh Khai",
+	}
+
+	companyNames := []string{
+		"FPTU",
+		"NEU",
+		"GRAP",
+		"GOOGLE",
+		"FACEBOOK",
+	}
+
 	for i := 0; i < 5; i++ {
 		err := testStore.CreateProviderTx(context.Background(), CreateProviderTxParams{
-			FullName:    util.RandomString(10),
-			Email:       util.RandomString(10) + "@gmail.com",
+			FullName:    fullNames[i],
+			Email:       util.RandomString(7) + "@gmail.com",
 			Phone:       util.RandomPhone(10),
-			Address:     "88 Nguyễn Trãi",
-			TaxCode:     "444",
-			CompanyName: "FPTU",
+			Address:     addresses[i],
+			TaxCode:     util.RandomString(4),
+			CompanyName: companyNames[i],
 			Password:    "123456",
 		})
 		require.NoError(t, err)
 	}
-
-	//err = testStore.CreateProviderTx(context.Background(), CreateProviderTxParams{
-	//	FullName:    "Trần Văn E",
-	//	Email:       "tranvanE@gmail.com",
-	//	Phone:       "0123456785",
-	//	Address:     "99 Nguyễn Văn Cừ",
-	//	TaxCode:     "555",
-	//	CompanyName: "Công ty E",
-	//	Password:    "123456",
-	//})
-	//require.NoError(t, err)
-	//
-	//err = testStore.CreateProviderTx(context.Background(), CreateProviderTxParams{
-	//	FullName:    "Lê Văn F",
-	//	Email:       "levanF@gmail.com",
-	//	Phone:       "0123456784",
-	//	Address:     "100 Nguyễn Văn Linh",
-	//	TaxCode:     "666",
-	//	CompanyName: "Công ty F",
-	//	Password:    "123456",
-	//})
-	//require.NoError(t, err)
 }
 
 func createUser(t *testing.T) {

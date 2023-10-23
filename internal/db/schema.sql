@@ -65,7 +65,7 @@ CREATE TABLE "carts"
 
 CREATE TABLE "cart_items"
 (
-    "id"         SERIAL PRIMARY KEY,
+    "uuid"       TEXT PRIMARY KEY,
     "cart_id"    INTEGER NOT NULL,
     "service_id" INTEGER NOT NULL,
     "quantity"   INTEGER NOT NULL,

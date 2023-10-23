@@ -3,8 +3,8 @@ INSERT INTO carts (user_id)
 VALUES ($1);
 
 -- name: AddServiceToCart :exec
-INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
-VALUES ($1, $2, $3, $4);
+INSERT INTO cart_items (uuid, cart_id, service_id, quantity, sub_total)
+VALUES ($1, $2, $3, $4, $5);
 
 -- name: IsServiceAlreadyInCart :one
 SELECT EXISTS(SELECT 1
@@ -19,7 +19,7 @@ FROM carts
 WHERE user_id = $1;
 
 -- name: GetCartItemsByCartID :many
-SELECT cart_items.id,
+SELECT cart_items.uuid,
        cart_items.cart_id,
        cart_items.service_id,
        cart_items.quantity,
@@ -42,14 +42,9 @@ WHERE cart_id = $1
 UPDATE cart_items
 SET quantity  = $1,
     sub_total = $2
-WHERE id = $3;
-
--- name: CreateCartItem :exec
-INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
-VALUES ($1, $2, $3, $4);
-
+WHERE uuid = $3;
 
 -- name: RemoveItemFromCart :exec
 DELETE
 FROM cart_items
-WHERE id = $1;
+WHERE uuid = $1;

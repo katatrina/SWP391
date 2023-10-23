@@ -100,7 +100,7 @@
                                             <td style="width: 2%;" class="text-start">₫{{ formatPrice .Price }}</td>
 
                                             <!-- Số lượng -->
-                                            <td style="width: 2%;"><input type="number" min="1" name="qty-{{ .ItemID }}"
+                                            <td style="width: 2%;"><input type="number" min="1" name="{{ .UUID }}"
                                                     class="form-control" value="{{ .Quantity }}" /></td>
 
                                             <!-- Giá nhân theo SỐ lượng -->
@@ -108,7 +108,7 @@
 
                                             <!-- Thao tác -->
                                             <td style="width: 2%;" scope="row" class="i-icon"><a
-                                                    href="/cart/remove/{{ .ItemID }}">Xóa</a>
+                                                    href="/cart/remove/{{ .UUID }}">Xóa</a>
                                             </td>
                                         </tr>
                                         {{ end }}

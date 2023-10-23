@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"github.com/google/uuid"
 	"github.com/julienschmidt/httprouter"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
 	"github.com/katatrina/SWP391/internal/validator"
@@ -458,7 +459,7 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 }
 
 type cartItems struct {
-	ItemID    int32
+	UUID      string
 	ImagePath string
 	Title     string
 	Price     int32
@@ -469,7 +470,6 @@ type cartItems struct {
 func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
 	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
 
-	// cart is a map of provider names and their services.
 	cart := Cart{
 		GrandTotal: 0,
 		Items:      make(map[string][]cartItems),
@@ -482,14 +482,14 @@ func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, item := range items {
-		providerName, err := app.store.GetProviderNameByServiceID(r.Context(), item.ServiceID)
+		companyName, err := app.store.GetCompanyNameByServiceID(r.Context(), item.ServiceID)
 		if err != nil {
 			app.serverError(w, err)
 			return
 		}
 
-		cart.Items[providerName] = append(cart.Items[providerName], cartItems{
-			ItemID:    item.ID,
+		cart.Items[companyName] = append(cart.Items[companyName], cartItems{
+			UUID:      item.UUID,
 			ImagePath: item.ImagePath,
 			Title:     item.Title,
 			Price:     item.Price,
@@ -551,7 +551,7 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 		err = app.store.UpdateCartItemQuantityAndSubTotal(r.Context(), sqlc.UpdateCartItemQuantityAndSubTotalParams{
 			Quantity: form.Quantity + cartItem.Quantity,
 			SubTotal: cartItem.SubTotal + service.Price*form.Quantity,
-			ID:       cartItem.ID,
+			UUID:     cartItem.UUID,
 		})
 		if err != nil {
 			app.serverError(w, err)
@@ -562,8 +562,15 @@ func (app *application) addItemToCart(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// If the service is not in the cart, create a new cart item.
-	err = app.store.CreateCartItem(r.Context(), sqlc.CreateCartItemParams{
+	// If the service is not in the cart, add it to the cart.
+	itemID, err := uuid.NewRandom()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = app.store.AddServiceToCart(r.Context(), sqlc.AddServiceToCartParams{
+		UUID:      itemID.String(),
 		CartID:    cartID,
 		ServiceID: service.ID,
 		Quantity:  form.Quantity,
@@ -589,8 +596,7 @@ func (app *application) updateCart(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, item := range items {
-		itemID := strconv.Itoa(int(item.ID))
-		quantity, err := strconv.ParseInt(r.PostFormValue("qty-"+itemID), 10, 32)
+		quantity, err := strconv.ParseInt(r.PostFormValue(item.UUID), 10, 32)
 		if err != nil {
 			app.errorLog.Println(err)
 			app.clientError(w, http.StatusBadRequest)
@@ -602,7 +608,7 @@ func (app *application) updateCart(w http.ResponseWriter, r *http.Request) {
 		err = app.store.UpdateCartItemQuantityAndSubTotal(r.Context(), sqlc.UpdateCartItemQuantityAndSubTotalParams{
 			Quantity: int32(quantity),
 			SubTotal: item.Price * int32(quantity),
-			ID:       item.ID,
+			UUID:     item.UUID,
 		})
 		if err != nil {
 			app.serverError(w, err)
@@ -616,14 +622,9 @@ func (app *application) updateCart(w http.ResponseWriter, r *http.Request) {
 func (app *application) removeItemFromCart(w http.ResponseWriter, r *http.Request) {
 	params := httprouter.ParamsFromContext(r.Context())
 
-	cartItemID, err := strconv.ParseInt(params.ByName("id"), 10, 32)
-	if err != nil {
-		app.errorLog.Println(err)
-		app.clientError(w, http.StatusBadRequest)
-		return
-	}
+	cartItemID := params.ByName("id")
 
-	err = app.store.RemoveItemFromCart(r.Context(), int32(cartItemID))
+	err := app.store.RemoveItemFromCart(r.Context(), cartItemID)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -633,7 +634,10 @@ func (app *application) removeItemFromCart(w http.ResponseWriter, r *http.Reques
 }
 
 func (app *application) displayCheckoutPage(w http.ResponseWriter, r *http.Request) {
+	//userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
 	//cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "checkout.html", data)
@@ -644,3 +648,5 @@ func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
 
 	app.render(w, http.StatusOK, "not_found.html", data)
 }
+
+// TODO: Check if cart items is conflict between users.

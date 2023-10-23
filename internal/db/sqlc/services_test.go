@@ -18,14 +18,16 @@ func TestCreateService(t *testing.T) {
 	require.NoError(t, err)
 
 	for _, provider := range providers {
-		err = testStore.CreateService(context.Background(), CreateServiceParams{
-			Title:             "This is a title",
-			Description:       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliqua",
-			Price:             100000,
-			ImagePath:         fmt.Sprintf("https://picsum.photos/id/%d/5000/3333", util.RandomInt(1, 1000)),
-			CategoryID:        categoryIDs[util.RandomInt(0, len(categoryIDs))-1],
-			OwnedByProviderID: provider.ID,
-		})
-		require.NoError(t, err)
+		for i := 0; i < 3; i++ {
+			err = testStore.CreateService(context.Background(), CreateServiceParams{
+				Title:             "Tên dịch vụ",
+				Description:       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliqua",
+				Price:             util.RandomPrice(),
+				ImagePath:         fmt.Sprintf("https://picsum.photos/id/%d/5000/3333", util.RandomInt(1, 1000)),
+				CategoryID:        categoryIDs[util.RandomInt(0, len(categoryIDs)-1)],
+				OwnedByProviderID: provider.ID,
+			})
+			require.NoError(t, err)
+		}
 	}
 }

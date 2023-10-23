@@ -48,7 +48,7 @@ func (store *Store) CreateProviderTx(ctx context.Context, arg CreateProviderTxPa
 			FullName: arg.FullName,
 			Email:    arg.Email,
 			Phone:    arg.Phone,
-			Address:  arg.Phone,
+			Address:  arg.Address,
 			Password: string(hashedPassword),
 		})
 		if err != nil {

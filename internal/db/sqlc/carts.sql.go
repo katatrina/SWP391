@@ -10,19 +10,21 @@ import (
 )
 
 const addServiceToCart = `-- name: AddServiceToCart :exec
-INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
-VALUES ($1, $2, $3, $4)
+INSERT INTO cart_items (uuid, cart_id, service_id, quantity, sub_total)
+VALUES ($1, $2, $3, $4, $5)
 `
 
 type AddServiceToCartParams struct {
-	CartID    int32 `json:"cart_id"`
-	ServiceID int32 `json:"service_id"`
-	Quantity  int32 `json:"quantity"`
-	SubTotal  int32 `json:"sub_total"`
+	UUID      string `json:"uuid"`
+	CartID    int32  `json:"cart_id"`
+	ServiceID int32  `json:"service_id"`
+	Quantity  int32  `json:"quantity"`
+	SubTotal  int32  `json:"sub_total"`
 }
 
 func (q *Queries) AddServiceToCart(ctx context.Context, arg AddServiceToCartParams) error {
 	_, err := q.db.ExecContext(ctx, addServiceToCart,
+		arg.UUID,
 		arg.CartID,
 		arg.ServiceID,
 		arg.Quantity,
@@ -41,28 +43,6 @@ func (q *Queries) CreateCart(ctx context.Context, userID int32) error {
 	return err
 }
 
-const createCartItem = `-- name: CreateCartItem :exec
-INSERT INTO cart_items (cart_id, service_id, quantity, sub_total)
-VALUES ($1, $2, $3, $4)
-`
-
-type CreateCartItemParams struct {
-	CartID    int32 `json:"cart_id"`
-	ServiceID int32 `json:"service_id"`
-	Quantity  int32 `json:"quantity"`
-	SubTotal  int32 `json:"sub_total"`
-}
-
-func (q *Queries) CreateCartItem(ctx context.Context, arg CreateCartItemParams) error {
-	_, err := q.db.ExecContext(ctx, createCartItem,
-		arg.CartID,
-		arg.ServiceID,
-		arg.Quantity,
-		arg.SubTotal,
-	)
-	return err
-}
-
 const getCartIDByUserId = `-- name: GetCartIDByUserId :one
 SELECT id
 FROM carts
@@ -77,7 +57,7 @@ func (q *Queries) GetCartIDByUserId(ctx context.Context, userID int32) (int32, e
 }
 
 const getCartItemByCartIDAndServiceID = `-- name: GetCartItemByCartIDAndServiceID :one
-SELECT id, cart_id, service_id, quantity, sub_total
+SELECT uuid, cart_id, service_id, quantity, sub_total
 FROM cart_items
 WHERE cart_id = $1
   AND service_id = $2
@@ -92,7 +72,7 @@ func (q *Queries) GetCartItemByCartIDAndServiceID(ctx context.Context, arg GetCa
 	row := q.db.QueryRowContext(ctx, getCartItemByCartIDAndServiceID, arg.CartID, arg.ServiceID)
 	var i CartItem
 	err := row.Scan(
-		&i.ID,
+		&i.UUID,
 		&i.CartID,
 		&i.ServiceID,
 		&i.Quantity,
@@ -102,7 +82,7 @@ func (q *Queries) GetCartItemByCartIDAndServiceID(ctx context.Context, arg GetCa
 }
 
 const getCartItemsByCartID = `-- name: GetCartItemsByCartID :many
-SELECT cart_items.id,
+SELECT cart_items.uuid,
        cart_items.cart_id,
        cart_items.service_id,
        cart_items.quantity,
@@ -117,7 +97,7 @@ WHERE cart_items.cart_id = $1
 `
 
 type GetCartItemsByCartIDRow struct {
-	ID                int32  `json:"id"`
+	UUID              string `json:"uuid"`
 	CartID            int32  `json:"cart_id"`
 	ServiceID         int32  `json:"service_id"`
 	Quantity          int32  `json:"quantity"`
@@ -138,7 +118,7 @@ func (q *Queries) GetCartItemsByCartID(ctx context.Context, cartID int32) ([]Get
 	for rows.Next() {
 		var i GetCartItemsByCartIDRow
 		if err := rows.Scan(
-			&i.ID,
+			&i.UUID,
 			&i.CartID,
 			&i.ServiceID,
 			&i.Quantity,
@@ -183,11 +163,11 @@ func (q *Queries) IsServiceAlreadyInCart(ctx context.Context, arg IsServiceAlrea
 const removeItemFromCart = `-- name: RemoveItemFromCart :exec
 DELETE
 FROM cart_items
-WHERE id = $1
+WHERE uuid = $1
 `
 
-func (q *Queries) RemoveItemFromCart(ctx context.Context, id int32) error {
-	_, err := q.db.ExecContext(ctx, removeItemFromCart, id)
+func (q *Queries) RemoveItemFromCart(ctx context.Context, uuid string) error {
+	_, err := q.db.ExecContext(ctx, removeItemFromCart, uuid)
 	return err
 }
 
@@ -195,16 +175,16 @@ const updateCartItemQuantityAndSubTotal = `-- name: UpdateCartItemQuantityAndSub
 UPDATE cart_items
 SET quantity  = $1,
     sub_total = $2
-WHERE id = $3
+WHERE uuid = $3
 `
 
 type UpdateCartItemQuantityAndSubTotalParams struct {
-	Quantity int32 `json:"quantity"`
-	SubTotal int32 `json:"sub_total"`
-	ID       int32 `json:"id"`
+	Quantity int32  `json:"quantity"`
+	SubTotal int32  `json:"sub_total"`
+	UUID     string `json:"uuid"`
 }
 
 func (q *Queries) UpdateCartItemQuantityAndSubTotal(ctx context.Context, arg UpdateCartItemQuantityAndSubTotalParams) error {
-	_, err := q.db.ExecContext(ctx, updateCartItemQuantityAndSubTotal, arg.Quantity, arg.SubTotal, arg.ID)
+	_, err := q.db.ExecContext(ctx, updateCartItemQuantityAndSubTotal, arg.Quantity, arg.SubTotal, arg.UUID)
 	return err
 }

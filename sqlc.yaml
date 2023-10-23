@@ -11,6 +11,7 @@ sql:
         emit_json_tags: true
         rename:
           hashed_password: Password
+          uuid: UUID
     database:
       uri: "postgresql://postgres:12345@localhost:5432/SWP391"
 
