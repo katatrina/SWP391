@@ -26,7 +26,6 @@
 
     <!-- NavBar CSS -->
     <link rel="stylesheet" href="/static/css/navbar.css">
-
 </head>
 
 <body>
@@ -34,83 +33,7 @@
     <div id="main">
         <!-- Navigation -->
         {{template "navbar" .}}
-        <!-- <nav class="navigation navbar navbar-expand-lg navbar-light bg-light p-3">
-            <div class="container-fluid">
-                <div class=" collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: space-between;">
-                    <a class="navbar-brand" href="/"><i class="ti-home"></i>BIRD SERVE CENTREL</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" aria-current="page" href="/">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" href="#popular">Nổi bật</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" href="#exp">Trải nghiệm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" href="/service">Dịch vụ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" href="/blog">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" href="#About">Về chúng tôi</a>
-                        </li>
-                    </ul>
-                    <ul class="nav-right navbar-nav d-none d-lg-inline-flex" style="align-items: center;">
-                      
-
-                      
-                        <li class="nav-item">
-                            <a class="nav-link mx-2" href="/cart">
-                                <i class="cart-icon ti-shopping-cart">Go to Cart</i>
-                            </a>
-                        </li>
-                     
-                        <li class="nav-item mx-2">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="ti-user"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="/account">Tài khoản</i></a></li>
-                                    <li><a class="dropdown-item" href="#">Đơn mua</a></li>
-
-                                    <li><a class="dropdown-item" href="#">Đơn bán</a></li>
-                                    <li><a class="dropdown-item" href="/account/my-services">Dịch vụ đã đăng</a></li>
-
-                                    <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-               
-                        <li class="nav-item">
-                            <div class="login-text">
-                                <a class="nav-link" href="/login">Đăng Nhập</a>
-                            </div>
-
-                        </li>
-                   
-
-                       
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signup">Đăng Ký</a>
-                        </li>
-                        
-
-
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
+        <!-- Navigation -->
 
         <div class="spacer" style="height: 82px;"></div>
         <!-- Banner 1 -->
@@ -228,41 +151,41 @@
                     <div class="content-exp-infor">
                         <div class="exp-infor-container">
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="/static/img/health.jpg" alt="Card image cap">
+                                <!-- <img class="card-img-top" src="/ui/static/img/health.jpg" alt="Card image cap"> -->
+                                <i class="fa-solid fa-briefcase-medical" style="color: #198754;"></i>
                                 <div class="">
-                                    <h5 class="card-title">Ưu tiên sức khỏe</h5>
-                                    <p class="card-text">Chúng tôi cam kết đảm bảo chim của bạn luôn trong trạng thái
-                                        sức
-                                        khỏe tốt nhất.</p>
+                                    <h5 class="card-title">Chất lượng</h5>
+                                    <p class="card-text">Dịch vụ đảm bảo an toàn và chất lượng cao, chuyên nghiệp</p>
 
                                 </div>
                             </div>
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="/static/img/health.jpg" alt="Card image cap">
-                                <div class="">
-                                    <h5 class="card-title">Chuyên nghiệp và tin cậy</h5>
-                                    <p class="card-text">Chúng tôi tự hào về dịch vụ chuyên nghiệp và đáng tin cậy mà
-                                        chúng
-                                        tôi mang đến cho các loài chim cảnh của bạn.</p>
-
-                                </div>
-                            </div>
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="/static/img/health.jpg" alt="Card image cap">
+                                <!-- <img class="card-img-top" src="/ui/static/img/health.jpg" alt="Card image cap"> -->
+                                <i class="fa-solid fa-shield-heart" style="color: #198754;"></i>
                                 <div class="">
                                     <h5 class="card-title">An toàn và bảo vệ</h5>
-                                    <p class="card-text">An toàn và bảo vệ là ưu tiên hàng đầu của chúng tôi trong việc
-                                        chăm
-                                        sóc cho chim của bạn.</p>
+                                    <p class="card-text">Dịch vụ không gây hại cho thú cưng, có chất lượng và
+                                        nguồn gốc rõ ràng.</p>
 
                                 </div>
                             </div>
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" src="/static/img/health.jpg" alt="Card image cap">
+                                <!-- <img class="card-img-top" src="/ui/static/img/health.jpg" alt="Card image cap"> -->
+                                <i class="fa-solid fa-truck-fast" style="color: #198754;"></i>
                                 <div class="">
-                                    <h5 class="card-title">Chăm sóc từ trái tim</h5>
-                                    <p class="card-text">Chúng tôi làm việc với "Chăm sóc từ trái tim" để đảm bảo bạn và
-                                        chim của bạn cảm nhận được sự quan tâm đặc biệt.</p>
+                                    <h5 class="card-title">Bảo hành</h5>
+                                    <p class="card-text">Có chính sách đổi trả linh hoạt và thân thiện với người dùng.
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="card" style="width: 18rem;">
+                                <!-- <img class="card-img-top" src="/ui/static/img/health.jpg" alt="Card image cap"> -->
+                                <i class="fa-solid fa-cash-register" style="color: #198754;"></i>
+                                <div class="">
+                                    <h5 class="card-title">Ưu đãi</h5>
+                                    <p class="card-text">Cung cấp ưu đãi, giảm giá hấp dẫn và các chương trình khuyến
+                                        mãi.</p>
 
                                 </div>
                             </div>
@@ -383,47 +306,47 @@
             </div>
 
             <!-- Banner 2 -->
-            <div id="sub-banner">
-                <img src="/static/img/home-banner-2.jpg" alt="Sub-banner" class="sub-banner-img">
+            <!-- <div id="sub-banner">
+                <img src="/ui/static/img/home-banner-2.jpg" alt="Sub-banner" class="sub-banner-img">
                 <div class="sub-banner-header">
                     <h4>Câu Slogun</h4>
                 </div>
-            </div>
+            </div> -->
 
 
-            <!-- Về chúng tôi -->
-            <div class="content-about-us" id="About" style="width: 100%;
-    height: auto;
-    min-height: 500px;">
-                <!-- <div class="content-heading text-center text-primary text-uppercase">
-                    <h1>Về chúng tôi</h1>
-                    <div class="content-space"></div>
-                </div> -->
-                <div class="about-us-body">
-                    <div class="about-us-body-content row">
-                        <!-- Cột bên trái (văn bản) -->
-                        <div class="text-column col-md-7">
-                            <div class="text-center text-success text-uppercase" style="margin-bottom: 54px;">
-                                <h1>Câu chuyện về chúng tôi</h1>
-                                <div class="content-space"></div>
+            <div class="container">
+                <!-- Về chúng tôi -->
+                <div class="content-about-us" id="About">
+                    <!-- <div class="content-heading text-center text-primary text-uppercase">
+                        <h1>Về chúng tôi</h1>
+                        <div class="content-space"></div>
+                    </div> -->
+                    <div class="">&nbsp;</div>
+                    <div class="about-us-body">
+                        <div class="about-us-body-content row">
+                            <!-- Cột bên trái (văn bản) -->
+                            <div class="text-column col-md-7">
+                                <div class="text-center text-success text-uppercase" style="margin-bottom: 54px;">
+                                    <h1>Câu chuyện về chúng tôi</h1>
+                                    <div class="content-space"></div>
+                                </div>
+                                <p>Khi bước vào thế giới của chúng tôi tại Dịch vụ Chăm sóc Chim, bạn sẽ cảm nhận được
+                                    một không gian tận tâm và chuyên
+                                    nghiệp, nơi mà mỗi chiếc lồng chim không chỉ là một không gian ở, mà còn là tổ ấm ấm
+                                    cúng, đầy đủ những sản phẩm chăm
+                                    sóc tối ưu và dịch vụ chuyên nghiệp từ đội ngũ chăm sóc giàu kinh nghiệm của chúng
+                                    tôi. Chúng tôi tin rằng mỗi chú chim
+                                    đều xứng đáng nhận được sự chăm sóc tận tâm và sự quan tâm đặc biệt, và với cam kết
+                                    này, chúng tôi luôn hướng tới việc
+                                    tạo ra môi trường hoàn hảo nhất để giúp chim của bạn thể hiện hết tiềm năng và sức
+                                    khỏe tối đa của chúng.
+                                </p>
+
                             </div>
-                            <p>Khởi đầu bằng một cửa hàng trong con hẻm nhỏ chỉ với Dịch vụ Vệ sinh giày cùng sứ mệnh
-                                "Mang giày sạch đến mọi nhà".
-                                Trải qua khoảng thời gian khá dài, Extrim tự hào khi trở thành một trong những Cửa hàng
-                                Chăm sóc giày lớn nhất TP.HCM
-                                với đa dạng dịch vụ không chỉ dành cho Giày mà còn có Túi, Ví, Balo. Tại đây chúng tôi
-                                không có gì ngoài một tập thể
-                                nhiệt huyết và tình yêu dành cho giày. Với kĩ thuật chuyên môn cao, sự am hiểu sâu sắc
-                                về từng dòng chất liệu, chúng tôi
-                                luôn đồng hành để cùng nhau tạo ra nhiều giá trị cho Khách Hàng qua việc Chăm Sóc những
-                                Đôi Giày - người Bạn mọi lúc của
-                                chúng ta.
-                            </p>
-
-                        </div>
-                        <!-- Cột bên phải (ảnh) -->
-                        <div class="img-column col-md-5">
-                            <img src="/static/img/home-about-us.jpg" alt="Ảnh của bạn">
+                            <!-- Cột bên phải (ảnh) -->
+                            <div class="img-column col-md-5">
+                                <img src="/static/img/home-about-us.jpg" alt="Ảnh của bạn">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -437,6 +360,7 @@
 
     <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

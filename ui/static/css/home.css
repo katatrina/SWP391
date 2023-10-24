@@ -10,9 +10,8 @@
 
 /* Banner */
 #banner {
-    margin-top: 25px;
     width: 100%;
-    height: 570px;
+    height: 550px;
     overflow: hidden;
 }
 
@@ -150,6 +149,10 @@
     justify-content: center;
 }
 
+.content-exp-infor i {
+    font-size: 52px;
+}
+
 .content-exp-infor .exp-infor-container {
     display: flex;
     padding: 24px;
@@ -238,11 +241,9 @@
 
 
 /* Về Chúng Tôi */
-#content-about-us {
-    margin-top: 60px;
-    height: 420px;
-    background-color: #f4f4f4;
-    margin-top: 40px;
+.content-about-us {
+    width: 100%;
+    height: 500px;
 }
 
 .about-us-body .about-us-body-content {
@@ -272,9 +273,31 @@
     height: auto;
 }
 
+.about-us-body-content h1 {
+    margin: 0;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 1.167;
+    text-align: start;
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.about-us-body-content p {
+    margin: 0;
+    font-family: Montserrat;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #081845;
+    font-weight: 500;
+    text-align: justify;
+    padding-right: 32px;
+}
+
 
 /* FOOTER */
 .footer-main {
-    margin-top: 60px;
     background-color: #f4f4f4 !important;
 }
