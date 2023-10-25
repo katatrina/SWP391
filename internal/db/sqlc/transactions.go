@@ -2,6 +2,7 @@ package sqlc
 
 import (
 	"context"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -100,6 +101,69 @@ func (store *Store) CreateCustomerTx(ctx context.Context, arg CreateCustomerPara
 		err = qtx.CreateCart(ctx, customerID)
 		if err != nil {
 			return err
+		}
+
+		return nil
+	})
+
+	return err
+}
+
+type CreateOrderTxParams struct {
+	BuyerID       int32
+	SellerID      int32
+	PaymentMethod string
+	CartItems     []GetCartItemsByCartIDRow
+}
+
+func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) error {
+	err := store.execTx(ctx, func(qtx *Queries) error {
+		var err error
+
+		randomOrderID, _ := uuid.NewRandom()
+
+		// Create order.
+		orderID, err := qtx.CreateOrder(ctx, CreateOrderParams{
+			UUID:          randomOrderID.String(),
+			BuyerID:       arg.BuyerID,
+			SellerID:      arg.SellerID,
+			PaymentMethod: arg.PaymentMethod,
+		})
+		if err != nil {
+			return err
+		}
+
+		for i, cartItem := range arg.CartItems {
+			// Create order item.
+			orderItemID, err := qtx.CreateOrderItem(ctx, CreateOrderItemParams{
+				UUID:      randomOrderID.String() + " - item - " + string(rune(i)),
+				OrderID:   orderID,
+				ServiceID: cartItem.ServiceID,
+				Quantity:  cartItem.Quantity,
+				SubTotal:  cartItem.SubTotal,
+			})
+			if err != nil {
+				return err
+			}
+
+			// Create order item details.
+			err = qtx.CreateOrderItemDetails(ctx, CreateOrderItemDetailsParams{
+				OrderItemID: orderItemID,
+				Title:       cartItem.Title,
+				Price:       cartItem.Price,
+				ImagePath:   cartItem.ImagePath,
+			})
+			if err != nil {
+				return err
+			}
+
+			// Remove item from cart.
+			err = qtx.RemoveItemFromCart(ctx, cartItem.UUID)
+			if err != nil {
+				return err
+			}
+
+			return nil
 		}
 
 		return nil

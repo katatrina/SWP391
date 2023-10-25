@@ -21,3 +21,8 @@ WHERE id = $1;
 SELECT company_name
 FROM provider_details
 WHERE provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1);
+
+-- name: GetServiceByCartItemID :one
+SELECT *
+FROM services
+WHERE id = (SELECT service_id FROM cart_items WHERE cart_items.uuid = $1);

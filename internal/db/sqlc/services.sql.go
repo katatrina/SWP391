@@ -48,6 +48,29 @@ func (q *Queries) GetCompanyNameByServiceID(ctx context.Context, id int32) (stri
 	return company_name, err
 }
 
+const getServiceByCartItemID = `-- name: GetServiceByCartItemID :one
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+FROM services
+WHERE id = (SELECT service_id FROM cart_items WHERE cart_items.uuid = $1)
+`
+
+func (q *Queries) GetServiceByCartItemID(ctx context.Context, uuid string) (Service, error) {
+	row := q.db.QueryRowContext(ctx, getServiceByCartItemID, uuid)
+	var i Service
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Description,
+		&i.Price,
+		&i.ImagePath,
+		&i.CategoryID,
+		&i.OwnedByProviderID,
+		&i.Status,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getServiceByID = `-- name: GetServiceByID :one
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services

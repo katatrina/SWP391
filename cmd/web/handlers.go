@@ -458,13 +458,25 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 	app.render(w, http.StatusOK, "services_by_category.html", data)
 }
 
-type cartItems struct {
-	UUID      string
-	ImagePath string
-	Title     string
-	Price     int32
-	Quantity  int32
-	SubTotal  int32
+func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http.Request) {
+	params := httprouter.ParamsFromContext(r.Context())
+
+	serviceID, err := strconv.ParseInt(params.ByName("id"), 10, 32)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	service, err := app.store.GetServiceByID(r.Context(), int32(serviceID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	data := app.newTemplateData(r)
+	data.Service = service
+
+	app.render(w, http.StatusOK, "service_details.html", data)
 }
 
 func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
@@ -472,7 +484,7 @@ func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
 
 	cart := Cart{
 		GrandTotal: 0,
-		Items:      make(map[string][]cartItems),
+		Items:      make(map[string][]sqlc.GetCartItemsByCartIDRow),
 	}
 
 	items, err := app.store.GetCartItemsByCartID(r.Context(), cartID)
@@ -488,14 +500,7 @@ func (app *application) displayCart(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		cart.Items[companyName] = append(cart.Items[companyName], cartItems{
-			UUID:      item.UUID,
-			ImagePath: item.ImagePath,
-			Title:     item.Title,
-			Price:     item.Price,
-			Quantity:  item.Quantity,
-			SubTotal:  item.SubTotal,
-		})
+		cart.Items[companyName] = append(cart.Items[companyName], item)
 
 		cart.GrandTotal += item.SubTotal
 	}
@@ -634,13 +639,88 @@ func (app *application) removeItemFromCart(w http.ResponseWriter, r *http.Reques
 }
 
 func (app *application) displayCheckoutPage(w http.ResponseWriter, r *http.Request) {
-	//userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+	user, err := app.store.GetUserByID(r.Context(), userID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
 
-	//cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+
+	cart := Cart{
+		GrandTotal: 0,
+		Items:      make(map[string][]sqlc.GetCartItemsByCartIDRow),
+	}
+
+	items, err := app.store.GetCartItemsByCartID(r.Context(), cartID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, item := range items {
+		companyName, err := app.store.GetCompanyNameByServiceID(r.Context(), item.ServiceID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		cart.Items[companyName] = append(cart.Items[companyName], item)
+
+		cart.GrandTotal += item.SubTotal
+	}
 
 	data := app.newTemplateData(r)
+	data.Cart = cart
+	data.User = user
 
 	app.render(w, http.StatusOK, "checkout.html", data)
+}
+
+func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
+	paymentMethod := r.PostFormValue("payment_method")
+
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
+
+	cart := make(map[int32][]sqlc.GetCartItemsByCartIDRow)
+
+	items, err := app.store.GetCartItemsByCartID(r.Context(), cartID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, item := range items {
+		cart[item.OwnedByProviderID] = append(cart[item.OwnedByProviderID], item)
+	}
+
+	for providerID, cartItem := range cart {
+		err = app.store.CreateOrderTx(r.Context(), sqlc.CreateOrderTxParams{
+			BuyerID:       userID,
+			SellerID:      providerID,
+			PaymentMethod: paymentMethod,
+			CartItems:     cartItem,
+		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+	}
+}
+
+func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "don-mua.html", data)
+}
+
+func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "don-ban.html", data)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
@@ -648,5 +728,3 @@ func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
 
 	app.render(w, http.StatusOK, "not_found.html", data)
 }
-
-// TODO: Check if cart items is conflict between users.

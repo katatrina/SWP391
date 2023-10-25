@@ -30,6 +30,34 @@ type Category struct {
 	Description string `json:"description"`
 }
 
+type Order struct {
+	UUID          string    `json:"uuid"`
+	BuyerID       int32     `json:"buyer_id"`
+	SellerID      int32     `json:"seller_id"`
+	Status        string    `json:"status"`
+	PaymentMethod string    `json:"payment_method"`
+	GrandTotal    int32     `json:"grand_total"`
+	CreatedAt     time.Time `json:"created_at"`
+}
+
+type OrderItem struct {
+	UUID      string    `json:"uuid"`
+	OrderID   string    `json:"order_id"`
+	ServiceID int32     `json:"service_id"`
+	Quantity  int32     `json:"quantity"`
+	SubTotal  int32     `json:"sub_total"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type OrderItemDetail struct {
+	ID          int32     `json:"id"`
+	OrderItemID string    `json:"order_item_id"`
+	Title       string    `json:"title"`
+	Price       int32     `json:"price"`
+	ImagePath   string    `json:"image_path"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
 type ProviderDetail struct {
 	ID          int32     `json:"id"`
 	ProviderID  int32     `json:"provider_id"`

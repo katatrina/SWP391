@@ -20,6 +20,7 @@ type templateData struct {
 	Flash           string
 	IsAuthenticated bool
 	IsProvider      bool
+	Service         sqlc.Service
 	Services        []sqlc.Service
 	User            sqlc.User
 	Categories      []sqlc.Category
@@ -28,7 +29,7 @@ type templateData struct {
 
 type Cart struct {
 	GrandTotal int32
-	Items      map[string][]cartItems
+	Items      map[string][]sqlc.GetCartItemsByCartIDRow
 }
 
 func (app *application) newTemplateData(r *http.Request) *templateData {

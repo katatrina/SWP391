@@ -72,6 +72,37 @@ CREATE TABLE "cart_items"
     "sub_total"  INTEGER NOT NULL
 );
 
+CREATE TABLE "orders"
+(
+    "uuid"           TEXT PRIMARY KEY,
+    "buyer_id"       INTEGER     NOT NULL,
+    "seller_id"      INTEGER     NOT NULL,
+    "status"         VARCHAR     NOT NULL DEFAULT 'waiting to confirm',
+    "payment_method" VARCHAR     NOT NULL,
+    "grand_total"    INTEGER     NOT NULL DEFAULT 0,
+    "created_at"     timestamptz NOT NULL DEFAULT 'now()'
+);
+
+CREATE TABLE "order_items"
+(
+    "uuid"       TEXT PRIMARY KEY,
+    "order_id"   TEXT        NOT NULL,
+    "service_id" INTEGER     NOT NULL,
+    "quantity"   INTEGER     NOT NULL,
+    "sub_total"  INTEGER     NOT NULL,
+    "created_at" timestamptz NOT NULL DEFAULT 'now()'
+);
+
+CREATE TABLE "order_item_details"
+(
+    "id"            SERIAL PRIMARY KEY,
+    "order_item_id" TEXT         NOT NULL,
+    "title"         VARCHAR(350) NOT NULL,
+    "price"         INTEGER      NOT NULL,
+    "image_path"    TEXT         NOT NULL,
+    "created_at"    timestamptz  NOT NULL DEFAULT (now())
+);
+
 ALTER TABLE "users"
     ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 
@@ -98,6 +129,18 @@ ALTER TABLE "cart_items"
 
 ALTER TABLE "cart_items"
     ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "orders"
+    ADD FOREIGN KEY ("buyer_id") REFERENCES "users" ("id");
+
+ALTER TABLE "orders"
+    ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id");
+
+ALTER TABLE "order_items"
+    ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("uuid");
+
+ALTER TABLE "order_item_details"
+    ADD FOREIGN KEY ("order_item_id") REFERENCES "order_items" ("uuid");
 
 INSERT INTO roles (name)
 VALUES ('customer'),
