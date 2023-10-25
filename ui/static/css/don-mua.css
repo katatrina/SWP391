@@ -12,16 +12,39 @@ body {
     width: 100%;
     max-width: 960px;
     background-color: #fff;
+    margin-top: 21px;
 }
 
 /* Sub Navigation */
-.navbar {
+.container .navbar {
     height: 52px;
 }
 
 .sub-nav {
     width: 100%;
     justify-content: space-around;
+}
+
+.sub-nav .nav-item {
+    list-style: none;
+    /* Loại bỏ dấu đầu dòng mặc định */
+}
+
+.sub-nav .nav-item a {
+    color: #000;
+    /* Màu chữ mặc định */
+    text-decoration: none;
+    /* Loại bỏ gạch chân mặc định */
+    transition: color 0.3s;
+    /* Hiệu ứng chuyển đổi màu */
+}
+
+.sub-nav .nav-item a.active {
+    color: #05a04d;
+    /* Màu chữ khi liên kết được chọn */
+    text-decoration: none;
+    /* Đường gạch chân dưới khi liên kết được chọn */
+    font-weight: bold;
 }
 
 /* Main */
@@ -140,6 +163,10 @@ main {}
 .order-total {
     padding: 12px 24px 12px;
     background: #fffefb;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
 }
 
 .order-total-wrapper {
@@ -168,4 +195,17 @@ main {}
     color: #ee4d2d;
     font-size: 24px;
     line-height: 30px;
+}
+
+.order-provider-wrapper {
+    display: block;
+}
+
+.order-provider-wrapper span {
+    display: block;
+    opacity: .6;
+}
+
+.order-provider-wrapper span:not(:first-child) {
+    /* margin-left: 16px; */
 }

@@ -40,6 +40,11 @@
     font-size: 21px;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+    width: 4%;
+}
+
 /* Content */
 #content {
     /* padding: 80px; */
