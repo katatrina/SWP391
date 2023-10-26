@@ -90,6 +90,8 @@
                 </div>
             </div>
 
+
+
             <div class="">&nbsp;</div>
 
             <div class="container">
@@ -127,7 +129,7 @@
                                             <td style="width: 2%;">{{ .Quantity }}</td>
 
                                             <!-- Giá nhân theo SỐ lượng -->
-                                            <td style="width: 2%;" class="text-end">₫{{ formatPrice .SubTotal }}</td>
+                                            <td style="width: 2%;" class="">₫{{ formatPrice .SubTotal }}</td>
                                         </tr>
                                         {{ end }}
                                     </tbody>
@@ -152,8 +154,10 @@
                             <div class="checkout-payments-title">Phương thức thanh toán:</div>
                             <div class="checkout-payments-type">
                                 <div role="radiogroup">
-                                    <span><button name="" value="">Thanh toán khi xong dịch vụ</button></span>
-                                    <span><button name="" value="">Thanh toán ngân hàng</button></span>
+                                    <span><button type="button" role="radio" name="" value="">Thanh toán khi xong dịch
+                                            vụ</button></span>
+                                    <span><button type="button" role="radio" name="" value="">Thanh toán ngân
+                                            hàng</button></span>
                                 </div>
                             </div>
                         </div>
@@ -170,8 +174,7 @@
                             </div>
                         </div>
                         <div class="pay-button">
-                            <!-- <button class="pay-btn"><span class="link-span"><a href="#">Đặt dịch vụ</a></span></button> -->
-                            <button type="submit" class="pay-btn">Đặt dịch vụ</button>
+                            <button type="submit" name="" value="" class="pay-btn">Đặt dịch vụ</button>
                         </div>
                     </div>
                 </div>

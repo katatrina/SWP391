@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 100%;
+    max-width: 960px;
+    background-color: #fff;
+    margin-top: 21px;
+}
+
+/* Sub Navigation */
+.container .navbar {
+    height: 52px;
+}
+
+.sub-nav {
+    width: 100%;
+    justify-content: space-around;
+}
+
+.sub-nav .nav-item {
+    list-style: none;
+    /* Loại bỏ dấu đầu dòng mặc định */
+}
+
+.sub-nav .nav-item a {
+    color: #000;
+    /* Màu chữ mặc định */
+    text-decoration: none;
+    /* Loại bỏ gạch chân mặc định */
+    transition: color 0.3s;
+    /* Hiệu ứng chuyển đổi màu */
+}
+
+.sub-nav .nav-item a.active {
+    color: #05a04d;
+    /* Màu chữ khi liên kết được chọn */
+    text-decoration: none;
+    /* Đường gạch chân dưới khi liên kết được chọn */
+    font-weight: bold;
+}
+
+/* Main */
+main {}
+
+/* Item */
+.wrapper {
+    margin: 12px 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+}
+
+.order-detail-wrapper {
+    padding: 12px 24px;
+    background: #fff;
+}
+
+/* Line Space */
+.line-space {
+    border-bottom: 1px solid rgba(0, 0, 0, .09);
+    margin-top: 8px;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 12px;
+    align-items: center;
+}
+
+.provider-detail span {
+    max-width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.provider-detail i {
+    margin-right: 8px;
+}
+
+.order-status {
+    padding: 0 0 0 10px;
+    display: block;
+}
+
+.order-status span {
+    line-height: 24px;
+    color: #ee4d2d;
+    text-align: right;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.order-status .order-date {
+    display: block;
+    color: #000;
+}
+
+.order-status .order-date span {
+    color: #000;
+    display: block;
+    width: 100%;
+    font-size: 11px;
+    text-align: end;
+    opacity: .6;
+}
+
+.service-item {
+    display: flex;
+    word-wrap: break-word;
+    padding: 12px 0 0;
+    align-items: center;
+    flex-wrap: nowrap;
+    color: rgba(0, 0, 0, .87);
+}
+
+.service-item .item-detail {
+    padding: 0 12px 0 0;
+    flex: 1;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    display: flex;
+    word-wrap: break-word;
+}
+
+.service-item .item-cost {
+    text-align: right;
+}
+
+.item-detail img {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 1px solid #e1e1e1;
+    background: #e1e1e1;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.item-wrapper {
+    min-width: 0;
+    padding: 0 0 0 12px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    word-wrap: break-word;
+    color: rgba(0, 0, 0, .87);
+}
+
+.item-name {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 22px;
+    max-height: 48px;
+}
+
+.item-name span {
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+/* Bảng tổng tiền đơn hàng */
+.order-total {
+    padding: 12px 24px 12px;
+    background: #fffefb;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.order-total-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.order-total-wrapper span {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.order-total-wrapper i {
+    color: #197845;
+}
+
+.order-total-wrapper label {
+    margin: 0 10px 0 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, .8);
+}
+
+.order-total-wrapper .total-pay {
+    color: #ee4d2d;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.order-provider-wrapper {
+    display: block;
+}
+
+.order-provider-wrapper span {
+    display: block;
+    opacity: .6;
+}
+
+/* Table-head */
+.table-head {
+    border: #fff;
+}
+
+/* Table-service */
+.table-service {
+    background-color: #fff;
+    border: snow;
+}
+
+.table-service img {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 1px solid #e1e1e1;
+    background: #e1e1e1;
+}
+
+.table-service td {
+    vertical-align: middle;
+}
