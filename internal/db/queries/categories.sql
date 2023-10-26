@@ -7,3 +7,8 @@ ORDER BY id ASC;
 SELECT id
 FROM categories
 ORDER BY id ASC;
+
+-- name: GetCategoryBySlug :one
+SELECT *
+FROM categories
+WHERE slug = $1 LIMIT 1;

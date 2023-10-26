@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"github.com/google/uuid"
 	"github.com/julienschmidt/httprouter"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
@@ -446,6 +447,8 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 
 	categorySlug := params.ByName("slug")
 
+	category, err := app.store.GetCategoryBySlug(r.Context(), categorySlug)
+
 	services, err := app.store.GetServicesByCategorySlug(r.Context(), categorySlug)
 	if err != nil {
 		app.serverError(w, err)
@@ -454,6 +457,7 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 
 	data := app.newTemplateData(r)
 	data.Services = services
+	data.Category = category
 
 	app.render(w, http.StatusOK, "services_by_category.html", data)
 }
@@ -681,6 +685,8 @@ func (app *application) displayCheckoutPage(w http.ResponseWriter, r *http.Reque
 func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 	paymentMethod := r.PostFormValue("payment_method")
 
+	fmt.Println(paymentMethod)
+
 	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
 	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
@@ -697,22 +703,53 @@ func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 		cart[item.OwnedByProviderID] = append(cart[item.OwnedByProviderID], item)
 	}
 
-	for providerID, cartItem := range cart {
+	for providerID, cartItems := range cart {
 		err = app.store.CreateOrderTx(r.Context(), sqlc.CreateOrderTxParams{
 			BuyerID:       userID,
 			SellerID:      providerID,
 			PaymentMethod: paymentMethod,
-			CartItems:     cartItem,
+			CartItems:     cartItems,
 		})
 		if err != nil {
 			app.serverError(w, err)
 			return
 		}
 	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đặt hàng thành công!")
+
+	http.Redirect(w, r, "/my-orders/identity/buyer", http.StatusSeeOther)
 }
 
 func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	orders := make(map[sqlc.GetFullProviderInfoRow]PurchaseOrder)
+
+	// Get all purchase orders of the current user.
+	myOrders, err := app.store.GetPurchaseOrders(r.Context(), userID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, order := range myOrders {
+		provider, err := app.store.GetFullProviderInfo(r.Context(), order.SellerID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		orderItems, err := app.store.GetFullOrderItemsInformationByOrderId(r.Context(), order.UUID)
+
+		orders[provider] = PurchaseOrder{
+			Order:      order,
+			OrderItems: orderItems,
+		}
+	}
+
 	data := app.newTemplateData(r)
+	data.PurchaseOrders = orders
 
 	app.render(w, http.StatusOK, "don-mua.html", data)
 }

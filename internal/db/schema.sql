@@ -7,19 +7,19 @@ CREATE TABLE "roles"
 CREATE TABLE "users"
 (
     "id"              SERIAL PRIMARY KEY,
-    "full_name"       VARCHAR(50)  NOT NULL,
-    "email"           VARCHAR(150) NOT NULL,
-    "phone"           CHAR(10)     NOT NULL,
-    "address"         VARCHAR(200) NOT NULL,
-    "role_id"         INTEGER      NOT NULL,
-    "hashed_password" CHAR(60)     NOT NULL,
-    "created_at"      timestamptz  NOT NULL DEFAULT 'now()'
+    "full_name"       VARCHAR(50)         NOT NULL,
+    "email"           VARCHAR(150) UNIQUE NOT NULL,
+    "phone"           CHAR(10) UNIQUE     NOT NULL,
+    "address"         VARCHAR(200)        NOT NULL,
+    "role_id"         INTEGER             NOT NULL,
+    "hashed_password" CHAR(60)            NOT NULL,
+    "created_at"      timestamptz         NOT NULL DEFAULT 'now()'
 );
 
 CREATE TABLE "provider_details"
 (
     "id"           SERIAL PRIMARY KEY,
-    "provider_id"  INTEGER     NOT NULL,
+    "provider_id"      INTEGER     NOT NULL,
     "company_name" VARCHAR(50) NOT NULL,
     "tax_code"     VARCHAR(50) NOT NULL,
     "created_at"   timestamptz NOT NULL DEFAULT 'now()'
@@ -107,10 +107,10 @@ ALTER TABLE "users"
     ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("id");
 
 ALTER TABLE "users"
-    ADD CONSTRAINT users_uc_email UNIQUE (email);
+    ADD CONSTRAINT users_uc_email UNIQUE ("email");
 
 ALTER TABLE "users"
-    ADD CONSTRAINT users_uc_phone UNIQUE (phone);
+    ADD CONSTRAINT users_uc_phone UNIQUE ("phone");
 
 ALTER TABLE "provider_details"
     ADD FOREIGN KEY ("provider_id") REFERENCES "users" ("id");

@@ -78,6 +78,47 @@ func (q *Queries) CreateProviderDetails(ctx context.Context, arg CreateProviderD
 	return err
 }
 
+const getFullProviderInfo = `-- name: GetFullProviderInfo :one
+SELECT u.id,
+       u.full_name,
+       u.email,
+       u.phone,
+       u.address,
+       u.created_at,
+       pd.company_name,
+       pd.tax_code
+FROM users u
+         JOIN provider_details pd ON u.id = pd.provider_id
+WHERE u.id = $1
+`
+
+type GetFullProviderInfoRow struct {
+	ID          int32     `json:"id"`
+	FullName    string    `json:"full_name"`
+	Email       string    `json:"email"`
+	Phone       string    `json:"phone"`
+	Address     string    `json:"address"`
+	CreatedAt   time.Time `json:"created_at"`
+	CompanyName string    `json:"company_name"`
+	TaxCode     string    `json:"tax_code"`
+}
+
+func (q *Queries) GetFullProviderInfo(ctx context.Context, id int32) (GetFullProviderInfoRow, error) {
+	row := q.db.QueryRowContext(ctx, getFullProviderInfo, id)
+	var i GetFullProviderInfoRow
+	err := row.Scan(
+		&i.ID,
+		&i.FullName,
+		&i.Email,
+		&i.Phone,
+		&i.Address,
+		&i.CreatedAt,
+		&i.CompanyName,
+		&i.TaxCode,
+	)
+	return i, err
+}
+
 const getUserByEmail = `-- name: GetUserByEmail :one
 SELECT id, full_name, email, phone, address, role_id, hashed_password, created_at
 FROM users

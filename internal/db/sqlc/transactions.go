@@ -2,6 +2,7 @@ package sqlc
 
 import (
 	"context"
+	"fmt"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -123,43 +124,59 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 		randomOrderID, _ := uuid.NewRandom()
 
 		// Create order.
-		orderID, err := qtx.CreateOrder(ctx, CreateOrderParams{
+		order, err := qtx.CreateOrder(ctx, CreateOrderParams{
 			UUID:          randomOrderID.String(),
 			BuyerID:       arg.BuyerID,
 			SellerID:      arg.SellerID,
 			PaymentMethod: arg.PaymentMethod,
 		})
 		if err != nil {
+			fmt.Println("create order error")
 			return err
 		}
 
 		for i, cartItem := range arg.CartItems {
+			randomOrderItemID := randomOrderID.String() + "-" + fmt.Sprintf("%d", i+1)
+
 			// Create order item.
-			orderItemID, err := qtx.CreateOrderItem(ctx, CreateOrderItemParams{
-				UUID:      randomOrderID.String() + " - item - " + string(rune(i)),
-				OrderID:   orderID,
+			orderItem, err := qtx.CreateOrderItem(ctx, CreateOrderItemParams{
+				UUID:      randomOrderItemID,
+				OrderID:   order.UUID,
 				ServiceID: cartItem.ServiceID,
 				Quantity:  cartItem.Quantity,
 				SubTotal:  cartItem.SubTotal,
 			})
 			if err != nil {
+				fmt.Println("create order item error")
 				return err
 			}
 
 			// Create order item details.
 			err = qtx.CreateOrderItemDetails(ctx, CreateOrderItemDetailsParams{
-				OrderItemID: orderItemID,
+				OrderItemID: orderItem.UUID,
 				Title:       cartItem.Title,
 				Price:       cartItem.Price,
 				ImagePath:   cartItem.ImagePath,
 			})
 			if err != nil {
+				fmt.Println("create order item details error")
+				return err
+			}
+
+			// Update order total.
+			err = qtx.UpdateOrderTotal(ctx, UpdateOrderTotalParams{
+				GrandTotal: order.GrandTotal + cartItem.SubTotal,
+				UUID:       order.UUID,
+			})
+			if err != nil {
+				fmt.Println("update order total error")
 				return err
 			}
 
 			// Remove item from cart.
 			err = qtx.RemoveItemFromCart(ctx, cartItem.UUID)
 			if err != nil {
+				fmt.Println("remove item from cart error")
 				return err
 			}
 

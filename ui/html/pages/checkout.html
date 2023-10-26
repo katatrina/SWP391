@@ -147,17 +147,17 @@
 
             <div class="">&nbsp;</div>
             <!-- Form Thanh Toán -->
-            <form action="" method="post">
+            <form action="/checkout" method="POST">
                 <div class="container">
                     <div class="checkout-payments">
                         <div class="wrapper">
                             <div class="checkout-payments-title">Phương thức thanh toán:</div>
                             <div class="checkout-payments-type">
                                 <div role="radiogroup">
-                                    <span><button type="button" role="radio" name="" value="">Thanh toán khi xong dịch
-                                            vụ</button></span>
-                                    <span><button type="button" role="radio" name="" value="">Thanh toán ngân
-                                            hàng</button></span>
+                                    <span><input type="radio" name="payment_method" value="cod">Thanh toán khi xong dịch
+                                            vụ</input></span>
+                                    <span><input type="radio" name="payment_method" value="banking">Thanh toán ngân
+                                            hàng</input></span>
                                 </div>
                             </div>
                         </div>

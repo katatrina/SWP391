@@ -1,13 +1,34 @@
 -- name: CreateOrder :one
 INSERT INTO orders (uuid, buyer_id, seller_id, payment_method)
-VALUES ($1, $2, $3, $4)
-RETURNING uuid;
+VALUES ($1, $2, $3, $4) RETURNING *;
 
 -- name: CreateOrderItem :one
 INSERT INTO order_items (uuid, order_id, service_id, quantity, sub_total)
-VALUES ($1, $2, $3, $4, $5)
-RETURNING uuid;
+VALUES ($1, $2, $3, $4, $5) RETURNING *;
 
 -- name: CreateOrderItemDetails :exec
 INSERT INTO order_item_details (order_item_id, title, price, image_path)
 VALUES ($1, $2, $3, $4);
+
+-- name: GetPurchaseOrders :many
+SELECT *
+FROM orders
+WHERE buyer_id = $1
+ORDER BY created_at DESC;
+
+-- name: UpdateOrderTotal :exec
+UPDATE orders
+SET grand_total = $1
+WHERE uuid = $2;
+
+-- name: GetFullOrderItemsInformationByOrderId :many
+SELECT oi.uuid,
+       oi.order_id,
+       oi.service_id,
+       oi.quantity,
+       oid.title,
+       oid.image_path,
+       oid.price
+FROM order_items oi
+         INNER JOIN order_item_details oid ON oid.order_item_id = oi.uuid
+WHERE oi.order_id = $1;

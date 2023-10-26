@@ -22,14 +22,21 @@ type templateData struct {
 	IsProvider      bool
 	Service         sqlc.Service
 	Services        []sqlc.Service
+	Category        sqlc.Category
 	User            sqlc.User
 	Categories      []sqlc.Category
 	Cart            Cart
+	PurchaseOrders  map[sqlc.GetFullProviderInfoRow]PurchaseOrder
 }
 
 type Cart struct {
 	GrandTotal int32
 	Items      map[string][]sqlc.GetCartItemsByCartIDRow
+}
+
+type PurchaseOrder struct {
+	Order      sqlc.Order
+	OrderItems []sqlc.GetFullOrderItemsInformationByOrderIdRow
 }
 
 func (app *application) newTemplateData(r *http.Request) *templateData {

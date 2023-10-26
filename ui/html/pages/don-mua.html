@@ -64,6 +64,7 @@
     -->
 
     <!-- Một Đơn Hàng của 1 Provider -->
+    {{ range $provider, $purchaseOrder := .PurchaseOrders }}
     <div class="container">
         <div class="order">
             <div class="wrapper">
@@ -74,10 +75,10 @@
                         <section class="header">
                             <div class="header-wrapper">
                                 <div class="provider-detail">
-                                    <span><i class="fa-solid fa-store" style="color: #197845;"></i>ProviderName</span>
+                                    <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{ $provider.CompanyName }}</span>
                                 </div>
                                 <div class="order-status">
-                                    <span>CHỜ XÁC NHẬN</span>
+                                    <span>{{ $purchaseOrder.Order.Status }}</span>
                                 </div>
                             </div>
                         </section>
@@ -85,43 +86,28 @@
 
                         <div class="line-space"></div>
 
+                        {{ range $purchaseOrder.OrderItems }}
                         <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
                         <section class="body">
                             <!-- 1 order Dịch vụ -->
                             <div class="service">
                                 <div class="service-item">
                                     <div class="item-detail">
-                                        <img src="" alt="">
+                                        <img src="{{ .ImagePath }}" alt="">
                                         <div class="item-wrapper">
-                                            <div class="item-name"><span>Thay lông chim</span></div>
-                                            <div class="item-quantity"><span>x3</span></div>
+                                            <div class="item-name"><span>{{ .Title }}</span></div>
+                                            <div class="item-quantity"><span>x{{ .Quantity }}</span></div>
                                         </div>
                                     </div>
                                     <div class="item-cost">
-                                        <span>32.000vnd</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 1 order Dịch vụ -->
-
-                            <!-- 1 order Dịch vụ -->
-                            <div class="service">
-                                <div class="service-item">
-                                    <div class="item-detail">
-                                        <img src="" alt="">
-                                        <div class="item-wrapper">
-                                            <div class="item-name"><span>Thay lông chim</span></div>
-                                            <div class="item-quantity"><span>x3</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="item-cost">
-                                        <span>32.000vnd</span>
+                                        <span>₫{{ formatPrice .Price }}</span>
                                     </div>
                                 </div>
                             </div>
                             <!-- 1 order Dịch vụ -->
                         </section>
                         <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
+                        {{ end }}
                     </div>
                 </div>
                 <!-- Bảng chi tiết đơn hàng -->
@@ -133,19 +119,19 @@
                         <div class="order-provider-wrapper">
                             <span>Thông tin liên hệ:</span>
                             <!-- Số điện thoại -->
-                            <span>+84 123456789</span>
+                            <span>{{ $provider.Phone }}</span>
                             <!-- Địa chỉ -->
-                            <span>123, ABC</span>
+                            <span>{{ $provider.Address }}</span>
                             <!-- Email -->
-                            <span>vinhphuoc@gmail.com</span>
+                            <span>{{ $provider.Email }}</span>
                         </div>
                     </div>
 
 
                     <div class="order-total-wrapper">
                         <span><i class="fa-solid fa-cash-register"></i></span>
-                        <label for="" class="total-text">Thành tiền:</label>
-                        <div class="total-pay">104.000vnd</div>
+                        <label class="total-text">Thành tiền:</label>
+                        <div class="total-pay">{{ formatPrice $purchaseOrder.Order.GrandTotal }}</div>
                     </div>
                 </div>
                 <!-- Bảng Tổng tiền của đơn hàng -->
@@ -153,97 +139,98 @@
         </div>
     </div>
     <!-- Một Đơn Hàng của 1 Provider -->
+    {{ end }}
 
 
     <!-- Một Đơn Hàng của 1 Provider -->
-    <div class="container">
-        <div class="order">
-            <div class="wrapper">
-                <!-- Bảng chi tiết đơn hàng -->
-                <div class="order-detail">
-                    <div class="order-detail-wrapper">
-                        <!-- Section 1: Thông tin Nhà cung cấp và Status đơn hàng -->
-                        <section class="header">
-                            <div class="header-wrapper">
-                                <div class="provider-detail">
-                                    <span><i class="fa-solid fa-store" style="color: #197845;"></i>ProviderName</span>
-                                </div>
-                                <div class="order-status">
-                                    <span>CHỜ XÁC NHẬN</span>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- Section 1: Thông tin Nhà cung cấp và Status đơn hàng -->
+<!--    <div class="container">-->
+<!--        <div class="order">-->
+<!--            <div class="wrapper">-->
+<!--                &lt;!&ndash; Bảng chi tiết đơn hàng &ndash;&gt;-->
+<!--                <div class="order-detail">-->
+<!--                    <div class="order-detail-wrapper">-->
+<!--                        &lt;!&ndash; Section 1: Thông tin Nhà cung cấp và Status đơn hàng &ndash;&gt;-->
+<!--                        <section class="header">-->
+<!--                            <div class="header-wrapper">-->
+<!--                                <div class="provider-detail">-->
+<!--                                    <span><i class="fa-solid fa-store" style="color: #197845;"></i>ProviderName</span>-->
+<!--                                </div>-->
+<!--                                <div class="order-status">-->
+<!--                                    <span>CHỜ XÁC NHẬN</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </section>-->
+<!--                        &lt;!&ndash; Section 1: Thông tin Nhà cung cấp và Status đơn hàng &ndash;&gt;-->
 
-                        <div class="line-space"></div>
+<!--                        <div class="line-space"></div>-->
 
-                        <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
-                        <section class="body">
-                            <!-- 1 order Dịch vụ -->
-                            <div class="service">
-                                <div class="service-item">
-                                    <div class="item-detail">
-                                        <img src="" alt="">
-                                        <div class="item-wrapper">
-                                            <div class="item-name"><span>Thay lông chim</span></div>
-                                            <div class="item-quantity"><span>x3</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="item-cost">
-                                        <span>32.000vnd</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 1 order Dịch vụ -->
+<!--                        &lt;!&ndash; Section 2: Thông tin Dịch vụ của đơn hàng &ndash;&gt;-->
+<!--                        <section class="body">-->
+<!--                            &lt;!&ndash; 1 order Dịch vụ &ndash;&gt;-->
+<!--                            <div class="service">-->
+<!--                                <div class="service-item">-->
+<!--                                    <div class="item-detail">-->
+<!--                                        <img src="" alt="">-->
+<!--                                        <div class="item-wrapper">-->
+<!--                                            <div class="item-name"><span>Thay lông chim</span></div>-->
+<!--                                            <div class="item-quantity"><span>x3</span></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="item-cost">-->
+<!--                                        <span>32.000vnd</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; 1 order Dịch vụ &ndash;&gt;-->
 
-                            <!-- 1 order Dịch vụ -->
-                            <div class="service">
-                                <div class="service-item">
-                                    <div class="item-detail">
-                                        <img src="" alt="">
-                                        <div class="item-wrapper">
-                                            <div class="item-name"><span>Thay lông chim</span></div>
-                                            <div class="item-quantity"><span>x3</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="item-cost">
-                                        <span>32.000vnd</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 1 order Dịch vụ -->
-                        </section>
-                        <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
-                    </div>
-                </div>
-                <!-- Bảng chi tiết đơn hàng -->
-                <div class="line-space"></div>
+<!--                            &lt;!&ndash; 1 order Dịch vụ &ndash;&gt;-->
+<!--                            <div class="service">-->
+<!--                                <div class="service-item">-->
+<!--                                    <div class="item-detail">-->
+<!--                                        <img src="" alt="">-->
+<!--                                        <div class="item-wrapper">-->
+<!--                                            <div class="item-name"><span>Thay lông chim</span></div>-->
+<!--                                            <div class="item-quantity"><span>x3</span></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="item-cost">-->
+<!--                                        <span>32.000vnd</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; 1 order Dịch vụ &ndash;&gt;-->
+<!--                        </section>-->
+<!--                        &lt;!&ndash; Section 2: Thông tin Dịch vụ của đơn hàng &ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Bảng chi tiết đơn hàng &ndash;&gt;-->
+<!--                <div class="line-space"></div>-->
 
-                <!-- Bảng Thông tin Provider & Tổng tiền của đơn hàng -->
-                <div class="order-total">
-                    <div class="order-provider">
-                        <div class="order-provider-wrapper">
-                            <span>Thông tin liên hệ:</span>
-                            <!-- Số điện thoại -->
-                            <span>+84 123456789</span>
-                            <!-- Địa chỉ -->
-                            <span>123, ABC</span>
-                            <!-- Email -->
-                            <span>vinhphuoc@gmail.com</span>
-                        </div>
-                    </div>
+<!--                &lt;!&ndash; Bảng Thông tin Provider & Tổng tiền của đơn hàng &ndash;&gt;-->
+<!--                <div class="order-total">-->
+<!--                    <div class="order-provider">-->
+<!--                        <div class="order-provider-wrapper">-->
+<!--                            <span>Thông tin liên hệ:</span>-->
+<!--                            &lt;!&ndash; Số điện thoại &ndash;&gt;-->
+<!--                            <span>+84 123456789</span>-->
+<!--                            &lt;!&ndash; Địa chỉ &ndash;&gt;-->
+<!--                            <span>123, ABC</span>-->
+<!--                            &lt;!&ndash; Email &ndash;&gt;-->
+<!--                            <span>vinhphuoc@gmail.com</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
 
-                    <div class="order-total-wrapper">
-                        <span><i class="fa-solid fa-cash-register"></i></span>
-                        <label for="" class="total-text">Thành tiền:</label>
-                        <div class="total-pay">104.000vnd</div>
-                    </div>
-                </div>
-                <!-- Bảng Tổng tiền của đơn hàng -->
-            </div>
-        </div>
-    </div>
+<!--                    <div class="order-total-wrapper">-->
+<!--                        <span><i class="fa-solid fa-cash-register"></i></span>-->
+<!--                        <label for="" class="total-text">Thành tiền:</label>-->
+<!--                        <div class="total-pay">104.000vnd</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Bảng Tổng tiền của đơn hàng &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <!-- Một Đơn Hàng của 1 Provider -->
 
     <!-- Footer -->
