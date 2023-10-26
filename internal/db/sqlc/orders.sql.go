@@ -150,6 +150,29 @@ func (q *Queries) GetFullOrderItemsInformationByOrderId(ctx context.Context, ord
 	return items, nil
 }
 
+const getOrderByOrderItemID = `-- name: GetOrderByOrderItemID :one
+SELECT uuid, buyer_id, seller_id, status, payment_method, grand_total, created_at
+FROM orders
+WHERE uuid = (SELECT order_id
+              FROM order_items
+              WHERE order_items.uuid = $1)
+`
+
+func (q *Queries) GetOrderByOrderItemID(ctx context.Context, uuid string) (Order, error) {
+	row := q.db.QueryRowContext(ctx, getOrderByOrderItemID, uuid)
+	var i Order
+	err := row.Scan(
+		&i.UUID,
+		&i.BuyerID,
+		&i.SellerID,
+		&i.Status,
+		&i.PaymentMethod,
+		&i.GrandTotal,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getPurchaseOrders = `-- name: GetPurchaseOrders :many
 SELECT uuid, buyer_id, seller_id, status, payment_method, grand_total, created_at
 FROM orders

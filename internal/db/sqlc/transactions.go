@@ -135,6 +135,8 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 			return err
 		}
 
+		fmt.Printf("Order ID %s, Total %d\n", order.UUID, order.GrandTotal)
+
 		for i, cartItem := range arg.CartItems {
 			randomOrderItemID := randomOrderID.String() + "-" + fmt.Sprintf("%d", i+1)
 
@@ -163,9 +165,16 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 				return err
 			}
 
+			// Retrieve order again to get the latest grand total.
+			updatedOrder, err := qtx.GetOrderByOrderItemID(ctx, orderItem.UUID)
+			if err != nil {
+				fmt.Println("get updated order error")
+				return err
+			}
+
 			// Update order total.
 			err = qtx.UpdateOrderTotal(ctx, UpdateOrderTotalParams{
-				GrandTotal: order.GrandTotal + cartItem.SubTotal,
+				GrandTotal: updatedOrder.GrandTotal + cartItem.SubTotal,
 				UUID:       order.UUID,
 			})
 			if err != nil {
@@ -179,8 +188,6 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 				fmt.Println("remove item from cart error")
 				return err
 			}
-
-			return nil
 		}
 
 		return nil

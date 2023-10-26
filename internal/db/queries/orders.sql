@@ -32,3 +32,10 @@ SELECT oi.uuid,
 FROM order_items oi
          INNER JOIN order_item_details oid ON oid.order_item_id = oi.uuid
 WHERE oi.order_id = $1;
+
+-- name: GetOrderByOrderItemID :one
+SELECT *
+FROM orders
+WHERE uuid = (SELECT order_id
+              FROM order_items
+              WHERE order_items.uuid = $1);
