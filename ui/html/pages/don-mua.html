@@ -36,10 +36,10 @@
     <div class="spacer" style="height: 82px;"></div>
 
     <div class="container">
-        <nav class="navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
+        <!-- <nav class="navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
             <ul class="sub-nav navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" aria-checked="true">Tất cả</a>
+                    <a class="nav-link" href="#">Tất cả</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Chờ xác nhận</a>
@@ -54,7 +54,36 @@
                     <a class="nav-link" href="#">Đã hủy</a>
                 </li>
             </ul>
+        </nav> -->
+        <nav class="sub-nav navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
+            <label for="all" class="radio-label">
+                <input type="radio" id="all" name="status" value="all" checked>
+                Tất cả
+            </label>
+
+            <label for="pending" class="radio-label">
+                <input type="radio" id="pending" name="status" value="pending">
+                Chờ xác nhận
+            </label>
+
+            <label for="confirmed" class="radio-label">
+                <input type="radio" id="confirmed" name="status" value="confirmed">
+                Đã xác nhận
+            </label>
+
+            <label for="completed" class="radio-label">
+                <input type="radio" id="completed" name="status" value="completed">
+                Hoàn thành
+            </label>
+
+            <label for="canceled" class="radio-label">
+                <input type="radio" id="canceled" name="status" value="canceled">
+                Đã hủy
+            </label>
         </nav>
+
+
+
     </div>
 
     <div>&nbsp;</div>

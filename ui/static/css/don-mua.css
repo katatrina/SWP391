@@ -5,7 +5,9 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom, #74d6aa, #7bde50);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .container {
@@ -16,36 +18,38 @@ body {
 }
 
 /* Sub Navigation */
-.container .navbar {
-    height: 52px;
-}
-
 .sub-nav {
     width: 100%;
+    height: 52px;
     justify-content: space-around;
 }
 
-.sub-nav .nav-item {
-    list-style: none;
-    /* Loại bỏ dấu đầu dòng mặc định */
-}
-
-.sub-nav .nav-item a {
-    color: #000;
-    /* Màu chữ mặc định */
-    text-decoration: none;
-    /* Loại bỏ gạch chân mặc định */
+.sub-nav label:hover {
+    cursor: pointer;
+    font-weight: 1000;
+    color: #07a651;
     transition: color 0.3s;
-    /* Hiệu ứng chuyển đổi màu */
 }
 
-.sub-nav .nav-item a.active {
-    color: #05a04d;
-    /* Màu chữ khi liên kết được chọn */
-    text-decoration: none;
-    /* Đường gạch chân dưới khi liên kết được chọn */
-    font-weight: bold;
+
+input[type="radio"]:checked {
+    background: red;
 }
+
+.radio-label {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked+.radio-label {
+    font-weight: bold;
+    color: blue;
+}
+
 
 /* Main */
 main {}

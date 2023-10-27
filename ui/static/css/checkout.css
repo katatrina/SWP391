@@ -361,11 +361,18 @@ img {
     display: block;
 }
 
-.radiogroup span {
+.checkout-payments-type span {
     display: block;
     padding: 0 66px;
     font-size: 18px;
     font-family: sans-serif;
+    width: fit-content;
+}
+
+.checkout-payments-type span:hover {
+    font-weight: 700;
+    color: rgb(7, 178, 7);
+    font-style: bold;
 }
 
 /* Select Payment Option */

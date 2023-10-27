@@ -36,7 +36,7 @@
     <div class="spacer" style="height: 82px;"></div>
 
     <div class="container">
-        <nav class="navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
+        <!-- <nav class="navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
             <ul class="sub-nav navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Tất cả</a>
@@ -54,6 +54,32 @@
                     <a class="nav-link" href="#">Đã hủy</a>
                 </li>
             </ul>
+        </nav> -->
+        <nav class="sub-nav navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
+            <label for="all" class="radio-label">
+                <input type="radio" id="all" name="status" value="all" checked>
+                Tất cả
+            </label>
+
+            <label for="pending" class="radio-label">
+                <input type="radio" id="pending" name="status" value="pending">
+                Chờ xác nhận
+            </label>
+
+            <label for="confirmed" class="radio-label">
+                <input type="radio" id="confirmed" name="status" value="confirmed">
+                Đã xác nhận
+            </label>
+
+            <label for="completed" class="radio-label">
+                <input type="radio" id="completed" name="status" value="completed">
+                Hoàn thành
+            </label>
+
+            <label for="canceled" class="radio-label">
+                <input type="radio" id="canceled" name="status" value="canceled">
+                Đã hủy
+            </label>
         </nav>
     </div>
 
@@ -75,7 +101,7 @@
                                 <th style="width: 2%;">Doanh thu</th>
                                 <th style="width: 2%;">Trạng thái</th>
                                 <th style="width: 2%;">Thanh toán</th>
-                                <th style="width: 2%;">Thao tác</th>
+
                             </tr>
                         </thead>
                     </table>
@@ -133,17 +159,6 @@
 
                                         <!-- Phương thức thanh toán -->
                                         <td style="width: 2%;">Chuyển khoản</td>
-
-                                        <!-- Thao tác thay đổi status -->
-                                        <td style="width: 1%;" class="">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Act</option>
-                                                <option value="1">Chờ xác nhận</option>
-                                                <option value="2">Đã xác nhận</option>
-                                                <option value="3">Hoàn thành</option>
-                                                <option value="3">Hủy</option>
-                                            </select>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -164,20 +179,23 @@
 
                                         <!-- Phương thức thanh toán -->
                                         <td style="width: 2%;">Chuyển khoản</td>
-
-                                        <!-- Thao tác thay đổi status -->
-                                        <td style="width: 1%;" class="">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected>Act</option>
-                                                <option value="1">Chờ xác nhận</option>
-                                                <option value="2">Đã xác nhận</option>
-                                                <option value="3">Hoàn thành</option>
-                                                <option value="3">Hủy</option>
-                                            </select>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <form action="">
+                                <div class="order-button-wrapper">
+                                    <div class="order-button">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Act</option>
+                                            <option value="1">Chờ xác nhận</option>
+                                            <option value="2">Đã xác nhận</option>
+                                            <option value="3">Hoàn thành</option>
+                                            <option value="3">Hủy</option>
+                                        </select>
+                                        <button class="btn btn-success">Cập nhật</button>
+                                    </div>
+                                </div>
+                            </form>
                         </section>
                         <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
                     </div>
