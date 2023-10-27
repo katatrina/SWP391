@@ -154,10 +154,15 @@
                             <div class="checkout-payments-title">Phương thức thanh toán:</div>
                             <div class="checkout-payments-type">
                                 <div role="radiogroup">
-                                    <span><input type="radio" name="payment_method" value="cod">Thanh toán khi xong dịch
-                                            vụ</input></span>
-                                    <span><input type="radio" name="payment_method" value="banking">Thanh toán ngân
-                                            hàng</input></span>
+                                    <span>
+                                        <label for="pay-after">Thanh toán khi xong dịch vụ</label>
+                                        <input id="pay-after" type="radio" name="payment_method" value="cod"></input>
+                                    </span>
+                                    <span>
+                                        <label for="pay-online">Thanh toán ngân hàng</label>
+                                        <input id="pay-online" type="radio" name="payment_method"
+                                            value="banking"></input>
+                                    </span>
                                 </div>
                             </div>
                         </div>

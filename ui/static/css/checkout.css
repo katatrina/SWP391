@@ -325,12 +325,13 @@ img {
 }
 
 .checkout-payments .wrapper {
-    display: flex;
-    align-items: center;
+    display: block;
+    vertical-align: middle;
     min-height: 5.625rem;
     box-sizing: border-box;
     padding-left: 1.875rem;
     padding-right: 1.875rem;
+    line-height: 3;
 }
 
 .checkout-payments-title {
@@ -354,6 +355,17 @@ img {
 
 .pay-btn:hover {
     background-color: #3e8e41;
+}
+
+.radiogroup {
+    display: block;
+}
+
+.radiogroup span {
+    display: block;
+    padding: 0 66px;
+    font-size: 18px;
+    font-family: sans-serif;
 }
 
 /* Select Payment Option */

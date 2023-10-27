@@ -3,6 +3,7 @@ package sqlc
 import (
 	"context"
 	"fmt"
+
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )

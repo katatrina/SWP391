@@ -35,7 +35,7 @@
 .provider-info {
     display: flex;
     width: 504px;
-    height: 100px;
+    height: fit-content;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.08) 2px 4px 24px 0px;
     border-radius: 14px;
@@ -45,7 +45,6 @@
 .provider-img {
     position: relative;
     width: 100px;
-    height: -webkit-fill-available;
 }
 
 .provider-img img {
@@ -64,6 +63,11 @@
 .provider-name p {
     font-size: 40px;
     font-weight: 500;
+}
+
+.provider-detail h6 {
+    opacity: .6;
+    padding-left: 12px;
 }
 
 .provider-line {
@@ -90,6 +94,12 @@
     height: fit-content;
     border-top: none;
     margin: 0;
+}
+
+.detail-text:nth-child(2) {
+    height: fit-content;
+    border-top: 1px solid grey;
+    padding: 32px;
 }
 
 .detail-text h3 {
@@ -200,4 +210,139 @@ input[type="number"] {
     padding-block: 12px;
     width: 209px;
     padding-inline: 24px;
+}
+
+/* Phần đánh giá Dịch vụ */
+.rate-textarea-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.rate-textarea-wrapper button {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    border: 0px;
+    margin: 0px;
+    margin-left: 16px;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    font-family: Montserrat;
+    min-width: 64px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    text-transform: none;
+    background: linear-gradient(rgb(57, 106, 252) 0%, rgb(41, 72, 255) 100%);
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 16px 24px;
+    line-height: 1;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.rate {
+    padding: 21px;
+    box-shadow: 0px 12px 18px 11px #f0f1f0;
+    border-radius: 8px;
+}
+
+.rate h6 {
+    margin: 0px 0px 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 700;
+    color: rgb(16, 69, 177);
+}
+
+.user-rate-wrapper {
+    margin-top: 12px;
+}
+
+.user-rate {
+    display: flex;
+    align-items: center;
+}
+
+.rate-detail {
+    width: 40%;
+    max-width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rate-detail span {
+    display: block;
+}
+
+.rate-detail span:first-child {
+    margin: 0px;
+    font-size: 21px;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.rate-detail span:last-child {
+    margin: 0px;
+    font-size: 16px;
+    line-height: 1.57;
+    font-weight: 400;
+}
+
+.rate-date {
+    margin-left: 34px;
+    opacity: .6;
+    font-style: italic;
+}
+
+.rate-textarea textarea {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    color: rgb(0, 0, 0);
+    box-sizing: border-box;
+    cursor: text;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    border-radius: 4px;
+    padding: 16.5px 14px;
+}
+
+.rate-textarea textarea:placeholder-shown {
+    font: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: inherit;
+    color: currentcolor;
+    box-sizing: content-box;
+    background: none;
+    border: .5px solid #000;
+    height: auto;
+    margin: 0px;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    min-width: 0px;
+    width: 100%;
+    animation-name: mui-auto-fill-cancel;
+    animation-duration: 10ms;
+    resize: none;
+    padding: 0px;
+    font-style: italic;
+    padding: 12px;
 }
