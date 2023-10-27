@@ -176,12 +176,17 @@ func (q *Queries) GetOrderByOrderItemID(ctx context.Context, uuid string) (Order
 const getPurchaseOrders = `-- name: GetPurchaseOrders :many
 SELECT uuid, buyer_id, seller_id, status, payment_method, grand_total, created_at
 FROM orders
-WHERE buyer_id = $1
+WHERE buyer_id = $1 AND status = $2
 ORDER BY created_at DESC
 `
 
-func (q *Queries) GetPurchaseOrders(ctx context.Context, buyerID int32) ([]Order, error) {
-	rows, err := q.db.QueryContext(ctx, getPurchaseOrders, buyerID)
+type GetPurchaseOrdersParams struct {
+	BuyerID int32 `json:"buyer_id"`
+	Status  int32 `json:"status"`
+}
+
+func (q *Queries) GetPurchaseOrders(ctx context.Context, arg GetPurchaseOrdersParams) ([]Order, error) {
+	rows, err := q.db.QueryContext(ctx, getPurchaseOrders, arg.BuyerID, arg.Status)
 	if err != nil {
 		return nil, err
 	}

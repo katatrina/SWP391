@@ -10,7 +10,7 @@ WHERE owned_by_provider_id = $1;
 -- name: GetServicesByCategorySlug :many
 SELECT *
 FROM services
-WHERE category_id = (SELECT id FROM categories WHERE slug = $1);
+WHERE category_id = (SELECT id FROM categories WHERE slug = $1) AND owned_by_provider_id != $2;
 
 -- name: GetServiceByID :one
 SELECT *
@@ -26,3 +26,8 @@ WHERE provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id
 SELECT *
 FROM services
 WHERE id = (SELECT service_id FROM cart_items WHERE cart_items.uuid = $1);
+
+-- name: GetProviderDetailsByServiceID :one
+SELECT *
+FROM provider_details
+WHERE provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1);

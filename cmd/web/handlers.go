@@ -443,13 +443,18 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 }
 
 func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
 	params := httprouter.ParamsFromContext(r.Context())
 
 	categorySlug := params.ByName("slug")
 
 	category, err := app.store.GetCategoryBySlug(r.Context(), categorySlug)
 
-	services, err := app.store.GetServicesByCategorySlug(r.Context(), categorySlug)
+	services, err := app.store.GetServicesByCategorySlug(r.Context(), sqlc.GetServicesByCategorySlugParams{
+		Slug:              categorySlug,
+		OwnedByProviderID: userID,
+	})
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -471,7 +476,19 @@ func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http
 		return
 	}
 
+	providerDetail, err := app.store.GetProviderDetailsByServiceID(r.Context(), int32(serviceID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	service, err := app.store.GetServiceByID(r.Context(), int32(serviceID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	feedbacks, err := app.store.GetFeedbacksByServiceID(r.Context(), int32(serviceID))
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -479,6 +496,8 @@ func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http
 
 	data := app.newTemplateData(r)
 	data.Service = service
+	data.ProviderDetail = providerDetail
+	data.ServiceFeedbacks = feedbacks
 
 	app.render(w, http.StatusOK, "service_details.html", data)
 }
@@ -724,10 +743,27 @@ func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http.Request) {
 	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
+	var typeID int32
+	statusID := r.FormValue("type")
+	if statusID == "" {
+		typeID = 1
+	}
+
+	parsedInt, err := strconv.ParseInt(statusID, 10, 32)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	typeID = int32(parsedInt)
+
 	orders := make(map[sqlc.GetFullProviderInfoRow]PurchaseOrder)
 
 	// Get all purchase orders of the current user.
-	myOrders, err := app.store.GetPurchaseOrders(r.Context(), userID)
+	myOrders, err := app.store.GetPurchaseOrders(r.Context(), sqlc.GetPurchaseOrdersParams{
+		BuyerID: userID,
+		Status:  typeID,
+	})
 	if err != nil {
 		app.serverError(w, err)
 		return

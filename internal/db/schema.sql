@@ -19,7 +19,7 @@ CREATE TABLE "users"
 CREATE TABLE "provider_details"
 (
     "id"           SERIAL PRIMARY KEY,
-    "provider_id"      INTEGER     NOT NULL,
+    "provider_id"  INTEGER     NOT NULL,
     "company_name" VARCHAR(50) NOT NULL,
     "tax_code"     VARCHAR(50) NOT NULL,
     "created_at"   timestamptz NOT NULL DEFAULT 'now()'
@@ -56,6 +56,15 @@ CREATE TABLE "services"
     "created_at"           timestamptz  NOT NULL DEFAULT 'now()'
 );
 
+CREATE TABLE "service_feedbacks"
+(
+    "id"         SERIAL PRIMARY KEY,
+    "service_id" INTEGER     NOT NULL,
+    "user_id"    INTEGER     NOT NULL,
+    "content"    VARCHAR     NOT NULL,
+    "created_at" timestamptz NOT NULL DEFAULT 'now()'
+);
+
 CREATE TABLE "carts"
 (
     "id"          SERIAL PRIMARY KEY,
@@ -77,10 +86,17 @@ CREATE TABLE "orders"
     "uuid"           TEXT PRIMARY KEY,
     "buyer_id"       INTEGER     NOT NULL,
     "seller_id"      INTEGER     NOT NULL,
-    "status"         VARCHAR     NOT NULL DEFAULT 'waiting to confirm',
+    "status"         INTEGER     NOT NULL,
     "payment_method" VARCHAR     NOT NULL,
     "grand_total"    INTEGER     NOT NULL DEFAULT 0,
     "created_at"     timestamptz NOT NULL DEFAULT 'now()'
+);
+
+CREATE TABLE "order_status_category"
+(
+    "id"     SERIAL PRIMARY KEY,
+    "code"   VARCHAR(20) NOT NULL,
+    "detail" VARCHAR(70) NOT NULL
 );
 
 CREATE TABLE "order_items"
@@ -130,11 +146,20 @@ ALTER TABLE "cart_items"
 ALTER TABLE "cart_items"
     ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "service_feedbacks"
+    ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id");
+
+ALTER TABLE "service_feedbacks"
+    ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+
 ALTER TABLE "orders"
     ADD FOREIGN KEY ("buyer_id") REFERENCES "users" ("id");
 
 ALTER TABLE "orders"
     ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id");
+
+ALTER TABLE "orders"
+    ADD FOREIGN KEY ("status_id") REFERENCES "order_status_category" ("id");
 
 ALTER TABLE "order_items"
     ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("uuid");
@@ -159,3 +184,10 @@ VALUES ('Phụ kiện', 'accessory', '/static/img/accessories-category.jpg',
         'Đào tạo và tương tác để cải thiện mối quan hệ và kỹ năng cho chim cảnh'),
        ('Khác', 'other', '/static/img/others-category.png',
         'Những dịch vụ khác nhằm đảm bảo pet yêu của bạn khỏe mạnh cũng như tăng thêm mối quan hệ thân thiết');
+
+INSERT INTO order_status_category (code, detail)
+VALUES ('all', 'Tất cả'),
+       ('pending', 'Đang chờ xác nhận'),
+       ('confirmed', 'Đã xác nhận'),
+       ('completed', 'Đã hoàn thành'),
+       ('cancelled', 'Đã hủy');

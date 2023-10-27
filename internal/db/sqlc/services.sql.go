@@ -48,6 +48,25 @@ func (q *Queries) GetCompanyNameByServiceID(ctx context.Context, id int32) (stri
 	return company_name, err
 }
 
+const getProviderDetailsByServiceID = `-- name: GetProviderDetailsByServiceID :one
+SELECT id, provider_id, company_name, tax_code, created_at
+FROM provider_details
+WHERE provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1)
+`
+
+func (q *Queries) GetProviderDetailsByServiceID(ctx context.Context, id int32) (ProviderDetail, error) {
+	row := q.db.QueryRowContext(ctx, getProviderDetailsByServiceID, id)
+	var i ProviderDetail
+	err := row.Scan(
+		&i.ID,
+		&i.ProviderID,
+		&i.CompanyName,
+		&i.TaxCode,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getServiceByCartItemID = `-- name: GetServiceByCartItemID :one
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services
@@ -97,11 +116,16 @@ func (q *Queries) GetServiceByID(ctx context.Context, id int32) (Service, error)
 const getServicesByCategorySlug = `-- name: GetServicesByCategorySlug :many
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services
-WHERE category_id = (SELECT id FROM categories WHERE slug = $1)
+WHERE category_id = (SELECT id FROM categories WHERE slug = $1) AND owned_by_provider_id != $2
 `
 
-func (q *Queries) GetServicesByCategorySlug(ctx context.Context, slug string) ([]Service, error) {
-	rows, err := q.db.QueryContext(ctx, getServicesByCategorySlug, slug)
+type GetServicesByCategorySlugParams struct {
+	Slug              string `json:"slug"`
+	OwnedByProviderID int32  `json:"owned_by_provider_id"`
+}
+
+func (q *Queries) GetServicesByCategorySlug(ctx context.Context, arg GetServicesByCategorySlugParams) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, getServicesByCategorySlug, arg.Slug, arg.OwnedByProviderID)
 	if err != nil {
 		return nil, err
 	}

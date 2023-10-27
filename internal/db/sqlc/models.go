@@ -34,7 +34,7 @@ type Order struct {
 	UUID          string    `json:"uuid"`
 	BuyerID       int32     `json:"buyer_id"`
 	SellerID      int32     `json:"seller_id"`
-	Status        string    `json:"status"`
+	Status        int32     `json:"status"`
 	PaymentMethod string    `json:"payment_method"`
 	GrandTotal    int32     `json:"grand_total"`
 	CreatedAt     time.Time `json:"created_at"`
@@ -56,6 +56,12 @@ type OrderItemDetail struct {
 	Price       int32     `json:"price"`
 	ImagePath   string    `json:"image_path"`
 	CreatedAt   time.Time `json:"created_at"`
+}
+
+type OrderStatusCategory struct {
+	ID     int32  `json:"id"`
+	Code   string `json:"code"`
+	Detail string `json:"detail"`
 }
 
 type ProviderDetail struct {
@@ -81,6 +87,14 @@ type Service struct {
 	OwnedByProviderID int32     `json:"owned_by_provider_id"`
 	Status            string    `json:"status"`
 	CreatedAt         time.Time `json:"created_at"`
+}
+
+type ServiceFeedback struct {
+	ID        int32     `json:"id"`
+	ServiceID int32     `json:"service_id"`
+	UserID    int32     `json:"user_id"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type Session struct {

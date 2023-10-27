@@ -13,7 +13,7 @@ VALUES ($1, $2, $3, $4);
 -- name: GetPurchaseOrders :many
 SELECT *
 FROM orders
-WHERE buyer_id = $1
+WHERE buyer_id = $1 AND status = $2
 ORDER BY created_at DESC;
 
 -- name: UpdateOrderTotal :exec

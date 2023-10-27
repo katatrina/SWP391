@@ -15,18 +15,20 @@ var functionTemplates = template.FuncMap{
 }
 
 type templateData struct {
-	CurrentYear     int
-	Form            any
-	Flash           string
-	IsAuthenticated bool
-	IsProvider      bool
-	Service         sqlc.Service
-	Services        []sqlc.Service
-	Category        sqlc.Category
-	User            sqlc.User
-	Categories      []sqlc.Category
-	Cart            Cart
-	PurchaseOrders  map[sqlc.GetFullProviderInfoRow]PurchaseOrder
+	CurrentYear      int
+	Form             any
+	Flash            string
+	IsAuthenticated  bool
+	IsProvider       bool
+	ProviderDetail   sqlc.ProviderDetail
+	Service          sqlc.Service
+	Services         []sqlc.Service
+	Category         sqlc.Category
+	ServiceFeedbacks []sqlc.ServiceFeedback
+	User             sqlc.User
+	Categories       []sqlc.Category
+	Cart             Cart
+	PurchaseOrders   map[sqlc.GetFullProviderInfoRow]PurchaseOrder
 }
 
 type Cart struct {
