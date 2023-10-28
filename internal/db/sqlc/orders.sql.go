@@ -176,6 +176,35 @@ func (q *Queries) GetOrderByOrderItemID(ctx context.Context, uuid string) (Order
 	return i, err
 }
 
+const getOrderStatuses = `-- name: GetOrderStatuses :many
+SELECT id, code, detail
+FROM order_status
+ORDER BY id ASC
+`
+
+func (q *Queries) GetOrderStatuses(ctx context.Context) ([]OrderStatus, error) {
+	rows, err := q.db.QueryContext(ctx, getOrderStatuses)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []OrderStatus{}
+	for rows.Next() {
+		var i OrderStatus
+		if err := rows.Scan(&i.ID, &i.Code, &i.Detail); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPurchaseOrders = `-- name: GetPurchaseOrders :many
 SELECT o.uuid,
        o.buyer_id,

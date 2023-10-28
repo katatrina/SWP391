@@ -12,23 +12,26 @@ import (
 var functionTemplates = template.FuncMap{
 	"humanDate":   humanDate,
 	"formatPrice": formatVietnamesePrice,
+	"formatDate":  formatVietnameseDate,
 }
 
 type templateData struct {
-	CurrentYear      int
-	Form             any
-	Flash            string
-	IsAuthenticated  bool
-	IsProvider       bool
-	ProviderDetail   sqlc.ProviderDetail
-	Service          sqlc.Service
-	Services         []sqlc.Service
-	Category         sqlc.Category
-	ServiceFeedbacks []sqlc.ServiceFeedback
-	User             sqlc.User
-	Categories       []sqlc.Category
-	Cart             Cart
-	PurchaseOrders   map[string]PurchaseOrder
+	CurrentYear         int
+	Form                any
+	Flash               string
+	IsAuthenticated     bool
+	IsProvider          bool
+	ProviderDetail      sqlc.ProviderDetail
+	Service             sqlc.Service
+	Services            []sqlc.Service
+	Category            sqlc.Category
+	ServiceFeedbacks    []sqlc.ServiceFeedback
+	User                sqlc.User
+	Categories          []sqlc.Category
+	Cart                Cart
+	PurchaseOrders      map[string]PurchaseOrder
+	OrderStatuses       []sqlc.OrderStatus
+	HighlightedButtonID int32
 }
 
 type Cart struct {

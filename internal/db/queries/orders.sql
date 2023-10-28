@@ -66,3 +66,9 @@ FROM orders
 WHERE uuid = (SELECT order_id
               FROM order_items
               WHERE order_items.uuid = $1);
+
+
+-- name: GetOrderStatuses :many
+SELECT *
+FROM order_status
+ORDER BY id ASC;

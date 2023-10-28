@@ -13,7 +13,7 @@ CREATE TABLE "users"
     "address"         VARCHAR(200)        NOT NULL,
     "role_id"         INTEGER             NOT NULL,
     "hashed_password" CHAR(60)            NOT NULL,
-    "created_at"      timestamptz         NOT NULL DEFAULT 'now()'
+    "created_at"      timestamptz         NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "provider_details"
@@ -22,7 +22,7 @@ CREATE TABLE "provider_details"
     "provider_id"  INTEGER     NOT NULL,
     "company_name" VARCHAR(50) NOT NULL,
     "tax_code"     VARCHAR(50) NOT NULL,
-    "created_at"   timestamptz NOT NULL DEFAULT 'now()'
+    "created_at"   timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE sessions
@@ -53,7 +53,7 @@ CREATE TABLE "services"
     "category_id"          INTEGER      NOT NULL,
     "owned_by_provider_id" INTEGER      NOT NULL,
     "status"               varchar(20)  NOT NULL DEFAULT 'inactive',
-    "created_at"           timestamptz  NOT NULL DEFAULT 'now()'
+    "created_at"           timestamptz  NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "service_feedbacks"
@@ -62,7 +62,7 @@ CREATE TABLE "service_feedbacks"
     "service_id" INTEGER     NOT NULL,
     "user_id"    INTEGER     NOT NULL,
     "content"    VARCHAR     NOT NULL,
-    "created_at" timestamptz NOT NULL DEFAULT 'now()'
+    "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "carts"
@@ -89,7 +89,7 @@ CREATE TABLE "orders"
     "status_id"      INTEGER     NOT NULL,
     "payment_method" VARCHAR     NOT NULL,
     "grand_total"    INTEGER     NOT NULL DEFAULT 0,
-    "created_at"     timestamptz NOT NULL DEFAULT 'now()'
+    "created_at"     timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "order_status"
@@ -106,7 +106,7 @@ CREATE TABLE "order_items"
     "service_id" INTEGER     NOT NULL,
     "quantity"   INTEGER     NOT NULL,
     "sub_total"  INTEGER     NOT NULL,
-    "created_at" timestamptz NOT NULL DEFAULT 'now()'
+    "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "order_item_details"

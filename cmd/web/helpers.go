@@ -50,6 +50,10 @@ func formatVietnamesePrice(price int32) string {
 	return formattedPrice
 }
 
+func formatVietnameseDate(t time.Time) string {
+	return t.Format("15:04 02/01/2006")
+}
+
 func (app *application) render(w http.ResponseWriter, status int, page string, data *templateData) {
 	ts, ok := app.templateCache[page]
 	if !ok {

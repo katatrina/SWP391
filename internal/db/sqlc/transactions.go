@@ -127,7 +127,7 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 
 		// Create order.
 		order, err := qtx.CreateOrder(ctx, CreateOrderParams{
-			UUID:          randomOrderID.String(),
+			UUID:          randomOrderID.String()[:23],
 			BuyerID:       arg.BuyerID,
 			SellerID:      arg.SellerID,
 			PaymentMethod: arg.PaymentMethod,
@@ -138,7 +138,7 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 			return err
 		}
 
-		fmt.Printf("Order ID %s, Total %d\n", order.UUID, order.GrandTotal)
+		fmt.Println(order.CreatedAt)
 
 		for i, cartItem := range arg.CartItems {
 			randomOrderItemID := randomOrderID.String() + "-" + fmt.Sprintf("%d", i+1)

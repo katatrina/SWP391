@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"github.com/google/uuid"
 	"github.com/julienschmidt/httprouter"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
@@ -704,8 +703,6 @@ func (app *application) displayCheckoutPage(w http.ResponseWriter, r *http.Reque
 func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 	paymentMethod := r.PostFormValue("payment_method")
 
-	fmt.Println(paymentMethod)
-
 	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
 	cartID := app.sessionManager.GetInt32(r.Context(), "cartID")
@@ -753,9 +750,17 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 
 	orders := make(map[string]PurchaseOrder)
 
-	categoryStatusID := r.FormValue("type")
+	categoryStatusID := r.URL.Query().Get("type")
 
-	if categoryStatusID == "" {
+	var highlightedButtonID int32
+
+	orderStatuses, err := app.store.GetOrderStatuses(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	if categoryStatusID == "" || categoryStatusID == "0" {
 		// Get all purchase orders of the current user.
 		myOrders, err := app.store.GetPurchaseOrders(r.Context(), userID)
 		if err != nil {
@@ -778,6 +783,14 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 				OrderItems: orderItems,
 			}
 		}
+
+		data := app.newTemplateData(r)
+		data.PurchaseOrders = orders
+		data.OrderStatuses = orderStatuses
+		data.HighlightedButtonID = highlightedButtonID
+
+		app.render(w, http.StatusOK, "don-mua.html", data)
+		return
 	}
 
 	orderStatusCode := categoryStatusMap[categoryStatusID]
@@ -808,8 +821,12 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 		}
 	}
 
+	parsedInt, _ := strconv.ParseInt(categoryStatusID, 10, 32)
+
 	data := app.newTemplateData(r)
 	data.PurchaseOrders = orders
+	data.OrderStatuses = orderStatuses
+	data.HighlightedButtonID = int32(parsedInt)
 
 	app.render(w, http.StatusOK, "don-mua.html", data)
 }
