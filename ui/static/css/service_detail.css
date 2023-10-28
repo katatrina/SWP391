@@ -346,3 +346,16 @@ input[type="number"] {
     font-style: italic;
     padding: 12px;
 }
+
+.deny-rating-service {
+    display: flex;
+}
+
+.deny-rating-service p {
+    margin-right: 24px;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 21px;
+    margin-left: 50px;
+    color: #ff0009;
+}

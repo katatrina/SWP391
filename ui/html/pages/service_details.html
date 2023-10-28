@@ -120,7 +120,20 @@
                 <div class="rate-wrapper">
                     <div class="rate">
                         <h6>Đánh giá dịch vụ</h6>
+                        <!-- Form Đánh giá Dịch vụ -->
+
+                        <!-- Bảng từ chối đánh giá, Nếu Customer không có dùng dịch vụ -->
+                        <div class="deny-rating-service-wrapper">
+                            <div class="deny-rating-service">
+                                <div class="rate-textarea" style="margin-right: 24px; opacity: .6;">
+                                    <p>Vui lòng sử dụng dịch vụ trước khi đánh giá...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Bảng từ chối đánh giá, Nếu Customer không có dùng dịch vụ -->
+
                         <form action="" method="post">
+                            <!-- Bảng đánh giá, Nếu Customer có dùng dịch vụ -->
                             <div class="rate-textarea-wrapper">
                                 <div class="rate-textarea" style="margin-right: 24px;">
                                     <textarea name="" id="" cols="60" rows="3"
@@ -128,7 +141,9 @@
                                 </div>
                                 <button>Đăng tải</button>
                             </div>
+                            <!-- Bảng đánh giá, Nếu Customer có dùng dịch vụ -->
                         </form>
+                        <!-- Form Đánh giá Dịch vụ -->
                         <div class="user-rate-wrapper">
                             <div class="user-rate">
                                 <div class="rate-detail">
