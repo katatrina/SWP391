@@ -256,10 +256,26 @@ main {}
 .order-button {
     display: flex;
     width: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .order-button select {
-    width: 17%;
-    margin-right: 16px;
+    margin-left: 16px;
+    width: fit-content;
+}
+
+.order-button button {
+    height: fit-content;
+}
+
+.order-button label {
+    width: 155%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: sans-serif;
+    color: #43af43;
+    font-style: bold;
 }
