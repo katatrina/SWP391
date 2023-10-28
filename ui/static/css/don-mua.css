@@ -104,6 +104,25 @@ main {}
     white-space: nowrap;
 }
 
+.order-status .order-date {
+    display: block;
+    color: #000;
+}
+
+.order-status .order-date span {
+    color: #000;
+    display: block;
+    width: 100%;
+    font-size: 11px;
+    text-align: end;
+    opacity: .6;
+}
+
+.order-status-detail {
+    padding-left: 16px;
+    border-left: 1px solid;
+}
+
 .service-item {
     display: flex;
     word-wrap: break-word;
