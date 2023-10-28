@@ -188,5 +188,5 @@ VALUES ('Phụ kiện', 'accessory', '/static/img/accessories-category.jpg',
 INSERT INTO order_status (code, detail)
 VALUES ('pending', 'Đang chờ xác nhận'),
        ('confirmed', 'Đã xác nhận'),
-       ('completed', 'Đã hoàn thành'),
+       ('completed', 'Hoàn thành'),
        ('cancelled', 'Đã hủy');

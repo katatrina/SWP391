@@ -832,7 +832,87 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 }
 
 func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	orders := make(map[string]SellOrder)
+
+	categoryStatusID := r.URL.Query().Get("type")
+
+	var highlightedButtonID int32
+
+	orderStatuses, err := app.store.GetOrderStatuses(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	if categoryStatusID == "" || categoryStatusID == "0" {
+		// Get all sell orders of the current provider.
+		myOrders, err := app.store.GetSellOrders(r.Context(), userID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		for _, order := range myOrders {
+			customer, err := app.store.GetUserByID(r.Context(), userID)
+			if err != nil {
+				app.serverError(w, err)
+				return
+			}
+
+			orderItems, err := app.store.GetFullOrderItemsInformationByOrderId(r.Context(), order.UUID)
+
+			orders[order.UUID] = SellOrder{
+				Customer:   customer,
+				Order:      order,
+				OrderItems: orderItems,
+			}
+		}
+
+		data := app.newTemplateData(r)
+		data.SellOrders = orders
+		data.OrderStatuses = orderStatuses
+		data.HighlightedButtonID = highlightedButtonID
+
+		app.render(w, http.StatusOK, "don-ban.html", data)
+		return
+	}
+
+	orderStatusCode := categoryStatusMap[categoryStatusID]
+
+	// Get all sell orders of the current provider with order status code.
+	myOrders, err := app.store.GetSellOrdersWithStatusCode(r.Context(), sqlc.GetSellOrdersWithStatusCodeParams{
+		SellerID: userID,
+		Code:     orderStatusCode,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, order := range myOrders {
+		customer, err := app.store.GetUserByID(r.Context(), order.BuyerID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		orderItems, err := app.store.GetFullOrderItemsInformationByOrderId(r.Context(), order.UUID)
+
+		orders[order.UUID] = SellOrder{
+			Customer:   customer,
+			Order:      sqlc.GetSellOrdersRow(order),
+			OrderItems: orderItems,
+		}
+	}
+
+	parsedInt, _ := strconv.ParseInt(categoryStatusID, 10, 32)
+
 	data := app.newTemplateData(r)
+	data.SellOrders = orders
+	data.OrderStatuses = orderStatuses
+	data.HighlightedButtonID = int32(parsedInt)
 
 	app.render(w, http.StatusOK, "don-ban.html", data)
 }

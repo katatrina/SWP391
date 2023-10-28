@@ -43,6 +43,23 @@ WHERE o.buyer_id = $1
   AND os.code = $2
 ORDER BY created_at DESC;
 
+-- name: GetSellOrdersWithStatusCode :many
+SELECT o.uuid,
+       o.buyer_id,
+       o.seller_id,
+       o.status_id,
+       o.payment_method,
+       o.grand_total,
+       o.created_at,
+       os.id,
+       os.code,
+       os.detail as status_detail
+FROM orders AS o
+         INNER JOIN order_status os ON os.id = o.status_id
+WHERE o.seller_id = $1
+  AND os.code = $2
+ORDER BY created_at DESC;
+
 -- name: UpdateOrderTotal :exec
 UPDATE orders
 SET grand_total = $1
@@ -59,6 +76,22 @@ SELECT oi.uuid,
 FROM order_items oi
          INNER JOIN order_item_details oid ON oid.order_item_id = oi.uuid
 WHERE oi.order_id = $1;
+
+-- name: GetSellOrders :many
+SELECT o.uuid,
+       o.buyer_id,
+       o.seller_id,
+       o.status_id,
+       o.payment_method,
+       o.grand_total,
+       o.created_at,
+       os.id,
+       os.code,
+       os.detail as status_detail
+FROM orders AS o
+         INNER JOIN order_status os ON os.id = o.status_id
+WHERE seller_id = $1
+ORDER BY created_at DESC;
 
 -- name: GetOrderByOrderItemID :one
 SELECT *

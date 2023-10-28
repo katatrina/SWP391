@@ -30,6 +30,7 @@ type templateData struct {
 	Categories          []sqlc.Category
 	Cart                Cart
 	PurchaseOrders      map[string]PurchaseOrder
+	SellOrders          map[string]SellOrder
 	OrderStatuses       []sqlc.OrderStatus
 	HighlightedButtonID int32
 }
@@ -42,6 +43,12 @@ type Cart struct {
 type PurchaseOrder struct {
 	Provider   sqlc.GetFullProviderInfoRow
 	Order      sqlc.GetPurchaseOrdersRow
+	OrderItems []sqlc.GetFullOrderItemsInformationByOrderIdRow
+}
+
+type SellOrder struct {
+	Customer   sqlc.User
+	Order      sqlc.GetSellOrdersRow
 	OrderItems []sqlc.GetFullOrderItemsInformationByOrderIdRow
 }
 

@@ -37,5 +37,5 @@ func RandomPhone(n int) string {
 }
 
 func RandomPrice() int32 {
-	return int32(RandomInt(10000, 1000000))
+	return int32(RandomInt(100000, 1000000))
 }
