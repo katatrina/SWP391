@@ -1,6 +1,6 @@
 -- name: CreateOrder :one
-INSERT INTO orders (uuid, buyer_id, seller_id, payment_method)
-VALUES ($1, $2, $3, $4) RETURNING *;
+INSERT INTO orders (uuid, buyer_id, seller_id, status_id, payment_method)
+VALUES ($1, $2, $3, $4, $5) RETURNING *;
 
 -- name: CreateOrderItem :one
 INSERT INTO order_items (uuid, order_id, service_id, quantity, sub_total)
@@ -11,9 +11,36 @@ INSERT INTO order_item_details (order_item_id, title, price, image_path)
 VALUES ($1, $2, $3, $4);
 
 -- name: GetPurchaseOrders :many
-SELECT *
-FROM orders
-WHERE buyer_id = $1 AND status = $2
+SELECT o.uuid,
+       o.buyer_id,
+       o.seller_id,
+       o.status_id,
+       o.payment_method,
+       o.grand_total,
+       o.created_at,
+       os.id,
+       os.code,
+       os.detail as status_detail
+FROM orders AS o
+         INNER JOIN order_status os ON os.id = o.status_id
+WHERE buyer_id = $1
+ORDER BY created_at DESC;
+
+-- name: GetPurchaseOrdersWithStatusCode :many
+SELECT o.uuid,
+       o.buyer_id,
+       o.seller_id,
+       o.status_id,
+       o.payment_method,
+       o.grand_total,
+       o.created_at,
+       os.id,
+       os.code,
+       os.detail as status_detail
+FROM orders AS o
+         INNER JOIN order_status os ON os.id = o.status_id
+WHERE o.buyer_id = $1
+  AND os.code = $2
 ORDER BY created_at DESC;
 
 -- name: UpdateOrderTotal :exec

@@ -34,7 +34,7 @@ type Order struct {
 	UUID          string    `json:"uuid"`
 	BuyerID       int32     `json:"buyer_id"`
 	SellerID      int32     `json:"seller_id"`
-	Status        int32     `json:"status"`
+	StatusID      int32     `json:"status_id"`
 	PaymentMethod string    `json:"payment_method"`
 	GrandTotal    int32     `json:"grand_total"`
 	CreatedAt     time.Time `json:"created_at"`
@@ -58,7 +58,7 @@ type OrderItemDetail struct {
 	CreatedAt   time.Time `json:"created_at"`
 }
 
-type OrderStatusCategory struct {
+type OrderStatus struct {
 	ID     int32  `json:"id"`
 	Code   string `json:"code"`
 	Detail string `json:"detail"`

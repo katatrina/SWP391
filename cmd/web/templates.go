@@ -28,7 +28,7 @@ type templateData struct {
 	User             sqlc.User
 	Categories       []sqlc.Category
 	Cart             Cart
-	PurchaseOrders   map[sqlc.GetFullProviderInfoRow]PurchaseOrder
+	PurchaseOrders   map[string]PurchaseOrder
 }
 
 type Cart struct {
@@ -37,7 +37,8 @@ type Cart struct {
 }
 
 type PurchaseOrder struct {
-	Order      sqlc.Order
+	Provider   sqlc.GetFullProviderInfoRow
+	Order      sqlc.GetPurchaseOrdersRow
 	OrderItems []sqlc.GetFullOrderItemsInformationByOrderIdRow
 }
 

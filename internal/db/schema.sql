@@ -86,13 +86,13 @@ CREATE TABLE "orders"
     "uuid"           TEXT PRIMARY KEY,
     "buyer_id"       INTEGER     NOT NULL,
     "seller_id"      INTEGER     NOT NULL,
-    "status"         INTEGER     NOT NULL,
+    "status_id"      INTEGER     NOT NULL,
     "payment_method" VARCHAR     NOT NULL,
     "grand_total"    INTEGER     NOT NULL DEFAULT 0,
     "created_at"     timestamptz NOT NULL DEFAULT 'now()'
 );
 
-CREATE TABLE "order_status_category"
+CREATE TABLE "order_status"
 (
     "id"     SERIAL PRIMARY KEY,
     "code"   VARCHAR(20) NOT NULL,
@@ -159,7 +159,7 @@ ALTER TABLE "orders"
     ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id");
 
 ALTER TABLE "orders"
-    ADD FOREIGN KEY ("status_id") REFERENCES "order_status_category" ("id");
+    ADD FOREIGN KEY ("status_id") REFERENCES "order_status" ("id");
 
 ALTER TABLE "order_items"
     ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("uuid");
@@ -185,9 +185,8 @@ VALUES ('Phụ kiện', 'accessory', '/static/img/accessories-category.jpg',
        ('Khác', 'other', '/static/img/others-category.png',
         'Những dịch vụ khác nhằm đảm bảo pet yêu của bạn khỏe mạnh cũng như tăng thêm mối quan hệ thân thiết');
 
-INSERT INTO order_status_category (code, detail)
-VALUES ('all', 'Tất cả'),
-       ('pending', 'Đang chờ xác nhận'),
+INSERT INTO order_status (code, detail)
+VALUES ('pending', 'Đang chờ xác nhận'),
        ('confirmed', 'Đã xác nhận'),
        ('completed', 'Đã hoàn thành'),
        ('cancelled', 'Đã hủy');

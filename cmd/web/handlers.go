@@ -728,6 +728,7 @@ func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 			SellerID:      providerID,
 			PaymentMethod: paymentMethod,
 			CartItems:     cartItems,
+			StatusID:      1,
 		})
 		if err != nil {
 			app.serverError(w, err)
@@ -740,29 +741,51 @@ func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/my-orders/identity/buyer", http.StatusSeeOther)
 }
 
+var categoryStatusMap = map[string]string{
+	"1": "pending",
+	"2": "confirmed",
+	"3": "completed",
+	"4": "cancelled",
+}
+
 func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http.Request) {
 	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
-	var typeID int32
-	statusID := r.FormValue("type")
-	if statusID == "" {
-		typeID = 1
+	orders := make(map[string]PurchaseOrder)
+
+	categoryStatusID := r.FormValue("type")
+
+	if categoryStatusID == "" {
+		// Get all purchase orders of the current user.
+		myOrders, err := app.store.GetPurchaseOrders(r.Context(), userID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		for _, order := range myOrders {
+			provider, err := app.store.GetFullProviderInfo(r.Context(), order.SellerID)
+			if err != nil {
+				app.serverError(w, err)
+				return
+			}
+
+			orderItems, err := app.store.GetFullOrderItemsInformationByOrderId(r.Context(), order.UUID)
+
+			orders[order.UUID] = PurchaseOrder{
+				Provider:   provider,
+				Order:      order,
+				OrderItems: orderItems,
+			}
+		}
 	}
 
-	parsedInt, err := strconv.ParseInt(statusID, 10, 32)
-	if err != nil {
-		app.clientError(w, http.StatusBadRequest)
-		return
-	}
+	orderStatusCode := categoryStatusMap[categoryStatusID]
 
-	typeID = int32(parsedInt)
-
-	orders := make(map[sqlc.GetFullProviderInfoRow]PurchaseOrder)
-
-	// Get all purchase orders of the current user.
-	myOrders, err := app.store.GetPurchaseOrders(r.Context(), sqlc.GetPurchaseOrdersParams{
+	// Get all purchase orders of the current user with order status code.
+	myOrders, err := app.store.GetPurchaseOrdersWithStatusCode(r.Context(), sqlc.GetPurchaseOrdersWithStatusCodeParams{
 		BuyerID: userID,
-		Status:  typeID,
+		Code:    orderStatusCode,
 	})
 	if err != nil {
 		app.serverError(w, err)
@@ -778,8 +801,9 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 
 		orderItems, err := app.store.GetFullOrderItemsInformationByOrderId(r.Context(), order.UUID)
 
-		orders[provider] = PurchaseOrder{
-			Order:      order,
+		orders[order.UUID] = PurchaseOrder{
+			Provider:   provider,
+			Order:      sqlc.GetPurchaseOrdersRow(order),
 			OrderItems: orderItems,
 		}
 	}

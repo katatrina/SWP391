@@ -115,6 +115,7 @@ type CreateOrderTxParams struct {
 	BuyerID       int32
 	SellerID      int32
 	PaymentMethod string
+	StatusID      int32
 	CartItems     []GetCartItemsByCartIDRow
 }
 
@@ -130,6 +131,7 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 			BuyerID:       arg.BuyerID,
 			SellerID:      arg.SellerID,
 			PaymentMethod: arg.PaymentMethod,
+			StatusID:      arg.StatusID,
 		})
 		if err != nil {
 			fmt.Println("create order error")

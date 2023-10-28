@@ -7,17 +7,19 @@ package sqlc
 
 import (
 	"context"
+	"time"
 )
 
 const createOrder = `-- name: CreateOrder :one
-INSERT INTO orders (uuid, buyer_id, seller_id, payment_method)
-VALUES ($1, $2, $3, $4) RETURNING uuid, buyer_id, seller_id, status, payment_method, grand_total, created_at
+INSERT INTO orders (uuid, buyer_id, seller_id, status_id, payment_method)
+VALUES ($1, $2, $3, $4, $5) RETURNING uuid, buyer_id, seller_id, status_id, payment_method, grand_total, created_at
 `
 
 type CreateOrderParams struct {
 	UUID          string `json:"uuid"`
 	BuyerID       int32  `json:"buyer_id"`
 	SellerID      int32  `json:"seller_id"`
+	StatusID      int32  `json:"status_id"`
 	PaymentMethod string `json:"payment_method"`
 }
 
@@ -26,6 +28,7 @@ func (q *Queries) CreateOrder(ctx context.Context, arg CreateOrderParams) (Order
 		arg.UUID,
 		arg.BuyerID,
 		arg.SellerID,
+		arg.StatusID,
 		arg.PaymentMethod,
 	)
 	var i Order
@@ -33,7 +36,7 @@ func (q *Queries) CreateOrder(ctx context.Context, arg CreateOrderParams) (Order
 		&i.UUID,
 		&i.BuyerID,
 		&i.SellerID,
-		&i.Status,
+		&i.StatusID,
 		&i.PaymentMethod,
 		&i.GrandTotal,
 		&i.CreatedAt,
@@ -151,7 +154,7 @@ func (q *Queries) GetFullOrderItemsInformationByOrderId(ctx context.Context, ord
 }
 
 const getOrderByOrderItemID = `-- name: GetOrderByOrderItemID :one
-SELECT uuid, buyer_id, seller_id, status, payment_method, grand_total, created_at
+SELECT uuid, buyer_id, seller_id, status_id, payment_method, grand_total, created_at
 FROM orders
 WHERE uuid = (SELECT order_id
               FROM order_items
@@ -165,7 +168,7 @@ func (q *Queries) GetOrderByOrderItemID(ctx context.Context, uuid string) (Order
 		&i.UUID,
 		&i.BuyerID,
 		&i.SellerID,
-		&i.Status,
+		&i.StatusID,
 		&i.PaymentMethod,
 		&i.GrandTotal,
 		&i.CreatedAt,
@@ -174,34 +177,125 @@ func (q *Queries) GetOrderByOrderItemID(ctx context.Context, uuid string) (Order
 }
 
 const getPurchaseOrders = `-- name: GetPurchaseOrders :many
-SELECT uuid, buyer_id, seller_id, status, payment_method, grand_total, created_at
-FROM orders
-WHERE buyer_id = $1 AND status = $2
+SELECT o.uuid,
+       o.buyer_id,
+       o.seller_id,
+       o.status_id,
+       o.payment_method,
+       o.grand_total,
+       o.created_at,
+       os.id,
+       os.code,
+       os.detail as status_detail
+FROM orders AS o
+         INNER JOIN order_status os ON os.id = o.status_id
+WHERE buyer_id = $1
 ORDER BY created_at DESC
 `
 
-type GetPurchaseOrdersParams struct {
-	BuyerID int32 `json:"buyer_id"`
-	Status  int32 `json:"status"`
+type GetPurchaseOrdersRow struct {
+	UUID          string    `json:"uuid"`
+	BuyerID       int32     `json:"buyer_id"`
+	SellerID      int32     `json:"seller_id"`
+	StatusID      int32     `json:"status_id"`
+	PaymentMethod string    `json:"payment_method"`
+	GrandTotal    int32     `json:"grand_total"`
+	CreatedAt     time.Time `json:"created_at"`
+	ID            int32     `json:"id"`
+	Code          string    `json:"code"`
+	StatusDetail  string    `json:"status_detail"`
 }
 
-func (q *Queries) GetPurchaseOrders(ctx context.Context, arg GetPurchaseOrdersParams) ([]Order, error) {
-	rows, err := q.db.QueryContext(ctx, getPurchaseOrders, arg.BuyerID, arg.Status)
+func (q *Queries) GetPurchaseOrders(ctx context.Context, buyerID int32) ([]GetPurchaseOrdersRow, error) {
+	rows, err := q.db.QueryContext(ctx, getPurchaseOrders, buyerID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []Order{}
+	items := []GetPurchaseOrdersRow{}
 	for rows.Next() {
-		var i Order
+		var i GetPurchaseOrdersRow
 		if err := rows.Scan(
 			&i.UUID,
 			&i.BuyerID,
 			&i.SellerID,
-			&i.Status,
+			&i.StatusID,
 			&i.PaymentMethod,
 			&i.GrandTotal,
 			&i.CreatedAt,
+			&i.ID,
+			&i.Code,
+			&i.StatusDetail,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getPurchaseOrdersWithStatusCode = `-- name: GetPurchaseOrdersWithStatusCode :many
+SELECT o.uuid,
+       o.buyer_id,
+       o.seller_id,
+       o.status_id,
+       o.payment_method,
+       o.grand_total,
+       o.created_at,
+       os.id,
+       os.code,
+       os.detail as status_detail
+FROM orders AS o
+         INNER JOIN order_status os ON os.id = o.status_id
+WHERE o.buyer_id = $1
+  AND os.code = $2
+ORDER BY created_at DESC
+`
+
+type GetPurchaseOrdersWithStatusCodeParams struct {
+	BuyerID int32  `json:"buyer_id"`
+	Code    string `json:"code"`
+}
+
+type GetPurchaseOrdersWithStatusCodeRow struct {
+	UUID          string    `json:"uuid"`
+	BuyerID       int32     `json:"buyer_id"`
+	SellerID      int32     `json:"seller_id"`
+	StatusID      int32     `json:"status_id"`
+	PaymentMethod string    `json:"payment_method"`
+	GrandTotal    int32     `json:"grand_total"`
+	CreatedAt     time.Time `json:"created_at"`
+	ID            int32     `json:"id"`
+	Code          string    `json:"code"`
+	StatusDetail  string    `json:"status_detail"`
+}
+
+func (q *Queries) GetPurchaseOrdersWithStatusCode(ctx context.Context, arg GetPurchaseOrdersWithStatusCodeParams) ([]GetPurchaseOrdersWithStatusCodeRow, error) {
+	rows, err := q.db.QueryContext(ctx, getPurchaseOrdersWithStatusCode, arg.BuyerID, arg.Code)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetPurchaseOrdersWithStatusCodeRow{}
+	for rows.Next() {
+		var i GetPurchaseOrdersWithStatusCodeRow
+		if err := rows.Scan(
+			&i.UUID,
+			&i.BuyerID,
+			&i.SellerID,
+			&i.StatusID,
+			&i.PaymentMethod,
+			&i.GrandTotal,
+			&i.CreatedAt,
+			&i.ID,
+			&i.Code,
+			&i.StatusDetail,
 		); err != nil {
 			return nil, err
 		}
