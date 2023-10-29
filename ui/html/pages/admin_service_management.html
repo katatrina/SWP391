@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Bird Servc Central</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon.png">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/style.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- ============================================================== -->
+                    <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
+                    <!-- ============================================================== -->
+                    <a class="navbar-brand" href="#">
+                        <!-- Ảnh -->
+                        <b class="logo-icon">
+                            <img src="/static/img/Login-banner.png" alt="homepage"
+                                style="width: 50px; height: 50px; object-fit: contain;" />
+                        </b>
+
+                        <!-- Tên Website -->
+                        <span class="logo-text">
+                            <p style="color: green; font-weight: 900;vertical-align: middle; margin: 0;">
+                                Bird Serve Central
+                            </p>
+                        </span>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
+                <!-- ============================================================== -->
+
+
+                <!-- ============================================================== -->
+                <!-- Thanh Topbar chứa Search và Admin -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class=" in">
+                            <form role="search" class="app-search d-none d-md-block me-3">
+                                <input type="text" placeholder="Search..." class="form-control mt-0">
+                                <a href="" class="active">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </form>
+                        </li>
+
+                        <!-- ============================================================== -->
+                        <!-- Admin Profile -->
+                        <!-- ============================================================== -->
+                        <li>
+                            <a class="profile-pic" href="#" style="display: flex; align-items: center;">
+                                <i class="fa-solid fa-circle-user"
+                                    style="color: #5c6066; font-size: 24px; margin-right: 16px;"></i><span
+                                    class="text-white font-medium">Steave</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- Tính năng Admin -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item pt-2">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/html/pages/admin.html"
+                                aria-expanded="false">
+                                <i class="far fa-clock" aria-hidden="true"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="/html/pages/admin_account_management.html" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Quản lý tài khoản</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="/html/pages/admin_service_management.html" aria-expanded="false">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="hide-menu">Quản lý dịch vụ</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Tính năng Admin -->
+        <!-- ============================================================== -->
+
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <div class="container-fluid">
+
+                <!-- ============================================================== -->
+                <!-- Tổng quát về Dịch vụ hệ thống -->
+                <!-- ============================================================== -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Tổng dịch vụ</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><i width="67" height="30" class="fa-solid fa-circle-user"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top; font-size: xx-large;"></i>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-info">911</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- Tổng quát về Dịch vụ hệ thống -->
+                <!-- ============================================================== -->
+
+
+                <!-- ============================================================== -->
+                <!-- Tổng quát về Detail Provider của hệ thống -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3">
+                                <h3 class="box-title mb-0">Danh sách tài khoản</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table no-wrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Tên</th>
+                                            <th class="border-top-0">Mã số thuế</th>
+                                            <th class="border-top-0">Số dịch vụ</th>
+                                            <th class="border-top-0">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="txt-oflo">Elite admin</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">8</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">4</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">6</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td class="txt-oflo">Medical Pro WP Theme</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">5</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td class="txt-oflo">Hosting press html</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">3</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td class="txt-oflo">Digital Agency PSD</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">6</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td class="txt-oflo">Helping Hands WP Theme</td>
+                                            <td>01565</td>
+                                            <td class="txt-oflo">7</td>
+                                            <td><span class="">Chi tiết</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Tổng quát về Customer và Provider của hệ thống -->
+                <!-- ============================================================== -->
+
+
+                <!-- ============================================================== -->
+                <!-- Khi ấn nút Chi tiết trên Bảng trên thì dưới này mới hiện rõ những Dịch vụ mà Provider đó đang sở hữu-->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="card white-box p-0">
+                            <div class="card-body">
+                                <h3 class="box-title mb-0">Các dịch vụ gần đây</h3>
+                            </div>
+                            <div class="comment-widgets">
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row p-3 mt-0">
+                                    <div class="p-2"><img src="/static/img/banner-service.jpg" alt="service-img"
+                                            style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                    </div>
+                                    <div class="comment-text ps-2 ps-md-3 w-100">
+                                        <h5 class="font-medium">Sửa lồng chim</h5>
+                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
+                                            type setting industry.It has survived not only five centuries. </span>
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-success rounded">Doanh thu</span>
+                                            <span>123.000.000vnd</span>
+
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row p-3 mt-0">
+                                    <div class="p-2"><img src="/static/img/categories-grooming.jpg" alt="service-img"
+                                            style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                    </div>
+                                    <div class="comment-text ps-2 ps-md-3 w-100">
+                                        <h5 class="font-medium">Làm đẹp</h5>
+                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
+                                            type setting industry.It has survived not only five centuries. </span>
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-success rounded">Doanh thu</span>
+                                            <span>123.000.000vnd</span>
+
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row p-3 mt-0">
+                                    <div class="p-2"><img src="/static/img/home-about-us.jpg" alt="service-img"
+                                            style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                    </div>
+                                    <div class="comment-text ps-2 ps-md-3 w-100">
+                                        <h5 class="font-medium">Tắm cho chim</h5>
+                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
+                                            type setting industry.It has survived not only five centuries. </span>
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-success rounded">Doanh thu</span>
+                                            <span>123.000.000vnd</span>
+
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="card white-box p-0">
+                            <div class="card-heading">
+                                <h3 class="box-title mb-0">Chat Listing</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="comment-widgets">
+                                    <div class="d-flex flex-row comment-row p-3 mt-0">
+                                        <div class="p-2"><img src="/ui/static/img/banner-service.jpg" alt="service-img"
+                                                style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                        </div>
+                                        <div class="comment-text ps-2 ps-md-3 w-100">
+                                            <h5 class="font-medium">Sửa lồng chim</h5>
+                                            <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing
+                                                and
+                                                type setting industry.It has survived not only five centuries. </span>
+                                            <div class="comment-footer d-md-flex align-items-center">
+                                                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- Khi ấn nút Chi tiết trên Bảng trên thì dưới này mới hiện rõ những Dịch vụ mà Provider đó đang sở hữu-->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="/static/js/jquery.min.js"></script>
+
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app-style-switcher.js"></script>
+    <script src="/static/js/jquery.sparkline.min.js"></script>
+
+    <!--Wave Effects -->
+    <script src="/static/js/waves.js"></script>
+
+    <!--Menu sidebar -->
+    <script src="/static/js/sidebarmenu.js"></script>
+
+    <!--Custom JavaScript -->
+    <script src="/static/js/custom.js"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
