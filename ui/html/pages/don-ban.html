@@ -72,6 +72,7 @@
     cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 thẻ div: "container" khác nữa
 -->
 
+{{if .SellOrders}}
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -92,6 +93,7 @@
         </div>
     </div>
 </div>
+{{ end }}
 
 {{$orderStatuses := .OrderStatuses}}
 
@@ -151,15 +153,18 @@
                             </tbody>
                         </table>
                     </section>
-                    <form action="/order/update">
+                    <form action="/order/update" method="POST">
                         <div class="order-button-wrapper">
                             <div class="order-button">
                                 <div style="display: flex; margin-right: 16px;">
                                     <label>Thay đổi trạng thái:</label>
 
-                                    <select class="form-select" aria-label="Default select example">
+                                    <input type="hidden" name="order_id" value="{{ .OrderID }}">
+
+                                    <select name="order_status_code" class="form-select"
+                                            aria-label="Default select example">
                                         {{ range $orderStatuses }}
-                                        <option name="order_status_code" value="{{ .Code }}" {{if (eq
+                                        <option value="{{ .Code }}" {{if (eq
                                                 $sellOrder.Order.Code .Code)}}selected{{end}}>{{ .Detail }}
                                         </option>
                                         {{ end }}

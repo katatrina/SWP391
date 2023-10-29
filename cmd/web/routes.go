@@ -14,7 +14,9 @@ func (app *application) routes() http.Handler {
 
 	dynamic := alice.New(app.sessionManager.LoadAndSave, app.authenticate)
 
-	router.Handler(http.MethodGet, "/404", dynamic.ThenFunc(app.pageNotFound))
+	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		app.pageNotFound(w)
+	})
 
 	// Guest permissions.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
@@ -57,6 +59,8 @@ func (app *application) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/service/create", advanced.ThenFunc(app.displayCreateServicePage))
 	router.Handler(http.MethodPost, "/service/create", advanced.ThenFunc(app.doCreateService))
+
+	router.Handler(http.MethodPost, "/order/update", advanced.ThenFunc(app.updateOrderStatus))
 
 	standard := alice.New(app.logRequest)
 	return standard.Then(router)

@@ -473,6 +473,35 @@ func (q *Queries) GetSellOrdersWithStatusCode(ctx context.Context, arg GetSellOr
 	return items, nil
 }
 
+const updateOrderStatus = `-- name: UpdateOrderStatus :one
+UPDATE orders
+SET status_id = (SELECT id
+                 FROM order_status
+                 WHERE code = $1)
+WHERE uuid = $2
+RETURNING uuid, buyer_id, seller_id, status_id, payment_method, grand_total, created_at
+`
+
+type UpdateOrderStatusParams struct {
+	Code string `json:"code"`
+	UUID string `json:"uuid"`
+}
+
+func (q *Queries) UpdateOrderStatus(ctx context.Context, arg UpdateOrderStatusParams) (Order, error) {
+	row := q.db.QueryRowContext(ctx, updateOrderStatus, arg.Code, arg.UUID)
+	var i Order
+	err := row.Scan(
+		&i.UUID,
+		&i.BuyerID,
+		&i.SellerID,
+		&i.StatusID,
+		&i.PaymentMethod,
+		&i.GrandTotal,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const updateOrderTotal = `-- name: UpdateOrderTotal :exec
 UPDATE orders
 SET grand_total = $1

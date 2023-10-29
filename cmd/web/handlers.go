@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"github.com/google/uuid"
 	"github.com/julienschmidt/httprouter"
 	"github.com/katatrina/SWP391/internal/db/sqlc"
@@ -917,8 +918,34 @@ func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Req
 	app.render(w, http.StatusOK, "don-ban.html", data)
 }
 
-func (app *application) pageNotFound(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
+type updateOrderStatusFormResult struct {
+	OrderID         string `form:"order_id"`
+	OrderStatusCode string `form:"order_status_code"`
+}
 
-	app.render(w, http.StatusOK, "not_found.html", data)
+func (app *application) updateOrderStatus(w http.ResponseWriter, r *http.Request) {
+	var form updateOrderStatusFormResult
+
+	err := app.decodePostForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println(form)
+
+	updatedOrder, err := app.store.UpdateOrderStatus(r.Context(), sqlc.UpdateOrderStatusParams{
+		UUID: form.OrderID,
+		Code: form.OrderStatusCode,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	http.Redirect(w, r, fmt.Sprintf("/my-orders/identity/seller?type=%v", updatedOrder.StatusID), http.StatusSeeOther)
+}
+
+func (app *application) pageNotFound(w http.ResponseWriter) {
+	app.clientError(w, http.StatusNotFound)
 }
