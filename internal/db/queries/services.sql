@@ -10,7 +10,8 @@ WHERE owned_by_provider_id = $1;
 -- name: GetServicesByCategorySlug :many
 SELECT *
 FROM services
-WHERE category_id = (SELECT id FROM categories WHERE slug = $1) AND owned_by_provider_id != $2;
+WHERE category_id = (SELECT id FROM categories WHERE slug = $1)
+  AND owned_by_provider_id != $2;
 
 -- name: GetServiceByID :one
 SELECT *
@@ -28,6 +29,15 @@ FROM services
 WHERE id = (SELECT service_id FROM cart_items WHERE cart_items.uuid = $1);
 
 -- name: GetProviderDetailsByServiceID :one
-SELECT *
+SELECT provider_details.company_name, u.address, u.phone, u.email
 FROM provider_details
-WHERE provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1);
+         INNER JOIN users u on provider_details.provider_id = u.id
+WHERE provider_details.provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1);
+
+-- name: IsUserUsedService :one
+SELECT EXISTS(SELECT 1
+              FROM orders
+                       INNER JOIN order_items o_i on orders.uuid = o_i.order_id
+              WHERE orders.buyer_id = $1
+                AND o_i.service_id = $2
+                AND orders.status_id = (SELECT id FROM order_status WHERE code = 'completed'));

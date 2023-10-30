@@ -52,6 +52,9 @@ func (app *application) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/my-orders/identity/buyer", protected.ThenFunc(app.displayPurchaseOrdersPage))
 	router.Handler(http.MethodGet, "/my-orders/identity/seller", protected.ThenFunc(app.displaySellOrdersPage))
+
+	router.Handler(http.MethodPost, "/feedback/create", protected.ThenFunc(app.createServiceFeedback))
+
 	// Provider permissions.
 	advanced := protected.Append(app.requireProviderPermission)
 

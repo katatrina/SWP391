@@ -24,7 +24,7 @@ SELECT o.uuid,
 FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE buyer_id = $1
-ORDER BY created_at DESC;
+ORDER BY created_at;
 
 -- name: GetPurchaseOrdersWithStatusCode :many
 SELECT o.uuid,
@@ -41,7 +41,7 @@ FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE o.buyer_id = $1
   AND os.code = $2
-ORDER BY created_at DESC;
+ORDER BY created_at;
 
 -- name: GetSellOrdersWithStatusCode :many
 SELECT o.uuid,
@@ -58,7 +58,7 @@ FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE o.seller_id = $1
   AND os.code = $2
-ORDER BY created_at DESC;
+ORDER BY created_at;
 
 -- name: UpdateOrderTotal :exec
 UPDATE orders
@@ -91,7 +91,7 @@ SELECT o.uuid,
 FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE seller_id = $1
-ORDER BY created_at DESC;
+ORDER BY created_at;
 
 -- name: GetOrderByOrderItemID :one
 SELECT *

@@ -219,7 +219,7 @@ SELECT o.uuid,
 FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE buyer_id = $1
-ORDER BY created_at DESC
+ORDER BY created_at
 `
 
 type GetPurchaseOrdersRow struct {
@@ -284,7 +284,7 @@ FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE o.buyer_id = $1
   AND os.code = $2
-ORDER BY created_at DESC
+ORDER BY created_at
 `
 
 type GetPurchaseOrdersWithStatusCodeParams struct {
@@ -353,7 +353,7 @@ SELECT o.uuid,
 FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE seller_id = $1
-ORDER BY created_at DESC
+ORDER BY created_at
 `
 
 type GetSellOrdersRow struct {
@@ -418,7 +418,7 @@ FROM orders AS o
          INNER JOIN order_status os ON os.id = o.status_id
 WHERE o.seller_id = $1
   AND os.code = $2
-ORDER BY created_at DESC
+ORDER BY created_at
 `
 
 type GetSellOrdersWithStatusCodeParams struct {

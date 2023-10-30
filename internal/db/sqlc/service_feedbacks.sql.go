@@ -7,6 +7,7 @@ package sqlc
 
 import (
 	"context"
+	"time"
 )
 
 const createServiceFeedback = `-- name: CreateServiceFeedback :exec
@@ -25,28 +26,30 @@ func (q *Queries) CreateServiceFeedback(ctx context.Context, arg CreateServiceFe
 	return err
 }
 
-const getFeedbacksByServiceID = `-- name: GetFeedbacksByServiceID :many
-SELECT id, service_id, user_id, content, created_at
-FROM service_feedbacks
-WHERE service_id = $1
+const listServiceFeedbacks = `-- name: ListServiceFeedbacks :many
+SELECT "users"."full_name", "service_feedbacks"."content", "service_feedbacks"."created_at"
+FROM "service_feedbacks"
+         INNER JOIN "services" ON "services"."id" = "service_feedbacks"."service_id"
+         INNER JOIN "users" ON "users"."id" = "service_feedbacks"."user_id"
+WHERE "service_feedbacks"."service_id" = $1
 `
 
-func (q *Queries) GetFeedbacksByServiceID(ctx context.Context, serviceID int32) ([]ServiceFeedback, error) {
-	rows, err := q.db.QueryContext(ctx, getFeedbacksByServiceID, serviceID)
+type ListServiceFeedbacksRow struct {
+	FullName  string    `json:"full_name"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+func (q *Queries) ListServiceFeedbacks(ctx context.Context, serviceID int32) ([]ListServiceFeedbacksRow, error) {
+	rows, err := q.db.QueryContext(ctx, listServiceFeedbacks, serviceID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []ServiceFeedback{}
+	items := []ListServiceFeedbacksRow{}
 	for rows.Next() {
-		var i ServiceFeedback
-		if err := rows.Scan(
-			&i.ID,
-			&i.ServiceID,
-			&i.UserID,
-			&i.Content,
-			&i.CreatedAt,
-		); err != nil {
+		var i ListServiceFeedbacksRow
+		if err := rows.Scan(&i.FullName, &i.Content, &i.CreatedAt); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
