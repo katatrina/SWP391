@@ -1,89 +1,179 @@
 * {
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    margin-top: 64px;
-    margin-bottom: 64px;
+    margin-top: 21px;
+    margin-bottom: 21px;
 }
 
 body {
+    background-color: rgb(231 231 231);
+}
+
+.profile-wrapper {
+    height: fit-content;
+    background-color: #fff;
+    width: 960px;
+    margin: auto;
+}
+
+.profile {
+    padding: 0 1.875rem 0.625rem
+}
+
+.profile-header {
+    border-bottom: 0.0625rem solid #efefef;
+    padding: 1.125rem 0;
+}
+
+.profile-header h1 {
     margin: 0;
-    padding-top: 40px;
-    color: #2e323c;
-    background: #f5f6fa;
-    position: relative;
-    height: 100%;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    text-transform: capitalize;
+    color: #333;
 }
 
-/* Account CSS */
-.account-settings .user-profile {
-    text-align: center;
+.profile-header .sub-header {
+    margin-top: 0.1875rem;
+    font-size: .875rem;
+    line-height: 1.0625rem;
+    color: #555;
 }
 
-.account-settings .user-profile .user-avatar {
-    margin: 0 0 1rem 0;
+.profile-body {
+    padding-top: 1.875rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
-.account-settings .user-profile .user-avatar img {
-    width: 90px;
-    height: 90px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    border-radius: 100px;
+.table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.account-settings .user-profile h5.user-name {
-    margin: 0 0 0.5rem 0;
+.table td {
+    padding: 8px;
+    max-width: 100px;
+    /* Adjust the max-width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.account-settings .user-profile h6.user-email {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #9fa8b9;
+/* Body-Detail */
+.profile-body .body-detail {
+    flex: 1;
+    padding-right: 3.125rem;
 }
 
-.account-settings .about {
-    margin: 2rem 0 0 0;
-    text-align: center;
+.body-detail table td:first-child {
+    text-align: right;
 }
 
-.account-settings .about h5 {
-    margin: 0 0 15px 0;
-    color: #007ae1;
+.body-detail table tr {
+    border-style: none;
+    border-color: #fff;
 }
 
-.account-settings .about p {
-    font-size: 0.825rem;
+.body-detail label {
+    cursor: default;
+    text-align: right;
+    color: rgba(85, 85, 85, .8);
+    overflow: hidden;
+    padding-bottom: 30px;
+    white-space: nowrap;
+    min-width: 20%;
 }
 
-
-.container .gutters {
-    margin: 21px;
-}
-
-.form-control {
-    border: 1px solid #cfd1d8;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
+.body-detail .input-tag {
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, .14);
     border-radius: 2px;
-    font-size: .825rem;
-    background: #ffffff;
-    color: #2e323c;
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, .02);
 }
 
-.card {
-    background: #ffffff;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+.body-detail .input-tag input {
+
+    background: none;
+    padding: 12px;
+    outline: none;
     border: 0;
-    margin-bottom: 1rem;
+    flex: 1;
+    flex-shrink: 0;
+    filter: none;
+    line-height: normal;
 }
 
-.card .form-group {
-    margin-bottom: 21px;
+/* Body-img */
+.body-img img {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    object-fit: contain;
+    background-color: #555;
+}
+
+.body-img {
+    width: 17.5rem;
+    overflow: hidden;
+    border-left: 0.0625rem solid #efefef;
+    display: flex;
+    justify-content: center;
+}
+
+.body-img .img-detail {
+    flex-direction: column;
+    align-items: center;
+    display: flex
+}
+
+.user-img {
+    height: 6.25rem;
+    width: 6.25rem;
+    margin: 1.25rem 0;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.user-img img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.img-requirement {
+    margin-top: 0.75rem;
+}
+
+.img-requirement p {
+    color: #999;
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
+.body-img label {
+    background-color: #197845;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
 }
