@@ -21,18 +21,20 @@ type templateData struct {
 	Flash               string
 	IsAuthenticated     bool
 	IsProvider          bool
-	ProviderDetail      sqlc.ProviderDetail
+	ProviderDetail      sqlc.GetProviderDetailsByServiceIDRow
 	Service             sqlc.Service
 	Services            []sqlc.Service
 	Category            sqlc.Category
-	ServiceFeedbacks    []sqlc.ServiceFeedback
+	ServiceFeedbacks    []sqlc.ListServiceFeedbacksRow
 	User                sqlc.User
 	Categories          []sqlc.Category
 	Cart                Cart
 	PurchaseOrders      map[string]PurchaseOrder
 	SellOrders          map[string]SellOrder
+	SortedOrders        []string
 	OrderStatuses       []sqlc.OrderStatus
 	HighlightedButtonID int32
+	IsUserUsedService   bool
 }
 
 type Cart struct {

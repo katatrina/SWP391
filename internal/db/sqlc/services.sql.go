@@ -49,20 +49,27 @@ func (q *Queries) GetCompanyNameByServiceID(ctx context.Context, id int32) (stri
 }
 
 const getProviderDetailsByServiceID = `-- name: GetProviderDetailsByServiceID :one
-SELECT id, provider_id, company_name, tax_code, created_at
+SELECT provider_details.company_name, u.address, u.phone, u.email
 FROM provider_details
-WHERE provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1)
+         INNER JOIN users u on provider_details.provider_id = u.id
+WHERE provider_details.provider_id = (SELECT owned_by_provider_id FROM services WHERE services.id = $1)
 `
 
-func (q *Queries) GetProviderDetailsByServiceID(ctx context.Context, id int32) (ProviderDetail, error) {
+type GetProviderDetailsByServiceIDRow struct {
+	CompanyName string `json:"company_name"`
+	Address     string `json:"address"`
+	Phone       string `json:"phone"`
+	Email       string `json:"email"`
+}
+
+func (q *Queries) GetProviderDetailsByServiceID(ctx context.Context, id int32) (GetProviderDetailsByServiceIDRow, error) {
 	row := q.db.QueryRowContext(ctx, getProviderDetailsByServiceID, id)
-	var i ProviderDetail
+	var i GetProviderDetailsByServiceIDRow
 	err := row.Scan(
-		&i.ID,
-		&i.ProviderID,
 		&i.CompanyName,
-		&i.TaxCode,
-		&i.CreatedAt,
+		&i.Address,
+		&i.Phone,
+		&i.Email,
 	)
 	return i, err
 }
@@ -116,7 +123,8 @@ func (q *Queries) GetServiceByID(ctx context.Context, id int32) (Service, error)
 const getServicesByCategorySlug = `-- name: GetServicesByCategorySlug :many
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services
-WHERE category_id = (SELECT id FROM categories WHERE slug = $1) AND owned_by_provider_id != $2
+WHERE category_id = (SELECT id FROM categories WHERE slug = $1)
+  AND owned_by_provider_id != $2
 `
 
 type GetServicesByCategorySlugParams struct {
@@ -155,6 +163,27 @@ func (q *Queries) GetServicesByCategorySlug(ctx context.Context, arg GetServices
 		return nil, err
 	}
 	return items, nil
+}
+
+const isUserUsedService = `-- name: IsUserUsedService :one
+SELECT EXISTS(SELECT 1
+              FROM orders
+                       INNER JOIN order_items o_i on orders.uuid = o_i.order_id
+              WHERE orders.buyer_id = $1
+                AND o_i.service_id = $2
+                AND orders.status_id = (SELECT id FROM order_status WHERE code = 'completed'))
+`
+
+type IsUserUsedServiceParams struct {
+	BuyerID   int32 `json:"buyer_id"`
+	ServiceID int32 `json:"service_id"`
+}
+
+func (q *Queries) IsUserUsedService(ctx context.Context, arg IsUserUsedServiceParams) (bool, error) {
+	row := q.db.QueryRowContext(ctx, isUserUsedService, arg.BuyerID, arg.ServiceID)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
 }
 
 const listServiceByProvider = `-- name: ListServiceByProvider :many

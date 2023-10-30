@@ -38,11 +38,13 @@
 <div class="container">
     <nav class="sub-nav navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
         {{if eq .HighlightedButtonID 0}}
-        <form action="/my-orders/identity/buyer?type=0">
+        <form action="/my-orders/identity/buyer">
+            <input type="hidden" name="type" value="0">
             <button type="submit" class="btn btn-success">Tất cả</button>
         </form>
         {{else}}
-        <form action="/my-orders/identity/buyer?type=0">
+        <form action="/my-orders/identity/buyer">
+            <input type="hidden" name="type" value="0">
             <button type="submit" class="btn">Tất cả</button>
         </form>
         {{end}}
@@ -73,9 +75,11 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
 -->
 
 <!-- Một Đơn Hàng của 1 Provider -->
-{{ range $orderID, $purchaseOrder := .PurchaseOrders }}
+{{ $purchaseOrders := .PurchaseOrders }}
+{{ range $orderID := .SortedOrders}}
 <div class="container">
     <div class="order">
+        {{ $order := index $purchaseOrders $orderID }}
         <div class="wrapper">
             <!-- Bảng chi tiết đơn hàng -->
             <div class="order-detail">
@@ -84,17 +88,15 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
                     <section class="header">
                         <div class="header-wrapper">
                             <div class="provider-detail">
-                                    <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{
-                                        $purchaseOrder.Provider.CompanyName }}</span>
+                                <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{ $order.Provider.CompanyName }}</span>
                             </div>
                             <div class="order-status">
-                                <span style="padding-right: 16px;">{{ $purchaseOrder.Order.StatusDetail }}</span>
+                                <span style="padding-right: 16px;">{{ $order.Order.StatusDetail }}</span>
                                 <div class="order-status-detail">
                                     <span>MÃ ĐƠN HÀNG:</span>
-                                    <span>{{ $purchaseOrder.Order.UUID }}</span>
+                                    <span>{{ . }}</span>
                                     <div class="order-date">
-                                            <span>Ngày tạo đơn hàng: {{ formatDate $purchaseOrder.Order.CreatedAt
-                                                }}</span>
+                                        <span>Ngày tạo đơn hàng: {{ formatDate $order.Order.CreatedAt }}</span>
                                     </div>
                                 </div>
 
@@ -106,7 +108,7 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
 
                     <div class="line-space"></div>
 
-                    {{ range $purchaseOrder.OrderItems }}
+                    {{ range $order.OrderItems }}
                     <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
                     <section class="body">
                         <!-- 1 order Dịch vụ -->
@@ -143,18 +145,18 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
                     <div class="order-provider-wrapper">
                         <span>Thông tin nhà cung cấp:</span>
                         <!-- Số điện thoại -->
-                        <span>{{ $purchaseOrder.Provider.Phone }}</span>
+                        <span>{{ $order.Provider.Phone }}</span>
                         <!-- Địa chỉ -->
-                        <span>{{ $purchaseOrder.Provider.Address }}</span>
+                        <span>{{ $order.Provider.Address }}</span>
                         <!-- Email -->
-                        <span>{{ $purchaseOrder.Provider.Email }}</span>
+                        <span>{{ $order.Provider.Email }}</span>
                     </div>
                 </div>
 
                 <div class="order-total-wrapper">
                     <span><i class="fa-solid fa-cash-register"></i></span>
                     <label class="total-text">Thành tiền:</label>
-                    <div class="total-pay">₫{{ formatPrice $purchaseOrder.Order.GrandTotal }}</div>
+                    <div class="total-pay">₫{{ formatPrice $order.Order.GrandTotal }}</div>
                 </div>
             </div>
             <!-- Bảng Tổng tiền của đơn hàng -->

@@ -11,6 +11,7 @@ import (
 	"github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -468,6 +469,8 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 }
 
 func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
 	params := httprouter.ParamsFromContext(r.Context())
 
 	serviceID, err := strconv.ParseInt(params.ByName("id"), 10, 32)
@@ -488,7 +491,17 @@ func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http
 		return
 	}
 
-	feedbacks, err := app.store.GetFeedbacksByServiceID(r.Context(), int32(serviceID))
+	isUserUsedService, err := app.store.IsUserUsedService(r.Context(), sqlc.IsUserUsedServiceParams{
+		BuyerID:   userID,
+		ServiceID: int32(serviceID),
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	fmt.Println(isUserUsedService)
+
+	feedbacks, err := app.store.ListServiceFeedbacks(r.Context(), int32(serviceID))
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -498,6 +511,7 @@ func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http
 	data.Service = service
 	data.ProviderDetail = providerDetail
 	data.ServiceFeedbacks = feedbacks
+	data.IsUserUsedService = isUserUsedService
 
 	app.render(w, http.StatusOK, "service_details.html", data)
 }
@@ -785,10 +799,20 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 			}
 		}
 
+		sortedOrders := make([]string, 0, len(orders))
+		for k := range orders {
+			sortedOrders = append(sortedOrders, k)
+		}
+
+		sort.Slice(sortedOrders, func(i, j int) bool {
+			return orders[sortedOrders[i]].Order.CreatedAt.After(orders[sortedOrders[j]].Order.CreatedAt)
+		})
+
 		data := app.newTemplateData(r)
 		data.PurchaseOrders = orders
 		data.OrderStatuses = orderStatuses
 		data.HighlightedButtonID = highlightedButtonID
+		data.SortedOrders = sortedOrders
 
 		app.render(w, http.StatusOK, "don-mua.html", data)
 		return
@@ -824,10 +848,20 @@ func (app *application) displayPurchaseOrdersPage(w http.ResponseWriter, r *http
 
 	parsedInt, _ := strconv.ParseInt(categoryStatusID, 10, 32)
 
+	sortedOrders := make([]string, 0, len(orders))
+	for k := range orders {
+		sortedOrders = append(sortedOrders, k)
+	}
+
+	sort.Slice(sortedOrders, func(i, j int) bool {
+		return orders[sortedOrders[i]].Order.CreatedAt.After(orders[sortedOrders[j]].Order.CreatedAt)
+	})
+
 	data := app.newTemplateData(r)
 	data.PurchaseOrders = orders
 	data.OrderStatuses = orderStatuses
 	data.HighlightedButtonID = int32(parsedInt)
+	data.SortedOrders = sortedOrders
 
 	app.render(w, http.StatusOK, "don-mua.html", data)
 }
@@ -871,10 +905,20 @@ func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Req
 			}
 		}
 
+		sortedOrders := make([]string, 0, len(orders))
+		for k := range orders {
+			sortedOrders = append(sortedOrders, k)
+		}
+
+		sort.Slice(sortedOrders, func(i, j int) bool {
+			return orders[sortedOrders[i]].Order.CreatedAt.After(orders[sortedOrders[j]].Order.CreatedAt)
+		})
+
 		data := app.newTemplateData(r)
 		data.SellOrders = orders
 		data.OrderStatuses = orderStatuses
 		data.HighlightedButtonID = highlightedButtonID
+		data.SortedOrders = sortedOrders
 
 		app.render(w, http.StatusOK, "don-ban.html", data)
 		return
@@ -910,10 +954,20 @@ func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Req
 
 	parsedInt, _ := strconv.ParseInt(categoryStatusID, 10, 32)
 
+	sortedOrders := make([]string, 0, len(orders))
+	for k := range orders {
+		sortedOrders = append(sortedOrders, k)
+	}
+
+	sort.Slice(sortedOrders, func(i, j int) bool {
+		return orders[sortedOrders[i]].Order.CreatedAt.After(orders[sortedOrders[j]].Order.CreatedAt)
+	})
+
 	data := app.newTemplateData(r)
 	data.SellOrders = orders
 	data.OrderStatuses = orderStatuses
 	data.HighlightedButtonID = int32(parsedInt)
+	data.SortedOrders = sortedOrders
 
 	app.render(w, http.StatusOK, "don-ban.html", data)
 }
@@ -944,6 +998,35 @@ func (app *application) updateOrderStatus(w http.ResponseWriter, r *http.Request
 	}
 
 	http.Redirect(w, r, fmt.Sprintf("/my-orders/identity/seller?type=%v", updatedOrder.StatusID), http.StatusSeeOther)
+}
+
+type createServiceFeedbackFormResult struct {
+	ServiceID int32  `form:"service_id"`
+	Content   string `form:"content"`
+}
+
+func (app *application) createServiceFeedback(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	var form createServiceFeedbackFormResult
+
+	err := app.decodePostForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	err = app.store.CreateServiceFeedback(r.Context(), sqlc.CreateServiceFeedbackParams{
+		ServiceID: form.ServiceID,
+		UserID:    userID,
+		Content:   form.Content,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	http.Redirect(w, r, fmt.Sprintf("/service/view/%v", form.ServiceID), http.StatusSeeOther)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter) {

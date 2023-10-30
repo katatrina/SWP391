@@ -98,9 +98,11 @@
 {{$orderStatuses := .OrderStatuses}}
 
 <!-- Một Đơn Hàng của 1 Provider -->
-{{ range $orderID, $sellOrder := .SellOrders }}
+{{ $sellOrders := .SellOrders }}
+{{ range $orderID := .SortedOrders}}
 <div class="container">
     <div class="order">
+        {{ $order := index $sellOrders $orderID }}
         <div class="wrapper">
             <!-- Bảng chi tiết dịch vụ -->
             <div class="order-detail">
@@ -109,16 +111,16 @@
                     <section class="header">
                         <div class="header-wrapper">
                             <div class="provider-detail">
-                                <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{ $sellOrder.Customer.FullName }}</span>
+                                <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{ $order.Customer.FullName }}</span>
                             </div>
                             <!-- Thông tin id của dịch vụ -->
                             <div class="order-status">
                                 <span>MÃ ĐƠN HÀNG:</span>
-                                <span>{{ $sellOrder.Order.UUID }}</span>
+                                <span>{{ . }}</span>
 
                                 <!-- Ngày đặt dịch vụ -->
                                 <div class="order-date">
-                                    <span>Ngày tạo đơn hàng: {{ formatDate $sellOrder.Order.CreatedAt }}</span>
+                                    <span>Ngày tạo đơn hàng: {{ formatDate $order.Order.CreatedAt }}</span>
                                 </div>
                             </div>
                         </div>
@@ -127,8 +129,8 @@
 
                     <div class="line-space"></div>
 
-                    {{$paymentMethod := $sellOrder.Order.PaymentMethod}}
-                    {{ range $sellOrder.OrderItems }}
+                    {{$paymentMethod := $order.Order.PaymentMethod}}
+                    {{ range $order.OrderItems }}
                     <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
                     <section class="body">
                         <table class="table-service table">
@@ -165,7 +167,7 @@
                                             aria-label="Default select example">
                                         {{ range $orderStatuses }}
                                         <option value="{{ .Code }}" {{if (eq
-                                                $sellOrder.Order.Code .Code)}}selected{{end}}>{{ .Detail }}
+                                                $order.Order.Code .Code)}}selected{{end}}>{{ .Detail }}
                                         </option>
                                         {{ end }}
                                     </select>
@@ -188,11 +190,11 @@
                     <div class="order-provider-wrapper">
                         <span>Thông tin khách hàng:</span>
                         <!-- Số điện thoại -->
-                        <span>{{ $sellOrder.Customer.Phone }}</span>
+                        <span>{{ $order.Customer.Phone }}</span>
                         <!-- Địa chỉ -->
-                        <span>{{ $sellOrder.Customer.Address }}</span>
+                        <span>{{ $order.Customer.Address }}</span>
                         <!-- Email -->
-                        <span>{{ $sellOrder.Customer.Email }}</span>
+                        <span>{{ $order.Customer.Email }}</span>
                     </div>
                 </div>
 
@@ -200,7 +202,7 @@
                 <div class="order-total-wrapper">
                     <span><i class="fa-solid fa-cash-register"></i></span>
                     <label class="total-text">Thành tiền:</label>
-                    <div class="total-pay">₫{{ formatPrice $sellOrder.Order.GrandTotal }}</div>
+                    <div class="total-pay">₫{{ formatPrice $order.Order.GrandTotal }}</div>
                 </div>
             </div>
             <!-- Bảng Thông tin Customer & Tổng tiền của đơn hàng -->
