@@ -19,7 +19,7 @@
     <!-- Custom CSS -->
     <link href="/static/css/style.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="stylesheet" href="/static/css/admin_service_management.css">
 </head>
 
 <body>
@@ -49,13 +49,12 @@
                     <a class="navbar-brand" href="#">
                         <!-- Ảnh -->
                         <b class="logo-icon">
-                            <img src="/static/img/Login-banner.png" alt="homepage"
-                                style="width: 50px; height: 50px; object-fit: contain;" />
+                            <img src="/static/img/Login-banner.png" alt="homepage" />
                         </b>
 
                         <!-- Tên Website -->
                         <span class="logo-text">
-                            <p style="color: green; font-weight: 900;vertical-align: middle; margin: 0;">
+                            <p>
                                 Bird Serve Central
                             </p>
                         </span>
@@ -90,8 +89,7 @@
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#" style="display: flex; align-items: center;">
-                                <i class="fa-solid fa-circle-user"
-                                    style="color: #5c6066; font-size: 24px; margin-right: 16px;"></i><span
+                                <i class="fa-solid fa-circle-user"></i><span
                                     class="text-white font-medium">Steave</span></a>
                         </li>
                     </ul>
@@ -161,8 +159,8 @@
                             <h3 class="box-title">Tổng dịch vụ</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
-                                    <div id="sparklinedash"><i width="67" height="30" class="fa-solid fa-circle-user"
-                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top; font-size: xx-large;"></i>
+                                    <div id="sparklinedash"><i width="67" height="30"
+                                            class="fa-solid fa-circle-user"></i>
                                     </div>
                                 </li>
                                 <li class="ms-auto"><span class="counter text-info">911</span>
@@ -179,7 +177,7 @@
                 <!-- ============================================================== -->
                 <!-- Tổng quát về Detail Provider của hệ thống -->
                 <!-- ============================================================== -->
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="white-box">
                             <div class="d-md-flex mb-3">
@@ -251,15 +249,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- ============================================================== -->
                 <!-- End Tổng quát về Customer và Provider của hệ thống -->
                 <!-- ============================================================== -->
 
-
-                <!-- ============================================================== -->
-                <!-- Khi ấn nút Chi tiết trên Bảng trên thì dưới này mới hiện rõ những Dịch vụ mà Provider đó đang sở hữu-->
-                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="card white-box p-0">
@@ -268,94 +262,105 @@
                             </div>
                             <div class="comment-widgets">
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="/static/img/banner-service.jpg" alt="service-img"
-                                            style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                <div class="service d-flex flex-row comment-row p-3 mt-0">
+                                    <!-- Service-Img -->
+                                    <div class="p-2"><img src="/static/img/health.jpg" alt="service-img">
                                     </div>
+                                    <!-- Service-Img -->
+
                                     <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">Sửa lồng chim</h5>
+                                        <!-- Service name -->
+                                        <h5 class="font-medium">Chăm sóc</h5>
+                                        <!-- Service name -->
+
+                                        <!-- Service desc -->
                                         <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
                                             type setting industry.It has survived not only five centuries. </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-                                            <span class="badge bg-success rounded">Doanh thu</span>
-                                            <span>123.000.000vnd</span>
+                                        <!-- Service desc -->
 
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-primary rounded">Nhà cung cấp</span>
+                                            <span class="provider-name">FPT</span>
                                             <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <div class="button">
+                                            <button type="button" class="btn btn-outline-success">Chấp thuận</button>
+                                            <button type="button" class="btn btn-outline-danger">Từ chối</button>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="/static/img/categories-grooming.jpg" alt="service-img"
-                                            style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                <div class="service d-flex flex-row comment-row p-3 mt-0">
+                                    <!-- Service-Img -->
+                                    <div class="p-2"><img src="/static/img/categories-grooming.jpg" alt="service-img">
                                     </div>
+                                    <!-- Service-Img -->
+
                                     <div class="comment-text ps-2 ps-md-3 w-100">
+                                        <!-- Service name -->
                                         <h5 class="font-medium">Làm đẹp</h5>
+                                        <!-- Service name -->
+
+                                        <!-- Service desc -->
                                         <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
                                             type setting industry.It has survived not only five centuries. </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-                                            <span class="badge bg-success rounded">Doanh thu</span>
-                                            <span>123.000.000vnd</span>
+                                        <!-- Service desc -->
 
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-primary rounded">Nhà cung cấp</span>
+                                            <span class="provider-name">FPT</span>
                                             <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <div class="button">
+                                            <button type="button" class="btn btn-outline-success">Chấp thuận</button>
+                                            <button type="button" class="btn btn-outline-danger">Từ chối</button>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row p-3 mt-0">
-                                    <div class="p-2"><img src="/static/img/home-about-us.jpg" alt="service-img"
-                                            style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
+                                <div class="service d-flex flex-row comment-row p-3 mt-0">
+                                    <!-- Service-Img -->
+                                    <div class="p-2"><img src="/static/img/nutrition-category.jpg" alt="service-img">
                                     </div>
+                                    <!-- Service-Img -->
+
                                     <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <h5 class="font-medium">Tắm cho chim</h5>
+                                        <!-- Service name -->
+                                        <h5 class="font-medium">Dinh dưỡng</h5>
+                                        <!-- Service name -->
+
+                                        <!-- Service desc -->
                                         <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
                                             type setting industry.It has survived not only five centuries. </span>
-                                        <div class="comment-footer d-md-flex align-items-center">
-                                            <span class="badge bg-success rounded">Doanh thu</span>
-                                            <span>123.000.000vnd</span>
+                                        <!-- Service desc -->
 
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-primary rounded">Nhà cung cấp</span>
+                                            <span class="provider-name">FPT</span>
                                             <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <div class="button">
+                                            <button type="button" class="btn btn-outline-success">Chấp thuận</button>
+                                            <button type="button" class="btn btn-outline-danger">Từ chối</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="card white-box p-0">
-                            <div class="card-heading">
-                                <h3 class="box-title mb-0">Chat Listing</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="comment-widgets">
-                                    <div class="d-flex flex-row comment-row p-3 mt-0">
-                                        <div class="p-2"><img src="/ui/static/img/banner-service.jpg" alt="service-img"
-                                                style="background-color: grey; width: 100px; height: 100px; object-fit: contain; overflow: hidden;">
-                                        </div>
-                                        <div class="comment-text ps-2 ps-md-3 w-100">
-                                            <h5 class="font-medium">Sửa lồng chim</h5>
-                                            <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing
-                                                and
-                                                type setting industry.It has survived not only five centuries. </span>
-                                            <div class="comment-footer d-md-flex align-items-center">
-                                                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
-                <!-- ============================================================== -->
-                <!-- Khi ấn nút Chi tiết trên Bảng trên thì dưới này mới hiện rõ những Dịch vụ mà Provider đó đang sở hữu-->
-                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->

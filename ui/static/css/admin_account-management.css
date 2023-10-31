@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar-header .navbar-brand .logo-icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.navbar-header .navbar-brand .logo-text p {
+    color: green;
+    font-weight: 900;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.profile-pic i {
+    color: #5c6066;
+    font-size: 24px;
+    margin-right: 16px;
+}
+
+#sparklinedash {
+    display: inline-block;
+    width: 67px;
+    height: 30px;
+    vertical-align: top;
+    font-size: xx-large;
+}
+
+.table .address-col {
+    max-width: 50px;
+    word-wrap: break-word;
+}
+
+.txt-oflo a {
+    color: red;
+}
