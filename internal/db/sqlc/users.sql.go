@@ -119,6 +119,25 @@ func (q *Queries) GetFullProviderInfo(ctx context.Context, id int32) (GetFullPro
 	return i, err
 }
 
+const getProviderDetailsByID = `-- name: GetProviderDetailsByID :one
+SELECT id, provider_id, company_name, tax_code, created_at
+FROM provider_details
+WHERE provider_id = $1
+`
+
+func (q *Queries) GetProviderDetailsByID(ctx context.Context, providerID int32) (ProviderDetail, error) {
+	row := q.db.QueryRowContext(ctx, getProviderDetailsByID, providerID)
+	var i ProviderDetail
+	err := row.Scan(
+		&i.ID,
+		&i.ProviderID,
+		&i.CompanyName,
+		&i.TaxCode,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getUserByEmail = `-- name: GetUserByEmail :one
 SELECT id, full_name, email, phone, address, role_id, hashed_password, created_at
 FROM users
@@ -161,6 +180,20 @@ func (q *Queries) GetUserByID(ctx context.Context, id int32) (User, error) {
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const getUserRoleByID = `-- name: GetUserRoleByID :one
+SELECT r.name
+FROM users u
+         JOIN roles r ON u.role_id = r.id
+WHERE u.id = $1
+`
+
+func (q *Queries) GetUserRoleByID(ctx context.Context, id int32) (string, error) {
+	row := q.db.QueryRowContext(ctx, getUserRoleByID, id)
+	var name string
+	err := row.Scan(&name)
+	return name, err
 }
 
 const isProvider = `-- name: IsProvider :one
@@ -243,4 +276,50 @@ func (q *Queries) ListProviders(ctx context.Context) ([]ListProvidersRow, error)
 		return nil, err
 	}
 	return items, nil
+}
+
+const updateCustomerInfo = `-- name: UpdateCustomerInfo :exec
+UPDATE users
+SET full_name = $2,
+    email     = $3,
+    phone     = $4,
+    address   = $5
+WHERE id = $1
+`
+
+type UpdateCustomerInfoParams struct {
+	ID       int32  `json:"id"`
+	FullName string `json:"full_name"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Address  string `json:"address"`
+}
+
+func (q *Queries) UpdateCustomerInfo(ctx context.Context, arg UpdateCustomerInfoParams) error {
+	_, err := q.db.ExecContext(ctx, updateCustomerInfo,
+		arg.ID,
+		arg.FullName,
+		arg.Email,
+		arg.Phone,
+		arg.Address,
+	)
+	return err
+}
+
+const updateProviderInfo = `-- name: UpdateProviderInfo :exec
+UPDATE provider_details
+SET company_name = $2,
+    tax_code     = $3
+WHERE provider_id = $1
+`
+
+type UpdateProviderInfoParams struct {
+	ProviderID  int32  `json:"provider_id"`
+	CompanyName string `json:"company_name"`
+	TaxCode     string `json:"tax_code"`
+}
+
+func (q *Queries) UpdateProviderInfo(ctx context.Context, arg UpdateProviderInfoParams) error {
+	_, err := q.db.ExecContext(ctx, updateProviderInfo, arg.ProviderID, arg.CompanyName, arg.TaxCode)
+	return err
 }

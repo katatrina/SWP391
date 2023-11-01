@@ -46,18 +46,15 @@
             </div>
             <!-- Thông tin chi tiết nhà cung cấp -->
             <div class="provider-info">
-                <!-- <div class="provider-img">
-                    <img src="/ui/static/img/bird-cartoon.png" alt="provider-img" srcset="">
-                </div> -->
                 <div class="provider-line"> |</div>
                 <div class="provider-name">
                     <h4><i class="fa-solid fa-store" style="color: #197845; margin-right: 8px;"></i>{{
-                        .ProviderDetail.CompanyName }}</h4>
+                        .ProviderInfo.CompanyName }}</h4>
                     <div class="provider-detail">
-                        <h6>{{ .ProviderDetail.Address }}
+                        <h6>{{ .ProviderInfo.Address }}
                         </h6>
-                        <h6>{{ .ProviderDetail.Phone }}</h6>
-                        <h6>{{ .ProviderDetail.Email }}</h6>
+                        <h6>{{ .ProviderInfo.Phone }}</h6>
+                        <h6>{{ .ProviderInfo.Email }}</h6>
                     </div>
                 </div>
             </div>

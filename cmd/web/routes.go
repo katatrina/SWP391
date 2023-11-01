@@ -39,7 +39,6 @@ func (app *application) routes() http.Handler {
 	// User permissions.
 	protected := dynamic.Append(app.requireAuthentication)
 
-	router.Handler(http.MethodGet, "/account", protected.ThenFunc(app.viewAccount))
 	router.Handler(http.MethodGet, "/logout", protected.ThenFunc(app.doLogoutUser))
 
 	router.Handler(http.MethodGet, "/cart", protected.ThenFunc(app.displayCart))
@@ -54,6 +53,10 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/my-orders/identity/seller", protected.ThenFunc(app.displaySellOrdersPage))
 
 	router.Handler(http.MethodPost, "/feedback/create", protected.ThenFunc(app.createServiceFeedback))
+
+	router.Handler(http.MethodGet, "/account/view", protected.ThenFunc(app.viewAccount))
+	router.Handler(http.MethodPost, "/account/update", protected.ThenFunc(app.updateAccount))
+	//router.Handler(http.MethodPost, "/account/change-password", protected.ThenFunc(app.changePasswordAccount))
 
 	// Provider permissions.
 	advanced := protected.Append(app.requireProviderPermission)

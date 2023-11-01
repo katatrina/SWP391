@@ -54,3 +54,28 @@ SELECT u.id,
 FROM users u
          JOIN provider_details pd ON u.id = pd.provider_id
 WHERE u.id = $1;
+
+-- name: GetUserRoleByID :one
+SELECT r.name
+FROM users u
+         JOIN roles r ON u.role_id = r.id
+WHERE u.id = $1;
+
+-- name: GetProviderDetailsByID :one
+SELECT *
+FROM provider_details
+WHERE provider_id = $1;
+
+-- name: UpdateCustomerInfo :exec
+UPDATE users
+SET full_name = $2,
+    email     = $3,
+    phone     = $4,
+    address   = $5
+WHERE id = $1;
+
+-- name: UpdateProviderInfo :exec
+UPDATE provider_details
+SET company_name = $2,
+    tax_code     = $3
+WHERE provider_id = $1;

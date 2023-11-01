@@ -334,21 +334,6 @@ func (app *application) doLogoutUser(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
-func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
-	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
-
-	user, err := app.store.GetUserByID(r.Context(), userID)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
-	data := app.newTemplateData(r)
-	data.User = user
-
-	app.render(w, http.StatusOK, "account.html", data)
-}
-
 func (app *application) listProviderServices(w http.ResponseWriter, r *http.Request) {
 	providerID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 
@@ -509,7 +494,7 @@ func (app *application) displayServiceDetailsPage(w http.ResponseWriter, r *http
 
 	data := app.newTemplateData(r)
 	data.Service = service
-	data.ProviderDetail = providerDetail
+	data.ProviderInfo = providerDetail
 	data.ServiceFeedbacks = feedbacks
 	data.IsUserUsedService = isUserUsedService
 
@@ -890,7 +875,7 @@ func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Req
 		}
 
 		for _, order := range myOrders {
-			customer, err := app.store.GetUserByID(r.Context(), userID)
+			customer, err := app.store.GetUserByID(r.Context(), order.BuyerID)
 			if err != nil {
 				app.serverError(w, err)
 				return
@@ -1027,6 +1012,90 @@ func (app *application) createServiceFeedback(w http.ResponseWriter, r *http.Req
 	}
 
 	http.Redirect(w, r, fmt.Sprintf("/service/view/%v", form.ServiceID), http.StatusSeeOther)
+}
+
+func (app *application) viewAccount(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	user, err := app.store.GetUserByID(r.Context(), userID)
+
+	role, err := app.store.GetUserRoleByID(r.Context(), userID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	data := app.newTemplateData(r)
+	data.User = user
+
+	if role == "provider" {
+		providerDetail, err := app.store.GetProviderDetailsByID(r.Context(), userID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		data.ProviderDetail = providerDetail
+	}
+
+	app.render(w, http.StatusOK, "account.html", data)
+}
+
+type updateAccountFormResult struct {
+	FullName    string `form:"full_name"`
+	Phone       string `form:"phone"`
+	Email       string `form:"email"`
+	Address     string `form:"address"`
+	CompanyName string `form:"company_name"`
+	TaxCode     string `form:"tax_code"`
+}
+
+func (app *application) updateAccount(w http.ResponseWriter, r *http.Request) {
+	var form updateAccountFormResult
+
+	err := app.decodePostForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	// TODO: Validate form fields more detailed.
+
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	role, err := app.store.GetUserRoleByID(r.Context(), userID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = app.store.UpdateCustomerInfo(r.Context(), sqlc.UpdateCustomerInfoParams{
+		ID:       userID,
+		FullName: form.FullName,
+		Email:    form.Email,
+		Phone:    form.Phone,
+		Address:  form.Address,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	if role == "provider" {
+		err = app.store.UpdateProviderInfo(r.Context(), sqlc.UpdateProviderInfoParams{
+			ProviderID:  userID,
+			CompanyName: form.CompanyName,
+			TaxCode:     form.TaxCode,
+		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+	}
+
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã cập nhật thông tin thành công!")
+
+	http.Redirect(w, r, "/account/view", http.StatusSeeOther)
 }
 
 func (app *application) pageNotFound(w http.ResponseWriter) {

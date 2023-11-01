@@ -21,7 +21,8 @@ type templateData struct {
 	Flash               string
 	IsAuthenticated     bool
 	IsProvider          bool
-	ProviderDetail      sqlc.GetProviderDetailsByServiceIDRow
+	ProviderDetail      sqlc.ProviderDetail
+	ProviderInfo        sqlc.GetProviderDetailsByServiceIDRow
 	Service             sqlc.Service
 	Services            []sqlc.Service
 	Category            sqlc.Category
