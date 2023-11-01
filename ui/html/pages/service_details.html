@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bird Service Website</title>
 
@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="/static/icon/themify-icons.css">
 
     <!-- Online Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Service Detail CSS -->
     <link rel="stylesheet" href="/static/css/service_detail.css">
@@ -29,147 +29,147 @@
 </head>
 
 <body>
-<!-- Navigation -->
-{{template "navbar" .}}
-<!-- End Navigation -->
+    <!-- Navigation -->
+    {{template "navbar" .}}
+    <!-- End Navigation -->
 
-<div class="spacer"></div>
+    <div class="spacer"></div>
 
-<div class="container">
-    <div class="row">
-        <!-- Service's Display -->
-        <div class="col-md-5">
-            <div class="service-img">
-                <div class="main-img">
-                    <img src="{{ .Service.ImagePath }}" class="card-img-bottom" alt="...">
-                </div>
-            </div>
-            <!-- Thông tin chi tiết nhà cung cấp -->
-            <div class="provider-info">
-                <div class="provider-line"> |</div>
-                <div class="provider-name">
-                    <h4><i class="fa-solid fa-store" style="color: #197845; margin-right: 8px;"></i>{{
-                        .ProviderInfo.CompanyName }}</h4>
-                    <div class="provider-detail">
-                        <h6>{{ .ProviderInfo.Address }}
-                        </h6>
-                        <h6>{{ .ProviderInfo.Phone }}</h6>
-                        <h6>{{ .ProviderInfo.Email }}</h6>
+    <div class="container">
+        <div class="row">
+            <!-- Service's Display -->
+            <div class="col-md-5">
+                <div class="service-img">
+                    <div class="main-img">
+                        <img src="{{ .Service.ImagePath }}" class="card-img-bottom" alt="...">
                     </div>
                 </div>
-            </div>
-            <!-- End Thông tin về nhà cung cấp -->
-        </div>
-
-        <!-- Service's detail text -->
-        <div class="col-md-7">
-            <div class="service-script">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- Tên Dịch vụ và Giá -->
-                        <div class="detail-text">
-                            <h3 class="card-title">{{ .Service.Title }}</h3>
-                            <h5 class="card-title">Giá: ₫{{ formatPrice .Service.Price }}</h5>
+                <!-- Thông tin chi tiết nhà cung cấp -->
+                <div class="provider-info">
+                    <div class="provider-line"> |</div>
+                    <div class="provider-name">
+                        <h4><i class="fa-solid fa-store" style="color: #197845; margin-right: 8px;"></i>{{
+                            .ProviderInfo.CompanyName }}</h4>
+                        <div class="provider-detail">
+                            <h6>{{ .ProviderInfo.Address }}
+                            </h6>
+                            <h6>{{ .ProviderInfo.Phone }}</h6>
+                            <h6>{{ .ProviderInfo.Email }}</h6>
                         </div>
-                        <!-- Tên Dịch vụ và Giá -->
+                    </div>
+                </div>
+                <!-- End Thông tin về nhà cung cấp -->
+            </div>
 
-                        <!-- Nhập số lượng -->
-                        <form action="/cart/add" method="POST">
-                            <div class="detail-text" style="border-top: 1px solid grey;">
-                                <div class="quantity">
-                                    <h3>Chọn số lượng</h3>
-                                    <input type="hidden" name="service_id" value="{{ .Service.ID }}">
-                                    <div class="input-group">
-                                        <input type="button" value="-" class="button-minus"
-                                               onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                        <input type="number" step="1" max="" value="1" name="quantity"
-                                               class="quantity-field">
-                                        <input type="button" value="+" class="button-plus"
-                                               onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+            <!-- Service's detail text -->
+            <div class="col-md-7">
+                <div class="service-script">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Tên Dịch vụ và Giá -->
+                            <div class="detail-text">
+                                <h3 class="card-title">{{ .Service.Title }}</h3>
+                                <h5 class="card-title">Giá: ₫{{ formatPrice .Service.Price }}</h5>
+                            </div>
+                            <!-- Tên Dịch vụ và Giá -->
+
+                            <!-- Nhập số lượng -->
+                            <form action="/cart/add" method="POST">
+                                <div class="detail-text" style="border-top: 1px solid grey;">
+                                    <div class="quantity">
+                                        <h3>Chọn số lượng</h3>
+                                        <input type="hidden" name="service_id" value="{{ .Service.ID }}">
+                                        <div class="input-group">
+                                            <input type="button" value="-" class="button-minus"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                            <input type="number" step="1" max="" value="1" name="quantity"
+                                                class="quantity-field">
+                                            <input type="button" value="+" class="button-plus"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                        </div>
+
+                                        <button type="submit" class="">Thêm vào giỏ hàng</button>
                                     </div>
+                                </div>
+                            </form>
+                            <!-- Nhập số lượng -->
 
-                                    <button type="submit" class="">Thêm vào giỏ hàng</button>
+                            <!-- Mô tả -->
+                            <div class="detail-text">
+                                <div class="desc">
+                                    <h3>Mô tả</h3>
+                                    <p>{{ .Service.Description }}</p>
                                 </div>
                             </div>
+                            <!-- Mô tả -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="rate-wrapper">
+                    <div class="rate">
+                        <h6>Đánh giá dịch vụ</h6>
+                        <!-- Form Đánh giá Dịch vụ -->
+
+                        {{ if .IsUserUsedService }}
+                        <form action="/feedback/create" method="POST">
+                            <!-- Bảng đánh giá, Nếu Customer có dùng dịch vụ -->
+                            <input type="hidden" name="service_id" value="{{ .Service.ID }}">
+                            <div class="rate-textarea-wrapper">
+                                <div class="rate-textarea" style="margin-right: 24px;">
+                                    <textarea name="content" cols="60" rows="3"
+                                        placeholder="Chia sẻ cảm nhận của bạn..."></textarea>
+                                </div>
+                                <button>Đăng tải</button>
+                            </div>
+                            <!-- Bảng đánh giá, Nếu Customer có dùng dịch vụ -->
                         </form>
-                        <!-- Nhập số lượng -->
-
-                        <!-- Mô tả -->
-                        <div class="detail-text">
-                            <div class="desc">
-                                <h3>Mô tả</h3>
-                                <p>{{ .Service.Description }}</p>
-                            </div>
-                        </div>
-                        <!-- Mô tả -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="rate-wrapper">
-                <div class="rate">
-                    <h6>Đánh giá dịch vụ</h6>
-                    <!-- Form Đánh giá Dịch vụ -->
-
-                    {{ if .IsUserUsedService }}
-                    <form action="/feedback/create" method="POST">
-                        <!-- Bảng đánh giá, Nếu Customer có dùng dịch vụ -->
-                        <input type="hidden" name="service_id" value="{{ .Service.ID }}">
-                        <div class="rate-textarea-wrapper">
+                        {{ else }}
+                        <!-- Bảng từ chối đánh giá, Nếu Customer không có dùng dịch vụ -->
+                        <div class="disabled-textarea rate-textarea-wrapper">
                             <div class="rate-textarea" style="margin-right: 24px;">
-                                    <textarea name="content" cols="60" rows="3"
-                                              placeholder="Chia sẻ cảm nhận của bạn..."></textarea>
+                                <textarea name="content" cols="60" rows="3" class="form-control is-invalid"
+                                    id="validationTextarea" placeholder="Vui lòng sử dụng dịch vụ trước khi đánh giá..."
+                                    disabled></textarea>
                             </div>
-                            <button>Đăng tải</button>
                         </div>
-                        <!-- Bảng đánh giá, Nếu Customer có dùng dịch vụ -->
-                    </form>
-                    {{ else }}
-                    <!-- Bảng từ chối đánh giá, Nếu Customer không có dùng dịch vụ -->
-                    <div class="rate-textarea-wrapper">
-                        <div class="rate-textarea" style="margin-right: 24px;">
-                                    <textarea name="content" cols="60" rows="3"
-                                              placeholder="Vui lòng sử dụng dịch vụ trước khi đánh giá..."
-                                              disabled></textarea>
-                        </div>
-                    </div>
-                    <!-- Bảng từ chối đánh giá, Nếu Customer không có dùng dịch vụ -->
-                    {{ end }}
+                        <!-- Bảng từ chối đánh giá, Nếu Customer không có dùng dịch vụ -->
+                        {{ end }}
 
-                    {{ range .ServiceFeedbacks }}
-                    <!-- Form Đánh giá Dịch vụ -->
-                    <div class="user-rate-wrapper">
-                        <div class="user-rate">
-                            <div class="rate-detail">
-                                <span>{{ .FullName }}</span>
-                                <span>{{ .Content }}</span>
-                            </div>
-                            <div class="rate-date">
-                                {{ formatDate .CreatedAt }}
+                        {{ range .ServiceFeedbacks }}
+                        <!-- Form Đánh giá Dịch vụ -->
+                        <div class="user-rate-wrapper">
+                            <div class="user-rate">
+                                <div class="rate-detail">
+                                    <span>{{ .FullName }}</span>
+                                    <span>{{ .Content }}</span>
+                                </div>
+                                <div class="rate-date">
+                                    {{ formatDate .CreatedAt }}
+                                </div>
                             </div>
                         </div>
+                        {{ end }}
                     </div>
-                    {{ end }}
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Footer -->
-{{template "footer" .}}
-<!-- End Footer -->
+    <!-- Footer -->
+    {{template "footer" .}}
+    <!-- End Footer -->
 
-<!-- Script JS -->
-<script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+    <!-- Script JS -->
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
 
 </body>
 

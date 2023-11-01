@@ -331,7 +331,6 @@ input[type="number"] {
     letter-spacing: inherit;
     color: currentcolor;
     box-sizing: content-box;
-    background: none;
     border: .5px solid #000;
     height: auto;
     margin: 0px;
@@ -358,4 +357,9 @@ input[type="number"] {
     font-size: 21px;
     margin-left: 50px;
     color: #ff0009;
+}
+
+.disabled-textarea {
+    border: 1px solid #e20505;
+    width: fit-content;
 }

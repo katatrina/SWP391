@@ -17,6 +17,10 @@ body {
     /* background-color: #69eb6a; */
 }
 
+.form {
+    display: none;
+}
+
 .profile-wrapper {
     height: fit-content;
     background-color: #fff;
@@ -53,4 +57,11 @@ body {
 
 .row {
     padding: 3px;
+}
+
+.e-profile .nav a:hover {
+    color: #fbff00;
+    background-color: #69eb6a;
+    cursor: pointer;
+    font-weight: 600;
 }

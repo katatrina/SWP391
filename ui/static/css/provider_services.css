@@ -7,6 +7,8 @@
 .container {
     margin-top: 64px;
     margin-bottom: 64px;
+    background-color: #fff;
+    padding: 16px;
 }
 
 body {
@@ -133,4 +135,46 @@ body {
     align-items: center;
     font-size: 21px;
     font-weight: 500;
+}
+
+
+.statistic-wrapper {
+    border-color: #e9ecf2;
+    border-right: 1px solid #dadbda;
+    padding: 10px 0;
+    position: relative;
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.statistic {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.statistic i {
+    color: #30a5ff;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+    font-size: 2em;
+}
+
+.statistic .number {
+    color: #373b45;
+    font-size: 3em;
+}
+
+.statistic .header {
+    margin-top: -6px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
 }
