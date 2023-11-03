@@ -84,18 +84,12 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
 	arg := sqlc.CreateCustomerParams{
 		FullName: form.FullName,
 		Email:    form.Email,
 		Phone:    form.Phone,
 		Address:  form.Address,
-		Password: string(hashedPassword),
+		Password: form.Password,
 	}
 
 	err = app.store.CreateCustomerTx(r.Context(), arg)
@@ -172,12 +166,6 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(form.Password), bcrypt.DefaultCost)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
 	err = app.store.CreateProviderTx(r.Context(), sqlc.CreateProviderTxParams{
 		FullName:    form.FullName,
 		Email:       form.Email,
@@ -185,7 +173,7 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 		Address:     form.Address,
 		CompanyName: form.CompanyName,
 		TaxCode:     form.TaxCode,
-		Password:    string(hashedPassword),
+		Password:    form.Password,
 	})
 	if err != nil {
 		var postgreSQLError *pq.Error
@@ -251,6 +239,7 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 
 	// Check whether user with the email provided exists.
 	user, err := app.store.GetUserByEmail(r.Context(), form.Email)
+
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			form.AddGenericError("Email hoặc mật khẩu không chính xác")

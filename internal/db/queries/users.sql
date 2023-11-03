@@ -19,7 +19,7 @@ WHERE email = $1;
 
 -- name: CreateCustomer :one
 INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
-VALUES ($1, $2, $3, $4, 1, $5) RETURNING id;
+VALUES ($1, $2, $3, $4, 1, $5) RETURNING *;
 
 -- name: CreateProvider :one
 INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)

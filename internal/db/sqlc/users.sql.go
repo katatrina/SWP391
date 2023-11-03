@@ -12,7 +12,7 @@ import (
 
 const createCustomer = `-- name: CreateCustomer :one
 INSERT INTO users (full_name, email, phone, address, role_id, hashed_password)
-VALUES ($1, $2, $3, $4, 1, $5) RETURNING id
+VALUES ($1, $2, $3, $4, 1, $5) RETURNING id, full_name, email, phone, address, role_id, hashed_password, created_at
 `
 
 type CreateCustomerParams struct {
@@ -23,7 +23,7 @@ type CreateCustomerParams struct {
 	Password string `json:"hashed_password"`
 }
 
-func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) (int32, error) {
+func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) (User, error) {
 	row := q.db.QueryRowContext(ctx, createCustomer,
 		arg.FullName,
 		arg.Email,
@@ -31,9 +31,18 @@ func (q *Queries) CreateCustomer(ctx context.Context, arg CreateCustomerParams) 
 		arg.Address,
 		arg.Password,
 	)
-	var id int32
-	err := row.Scan(&id)
-	return id, err
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.FullName,
+		&i.Email,
+		&i.Phone,
+		&i.Address,
+		&i.RoleID,
+		&i.Password,
+		&i.CreatedAt,
+	)
+	return i, err
 }
 
 const createProvider = `-- name: CreateProvider :one

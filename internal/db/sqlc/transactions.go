@@ -42,7 +42,7 @@ func (store *Store) CreateProviderTx(ctx context.Context, arg CreateProviderTxPa
 	err := store.execTx(ctx, func(qtx *Queries) error {
 		var err error
 
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(arg.Password), bcrypt.DefaultCost)
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(arg.Password), 12)
 		if err != nil {
 			return err
 		}
@@ -83,12 +83,12 @@ func (store *Store) CreateCustomerTx(ctx context.Context, arg CreateCustomerPara
 	err := store.execTx(ctx, func(qtx *Queries) error {
 		var err error
 
-		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(arg.Password), bcrypt.DefaultCost)
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(arg.Password), 12)
 		if err != nil {
 			return err
 		}
 
-		customerID, err := qtx.CreateCustomer(ctx, CreateCustomerParams{
+		customer, err := qtx.CreateCustomer(ctx, CreateCustomerParams{
 			FullName: arg.FullName,
 			Email:    arg.Email,
 			Phone:    arg.Phone,
@@ -100,7 +100,7 @@ func (store *Store) CreateCustomerTx(ctx context.Context, arg CreateCustomerPara
 		}
 
 		// Create an empty cart for the customer.
-		err = qtx.CreateCart(ctx, customerID)
+		err = qtx.CreateCart(ctx, customer.ID)
 		if err != nil {
 			return err
 		}
@@ -137,8 +137,6 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 			fmt.Println("create order error")
 			return err
 		}
-
-		fmt.Println(order.CreatedAt)
 
 		for i, cartItem := range arg.CartItems {
 			randomOrderItemID := randomOrderID.String() + "-" + fmt.Sprintf("%d", i+1)

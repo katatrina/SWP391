@@ -30,7 +30,7 @@ func createFakeCustomer(t *testing.T) {
 			Email:    util.RandomString(7) + "@gmail.com",
 			Phone:    util.RandomPhone(10),
 			Address:  addresses[i],
-			Password: "123456",
+			Password: "123456789",
 		})
 		require.NoError(t, err)
 	}
@@ -69,7 +69,7 @@ func createFakeProvider(t *testing.T) {
 			Address:     addresses[i],
 			TaxCode:     util.RandomString(4),
 			CompanyName: companyNames[i],
-			Password:    "123456",
+			Password:    "123456789",
 		})
 		require.NoError(t, err)
 	}
