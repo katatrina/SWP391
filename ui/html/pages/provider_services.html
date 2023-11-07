@@ -127,8 +127,16 @@
                                             <img src="{{.ImagePath}}" class="card-img-top" alt="Ser-Pic-1">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center">{{.Title}}</h5>
-                                                <p class="card-text">Mô tả: {{.Description}}</p>
-                                                <p class="card-text text-left">Giá: {{.Price}} VND</p>
+                                                <p class="card-text">{{.Description}}</p>
+                                                <div class="card-bottom">
+                                                    <p class="card-text text-left">Giá: {{.Price}} VND</p>
+                                                    <!-- Form Delete Service -->
+                                                    <form action="" method="post">
+                                                        <button type="button" class="btn btn-outline-danger">Xóa dịch
+                                                            vụ</button>
+                                                    </form>
+                                                    <!-- Form Delete Service -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

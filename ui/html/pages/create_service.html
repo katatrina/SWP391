@@ -69,7 +69,7 @@
                                     <!-- Title Form -->
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="title">Tilte</label>
+                                            <label for="title">Tên dịch vụ</label>
                                             <input type="text" class="form-control" id="title" name="title"
                                                 placeholder="Nhập tên dịch vụ" required>
                                         </div>
@@ -101,19 +101,12 @@
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label for="category">Loại hình dịch vụ</label>
-                                            <select class="form-select" aria-label="Default select example" name="category"
-                                                id="category" required>
-                                                <option value="" disabled selected>--Lựa chọn loại hình dịch vụ--</option>
+                                            <select class="form-select" aria-label="Default select example"
+                                                name="category" id="category" required>
+                                                <option value="" disabled selected>--Lựa chọn loại hình dịch vụ--
+                                                </option>
                                                 {{range .Categories}}
                                                 <option value="{{.ID}}">{{.Name}}</option>
-<!--                                                <option value="Bảo dưỡng lồng">Bảo dưỡng lồng</option>-->
-<!--                                                <option value="Dinh dưỡng và thức ăn">Dinh dưỡng và thức ăn</option>-->
-<!--                                                <option value="Y tế và chăm sóc sức khỏe">Y tế và chăm sóc sức khỏe-->
-<!--                                                </option>-->
-<!--                                                &lt;!&ndash; <option value="Sửa chữa đồ chơi">Sửa chữa đồ chơi</option> &ndash;&gt;-->
-<!--                                                <option value="Grooming">Grooming</option>-->
-<!--                                                <option value="Đào tạo xã giao">Đào tạo xã giao</option>-->
-<!--                                                <option value="Khác">Khác</option>-->
                                                 {{end}}
                                             </select>
                                         </div>
@@ -126,15 +119,18 @@
                                 <div class="row gutters">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="serImg">Tải ảnh từ máy:</label>
+                                            <!-- <label for="serImg">Tải ảnh từ máy:</label>
                                             <input type="file" id="serImg" name="image" class="" accept="image/*"
-                                                required>
+                                                required> -->
+                                            <input type="file" name="image" id="file" class="inputfile" accept="image/*"
+                                                required />
+                                            <!-- <label for="file">Tải ảnh từ máy</label> -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row gutters">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Tạo</button>
+                                        <button type="submit" class="btn btn-success">Tạo dịch vụ</button>
                                     </div>
                                 </div>
                                 <!-- End Third Form -->

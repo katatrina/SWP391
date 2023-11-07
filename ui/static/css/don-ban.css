@@ -279,3 +279,39 @@ main {}
     color: #43af43;
     font-style: bold;
 }
+
+.empty-cart-wrapper {
+    height: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.empty-cart {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .05);
+    border-radius: 0.125rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.empty-cart .cart-img {
+    background-position: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    background-image: url(/static/img/donBan-donMua-empty.png);
+}
+
+.empty-cart h2 {
+    margin: 20px 0 0;
+    font-size: 18px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, .8);
+    font-weight: 400;
+}

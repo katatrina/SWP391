@@ -66,6 +66,8 @@ button {
 .sign-up button a {
     text-decoration: none;
     color: #fff;
+    display: block;
+    width: 100%;
 }
 
 /* Banner */

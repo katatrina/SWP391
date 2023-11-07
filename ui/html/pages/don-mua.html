@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bird Service Website</title>
 
@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="/static/icon/themify-icons.css">
 
     <!-- Online Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Đơn mua CSS -->
     <link rel="stylesheet" href="/static/css/don-mua.css">
@@ -29,156 +29,168 @@
 </head>
 
 <body>
-<!-- Navigation -->
-{{template "navbar" .}}
-<!-- End Navigation -->
+    <!-- Navigation -->
+    {{template "navbar" .}}
+    <!-- End Navigation -->
 
-<div class="spacer" style="height: 82px;"></div>
+    <div class="spacer" style="height: 82px;"></div>
 
-<div class="container">
-    <nav class="sub-nav navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
-        {{if eq .HighlightedButtonID 0}}
-        <form action="/my-orders/identity/buyer">
-            <input type="hidden" name="type" value="0">
-            <button type="submit" class="btn btn-success">Tất cả</button>
-        </form>
-        {{else}}
-        <form action="/my-orders/identity/buyer">
-            <input type="hidden" name="type" value="0">
-            <button type="submit" class="btn">Tất cả</button>
-        </form>
-        {{end}}
+    <div class="container">
+        <nav class="sub-nav navbar navbar-expand-sm justify-content-lg-evenly" style="background-color: #fff;">
+            {{if eq .HighlightedButtonID 0}}
+            <form action="/my-orders/identity/buyer">
+                <input type="hidden" name="type" value="0">
+                <button type="submit" class="btn btn-outline-success">Tất cả</button>
+            </form>
+            {{else}}
+            <form action="/my-orders/identity/buyer">
+                <input type="hidden" name="type" value="0">
+                <button type="submit" class="btn">Tất cả</button>
+            </form>
+            {{end}}
 
-        {{$HighlightedButtonID := .HighlightedButtonID}}
-        {{ range .OrderStatuses }}
-        {{if eq $HighlightedButtonID .ID}}
-        <form action="/my-orders/identity/buyer">
-            <input type="hidden" name="type" value="{{ .ID }}">
-            <button type="submit" class="btn btn-success">{{ .Detail }}</button>
-        </form>
-        {{else}}
-        <form action="/my-orders/identity/buyer">
-            <input type="hidden" name="type" value="{{ .ID }}">
-            <button type="submit" class="btn">{{ .Detail }}</button>
-        </form>
-        {{ end }}
-        {{ end }}
-    </nav>
+            {{$HighlightedButtonID := .HighlightedButtonID}}
+            {{ range .OrderStatuses }}
+            {{if eq $HighlightedButtonID .ID}}
+            <form action="/my-orders/identity/buyer">
+                <input type="hidden" name="type" value="{{ .ID }}">
+                <button type="submit" class="btn btn-outline-success">{{ .Detail }}</button>
+            </form>
+            {{else}}
+            <form action="/my-orders/identity/buyer">
+                <input type="hidden" name="type" value="{{ .ID }}">
+                <button type="submit" class="btn">{{ .Detail }}</button>
+            </form>
+            {{ end }}
+            {{ end }}
+        </nav>
 
 
-</div>
+    </div>
 
-<div>&nbsp;</div>
+    <div>&nbsp;</div>
 
-<!-- Để có khoảng cách giữa các dịch vụ của từng Provider,
+    <!-- Để có khoảng cách giữa các dịch vụ của từng Provider,
 cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 thẻ div: "container" khác nữa
 -->
 
-<!-- Một Đơn Hàng của 1 Provider -->
-{{ $purchaseOrders := .PurchaseOrders }}
-{{ range $orderID := .SortedOrders}}
-<div class="container">
-    <div class="order">
-        {{ $order := index $purchaseOrders $orderID }}
-        <div class="wrapper">
-            <!-- Bảng chi tiết đơn hàng -->
-            <div class="order-detail">
-                <div class="order-detail-wrapper">
-                    <!-- Section 1: Thông tin Nhà cung cấp và Status đơn hàng -->
-                    <section class="header">
-                        <div class="header-wrapper">
-                            <div class="provider-detail">
-                                <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{ $order.Provider.CompanyName }}</span>
-                            </div>
-                            <div class="order-status">
-                                <span style="padding-right: 16px;">{{ $order.Order.StatusDetail }}</span>
-                                <div class="order-status-detail">
-                                    <span>MÃ ĐƠN HÀNG:</span>
-                                    <span>{{ . }}</span>
-                                    <div class="order-date">
-                                        <span>Ngày tạo đơn hàng: {{ formatDate $order.Order.CreatedAt }}</span>
-                                    </div>
+    <!-- Một Đơn Hàng của 1 Provider -->
+    {{ $purchaseOrders := .PurchaseOrders }}
+    {{ range $orderID := .SortedOrders}}
+    <div class="container">
+        <div class="order">
+            {{ $order := index $purchaseOrders $orderID }}
+            <div class="wrapper">
+                <!-- Bảng chi tiết đơn hàng -->
+                <div class="order-detail">
+                    <div class="order-detail-wrapper">
+                        <!-- Section 1: Thông tin Nhà cung cấp và Status đơn hàng -->
+                        <section class="header">
+                            <div class="header-wrapper">
+                                <div class="provider-detail">
+                                    <span><i class="fa-solid fa-store" style="color: #197845;"></i>{{
+                                        $order.Provider.CompanyName }}</span>
                                 </div>
-
-                                <!-- Ngày đặt dịch vụ -->
-                            </div>
-                        </div>
-                    </section>
-                    <!-- Section 1: Thông tin Nhà cung cấp và Status đơn hàng -->
-
-                    <div class="line-space"></div>
-
-                    {{ range $order.OrderItems }}
-                    <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
-                    <section class="body">
-                        <!-- 1 order Dịch vụ -->
-                        <div class="service">
-                            <div class="service-item">
-                                <div class="item-detail">
-                                    <a href="/service/view/{{ .ServiceID }}"
-                                       class="text-decoration-none text-black"><img src="{{ .ImagePath }}"
-                                                                                    alt=""></a>
-                                    <div class="item-wrapper">
-                                        <div class="item-name"><span><a href="/service/view/{{ .ServiceID }}"
-                                                                        class="text-decoration-none text-black">{{ .Title }}</a></span>
+                                <div class="order-status">
+                                    <span style="padding-right: 16px;">{{ $order.Order.StatusDetail }}</span>
+                                    <div class="order-status-detail">
+                                        <span>MÃ ĐƠN HÀNG:</span>
+                                        <span>{{ . }}</span>
+                                        <div class="order-date">
+                                            <span>Ngày tạo đơn hàng: {{ formatDate $order.Order.CreatedAt }}</span>
                                         </div>
-                                        <div class="item-quantity"><span>x{{ .Quantity }}</span></div>
                                     </div>
-                                </div>
-                                <div class="item-cost">
-                                    <span>₫{{ formatPrice .Price }}</span>
+
+                                    <!-- Ngày đặt dịch vụ -->
                                 </div>
                             </div>
-                        </div>
-                        <!-- 1 order Dịch vụ -->
-                    </section>
-                    <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
-                    {{ end }}
-                </div>
-            </div>
-            <!-- Bảng chi tiết đơn hàng -->
-            <div class="line-space"></div>
+                        </section>
+                        <!-- Section 1: Thông tin Nhà cung cấp và Status đơn hàng -->
 
-            <!-- Bảng Thông tin Provider & Tổng tiền của đơn hàng -->
-            <div class="order-total">
-                <div class="order-provider">
-                    <div class="order-provider-wrapper">
-                        <span>Thông tin nhà cung cấp:</span>
-                        <!-- Số điện thoại -->
-                        <span>{{ $order.Provider.Phone }}</span>
-                        <!-- Địa chỉ -->
-                        <span>{{ $order.Provider.Address }}</span>
-                        <!-- Email -->
-                        <span>{{ $order.Provider.Email }}</span>
+                        <div class="line-space"></div>
+
+                        {{ range $order.OrderItems }}
+                        <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
+                        <section class="body">
+                            <!-- 1 order Dịch vụ -->
+                            <div class="service">
+                                <div class="service-item">
+                                    <div class="item-detail">
+                                        <a href="/service/view/{{ .ServiceID }}"
+                                            class="text-decoration-none text-black"><img src="{{ .ImagePath }}"
+                                                alt=""></a>
+                                        <div class="item-wrapper">
+                                            <div class="item-name"><span><a href="/service/view/{{ .ServiceID }}"
+                                                        class="text-decoration-none text-black">{{ .Title }}</a></span>
+                                            </div>
+                                            <div class="item-quantity"><span>x{{ .Quantity }}</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="item-cost">
+                                        <span>₫{{ formatPrice .Price }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 1 order Dịch vụ -->
+                        </section>
+                        <!-- Section 2: Thông tin Dịch vụ của đơn hàng -->
+                        {{ end }}
                     </div>
                 </div>
+                <!-- Bảng chi tiết đơn hàng -->
+                <div class="line-space"></div>
 
-                <div class="order-total-wrapper">
-                    <span><i class="fa-solid fa-cash-register"></i></span>
-                    <label class="total-text">Thành tiền:</label>
-                    <div class="total-pay">₫{{ formatPrice $order.Order.GrandTotal }}</div>
+                <!-- Bảng Thông tin Provider & Tổng tiền của đơn hàng -->
+                <div class="order-total">
+                    <div class="order-provider">
+                        <div class="order-provider-wrapper">
+                            <span>Thông tin nhà cung cấp:</span>
+                            <!-- Số điện thoại -->
+                            <span>{{ $order.Provider.Phone }}</span>
+                            <!-- Địa chỉ -->
+                            <span>{{ $order.Provider.Address }}</span>
+                            <!-- Email -->
+                            <span>{{ $order.Provider.Email }}</span>
+                        </div>
+                    </div>
+
+                    <div class="order-total-wrapper">
+                        <span><i class="fa-solid fa-cash-register"></i></span>
+                        <label class="total-text">Thành tiền:</label>
+                        <div class="total-pay">₫{{ formatPrice $order.Order.GrandTotal }}</div>
+                    </div>
                 </div>
+                <!-- Bảng Tổng tiền của đơn hàng -->
             </div>
-            <!-- Bảng Tổng tiền của đơn hàng -->
         </div>
     </div>
-</div>
-<!-- Một Đơn Hàng của 1 Provider -->
-{{ else }}
-<p class="text-center">Chưa có đơn hàng nào</p>
-{{ end }}
+    <!-- Một Đơn Hàng của 1 Provider -->
+    {{ else }}
+    <div class="container">
+        <section>
+            <div class="empty-cart-wrapper">
+                <div class="empty-cart">
+                    <div class="cart-img">
+                    </div>
+                    <h2>Chưa có đơn hàng</h2>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div>&nbsp;</div>
+    {{ end }}
 
-<!-- Footer -->
-{{template "footer" .}}
-<!-- End Footer -->
+    <!-- Footer -->
+    {{template "footer" .}}
+    <!-- End Footer -->
 
-<!-- JavaScript -->
-<script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="/static/js/don-mua.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript -->
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/don-mua.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
 
 </body>
 

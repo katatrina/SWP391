@@ -78,6 +78,20 @@ body {
     border-radius: 5px;
     border: 0;
     margin-bottom: 1rem;
+    width: 100%;
+}
+
+.card-bottom {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.card-body .card-text {
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .container .service-card {
