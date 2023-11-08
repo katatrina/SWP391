@@ -265,7 +265,7 @@ main {}
 }
 
 .order-button button {
-    height: fit-content;
+    margin: 0 12px;
 }
 
 .order-button label {

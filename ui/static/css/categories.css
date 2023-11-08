@@ -8,6 +8,31 @@
     margin-bottom: 64px;
 }
 
+
+/* Content-header */
+#content .content-heading {
+    margin: 60px;
+}
+
+.content-head {
+    margin-bottom: 64px;
+}
+
+.content-space {
+    height: 10px;
+    width: 96px;
+    background-color: #198754;
+    margin: auto;
+}
+
+.content-heading h1 {
+    font-size: 48px;
+    color: #198754;
+    font-size: 48px;
+    font-weight: 800;
+    padding: 18px 0;
+}
+
 /* Banner */
 .banner {
     width: 100%;
@@ -265,7 +290,6 @@
     margin-top: -24px;
     width: calc(100% + 24px);
     margin-left: -24px;
-    padding-top: 120px;
 }
 
 .card a {

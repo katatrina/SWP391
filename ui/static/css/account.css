@@ -13,7 +13,7 @@
 }
 
 body {
-    background-color: #efefef;
+    background: linear-gradient(to bottom, #74d6aa, #7bde50);
 }
 
 .form {

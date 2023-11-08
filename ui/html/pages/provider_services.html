@@ -118,13 +118,17 @@
                                     {{end}}
                                 </div>
                             </div>
+                            <!-- Top -->
+                            <div class="">&nbsp;</div>
                             <!-- Body -->
-                            <div class="row gutters">
+                            <div class="row">
                                 {{range .Services}}
-                                <div class="col-md-4 item">
+                                <!-- Item -->
+                                <div class="col-md-3 item">
                                     <div class="service-card">
                                         <div class="card-item card">
                                             <img src="{{.ImagePath}}" class="card-img-top" alt="Ser-Pic-1">
+                                            <!-- <img src="/ui/static/img/banner.jpg" class="card-img-top" alt="Ser-Pic-1"> -->
                                             <div class="card-body">
                                                 <h5 class="card-title text-center">{{.Title}}</h5>
                                                 <p class="card-text">{{.Description}}</p>
@@ -141,6 +145,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Item -->
                                 {{else}}
                                 <p class="non-service">Bạn hiện chưa tạo dịch vụ nào.</p>
                                 {{end}}

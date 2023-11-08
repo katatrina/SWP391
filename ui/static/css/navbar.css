@@ -8,6 +8,12 @@ nav {
     height: 82px;
 }
 
+.nav-item a {
+    color: #000;
+    font-size: 21px;
+    font-weight: 600;
+}
+
 .navigation {
     position: fixed;
     top: 0;
@@ -15,6 +21,7 @@ nav {
     right: 0;
     width: 100%;
     z-index: 1;
+    /* background-color: #c0ffd4; */
 }
 
 #id .navigation .nav-right {

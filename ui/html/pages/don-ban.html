@@ -84,7 +84,7 @@
                                 <th style="width: 6%;"></th>
                                 <th style="width: 2%;">Số lượng</th>
                                 <th style="width: 2%;">Tổng tiền</th>
-                                <th style="width: 2%;">Phương thức thanh toán</th>
+                                <th style="width: 3%;">Phương thức thanh toán</th>
 
                             </tr>
                         </thead>
@@ -151,7 +151,7 @@
                                         <!-- <td style="width: 2%;" class="">Chờ xác nhận</td> -->
 
                                         <!-- Phương thức thanh toán -->
-                                        <td style="width: 2%;" class="text-center">{{ $paymentMethod }}</td>
+                                        <td style="width: 3%;" class="text-center">{{ $paymentMethod }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,22 +159,32 @@
                         <form action="/order/update" method="POST">
                             <div class="order-button-wrapper">
                                 <div class="order-button">
-                                    <div style="display: flex; margin-right: 16px;">
-                                        <label>Thay đổi trạng thái:</label>
 
-                                        <input type="hidden" name="order_id" value="{{ .OrderID }}">
+                                    <!-- Nếu ở trang Tất cả -->
+                                    <!-- ... -->
+                                    <!-- Nếu ở trang Tất cả -->
 
-                                        <select name="order_status_code" class="form-select"
-                                            aria-label="Default select example">
-                                            {{ range $orderStatuses }}
-                                            <option value="{{ .Code }}" {{if (eq $order.Order.Code
-                                                .Code)}}selected{{end}}>{{ .Detail }}
-                                            </option>
-                                            {{ end }}
-                                        </select>
+                                    <!-- Nếu ở trang Chờ xác nhận -->
+                                    <button type="button" class="btn btn-outline-success"
+                                        data-mdb-ripple-color="dark">Xác nhận dịch vụ</button>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        data-mdb-ripple-color="dark">Hủy dịch vụ</button>
+                                    <!-- Nếu ở trang Chờ xác nhận -->
 
-                                    </div>
-                                    <button class="btn btn-success">Cập nhật trạng thái</button>
+                                    <!-- Nếu ở trang Đã xác nhận -->
+                                    <button type="button" class="btn btn-outline-success"
+                                        data-mdb-ripple-color="dark">Hoàn tất dịch
+                                        vụ</button>
+                                    <!-- Nếu ở trang Đã xác nhận -->
+
+                                    <!-- Nếu ở trang Hoàn thành -->
+                                    <!-- ... -->
+                                    <!-- Nếu ở trang Hoàn thành -->
+
+                                    <!-- Nếu ở trang Hủy -->
+                                    <!-- ... -->
+                                    <!-- Nếu ở trang Hủy -->
+
                                 </div>
                             </div>
                         </form>
