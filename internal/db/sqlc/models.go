@@ -93,6 +93,7 @@ type ServiceFeedback struct {
 	ID        int32     `json:"id"`
 	ServiceID int32     `json:"service_id"`
 	UserID    int32     `json:"user_id"`
+	Rating    int32     `json:"rating"`
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
 }

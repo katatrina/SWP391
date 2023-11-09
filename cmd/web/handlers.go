@@ -722,7 +722,7 @@ func (app *application) doCheckout(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đặt hàng thành công!")
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đặt dịch vụ thành công!")
 
 	http.Redirect(w, r, "/my-orders/identity/buyer", http.StatusSeeOther)
 }
