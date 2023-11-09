@@ -154,3 +154,12 @@ func (app *application) isProvider(r *http.Request) bool {
 
 	return isProvider
 }
+
+func (app *application) isAdmin(r *http.Request) bool {
+	isAdmin, ok := r.Context().Value(isAdminContextKey).(bool)
+	if !ok {
+		return false
+	}
+
+	return isAdmin
+}

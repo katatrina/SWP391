@@ -8,6 +8,12 @@ import (
 	"time"
 )
 
+type Admin struct {
+	ID       int32  `json:"id"`
+	Email    string `json:"email"`
+	Password string `json:"hashed_password"`
+}
+
 type Cart struct {
 	ID         int32 `json:"id"`
 	UserID     int32 `json:"user_id"`

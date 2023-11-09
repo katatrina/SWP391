@@ -237,9 +237,40 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Check whether user is admin.
+	admin, err := app.store.GetAdminByEmail(r.Context(), form.Email)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			form.AddGenericError("Email hoặc mật khẩu không chính xác")
+
+			data := app.newTemplateData(r)
+			data.Form = form
+			app.render(w, http.StatusUnprocessableEntity, "login.html", data)
+		} else {
+			app.serverError(w, err)
+		}
+
+		return
+	}
+
+	// Check whether the hashed password and plain-text password that user provided match.
+	err = bcrypt.CompareHashAndPassword([]byte(admin.Password), []byte(form.Password))
+	if err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			form.AddGenericError("Email hoặc mật khẩu không chính xác")
+
+			data := app.newTemplateData(r)
+			data.Form = form
+			app.render(w, http.StatusUnprocessableEntity, "login.html", data)
+		} else {
+			app.serverError(w, err)
+		}
+
+		return
+	}
+
 	// Check whether user with the email provided exists.
 	user, err := app.store.GetUserByEmail(r.Context(), form.Email)
-
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			form.AddGenericError("Email hoặc mật khẩu không chính xác")
@@ -1089,4 +1120,22 @@ func (app *application) updateAccount(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) pageNotFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
+}
+
+func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "admin_dashboard.html", data)
+}
+
+func (app *application) displayAdminManageAccountPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "admin_account_management.html", data)
+}
+
+func (app *application) displayAdminManageServicePage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, http.StatusOK, "admin_service_management.html", data)
 }

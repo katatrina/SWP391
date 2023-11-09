@@ -4,6 +4,13 @@ CREATE TABLE "roles"
     "name" VARCHAR NOT NULL
 );
 
+CREATE TABLE "admin"
+(
+    id                SERIAL PRIMARY KEY,
+    "email"           VARCHAR(150) UNIQUE NOT NULL,
+    "hashed_password" CHAR(60)            NOT NULL
+);
+
 CREATE TABLE "users"
 (
     "id"              SERIAL PRIMARY KEY,

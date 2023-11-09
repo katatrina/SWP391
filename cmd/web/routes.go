@@ -14,9 +14,18 @@ func (app *application) routes() http.Handler {
 
 	dynamic := alice.New(app.sessionManager.LoadAndSave, app.authenticate)
 
+	authAdmin := alice.New(app.sessionManager.LoadAndSave, app.authenticateAdmin)
+
 	router.NotFound = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		app.pageNotFound(w)
 	})
+
+	// Admin permissions.
+	protectedAdmin := authAdmin.Append(app.requireAdminPermission)
+
+	router.Handler(http.MethodGet, "/admin", protectedAdmin.ThenFunc(app.displayAdminDashboardPage))
+	router.Handler(http.MethodGet, "/admin/login", authAdmin.ThenFunc(app.displayAdminManageAccountPage))
+	router.Handler(http.MethodPost, "/admin/login", authAdmin.ThenFunc(app.displayAdminManageServicePage))
 
 	// Guest permissions.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))

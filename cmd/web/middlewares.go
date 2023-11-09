@@ -20,6 +20,20 @@ func (app *application) requireAuthentication(next http.Handler) http.Handler {
 			return
 		}
 
+		invalidPaths := []string{
+			"/login",
+			"/signup",
+			"/signup/customer",
+			"/signup/provider",
+		}
+
+		for _, path := range invalidPaths {
+			if r.URL.Path == path {
+				http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+				return
+			}
+		}
+
 		w.Header().Add("Cache-Control", "no-store")
 
 		next.ServeHTTP(w, r)
@@ -60,9 +74,45 @@ func (app *application) authenticate(next http.Handler) http.Handler {
 	})
 }
 
+func (app *application) authenticateAdmin(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		id := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
+		if id == 0 {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		isAdmin, err := app.store.IsAdmin(r.Context(), id)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		if isAdmin {
+			ctx := context.WithValue(r.Context(), isAdminContextKey, true)
+			r = r.WithContext(ctx)
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func (app *application) requireProviderPermission(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !app.isProvider(r) {
+			http.Redirect(w, r, "/404", http.StatusSeeOther)
+			return
+		}
+
+		w.Header().Add("Cache-Control", "no-store")
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func (app *application) requireAdminPermission(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !app.isAdmin(r) {
 			http.Redirect(w, r, "/404", http.StatusSeeOther)
 			return
 		}
