@@ -20,20 +20,6 @@ func (app *application) requireAuthentication(next http.Handler) http.Handler {
 			return
 		}
 
-		invalidPaths := []string{
-			"/login",
-			"/signup",
-			"/signup/customer",
-			"/signup/provider",
-		}
-
-		for _, path := range invalidPaths {
-			if r.URL.Path == path {
-				http.Redirect(w, r, "/account/view", http.StatusSeeOther)
-				return
-			}
-		}
-
 		w.Header().Add("Cache-Control", "no-store")
 
 		next.ServeHTTP(w, r)

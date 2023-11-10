@@ -24,8 +24,8 @@ func (app *application) routes() http.Handler {
 	protectedAdmin := authAdmin.Append(app.requireAdminPermission)
 
 	router.Handler(http.MethodGet, "/admin/dashboard", protectedAdmin.ThenFunc(app.displayAdminDashboardPage))
-	router.Handler(http.MethodGet, "/admin/manage-account", authAdmin.ThenFunc(app.displayAdminManageAccountPage))
-	router.Handler(http.MethodGet, "/admin/manage-service", authAdmin.ThenFunc(app.displayAdminManageServicePage))
+	router.Handler(http.MethodGet, "/admin/manage-account", protectedAdmin.ThenFunc(app.displayAdminManageAccountPage))
+	router.Handler(http.MethodGet, "/admin/manage-service", protectedAdmin.ThenFunc(app.displayAdminManageServicePage))
 
 	// Guest permissions.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))

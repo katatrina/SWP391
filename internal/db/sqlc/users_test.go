@@ -2,15 +2,10 @@ package sqlc
 
 import (
 	"context"
-<<<<<<< Updated upstream
-	"github.com/katatrina/SWP391/util"
-	"github.com/stretchr/testify/require"
-	"golang.org/x/crypto/bcrypt"
-=======
->>>>>>> Stashed changes
-	"testing"
 
 	"github.com/stretchr/testify/require"
+	"golang.org/x/crypto/bcrypt"
+	"testing"
 )
 
 func createFakeCustomer(t *testing.T) {

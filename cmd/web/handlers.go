@@ -36,6 +36,11 @@ func (app *application) displayCategoriesPage(w http.ResponseWriter, r *http.Req
 }
 
 func (app *application) displayMainSignupPage(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "signup.html", data)
@@ -51,6 +56,11 @@ type customerSignupFormResult struct {
 }
 
 func (app *application) displaySignupCustomerPage(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Form = customerSignupFormResult{}
 
@@ -58,6 +68,11 @@ func (app *application) displaySignupCustomerPage(w http.ResponseWriter, r *http
 }
 
 func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	var form customerSignupFormResult
 
 	err := app.decodePostForm(r, &form)
@@ -133,6 +148,11 @@ type providerSignupFormResult struct {
 }
 
 func (app *application) displaySignupProviderPage(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Form = providerSignupFormResult{}
 
@@ -140,6 +160,11 @@ func (app *application) displaySignupProviderPage(w http.ResponseWriter, r *http
 }
 
 func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	var form providerSignupFormResult
 
 	err := app.decodePostForm(r, &form)
@@ -210,6 +235,11 @@ type userLoginFormResult struct {
 }
 
 func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Form = userLoginFormResult{}
 
@@ -217,6 +247,11 @@ func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Requ
 }
 
 func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
+	if app.isAuthenticated(r) {
+		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
 	var form userLoginFormResult
 
 	err := app.decodePostForm(r, &form)
