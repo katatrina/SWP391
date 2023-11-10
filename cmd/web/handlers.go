@@ -238,33 +238,43 @@ func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check whether user is admin.
-	admin, err := app.store.GetAdminByEmail(r.Context(), form.Email)
+	isAdmin, err := app.store.IsAdminByEmail(r.Context(), form.Email)
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			form.AddGenericError("Email hoặc mật khẩu không chính xác")
-
-			data := app.newTemplateData(r)
-			data.Form = form
-			app.render(w, http.StatusUnprocessableEntity, "login.html", data)
-		} else {
-			app.serverError(w, err)
-		}
-
+		app.serverError(w, err)
 		return
 	}
 
-	// Check whether the hashed password and plain-text password that user provided match.
-	err = bcrypt.CompareHashAndPassword([]byte(admin.Password), []byte(form.Password))
-	if err != nil {
-		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-			form.AddGenericError("Email hoặc mật khẩu không chính xác")
-
-			data := app.newTemplateData(r)
-			data.Form = form
-			app.render(w, http.StatusUnprocessableEntity, "login.html", data)
-		} else {
+	if isAdmin {
+		admin, err := app.store.GetAdminByEmail(r.Context(), form.Email)
+		if err != nil {
 			app.serverError(w, err)
+			return
 		}
+
+		err = bcrypt.CompareHashAndPassword([]byte(admin.Password), []byte(form.Password))
+		if err != nil {
+			if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+				form.AddGenericError("Email hoặc mật khẩu không chính xác")
+
+				data := app.newTemplateData(r)
+				data.Form = form
+				app.render(w, http.StatusUnprocessableEntity, "login.html", data)
+			} else {
+				app.serverError(w, err)
+			}
+
+			return
+		}
+
+		err = app.sessionManager.RenewToken(r.Context())
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		app.sessionManager.Put(r.Context(), "authenticatedAdminID", admin.ID)
+
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
 
 		return
 	}

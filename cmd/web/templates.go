@@ -36,6 +36,13 @@ type templateData struct {
 	OrderStatuses       []sqlc.OrderStatus
 	HighlightedButtonID int32
 	IsUserUsedService   bool
+	AdminDashboard      AdminDashboard
+}
+
+type AdminDashboard struct {
+	TotalCustomers int32
+	TotalProviders int32
+	TotalServices  int32
 }
 
 type Cart struct {

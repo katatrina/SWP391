@@ -82,7 +82,7 @@ func (app *application) authenticateAdmin(next http.Handler) http.Handler {
 			return
 		}
 
-		isAdmin, err := app.store.IsAdmin(r.Context(), id)
+		isAdmin, err := app.store.IsAdminByID(r.Context(), id)
 		if err != nil {
 			app.serverError(w, err)
 			return
