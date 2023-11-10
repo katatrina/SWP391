@@ -34,8 +34,13 @@ func TestCreateService(t *testing.T) {
 	// -----------------------------------------------------
 	// Service 1
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
+<<<<<<< Updated upstream
 		Title:             "Cung cấp lồng chim đa dạng",
 		Description:       "Lồng chim đa dạng: Cung cấp lồng chim chất lượng cao với nhiều lựa chọn về kích thước và chất liệu để đáp ứng nhu cầu sinh hoạt và di chuyển của chim cảnh.",
+=======
+		Title:             "",
+		Description:       "",
+>>>>>>> Stashed changes
 		Price:             200_000,
 		ImagePath:         "",
 		CategoryID:        categoryIDs[0],

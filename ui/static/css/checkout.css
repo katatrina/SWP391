@@ -6,7 +6,7 @@
 
 .container {
     max-width: 960px;
-    background-color: #fff;
+    background: linear-gradient(to bottom, #74d6aa, #7bde50);
     border-radius: 4px;
     box-shadow: rgba(231, 231, 231, 0.71) 0px 1px 20px 0px;
 }
