@@ -4,6 +4,25 @@
     box-sizing: border-box;
 }
 
+
+/* admin header */
+.admin-header {
+    margin-right: 6rem;
+}
+
+.admin-header button {
+    background-color: #313131;
+    color: white;
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+
+.admin-header i {
+    color: white;
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+
 .navbar-header .navbar-brand .logo-icon img {
     width: 50px;
     height: 50px;

@@ -2,10 +2,10 @@ package sqlc
 
 import (
 	"context"
+	"testing"
 
 	"github.com/stretchr/testify/require"
 	"golang.org/x/crypto/bcrypt"
-	"testing"
 )
 
 func createFakeCustomer(t *testing.T) {

@@ -87,11 +87,22 @@
                         <!-- ============================================================== -->
                         <!-- Admin Profile -->
                         <!-- ============================================================== -->
-                        <li>
+                        <!-- <li>
                             <a class="profile-pic" href="#" style="display: flex; align-items: center;">
                                 <i class="fa-solid fa-circle-user"></i><span
                                     class="text-white font-medium">Steave</span></a>
-                        </li>
+                        </li> -->
+                        <form action="">
+                            <div class="admin_header btn-group">
+                                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                    data-bs-display="static" aria-expanded="false">
+                                    <i class="ti-user"></i><span class="text-white font-medium">Steave</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                    <li><button class="dropdown-item" type="button">Đăng xuất</button></li>
+                                </ul>
+                            </div>
+                        </form>
                     </ul>
                 </div>
             </nav>
@@ -105,40 +116,7 @@
         <!-- ============================================================== -->
         <!-- Tính năng Admin -->
         <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/dashboard"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/admin/manage-account" aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Quản lý tài khoản</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="/admin/manage-service" aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Quản lý dịch vụ</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        {{template "admin_navbar".}}
         <!-- ============================================================== -->
         <!-- End Tính năng Admin -->
         <!-- ============================================================== -->

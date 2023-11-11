@@ -195,12 +195,24 @@
 }
 
 .card-bot i {
-    font-size: 21px;
+    font-size: 2rem;
+}
+
+.card-bot i:hover {
+    font-weight: 800;
+    font-size: 2.5rem;
+    transition: 0.3s;
+    color: #fd0810;
+    cursor: pointer;
 }
 
 .card-bot button:hover {
     font-weight: 800;
-    background-color: coral;
+    font-size: 2.5rem;
+    transition: 0.3s;
+    color: #fd0810;
+    cursor: pointer;
+    /* background-color: coral; */
 }
 
 .card-title {
