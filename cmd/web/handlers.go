@@ -86,10 +86,16 @@ func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request)
 	}
 
 	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
-		form.AddFieldError("phone", "Số điện thoại không hợp lệ")
+		form.AddFieldError("phone", "Số điện thoại không hợp lệ. VD: 0256789123")
 	}
 
-	// TODO: Validate other fields more detailed.
+	if validator.IsAddressTooShort(form.Address) {
+		form.AddFieldError("address", "Địa chỉ quá ngắn")
+	}
+
+	if validator.IsPasswordTooShort(form.Password) {
+		form.AddFieldError("password", "Mật khẩu quá ngắn. Tối thiểu 8 ký tự")
+	}
 
 	if !form.IsNoErrors() {
 		data := app.newTemplateData(r)
@@ -178,10 +184,20 @@ func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request)
 	}
 
 	if !validator.IsMatchRegex(form.Phone, validator.PhoneRX) {
-		form.AddFieldError("phone", "Số điện thoại không hợp lệ")
+		form.AddFieldError("phone", "Số điện thoại không hợp lệ. VD: 0256789123")
 	}
 
-	// TODO: Validate more detailed.
+	if validator.IsAddressTooShort(form.Address) {
+		form.AddFieldError("address", "Địa chỉ quá ngắn")
+	}
+
+	if !validator.IsMatchRegex(form.TaxCode, validator.TaxCodeRX) {
+		form.AddFieldError("tax_code", "Mã số thuế không hợp lệ. VD: 123-45-67890")
+	}
+
+	if validator.IsPasswordTooShort(form.Password) {
+		form.AddFieldError("password", "Mật khẩu quá ngắn. Tối thiểu 8 ký tự")
+	}
 
 	if !form.IsNoErrors() {
 		data := app.newTemplateData(r)
@@ -1023,8 +1039,9 @@ func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Req
 }
 
 type updateOrderStatusFormResult struct {
-	OrderID         string `form:"order_id"`
-	OrderStatusCode string `form:"order_status_code"`
+	OrderID           string `form:"order_id"`
+	UpdatedStatusID   int32  `form:"updated_status_id"`
+	UpdatedStatusCode string `form:"updated_status_code"`
 }
 
 func (app *application) updateOrderStatus(w http.ResponseWriter, r *http.Request) {
@@ -1036,18 +1053,16 @@ func (app *application) updateOrderStatus(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	fmt.Println(form)
-
-	updatedOrder, err := app.store.UpdateOrderStatus(r.Context(), sqlc.UpdateOrderStatusParams{
+	err = app.store.UpdateOrderStatus(r.Context(), sqlc.UpdateOrderStatusParams{
 		UUID: form.OrderID,
-		Code: form.OrderStatusCode,
+		Code: form.UpdatedStatusCode,
 	})
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/my-orders/identity/seller?type=%v", updatedOrder.StatusID), http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/my-orders/identity/seller?type=%v", form.UpdatedStatusID), http.StatusSeeOther)
 }
 
 type createServiceFeedbackFormResult struct {
@@ -1158,7 +1173,7 @@ func (app *application) updateAccount(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	app.sessionManager.Put(r.Context(), "flash", "Bạn đã cập nhật thông tin thành công!")
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã cập nhật thông tin tài khoản thành công!")
 
 	http.Redirect(w, r, "/account/view", http.StatusSeeOther)
 }

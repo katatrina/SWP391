@@ -106,10 +106,9 @@ SELECT *
 FROM order_status
 ORDER BY id ASC;
 
--- name: UpdateOrderStatus :one
+-- name: UpdateOrderStatus :exec
 UPDATE orders
 SET status_id = (SELECT id
                  FROM order_status
                  WHERE code = $1)
-WHERE uuid = $2
-RETURNING *;
+WHERE uuid = $2;

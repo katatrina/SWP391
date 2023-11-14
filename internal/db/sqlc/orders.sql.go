@@ -473,13 +473,12 @@ func (q *Queries) GetSellOrdersWithStatusCode(ctx context.Context, arg GetSellOr
 	return items, nil
 }
 
-const updateOrderStatus = `-- name: UpdateOrderStatus :one
+const updateOrderStatus = `-- name: UpdateOrderStatus :exec
 UPDATE orders
 SET status_id = (SELECT id
                  FROM order_status
                  WHERE code = $1)
 WHERE uuid = $2
-RETURNING uuid, buyer_id, seller_id, status_id, payment_method, grand_total, created_at
 `
 
 type UpdateOrderStatusParams struct {
@@ -487,19 +486,9 @@ type UpdateOrderStatusParams struct {
 	UUID string `json:"uuid"`
 }
 
-func (q *Queries) UpdateOrderStatus(ctx context.Context, arg UpdateOrderStatusParams) (Order, error) {
-	row := q.db.QueryRowContext(ctx, updateOrderStatus, arg.Code, arg.UUID)
-	var i Order
-	err := row.Scan(
-		&i.UUID,
-		&i.BuyerID,
-		&i.SellerID,
-		&i.StatusID,
-		&i.PaymentMethod,
-		&i.GrandTotal,
-		&i.CreatedAt,
-	)
-	return i, err
+func (q *Queries) UpdateOrderStatus(ctx context.Context, arg UpdateOrderStatusParams) error {
+	_, err := q.db.ExecContext(ctx, updateOrderStatus, arg.Code, arg.UUID)
+	return err
 }
 
 const updateOrderTotal = `-- name: UpdateOrderTotal :exec

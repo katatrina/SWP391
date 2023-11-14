@@ -164,8 +164,9 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
                             <div class="order-button">
                                 <!-- Nếu ở trang Chờ xác nhận -->
                                 <input type="hidden" name="order_id" value="{{ $order.Order.UUID }}">
-                                <input type="hidden" name="updated_status" value="{{ $order.Order.Code }}">
-                                <button type="button" class="btn btn-outline-success"
+                                <input type="hidden" name="updated_status_code" value="confirmed">
+                                <input type="hidden" name="updated_status_id" value="{{ $order.Order.StatusID }}">
+                                <button type="submit" class="btn btn-outline-success"
                                         data-mdb-ripple-color="dark">Xác nhận dịch vụ
                                 </button>
                                 <!--                                    <button type="button" class="btn btn-outline-danger"-->
@@ -185,8 +186,9 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
                         <div class="order-button-wrapper">
                             <div class="order-button">
                                 <input type="hidden" name="order_id" value="{{ $order.Order.UUID }}">
-                                <input type="hidden" name="updated_status" value="cancelled">
-                                <button type="button" class="btn btn-outline-danger"
+                                <input type="hidden" name="updated_status_code" value="cancelled">
+                                <input type="hidden" name="updated_status_id" value="{{ $order.Order.StatusID }}">
+                                <button type="submit" class="btn btn-outline-danger"
                                         data-mdb-ripple-color="dark">Hủy dịch vụ
                                 </button>
                             </div>
@@ -197,8 +199,9 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
                         <div class="order-button-wrapper">
                             <div class="order-button">
                                 <input type="hidden" name="order_id" value="{{ $order.Order.UUID }}">
-                                <input type="hidden" name="updated_status" value="completed">
-                                <button type="button" class="btn btn-outline-success"
+                                <input type="hidden" name="updated_status_code" value="completed">
+                                <input type="hidden" name="updated_status_id" value="{{ $order.Order.StatusID }}">
+                                <button type="submit" class="btn btn-outline-success"
                                         data-mdb-ripple-color="dark">Hoàn tất dịch vụ
                                 </button>
                             </div>
