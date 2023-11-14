@@ -87,6 +87,19 @@ func (q *Queries) CreateProviderDetails(ctx context.Context, arg CreateProviderD
 	return err
 }
 
+const getCustomerNumber = `-- name: GetCustomerNumber :one
+SELECT COUNT(*)
+FROM users
+WHERE role_id = (SELECT id FROM roles WHERE name = 'customer')
+`
+
+func (q *Queries) GetCustomerNumber(ctx context.Context) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getCustomerNumber)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const getFullProviderInfo = `-- name: GetFullProviderInfo :one
 SELECT u.id,
        u.full_name,
@@ -145,6 +158,19 @@ func (q *Queries) GetProviderDetailsByID(ctx context.Context, providerID int32) 
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const getProviderNumber = `-- name: GetProviderNumber :one
+SELECT COUNT(*)
+FROM users
+WHERE role_id = (SELECT id FROM roles WHERE name = 'provider')
+`
+
+func (q *Queries) GetProviderNumber(ctx context.Context) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getProviderNumber)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one

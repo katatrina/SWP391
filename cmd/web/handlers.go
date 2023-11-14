@@ -1185,6 +1185,60 @@ func (app *application) pageNotFound(w http.ResponseWriter) {
 func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
+	totalCustomer, err := app.store.GetCustomerNumber(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data.AdminDashboard.TotalCustomers = totalCustomer
+
+	totalProvider, err := app.store.GetProviderNumber(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data.AdminDashboard.TotalProviders = totalProvider
+
+	totalService, err := app.store.GetServiceNumber(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data.AdminDashboard.TotalServices = totalService
+
+	categories, err := app.store.ListCategories(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, category := range categories {
+		var categoryStat CategoryStat
+
+		categoryStat.CategoryID = category.ID
+		categoryStat.CategoryName = category.Name
+		categoryStat.CategoryImagePath = category.ImagePath
+
+		serviceNumber, err := app.store.GetServiceNumberByCategoryID(r.Context(), category.ID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+		categoryStat.TotalService = serviceNumber
+
+		completedOrderItems, err := app.store.GetCompletedOrderItemsByCategoryID(r.Context(), category.ID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		for _, item := range completedOrderItems {
+			categoryStat.Profit += item.SubTotal
+		}
+
+		data.AdminDashboard.CategoryStats = append(data.AdminDashboard.CategoryStats, categoryStat)
+	}
+
 	app.render(w, http.StatusOK, "admin_dashboard.html", data)
 }
 

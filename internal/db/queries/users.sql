@@ -79,3 +79,13 @@ UPDATE provider_details
 SET company_name = $2,
     tax_code     = $3
 WHERE provider_id = $1;
+
+-- name: GetCustomerNumber :one
+SELECT COUNT(*)
+FROM users
+WHERE role_id = (SELECT id FROM roles WHERE name = 'customer');
+
+-- name: GetProviderNumber :one
+SELECT COUNT(*)
+FROM users
+WHERE role_id = (SELECT id FROM roles WHERE name = 'provider');

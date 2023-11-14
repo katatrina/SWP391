@@ -28,6 +28,19 @@ func (q *Queries) GetCategoryBySlug(ctx context.Context, slug string) (Category,
 	return i, err
 }
 
+const getServiceNumberByCategoryID = `-- name: GetServiceNumberByCategoryID :one
+SELECT COUNT(*)
+FROM services
+WHERE category_id = $1
+`
+
+func (q *Queries) GetServiceNumberByCategoryID(ctx context.Context, categoryID int32) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getServiceNumberByCategoryID, categoryID)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const listCategories = `-- name: ListCategories :many
 SELECT id, name, slug, image_path, description
 FROM categories

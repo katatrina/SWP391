@@ -120,6 +120,19 @@ func (q *Queries) GetServiceByID(ctx context.Context, id int32) (Service, error)
 	return i, err
 }
 
+const getServiceNumber = `-- name: GetServiceNumber :one
+SELECT COUNT(*)
+FROM services
+WHERE status = 'active'
+`
+
+func (q *Queries) GetServiceNumber(ctx context.Context) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getServiceNumber)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const getServicesByCategorySlug = `-- name: GetServicesByCategorySlug :many
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services

@@ -7,9 +7,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+          content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Bird Service Central</title>
 
@@ -26,477 +26,485 @@
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- Khối lệnh Display kiểu Load Trang -->
-    <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
+<!-- ============================================================== -->
+<!-- Khối lệnh Display kiểu Load Trang -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
     </div>
-    <!-- ============================================================== -->
-    <!-- Body của Trang Admin_Dashbroad -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+</div>
+<!-- ============================================================== -->
+<!-- Body của Trang Admin_Dashbroad -->
+<!-- ============================================================== -->
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+     data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
 
-        <!-- ============================================================== -->
-        <!-- Topbar header -->
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <!-- ============================================================== -->
-                <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
-                <!-- ============================================================== -->
-                <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand" href="/admin/dashboard">
-                        <!-- Ảnh -->
-                        <b class="logo-icon">
-                            <img src="/static/img/Login-banner.png" alt="homepage" />
-                        </b>
+    <!-- ============================================================== -->
+    <!-- Topbar header -->
+    <!-- ============================================================== -->
+    <header class="topbar" data-navbarbg="skin5">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <!-- ============================================================== -->
+            <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
+            <!-- ============================================================== -->
+            <div class="navbar-header" data-logobg="skin6">
+                <a class="navbar-brand" href="/admin/dashboard">
+                    <!-- Ảnh -->
+                    <b class="logo-icon">
+                        <img src="/static/img/Login-banner.png" alt="homepage"/>
+                    </b>
 
-                        <!-- Tên Website -->
-                        <span class="logo-text">
+                    <!-- Tên Website -->
+                    <span class="logo-text">
                             <p>
                                 Bird Serve Central
                             </p>
                         </span>
-                    </a>
+                </a>
 
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
-                <!-- ============================================================== -->
-
-                <!-- ============================================================== -->
-                <!-- Thanh Topbar chứa Search và Admin -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <!-- ============================================================== -->
-                        <!-- Admin profile -->
-                        <!-- ============================================================== -->
-                        <!-- <li>
-                            <a class="profile-pic" href="#">
-                                <i class="fa-solid fa-circle-user"></i><span
-                                    class="text-white font-medium">Steave</span>
-                            </a>
-                        </li> -->
-                        <form action="">
-                            <div class="admin_header btn-group">
-                                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static"
-                                    aria-expanded="false">
-                                    <i class="ti-user"></i><span class="text-white font-medium">Steave</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                    <li><button class="dropdown-item" type="button">Đăng xuất</button></li>
-                                </ul>
-                            </div>
-                        </form>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-
-
-        <!-- ============================================================== -->
-        <!-- Tính năng Admin -->
-        <!-- ============================================================== -->
-        {{template "admin_navbar".}}
-        <!-- ============================================================== -->
-        <!-- End Tính năng Admin -->
-        <!-- ============================================================== -->
-
-
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Tổng quát về các đối tượng của hệ thống -->
-                <!-- Đây là nơi có cái nhìn toàn hệ thống hay còn gọi là "Danh mục chung" -->
-                <!-- ============================================================== -->
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <!-- Title -->
-                            <h3 class="box-title">Số lượng khách hàng</h3>
-                            <!-- Title -->
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <!-- Icon -->
-                                    <div id="sparklinedash"><i width="67" height="30"
-                                            class="fa-solid fa-circle-user"></i>
-                                    </div>
-                                    <!-- Icon -->
-                                </li>
-                                <!-- Số lượng -->
-                                <li class="ms-auto"><span class="counter text-success">659</span>
-                                </li>
-                                <!-- Số lượng -->
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <!-- Title -->
-                            <h3 class="box-title">Số lượng nhà cung cấp dịch vụ</h3>
-                            <!-- Title -->
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <!-- Icon -->
-                                    <div id="sparklinedash"><i width="67" height="30"
-                                            class="fa-solid fa-circle-user"></i>
-                                    </div>
-                                    <!-- Icon -->
-                                </li>
-                                <!-- Số lượng -->
-                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                                <!-- Số lượng -->
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="white-box analytics-info">
-                            <!-- Title -->
-                            <h3 class="box-title">Tổng số lượng dịch vụ</h3>
-                            <!-- Title -->
-                            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                                <li>
-                                    <!-- Icon -->
-                                    <div id="sparklinedash"><i width="67" height="30"
-                                            class="fa-solid fa-circle-user"></i>
-                                    </div>
-                                    <!-- Icon -->
-                                </li>
-                                <!-- Số lượng -->
-                                <li class="ms-auto"><span class="counter text-info">911</span>
-                                </li>
-                                <!-- Số lượng -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Tổng quát về các đối tượng của hệ thống -->
-                <!-- ============================================================== -->
-
-
-                <!-- ============================================================== -->
-                <!-- Sumaries Danh mục hệ thống -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box">
-                            <div class="d-md-flex mb-3">
-                                <h3 class="box-title mb-0">Danh mục</h3>
-                                <!-- <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                <select class="form-select shadow-none row border-top">
-                                    <option>Customer</option>
-                                    <option>Provider</option>
-                                </select>
-                            </div> -->
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table no-wrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">Tên danh mục</th>
-                                            <th class="border-top-0">Doanh thu</th>
-                                            <th class="border-top-0">Số dịch vụ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="txt-oflo"><img src="/static/img/accessories-category.jpg" alt=""
-                                                    srcset="">
-                                                Phụ kiện
-                                            </td>
-                                            <td>63.000.000vnd</td>
-                                            <td class="txt-oflo">18</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="txt-oflo"><img src="/static/img/nutrition-category.jpg" alt=""
-                                                    srcset="">
-                                                Dinh dưỡng và thức ăn
-                                            </td>
-                                            <td>63.000.000vnd</td>
-                                            <td class="txt-oflo">18</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="txt-oflo"><img src="/static/img/healthcare-category.jpg" alt=""
-                                                    srcset="">
-                                                Y tế và chăm sóc sức khỏe
-                                            </td>
-                                            <td>63.000.000vnd</td>
-                                            <td class="txt-oflo">18</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="txt-oflo"><img src="/static/img/categories-grooming.jpg" alt=""
-                                                    srcset="">
-                                                Grooming
-                                            </td>
-                                            <td>63.000.000vnd</td>
-                                            <td class="txt-oflo">18</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="txt-oflo"><img src="/static/img/training-category.jpg" alt=""
-                                                    srcset="">
-                                                Đào tạo và huấn luyện
-                                            </td>
-                                            <td>63.000.000vnd</td>
-                                            <td class="txt-oflo">18</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td class="txt-oflo"><img src="/static/img/others-category.png" alt=""
-                                                    srcset="">
-                                                Khác
-                                            </td>
-                                            <td>63.000.000vnd</td>
-                                            <td class="txt-oflo">18</td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ============================================================== -->
-                <!-- End Sumaries Danh mục hệ thống -->
-                <!-- ============================================================== -->
-
-
-                <!-- ============================================================== -->
-                <!-- Recent Comments -->
-                <!-- ============================================================== -->
-                <!-- <div class="row">
-
-                <div class="col-md-12 col-lg-8 col-sm-12">
-                    <div class="card white-box p-0">
-                        <div class="card-body">
-                            <h3 class="box-title mb-0">Recent Comments</h3>
-                        </div>
-                        <div class="comment-widgets">
-
-                            <div class="d-flex flex-row comment-row p-3 mt-0">
-                                <div class="p-2"><img src="plugins/images/users/varun.jpg" alt="user" width="50"
-                                        class="rounded-circle"></div>
-                                <div class="comment-text ps-2 ps-md-3 w-100">
-                                    <h5 class="font-medium">James Anderson</h5>
-                                    <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
-                                        type setting industry.It has survived not only five centuries. </span>
-                                    <div class="comment-footer d-md-flex align-items-center">
-                                        <span class="badge bg-primary rounded">Pending</span>
-
-                                        <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-row comment-row p-3">
-                                <div class="p-2"><img src="plugins/images/users/genu.jpg" alt="user" width="50"
-                                        class="rounded-circle"></div>
-                                <div class="comment-text ps-2 ps-md-3 active w-100">
-                                    <h5 class="font-medium">Michael Jorden</h5>
-                                    <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
-                                        type setting industry.It has survived not only five centuries. </span>
-                                    <div class="comment-footer d-md-flex align-items-center">
-
-                                        <span class="badge bg-success rounded">Approved</span>
-
-                                        <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex flex-row comment-row p-3">
-                                <div class="p-2"><img src="plugins/images/users/ritesh.jpg" alt="user" width="50"
-                                        class="rounded-circle"></div>
-                                <div class="comment-text ps-2 ps-md-3 w-100">
-                                    <h5 class="font-medium">Johnathan Doeting</h5>
-                                    <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
-                                        type setting industry.It has survived not only five centuries. </span>
-                                    <div class="comment-footer d-md-flex align-items-center">
-
-                                        <span class="badge rounded bg-danger">Rejected</span>
-
-                                        <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="card white-box p-0">
-                        <div class="card-heading">
-                            <h3 class="box-title mb-0">Chat Listing</h3>
-                        </div>
-                        <div class="card-body">
-                            <ul class="chatonline">
-                                <li>
-                                    <div class="call-chat">
-                                        <button class="btn btn-success text-white btn-circle btn" type="button">
-                                            <i class="fas fa-phone"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-circle btn" type="button">
-                                            <i class="far fa-comments text-white"></i>
-                                        </button>
-                                    </div>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                            src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
-                                        <div class="ms-2">
-                                            <span class="text-dark">Varun Dhavan <small
-                                                    class="d-block text-success d-block">online</small></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="call-chat">
-                                        <button class="btn btn-success text-white btn-circle btn" type="button">
-                                            <i class="fas fa-phone"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-circle btn" type="button">
-                                            <i class="far fa-comments text-white"></i>
-                                        </button>
-                                    </div>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                            src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
-                                        <div class="ms-2">
-                                            <span class="text-dark">Genelia
-                                                Deshmukh <small class="d-block text-warning">Away</small></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="call-chat">
-                                        <button class="btn btn-success text-white btn-circle btn" type="button">
-                                            <i class="fas fa-phone"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-circle btn" type="button">
-                                            <i class="far fa-comments text-white"></i>
-                                        </button>
-                                    </div>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                            src="plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
-                                        <div class="ms-2">
-                                            <span class="text-dark">Ritesh
-                                                Deshmukh <small class="d-block text-danger">Busy</small></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="call-chat">
-                                        <button class="btn btn-success text-white btn-circle btn" type="button">
-                                            <i class="fas fa-phone"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-circle btn" type="button">
-                                            <i class="far fa-comments text-white"></i>
-                                        </button>
-                                    </div>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                            src="plugins/images/users/arijit.jpg" alt="user-img" class="img-circle">
-                                        <div class="ms-2">
-                                            <span class="text-dark">Arijit
-                                                Sinh <small class="d-block text-muted">Offline</small></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="call-chat">
-                                        <button class="btn btn-success text-white btn-circle btn" type="button">
-                                            <i class="fas fa-phone"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-circle btn" type="button">
-                                            <i class="far fa-comments text-white"></i>
-                                        </button>
-                                    </div>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                            src="plugins/images/users/govinda.jpg" alt="user-img"
-                                            class="img-circle">
-                                        <div class="ms-2">
-                                            <span class="text-dark">Govinda
-                                                Star <small class="d-block text-success">online</small></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="call-chat">
-                                        <button class="btn btn-success text-white btn-circle btn" type="button">
-                                            <i class="fas fa-phone"></i>
-                                        </button>
-                                        <button class="btn btn-info btn-circle btn" type="button">
-                                            <i class="far fa-comments text-white"></i>
-                                        </button>
-                                    </div>
-                                    <a href="javascript:void(0)" class="d-flex align-items-center"><img
-                                            src="plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
-                                        <div class="ms-2">
-                                            <span class="text-dark">John
-                                                Abraham<small class="d-block text-success">online</small></span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+                <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                   href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
             </div>
             <!-- ============================================================== -->
-            <!-- End Container fluid  -->
+            <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
             <!-- ============================================================== -->
+
+            <!-- ============================================================== -->
+            <!-- Thanh Topbar chứa Search và Admin -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                <ul class="navbar-nav ms-auto d-flex align-items-center">
+                    <!-- ============================================================== -->
+                    <!-- Admin profile -->
+                    <!-- ============================================================== -->
+                    <!-- <li>
+                        <a class="profile-pic" href="#">
+                            <i class="fa-solid fa-circle-user"></i><span
+                                class="text-white font-medium">Steave</span>
+                        </a>
+                    </li> -->
+                    <form action="">
+                        <div class="admin_header btn-group">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                    data-bs-display="static"
+                                    aria-expanded="false">
+                                <i class="ti-user"></i><span class="text-white font-medium">Steave</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                <li>
+                                    <button class="dropdown-item" type="button">Đăng xuất</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+
+
+    <!-- ============================================================== -->
+    <!-- Tính năng Admin -->
+    <!-- ============================================================== -->
+    {{template "admin_navbar".}}
+    <!-- ============================================================== -->
+    <!-- End Tính năng Admin -->
+    <!-- ============================================================== -->
+
+
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Tổng quát về các đối tượng của hệ thống -->
+            <!-- Đây là nơi có cái nhìn toàn hệ thống hay còn gọi là "Danh mục chung" -->
+            <!-- ============================================================== -->
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <!-- Title -->
+                        <h3 class="box-title">Số lượng khách hàng</h3>
+                        <!-- Title -->
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li>
+                                <!-- Icon -->
+                                <div id="sparklinedash"><i width="67" height="30"
+                                                           class="fa-solid fa-circle-user"></i>
+                                </div>
+                                <!-- Icon -->
+                            </li>
+                            <!-- Số lượng -->
+                            <li class="ms-auto"><span
+                                    class="counter text-success">{{ .AdminDashboard.TotalCustomers }}</span>
+                            </li>
+                            <!-- Số lượng -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <!-- Title -->
+                        <h3 class="box-title">Số lượng nhà cung cấp dịch vụ</h3>
+                        <!-- Title -->
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li>
+                                <!-- Icon -->
+                                <div id="sparklinedash"><i width="67" height="30"
+                                                           class="fa-solid fa-circle-user"></i>
+                                </div>
+                                <!-- Icon -->
+                            </li>
+                            <!-- Số lượng -->
+                            <li class="ms-auto"><span
+                                    class="counter text-purple">{{ .AdminDashboard.TotalProviders }}</span></li>
+                            <!-- Số lượng -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="white-box analytics-info">
+                        <!-- Title -->
+                        <h3 class="box-title">Tổng số lượng dịch vụ</h3>
+                        <!-- Title -->
+                        <ul class="list-inline two-part d-flex align-items-center mb-0">
+                            <li>
+                                <!-- Icon -->
+                                <div id="sparklinedash"><i width="67" height="30"
+                                                           class="fa-solid fa-circle-user"></i>
+                                </div>
+                                <!-- Icon -->
+                            </li>
+                            <!-- Số lượng -->
+                            <li class="ms-auto"><span
+                                    class="counter text-info">{{ .AdminDashboard.TotalServices }}</span>
+                            </li>
+                            <!-- Số lượng -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Tổng quát về các đối tượng của hệ thống -->
+            <!-- ============================================================== -->
+
+
+            <!-- ============================================================== -->
+            <!-- Sumaries Danh mục hệ thống -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="white-box">
+                        <div class="d-md-flex mb-3">
+                            <h3 class="box-title mb-0">Danh mục</h3>
+                            <!-- <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                            <select class="form-select shadow-none row border-top">
+                                <option>Customer</option>
+                                <option>Provider</option>
+                            </select>
+                        </div> -->
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table no-wrap">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0">#</th>
+                                    <th class="border-top-0">Tên danh mục</th>
+                                    <th class="border-top-0">Doanh thu</th>
+                                    <th class="border-top-0">Số dịch vụ</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{ range .AdminDashboard.CategoryStats }}
+                                <tr>
+                                    <td>{{ .CategoryID}}</td>
+                                    <td class="txt-oflo"><img src="{{ .CategoryImagePath }}" alt=""
+                                                              srcset="">
+                                        {{ .CategoryName }}
+                                    </td>
+                                    <td>₫{{ formatPrice .Profit }}</td>
+                                    <td class="txt-oflo">{{ .TotalService }}</td>
+
+                                </tr>
+                                <!--                                        <tr>-->
+                                <!--                                            <td>2</td>-->
+                                <!--                                            <td class="txt-oflo"><img src="/static/img/nutrition-category.jpg" alt=""-->
+                                <!--                                                    srcset="">-->
+                                <!--                                                Dinh dưỡng và thức ăn-->
+                                <!--                                            </td>-->
+                                <!--                                            <td>63.000.000vnd</td>-->
+                                <!--                                            <td class="txt-oflo">18</td>-->
+
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td>3</td>-->
+                                <!--                                            <td class="txt-oflo"><img src="/static/img/healthcare-category.jpg" alt=""-->
+                                <!--                                                    srcset="">-->
+                                <!--                                                Y tế và chăm sóc sức khỏe-->
+                                <!--                                            </td>-->
+                                <!--                                            <td>63.000.000vnd</td>-->
+                                <!--                                            <td class="txt-oflo">18</td>-->
+
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td>4</td>-->
+                                <!--                                            <td class="txt-oflo"><img src="/static/img/categories-grooming.jpg" alt=""-->
+                                <!--                                                    srcset="">-->
+                                <!--                                                Grooming-->
+                                <!--                                            </td>-->
+                                <!--                                            <td>63.000.000vnd</td>-->
+                                <!--                                            <td class="txt-oflo">18</td>-->
+
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td>5</td>-->
+                                <!--                                            <td class="txt-oflo"><img src="/static/img/training-category.jpg" alt=""-->
+                                <!--                                                    srcset="">-->
+                                <!--                                                Đào tạo và huấn luyện-->
+                                <!--                                            </td>-->
+                                <!--                                            <td>63.000.000vnd</td>-->
+                                <!--                                            <td class="txt-oflo">18</td>-->
+
+                                <!--                                        </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td>6</td>-->
+                                <!--                                            <td class="txt-oflo"><img src="/static/img/others-category.png" alt=""-->
+                                <!--                                                    srcset="">-->
+                                <!--                                                Khác-->
+                                <!--                                            </td>-->
+                                <!--                                            <td>63.000.000vnd</td>-->
+                                <!--                                            <td class="txt-oflo">18</td>-->
+
+                                <!--                                        </tr>-->
+                                {{ end }}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Sumaries Danh mục hệ thống -->
+            <!-- ============================================================== -->
+
+
+            <!-- ============================================================== -->
+            <!-- Recent Comments -->
+            <!-- ============================================================== -->
+            <!-- <div class="row">
+
+            <div class="col-md-12 col-lg-8 col-sm-12">
+                <div class="card white-box p-0">
+                    <div class="card-body">
+                        <h3 class="box-title mb-0">Recent Comments</h3>
+                    </div>
+                    <div class="comment-widgets">
+
+                        <div class="d-flex flex-row comment-row p-3 mt-0">
+                            <div class="p-2"><img src="plugins/images/users/varun.jpg" alt="user" width="50"
+                                    class="rounded-circle"></div>
+                            <div class="comment-text ps-2 ps-md-3 w-100">
+                                <h5 class="font-medium">James Anderson</h5>
+                                <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
+                                    type setting industry.It has survived not only five centuries. </span>
+                                <div class="comment-footer d-md-flex align-items-center">
+                                    <span class="badge bg-primary rounded">Pending</span>
+
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row comment-row p-3">
+                            <div class="p-2"><img src="plugins/images/users/genu.jpg" alt="user" width="50"
+                                    class="rounded-circle"></div>
+                            <div class="comment-text ps-2 ps-md-3 active w-100">
+                                <h5 class="font-medium">Michael Jorden</h5>
+                                <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
+                                    type setting industry.It has survived not only five centuries. </span>
+                                <div class="comment-footer d-md-flex align-items-center">
+
+                                    <span class="badge bg-success rounded">Approved</span>
+
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row comment-row p-3">
+                            <div class="p-2"><img src="plugins/images/users/ritesh.jpg" alt="user" width="50"
+                                    class="rounded-circle"></div>
+                            <div class="comment-text ps-2 ps-md-3 w-100">
+                                <h5 class="font-medium">Johnathan Doeting</h5>
+                                <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
+                                    type setting industry.It has survived not only five centuries. </span>
+                                <div class="comment-footer d-md-flex align-items-center">
+
+                                    <span class="badge rounded bg-danger">Rejected</span>
+
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="card white-box p-0">
+                    <div class="card-heading">
+                        <h3 class="box-title mb-0">Chat Listing</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="chatonline">
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
+                                        src="plugins/images/users/varun.jpg" alt="user-img" class="img-circle">
+                                    <div class="ms-2">
+                                        <span class="text-dark">Varun Dhavan <small
+                                                class="d-block text-success d-block">online</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
+                                        src="plugins/images/users/genu.jpg" alt="user-img" class="img-circle">
+                                    <div class="ms-2">
+                                        <span class="text-dark">Genelia
+                                            Deshmukh <small class="d-block text-warning">Away</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
+                                        src="plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle">
+                                    <div class="ms-2">
+                                        <span class="text-dark">Ritesh
+                                            Deshmukh <small class="d-block text-danger">Busy</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
+                                        src="plugins/images/users/arijit.jpg" alt="user-img" class="img-circle">
+                                    <div class="ms-2">
+                                        <span class="text-dark">Arijit
+                                            Sinh <small class="d-block text-muted">Offline</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
+                                        src="plugins/images/users/govinda.jpg" alt="user-img"
+                                        class="img-circle">
+                                    <div class="ms-2">
+                                        <span class="text-dark">Govinda
+                                            Star <small class="d-block text-success">online</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="call-chat">
+                                    <button class="btn btn-success text-white btn-circle btn" type="button">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="btn btn-info btn-circle btn" type="button">
+                                        <i class="far fa-comments text-white"></i>
+                                    </button>
+                                </div>
+                                <a href="javascript:void(0)" class="d-flex align-items-center"><img
+                                        src="plugins/images/users/hritik.jpg" alt="user-img" class="img-circle">
+                                    <div class="ms-2">
+                                        <span class="text-dark">John
+                                            Abraham<small class="d-block text-success">online</small></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-    <!-- End Wrapper -->
+    <!-- End Page wrapper  -->
     <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="/static/js/jquery.min.js"></script>
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/static/js/jquery.min.js"></script>
 
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="/static/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/app-style-switcher.js"></script>
-    <script src="/static/js/jquery.sparkline.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/app-style-switcher.js"></script>
+<script src="/static/js/jquery.sparkline.min.js"></script>
 
-    <!--Wave Effects -->
-    <script src="/static/js/waves.js"></script>
+<!--Wave Effects -->
+<script src="/static/js/waves.js"></script>
 
-    <!--Menu sidebar -->
-    <script src="/static/js/sidebarmenu.js"></script>
+<!--Menu sidebar -->
+<script src="/static/js/sidebarmenu.js"></script>
 
-    <!--Custom JavaScript -->
-    <script src="/static/js/custom.js"></script>
+<!--Custom JavaScript -->
+<script src="/static/js/custom.js"></script>
 
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

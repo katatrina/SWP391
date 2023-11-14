@@ -99,6 +99,49 @@ func (q *Queries) CreateOrderItemDetails(ctx context.Context, arg CreateOrderIte
 	return err
 }
 
+const getCompletedOrderItemsByCategoryID = `-- name: GetCompletedOrderItemsByCategoryID :many
+SELECT oi.uuid,
+       oi.order_id,
+       oi.service_id,
+       oi.quantity,
+       oi.sub_total,
+       oi.created_at
+FROM order_items oi
+         INNER JOIN services s ON s.id = oi.service_id
+WHERE s.category_id = (SELECT id FROM categories WHERE categories.id = $1)
+  AND oi.order_id IN (SELECT uuid FROM orders WHERE status_id = (SELECT id FROM order_status WHERE code = 'completed'))
+`
+
+func (q *Queries) GetCompletedOrderItemsByCategoryID(ctx context.Context, id int32) ([]OrderItem, error) {
+	rows, err := q.db.QueryContext(ctx, getCompletedOrderItemsByCategoryID, id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []OrderItem{}
+	for rows.Next() {
+		var i OrderItem
+		if err := rows.Scan(
+			&i.UUID,
+			&i.OrderID,
+			&i.ServiceID,
+			&i.Quantity,
+			&i.SubTotal,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getFullOrderItemsInformationByOrderId = `-- name: GetFullOrderItemsInformationByOrderId :many
 SELECT oi.uuid,
        oi.order_id,

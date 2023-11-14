@@ -41,3 +41,8 @@ SELECT EXISTS(SELECT 1
               WHERE orders.buyer_id = $1
                 AND o_i.service_id = $2
                 AND orders.status_id = (SELECT id FROM order_status WHERE code = 'completed'));
+
+-- name: GetServiceNumber :one
+SELECT COUNT(*)
+FROM services
+WHERE status = 'active';

@@ -40,9 +40,18 @@ type templateData struct {
 }
 
 type AdminDashboard struct {
-	TotalCustomers int32
-	TotalProviders int32
-	TotalServices  int32
+	TotalCustomers int64
+	TotalProviders int64
+	TotalServices  int64
+	CategoryStats  []CategoryStat
+}
+
+type CategoryStat struct {
+	CategoryID        int32
+	CategoryName      string
+	CategoryImagePath string
+	Profit            int32
+	TotalService      int64
 }
 
 type Cart struct {

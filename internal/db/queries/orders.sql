@@ -112,3 +112,15 @@ SET status_id = (SELECT id
                  FROM order_status
                  WHERE code = $1)
 WHERE uuid = $2;
+
+-- name: GetCompletedOrderItemsByCategoryID :many
+SELECT oi.uuid,
+       oi.order_id,
+       oi.service_id,
+       oi.quantity,
+       oi.sub_total,
+       oi.created_at
+FROM order_items oi
+         INNER JOIN services s ON s.id = oi.service_id
+WHERE s.category_id = (SELECT id FROM categories WHERE categories.id = $1)
+  AND oi.order_id IN (SELECT uuid FROM orders WHERE status_id = (SELECT id FROM order_status WHERE code = 'completed'));
