@@ -104,50 +104,58 @@
                         </div>
                         <div class="comment-widgets">
                             {{ range .InactiveServices }}
-                            <!-- Comment Row -->
-                            <div class="service d-flex flex-row comment-row p-3 mt-0">
-                                <!-- Service-Img -->
-                                <div class="p-2"><img src="{{ .ImagePath }}" alt="service-img">
+                            <form id="form-{{ .ID }}" action="/admin/manage-service/update" method="POST">
+                                <!-- Comment Row -->
+                                <div class="service d-flex flex-row comment-row p-3 mt-0">
+                                    <!-- Service-Img -->
+                                    <div class="p-2"><img src="{{ .ImagePath }}" alt="service-img">
+                                    </div>
+                                    <!-- Service-Img -->
+
+                                    <div class="comment-text ps-2 ps-md-3 w-100">
+                                        <!-- Service name -->
+                                        <h5 class="font-medium">{{ .Title }}</h5>
+                                        <!-- Service name -->
+
+                                        <!-- Service desc -->
+                                        <span class="mb-3 d-block">{{ .Description }}</span>
+                                        <!-- Service desc -->
+
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-info rounded">Nhà cung cấp</span>
+                                            <span class="provider-name">{{ .ProviderCompanyName }}</span>
+                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">{{ formatDate .CreatedAt
+                                                }}
+                                            </div>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-primary rounded">Danh mục</span>
+                                            <span class="provider-name">{{ .CategoryName }}</span>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-success rounded">Giá</span>
+                                            <span class="provider-name">₫{{ formatPrice .Price }}</span>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <div class="button">
+                                            <button type="button" class="btn btn-outline-success"
+                                                    onclick="handleAcceptClick('{{ .ID }}')">Chấp thuận
+                                            </button>
+                                            <button type="button" class="btn btn-outline-danger"
+                                                    onclick="handleRejectClick('{{ .ID }}')">Từ chối
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- Service-Img -->
-
-                                <div class="comment-text ps-2 ps-md-3 w-100">
-                                    <!-- Service name -->
-                                    <h5 class="font-medium">{{ .Title }}</h5>
-                                    <!-- Service name -->
-
-                                    <!-- Service desc -->
-                                    <span class="mb-3 d-block">{{ .Description }}</span>
-                                    <!-- Service desc -->
-
-                                    <!-- Provider name -->
-                                    <div class="comment-footer d-md-flex align-items-center">
-                                        <span class="badge bg-info rounded">Nhà cung cấp</span>
-                                        <span class="provider-name">{{ .ProviderCompanyName }}</span>
-                                        <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">{{ formatDate .CreatedAt }} </div>
-                                    </div>
-                                    <!-- Provider name -->
-
-                                    <!-- Provider name -->
-                                    <div class="comment-footer d-md-flex align-items-center">
-                                        <span class="badge bg-primary rounded">Danh mục</span>
-                                        <span class="provider-name">{{ .CategoryName }}</span>
-                                    </div>
-                                    <!-- Provider name -->
-
-                                    <!-- Provider name -->
-                                    <div class="comment-footer d-md-flex align-items-center">
-                                        <span class="badge bg-success rounded">Giá</span>
-                                        <span class="provider-name">₫{{ formatPrice .Price }}</span>
-                                    </div>
-                                    <!-- Provider name -->
-
-                                    <div class="button">
-                                        <button type="button" class="btn btn-outline-success">Chấp thuận</button>
-                                        <button type="button" class="btn btn-outline-danger">Từ chối</button>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                             {{ end }}
                             <!-- Comment Row -->
                         </div>
@@ -188,6 +196,56 @@
 
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+
+<script>
+    function handleRejectClick(id) {
+        // Show prompt and submit form with rejection reason
+        const reason = prompt("Nhập lý do từ chối: ");
+
+        if (reason == null) {
+            // Cancel clicked
+            return;
+        }
+
+        if (!reason) {
+            // No reason entered
+            alert("Xin vui lòng nhập lý do từ chối!");
+            return;
+        }
+
+        let myForm = document.getElementById("form-" + id);
+
+        let input1Element = document.createElement("input");
+        input1Element.setAttribute("type", "hidden");
+        input1Element.setAttribute("name", "service_id");
+        input1Element.setAttribute("value", id);
+
+        myForm.appendChild(input1Element);
+
+        let input2Element = document.createElement("input");
+        input2Element.setAttribute("type", "hidden");
+        input2Element.setAttribute("name", "reject_reason");
+        input2Element.setAttribute("value", reason);
+
+        myForm.appendChild(input2Element);
+
+        myForm.submit();
+    }
+
+    function handleAcceptClick(id) {
+        // Submit form directly to accept product
+        let myForm = document.getElementById("form-" + id);
+
+        let input1Element = document.createElement("input");
+        input1Element.setAttribute("type", "hidden");
+        input1Element.setAttribute("name", "service_id");
+        input1Element.setAttribute("value", id);
+
+        myForm.appendChild(input1Element);
+
+        myForm.submit();
+    }
+</script>
 </body>
 
 </html>

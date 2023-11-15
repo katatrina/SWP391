@@ -88,7 +88,7 @@ func (q *Queries) GetProviderDetailsByServiceID(ctx context.Context, id int32) (
 }
 
 const getServiceByCartItemID = `-- name: GetServiceByCartItemID :one
-SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
 WHERE id = (SELECT service_id FROM cart_items WHERE cart_items.uuid = $1)
 `
@@ -105,13 +105,14 @@ func (q *Queries) GetServiceByCartItemID(ctx context.Context, uuid string) (Serv
 		&i.CategoryID,
 		&i.OwnedByProviderID,
 		&i.Status,
+		&i.RejectReason,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const getServiceByID = `-- name: GetServiceByID :one
-SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
 WHERE id = $1
 `
@@ -128,6 +129,7 @@ func (q *Queries) GetServiceByID(ctx context.Context, id int32) (Service, error)
 		&i.CategoryID,
 		&i.OwnedByProviderID,
 		&i.Status,
+		&i.RejectReason,
 		&i.CreatedAt,
 	)
 	return i, err
@@ -147,7 +149,7 @@ func (q *Queries) GetServiceNumber(ctx context.Context) (int64, error) {
 }
 
 const getServicesByCategorySlug = `-- name: GetServicesByCategorySlug :many
-SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
 WHERE category_id = (SELECT id FROM categories WHERE slug = $1)
   AND owned_by_provider_id != $2
@@ -176,6 +178,7 @@ func (q *Queries) GetServicesByCategorySlug(ctx context.Context, arg GetServices
 			&i.CategoryID,
 			&i.OwnedByProviderID,
 			&i.Status,
+			&i.RejectReason,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err
@@ -213,7 +216,7 @@ func (q *Queries) IsUserUsedService(ctx context.Context, arg IsUserUsedServicePa
 }
 
 const listInactiveServices = `-- name: ListInactiveServices :many
-SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
 WHERE status = 'inactive'
 ORDER BY created_at DESC
@@ -237,6 +240,7 @@ func (q *Queries) ListInactiveServices(ctx context.Context) ([]Service, error) {
 			&i.CategoryID,
 			&i.OwnedByProviderID,
 			&i.Status,
+			&i.RejectReason,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err
@@ -253,7 +257,7 @@ func (q *Queries) ListInactiveServices(ctx context.Context) ([]Service, error) {
 }
 
 const listServiceByProvider = `-- name: ListServiceByProvider :many
-SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
 WHERE owned_by_provider_id = $1
 `
@@ -276,6 +280,7 @@ func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByProviderID i
 			&i.CategoryID,
 			&i.OwnedByProviderID,
 			&i.Status,
+			&i.RejectReason,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err
@@ -292,7 +297,7 @@ func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByProviderID i
 }
 
 const listServices = `-- name: ListServices :many
-SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
 WHERE status = 'inactive'
   and owned_by_provider_id != $1
@@ -317,6 +322,7 @@ func (q *Queries) ListServices(ctx context.Context, ownedByProviderID int32) ([]
 			&i.CategoryID,
 			&i.OwnedByProviderID,
 			&i.Status,
+			&i.RejectReason,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err
@@ -330,4 +336,22 @@ func (q *Queries) ListServices(ctx context.Context, ownedByProviderID int32) ([]
 		return nil, err
 	}
 	return items, nil
+}
+
+const updateServiceStatus = `-- name: UpdateServiceStatus :exec
+UPDATE services
+SET status = $1,
+    reject_reason = $2
+WHERE id = $3
+`
+
+type UpdateServiceStatusParams struct {
+	Status       string `json:"status"`
+	RejectReason string `json:"reject_reason"`
+	ID           int32  `json:"id"`
+}
+
+func (q *Queries) UpdateServiceStatus(ctx context.Context, arg UpdateServiceStatusParams) error {
+	_, err := q.db.ExecContext(ctx, updateServiceStatus, arg.Status, arg.RejectReason, arg.ID)
+	return err
 }

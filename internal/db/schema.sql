@@ -60,6 +60,7 @@ CREATE TABLE "services"
     "category_id"          INTEGER      NOT NULL,
     "owned_by_provider_id" INTEGER      NOT NULL,
     "status"               varchar(20)  NOT NULL DEFAULT 'inactive',
+    "reject_reason"        TEXT         NOT NULL DEFAULT '',
     "created_at"           timestamptz  NOT NULL DEFAULT (now())
 );
 

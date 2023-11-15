@@ -1365,3 +1365,46 @@ func (app *application) doLogoutAdmin(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
+
+type handleInactiveServiceFormResult struct {
+	ServiceID    int32  `form:"service_id"`
+	RejectReason string `form:"reject_reason"`
+}
+
+func (app *application) handleInactiveService(w http.ResponseWriter, r *http.Request) {
+	var form handleInactiveServiceFormResult
+
+	err := app.decodePostForm(r, &form)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	fmt.Printf("%+v\n", form)
+
+	if form.RejectReason != "" {
+		err = app.store.UpdateServiceStatus(r.Context(), sqlc.UpdateServiceStatusParams{
+			Status:       "rejected",
+			RejectReason: form.RejectReason,
+			ID:           form.ServiceID,
+		})
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		http.Redirect(w, r, "/admin/manage-service", http.StatusSeeOther)
+		return
+	}
+
+	err = app.store.UpdateServiceStatus(r.Context(), sqlc.UpdateServiceStatusParams{
+		Status: "active",
+		ID:     form.ServiceID,
+	})
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	http.Redirect(w, r, "/admin/manage-service", http.StatusSeeOther)
+}

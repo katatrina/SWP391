@@ -64,3 +64,9 @@ ORDER BY created_at DESC;
 SELECT name
 FROM categories
 WHERE id = (SELECT category_id FROM services WHERE services.id = $1);
+
+-- name: UpdateServiceStatus :exec
+UPDATE services
+SET status = $1,
+    reject_reason = $2
+WHERE id = $3;

@@ -28,6 +28,8 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/admin/manage-service", protectedAdmin.ThenFunc(app.displayAdminManageServicePage))
 	router.Handler(http.MethodPost, "/admin/logout", protectedAdmin.ThenFunc(app.doLogoutAdmin))
 
+	router.Handler(http.MethodPost, "/admin/manage-service/update", protectedAdmin.ThenFunc(app.handleInactiveService))
+
 	// Guest permissions.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.displayCategoriesPage))
 

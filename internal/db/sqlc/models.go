@@ -92,6 +92,7 @@ type Service struct {
 	CategoryID        int32     `json:"category_id"`
 	OwnedByProviderID int32     `json:"owned_by_provider_id"`
 	Status            string    `json:"status"`
+	RejectReason      string    `json:"reject_reason"`
 	CreatedAt         time.Time `json:"created_at"`
 }
 
