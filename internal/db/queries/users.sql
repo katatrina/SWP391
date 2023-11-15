@@ -110,7 +110,8 @@ FROM users u
 WHERE u.role_id = (SELECT id FROM roles WHERE name = 'provider')
 ORDER BY u.created_at DESC;
 
--- name: DeleteAccount :exec
+-- name: DeleteAccount :one
 DELETE
 FROM users
-WHERE id = $1;
+WHERE id = $1
+RETURNING full_name;

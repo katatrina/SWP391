@@ -104,11 +104,18 @@
     <!-- ============================================================== -->
     <!-- Page wrapper  -->
     <!-- ============================================================== -->
+
     <div class="page-wrapper">
         <div class="container-fluid">
             <!-- ============================================================== -->
             <!-- Bảng account thể hiện thông tin Customer -->
             <!-- ============================================================== -->
+            {{ with .Flash }}
+            <p>
+                {{ . }}
+            </p>
+            {{ end }}
+
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
@@ -120,7 +127,7 @@
                                 <thead>
                                 <tr>
                                     <th class="border-top-0">#</th>
-                                    <th class="border-top-0">Tên đầy dủ</th>
+                                    <th class="border-top-0">Tên khách hàng</th>
                                     <th class="border-top-0">Email</th>
                                     <th class="border-top-0">Số điện thoại</th>
                                     <th class="border-top-0">Địa chỉ</th>
@@ -161,98 +168,43 @@
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
                         <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Danh sách tài khoản</h3>
+                            <h3 class="box-title mb-0">Danh sách tài khoản nhà cung cấp</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table no-wrap table-striped">
                                 <thead>
                                 <tr>
                                     <th class="border-top-0">#</th>
-                                    <th class="border-top-0">Tên</th>
+                                    <th class="border-top-0">Tên chủ sở hữu</th>
                                     <th class="border-top-0">Email</th>
                                     <th class="border-top-0">Số điện thoại</th>
                                     <th class="border-top-0">Địa chỉ</th>
                                     <th class="border-top-0">Tên doanh nghiệp</th>
                                     <th class="border-top-0">Mã số thuế</th>
+                                    <th class="border-top-0">Ngày lập tài khoản</th>
                                     <th class="border-top-0">Thao tác</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {{ range $index, $provider := .Providers }}
                                 <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="address-col">123, ABC, Phường
-                                        Tân Phú, Quận 3, TP Hồ Chí Minh
+                                    <td>{{ plusOne $index 1 }}</td>
+                                    <td class="txt-oflo">{{ $provider.FullName }}</td>
+                                    <td>{{ $provider.Email }}</td>
+                                    <td><span class="">{{ $provider.Phone }}</span></td>
+                                    <td class="address-col">{{ $provider.Address }}
                                     </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
+                                    <td>{{ $provider.CompanyName }}</td>
+                                    <td>{{ $provider.TaxCode }}</td>
+                                    <td class="txt-oflo">{{ formatDate $provider.CreatedAt }}</td>
+
+                                    <form id="form-{{ $provider.ID }}" action="/admin/manage-account/delete" method="POST">
+                                        <td class="txt-oflo">
+                                            <button type="button" onclick="confirmDelete('{{ $provider.ID }}')" class="btn btn-outline-danger">Xóa</button>
+                                        </td>
+                                    </form>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="address-col">123, ABC, Phường
-                                        Tân Phú, Quận 3, TP Hồ Chí Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="address-col">123, ABC, Phường
-                                        Tân Phú, Quận 3, TP Hồ Chí Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="address-col">123, ABC, Phường
-                                        Tân Phú, Quận 3, TP Hồ Chí Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="address-col">123, ABC, Phường
-                                        Tân Phú, Quận 3, TP Hồ Chí Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
+                                {{ end }}
                                 </tbody>
                             </table>
                         </div>

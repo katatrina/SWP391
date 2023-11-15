@@ -87,15 +87,18 @@ func (q *Queries) CreateProviderDetails(ctx context.Context, arg CreateProviderD
 	return err
 }
 
-const deleteAccount = `-- name: DeleteAccount :exec
+const deleteAccount = `-- name: DeleteAccount :one
 DELETE
 FROM users
 WHERE id = $1
+RETURNING full_name
 `
 
-func (q *Queries) DeleteAccount(ctx context.Context, id int32) error {
-	_, err := q.db.ExecContext(ctx, deleteAccount, id)
-	return err
+func (q *Queries) DeleteAccount(ctx context.Context, id int32) (string, error) {
+	row := q.db.QueryRowContext(ctx, deleteAccount, id)
+	var full_name string
+	err := row.Scan(&full_name)
+	return full_name, err
 }
 
 const getCustomerNumber = `-- name: GetCustomerNumber :one

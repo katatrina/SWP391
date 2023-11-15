@@ -138,7 +138,7 @@ ALTER TABLE "users"
     ADD CONSTRAINT users_uc_phone UNIQUE ("phone");
 
 ALTER TABLE "provider_details"
-    ADD FOREIGN KEY ("provider_id") REFERENCES "users" ("id");
+    ADD FOREIGN KEY ("provider_id") REFERENCES "users" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "services"
     ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
@@ -156,25 +156,25 @@ ALTER TABLE "cart_items"
     ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "service_feedbacks"
-    ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id");
+    ADD FOREIGN KEY ("service_id") REFERENCES "services" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "service_feedbacks"
-    ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+    ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "orders"
-    ADD FOREIGN KEY ("buyer_id") REFERENCES "users" ("id");
+    ADD FOREIGN KEY ("buyer_id") REFERENCES "users" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "orders"
-    ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id");
+    ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "orders"
     ADD FOREIGN KEY ("status_id") REFERENCES "order_status" ("id");
 
 ALTER TABLE "order_items"
-    ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("uuid");
+    ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("uuid") ON DELETE CASCADE;
 
 ALTER TABLE "order_item_details"
-    ADD FOREIGN KEY ("order_item_id") REFERENCES "order_items" ("uuid");
+    ADD FOREIGN KEY ("order_item_id") REFERENCES "order_items" ("uuid") ON DELETE CASCADE;
 
 INSERT INTO roles (name)
 VALUES ('customer'),

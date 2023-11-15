@@ -562,6 +562,8 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 		data.HighlightedButtonID = 1
 
 		app.render(w, http.StatusOK, "services_by_category.html", data)
+
+		return
 	}
 
 	category, err := app.store.GetCategoryBySlug(r.Context(), categorySlug)
@@ -1444,7 +1446,7 @@ func (app *application) handleDeleteAccount(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	err = app.store.DeleteAccount(r.Context(), int32(deleteUserID))
+	fullName, err := app.store.DeleteAccount(r.Context(), int32(deleteUserID))
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -1460,6 +1462,8 @@ func (app *application) handleDeleteAccount(w http.ResponseWriter, r *http.Reque
 		app.serverError(w, errors.New("user still exists"))
 		return
 	}
+
+	app.sessionManager.Put(r.Context(), "flash", fmt.Sprintf("Đã xóa tài khoản của người dùng %s ✅", fullName))
 
 	http.Redirect(w, r, "/admin/manage-account", http.StatusSeeOther)
 }
