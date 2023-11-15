@@ -27,7 +27,6 @@ type templateData struct {
 	ProviderInfo        sqlc.GetProviderDetailsByServiceIDRow
 	Service             sqlc.Service
 	Services            []sqlc.Service
-	Category            sqlc.Category
 	ServiceFeedbacks    []sqlc.ListServiceFeedbacksRow
 	User                sqlc.User
 	Categories          []sqlc.Category
@@ -37,6 +36,7 @@ type templateData struct {
 	SortedOrders        []string
 	OrderStatuses       []sqlc.OrderStatus
 	HighlightedButtonID int32
+	HighlightedCategory string
 	IsUserUsedService   bool
 	AdminDashboard      AdminDashboard
 	AdminEmail          string

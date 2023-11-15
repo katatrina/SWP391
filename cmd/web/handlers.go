@@ -551,6 +551,12 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 
 	categorySlug := params.ByName("slug")
 	if categorySlug == "all" {
+		categories, err := app.store.ListCategories(r.Context())
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
 		services, err := app.store.ListServices(r.Context(), userID)
 		if err != nil {
 			app.serverError(w, err)
@@ -559,14 +565,23 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 
 		data := app.newTemplateData(r)
 		data.Services = services
-		data.HighlightedButtonID = 1
+		data.Categories = categories
+		data.HighlightedCategory = "all"
 
 		app.render(w, http.StatusOK, "services_by_category.html", data)
-
 		return
 	}
 
-	category, err := app.store.GetCategoryBySlug(r.Context(), categorySlug)
+	isExists, err := app.store.IsCategoryExists(r.Context(), categorySlug)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	if !isExists {
+		app.clientError(w, http.StatusNotFound)
+		return
+	}
 
 	services, err := app.store.GetServicesByCategorySlug(r.Context(), sqlc.GetServicesByCategorySlugParams{
 		Slug:              categorySlug,
@@ -577,9 +592,16 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 		return
 	}
 
+	categories, err := app.store.ListCategories(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Services = services
-	data.Category = category
+	data.Categories = categories
+	data.HighlightedCategory = categorySlug
 
 	app.render(w, http.StatusOK, "services_by_category.html", data)
 }

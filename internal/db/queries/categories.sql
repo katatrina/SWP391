@@ -8,10 +8,8 @@ SELECT id
 FROM categories
 ORDER BY id ASC;
 
--- name: GetCategoryBySlug :one
-SELECT *
-FROM categories
-WHERE slug = $1 LIMIT 1;
+-- name: IsCategoryExists :one
+SELECT EXISTS(SELECT 1 FROM categories WHERE slug = $1);
 
 -- name: GetServiceNumberByCategoryID :one
 SELECT COUNT(*)

@@ -9,25 +9,6 @@ import (
 	"context"
 )
 
-const getCategoryBySlug = `-- name: GetCategoryBySlug :one
-SELECT id, name, slug, image_path, description
-FROM categories
-WHERE slug = $1 LIMIT 1
-`
-
-func (q *Queries) GetCategoryBySlug(ctx context.Context, slug string) (Category, error) {
-	row := q.db.QueryRowContext(ctx, getCategoryBySlug, slug)
-	var i Category
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Slug,
-		&i.ImagePath,
-		&i.Description,
-	)
-	return i, err
-}
-
 const getServiceNumberByCategoryID = `-- name: GetServiceNumberByCategoryID :one
 SELECT COUNT(*)
 FROM services
@@ -39,6 +20,17 @@ func (q *Queries) GetServiceNumberByCategoryID(ctx context.Context, categoryID i
 	var count int64
 	err := row.Scan(&count)
 	return count, err
+}
+
+const isCategoryExists = `-- name: IsCategoryExists :one
+SELECT EXISTS(SELECT 1 FROM categories WHERE slug = $1)
+`
+
+func (q *Queries) IsCategoryExists(ctx context.Context, slug string) (bool, error) {
+	row := q.db.QueryRowContext(ctx, isCategoryExists, slug)
+	var exists bool
+	err := row.Scan(&exists)
+	return exists, err
 }
 
 const listCategories = `-- name: ListCategories :many
