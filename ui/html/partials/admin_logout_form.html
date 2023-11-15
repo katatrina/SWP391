@@ -1,0 +1,16 @@
+{{ define "admin_logout_form" }}
+<form action="/admin/logout" method="POST">
+    <div class="admin_header btn-group">
+        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                data-bs-display="static"
+                aria-expanded="false">
+            <i class="ti-user"></i><span class="text-white font-medium">{{ .AdminEmail }}</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+            <li>
+                <button class="dropdown-item" type="submit">Đăng xuất</button>
+            </li>
+        </ul>
+    </div>
+</form>
+{{ end }}
