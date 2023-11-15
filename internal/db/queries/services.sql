@@ -46,3 +46,16 @@ SELECT EXISTS(SELECT 1
 SELECT COUNT(*)
 FROM services
 WHERE status = 'active';
+
+-- name: ListServices :many
+SELECT *
+FROM services
+WHERE status = 'inactive'
+  and owned_by_provider_id != $1
+ORDER BY created_at DESC;
+
+-- name: ListInactiveServices :many
+SELECT *
+FROM services
+WHERE status = 'inactive'
+ORDER BY created_at DESC;

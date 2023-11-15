@@ -39,6 +39,7 @@ type templateData struct {
 	IsUserUsedService   bool
 	AdminDashboard      AdminDashboard
 	AdminEmail          string
+	InactiveServices    []sqlc.Service
 }
 
 type AdminDashboard struct {

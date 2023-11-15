@@ -199,6 +199,46 @@ func (q *Queries) IsUserUsedService(ctx context.Context, arg IsUserUsedServicePa
 	return exists, err
 }
 
+const listInactiveServices = `-- name: ListInactiveServices :many
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+FROM services
+WHERE status = 'inactive'
+ORDER BY created_at DESC
+`
+
+func (q *Queries) ListInactiveServices(ctx context.Context) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, listInactiveServices)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Service{}
+	for rows.Next() {
+		var i Service
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Description,
+			&i.Price,
+			&i.ImagePath,
+			&i.CategoryID,
+			&i.OwnedByProviderID,
+			&i.Status,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listServiceByProvider = `-- name: ListServiceByProvider :many
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
 FROM services
@@ -207,6 +247,47 @@ WHERE owned_by_provider_id = $1
 
 func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByProviderID int32) ([]Service, error) {
 	rows, err := q.db.QueryContext(ctx, listServiceByProvider, ownedByProviderID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Service{}
+	for rows.Next() {
+		var i Service
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Description,
+			&i.Price,
+			&i.ImagePath,
+			&i.CategoryID,
+			&i.OwnedByProviderID,
+			&i.Status,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listServices = `-- name: ListServices :many
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, created_at
+FROM services
+WHERE status = 'inactive'
+  and owned_by_provider_id != $1
+ORDER BY created_at DESC
+`
+
+func (q *Queries) ListServices(ctx context.Context, ownedByProviderID int32) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, listServices, ownedByProviderID)
 	if err != nil {
 		return nil, err
 	}

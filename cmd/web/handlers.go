@@ -550,6 +550,19 @@ func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *
 	params := httprouter.ParamsFromContext(r.Context())
 
 	categorySlug := params.ByName("slug")
+	if categorySlug == "all" {
+		services, err := app.store.ListServices(r.Context(), userID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		data := app.newTemplateData(r)
+		data.Services = services
+		data.HighlightedButtonID = 1
+
+		app.render(w, http.StatusOK, "services_by_category.html", data)
+	}
 
 	category, err := app.store.GetCategoryBySlug(r.Context(), categorySlug)
 
@@ -1294,6 +1307,14 @@ func (app *application) displayAdminManageAccountPage(w http.ResponseWriter, r *
 
 func (app *application) displayAdminManageServicePage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
+
+	inactiveServices, err := app.store.ListInactiveServices(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	data.InactiveServices = inactiveServices
 
 	app.render(w, http.StatusOK, "admin_service_management.html", data)
 }

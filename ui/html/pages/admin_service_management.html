@@ -72,26 +72,6 @@
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class=" in">
-                            <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
-                                <a href="" class="active">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                            </form>
-                        </li>
-
-                        <!-- ============================================================== -->
-                        <!-- Admin Profile -->
-                        <!-- ============================================================== -->
-                        <li>
-                            <a class="profile-pic" href="#" style="display: flex; align-items: center;">
-                                <i class="fa-solid fa-circle-user"></i><span
-                                    class="text-white font-medium">Steave</span></a>
-                        </li>
                         {{ template "admin_logout_form" . }}
                     </ul>
                 </div>
@@ -100,7 +80,6 @@
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
-
 
 
         <!-- ============================================================== -->
@@ -117,139 +96,34 @@
         <!-- ============================================================== -->
         <div class="page-wrapper">
             <div class="container-fluid">
-
-                <!-- ============================================================== -->
-                <!-- Tổng quát về Dịch vụ hệ thống -->
-                <!-- ============================================================== -->
-<!--                <div class="row justify-content-center">-->
-                <!--                    <div class="col-lg-4 col-md-12">-->
-                <!--                        <div class="white-box analytics-info">-->
-                <!--                            <h3 class="box-title">Tổng dịch vụ</h3>-->
-                <!--                            <ul class="list-inline two-part d-flex align-items-center mb-0">-->
-                <!--                                <li>-->
-                <!--                                    <div id="sparklinedash"><i width="67" height="30"-->
-                <!--                                            class="fa-solid fa-circle-user"></i>-->
-                <!--                                    </div>-->
-                <!--                                </li>-->
-                <!--                                <li class="ms-auto"><span class="counter text-info">911</span>-->
-                <!--                                </li>-->
-                <!--                            </ul>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!-- ============================================================== -->
-                <!-- Tổng quát về Dịch vụ hệ thống -->
-                <!-- ============================================================== -->
-
-
-                <!-- ============================================================== -->
-                <!-- Tổng quát về Detail Provider của hệ thống -->
-                <!-- ============================================================== -->
-                <!-- <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box">
-                            <div class="d-md-flex mb-3">
-                                <h3 class="box-title mb-0">Danh sách tài khoản</h3>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table no-wrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">#</th>
-                                            <th class="border-top-0">Tên</th>
-                                            <th class="border-top-0">Mã số thuế</th>
-                                            <th class="border-top-0">Số dịch vụ</th>
-                                            <th class="border-top-0">Thao tác</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">8</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">4</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">6</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="txt-oflo">Medical Pro WP Theme</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">5</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="txt-oflo">Hosting press html</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">3</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td class="txt-oflo">Digital Agency PSD</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">6</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td class="txt-oflo">Helping Hands WP Theme</td>
-                                            <td>01565</td>
-                                            <td class="txt-oflo">7</td>
-                                            <td><span class="">Chi tiết</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- ============================================================== -->
-                <!-- End Tổng quát về Customer và Provider của hệ thống -->
-                <!-- ============================================================== -->
-
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="card white-box p-0">
                             <div class="card-body">
-                                <h3 class="box-title mb-0">Các dịch vụ gần đây</h3>
+                                <h3 class="box-title mb-0">Các dịch vụ đang chờ duyệt</h3>
                             </div>
                             <div class="comment-widgets">
                                 <!-- Comment Row -->
+                                {{ range .InActiveServices }}
                                 <div class="service d-flex flex-row comment-row p-3 mt-0">
                                     <!-- Service-Img -->
-                                    <div class="p-2"><img src="/static/img/health.jpg" alt="service-img">
+                                    <div class="p-2"><img src="{{ .ImagePath }}" alt="service-img">
                                     </div>
                                     <!-- Service-Img -->
 
                                     <div class="comment-text ps-2 ps-md-3 w-100">
                                         <!-- Service name -->
-                                        <h5 class="font-medium">Chăm sóc</h5>
+                                        <h5 class="font-medium">{{ .Title }}</h5>
                                         <!-- Service name -->
 
                                         <!-- Service desc -->
-                                        <span class="mb-3 d-block">Lorem Ipsum is simply dummy text of the printing and
-                                            type setting industry.It has survived not only five centuries. </span>
+                                        <span class="mb-3 d-block">{{ .Description }}</span>
                                         <!-- Service desc -->
 
                                         <!-- Provider name -->
                                         <div class="comment-footer d-md-flex align-items-center">
                                             <span class="badge bg-primary rounded">Nhà cung cấp</span>
-                                            <span class="provider-name">FPT</span>
+                                            <span class="provider-name">{{ . }}</span>
                                             <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
                                         </div>
                                         <!-- Provider name -->
@@ -260,6 +134,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{ end }}
                                 <!-- Comment Row -->
                                 <div class="service d-flex flex-row comment-row p-3 mt-0">
                                     <!-- Service-Img -->
