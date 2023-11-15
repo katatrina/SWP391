@@ -7,9 +7,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-          content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Bird Servc Central</title>
 
@@ -24,434 +24,411 @@
 </head>
 
 <body>
-<!-- ============================================================== -->
-<!-- Preloader - style you can find in spinners.css -->
-<!-- ============================================================== -->
-<div class="preloader">
-    <div class="lds-ripple">
-        <div class="lds-pos"></div>
-        <div class="lds-pos"></div>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
     </div>
-</div>
-<!-- ============================================================== -->
-<!-- Main wrapper -->
-<!-- ============================================================== -->
-<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-     data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <!-- ============================================================== -->
-    <!-- Topbar header -->
+    <!-- Main wrapper -->
     <!-- ============================================================== -->
-    <header class="topbar" data-navbarbg="skin5">
-        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-            <div class="navbar-header" data-logobg="skin6">
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <!-- ============================================================== -->
-                <!-- Logo Website -->
+                <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
                 <!-- ============================================================== -->
-                <a class="navbar-brand" href="#">
-                    <!-- Logo Website icon -->
-                    <b class="logo-icon">
-                        <img src="/static/img/Login-banner.png" alt="homepage"/>
-                    </b>
+                <div class="navbar-header" data-logobg="skin6">
+                    <a class="navbar-brand" href="/admin/dashboard">
+                        <!-- Ảnh -->
+                        <b class="logo-icon">
+                            <img src="/static/img/Login-banner.png" alt="homepage" />
+                        </b>
 
-                    <!-- Tên Website -->
-                    <span class="logo-text">
+                        <!-- Tên Website -->
+                        <span class="logo-text">
                             <p>
                                 Bird Serve Central
                             </p>
                         </span>
-                </a>
+                    </a>
+
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
                 <!-- ============================================================== -->
-                <!-- End Logo Website -->
+                <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
                 <!-- ============================================================== -->
 
-                <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                   href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                <!-- ============================================================== -->
+                <!-- Thanh Topbar chứa Search và Admin -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                        <!-- ============================================================== -->
+                        <!-- Admin profile -->
+                        <!-- ============================================================== -->
+                        <!-- <li>
+                                <a class="profile-pic" href="#">
+                                    <i class="fa-solid fa-circle-user"></i><span
+                                        class="text-white font-medium">Steave</span>
+                                </a>
+                            </li> -->
+                        {{template "admin_logout_form" .}}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+
+
+        <!-- ============================================================== -->
+        <!-- Tính năng Admin -->
+        <!-- ============================================================== -->
+        {{template "admin_navbar".}}
+        <!-- ============================================================== -->
+        <!-- End Tính năng Admin -->
+        <!-- ============================================================== -->
+
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Tổng quát về Customer và Provider của hệ thống -->
+                <!-- ============================================================== -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Số khách hàng</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><i width="67" height="30"
+                                            class="fa-solid fa-circle-user"></i>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-success">659</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Số nhà cung cấp dịch vụ</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><i width="67" height="30"
+                                            class="fa-solid fa-circle-user"></i>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- Tổng quát về Customer và Provider của hệ thống -->
+                <!-- ============================================================== -->
+
+
+                <!-- ============================================================== -->
+                <!-- Bảng account thể hiện thông tin Customer -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3">
+                                <h3 class="box-title mb-0">Danh sách tài khoản</h3>
+                                <!-- Phân loại bảng Customer và Provider -->
+                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                                    <select class="form-select shadow-none row border-top">
+                                        <option>Customer</option>
+                                        <option>Provider</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table no-wrap table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Tên</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Số điện thoại</th>
+                                            <th class="border-top-0">Địa chỉ</th>
+                                            <th class="border-top-0">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="txt-oflo">Elite admin</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, ABC, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, Nguyễn Hữu Cảnh, Phường Tân Phú, Quận 3, TP Hồ Chí
+                                                Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td>EXTENDED</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, Trần văn Đức lệ, Phường Tân Phú, Quận 3, TP Hồ Chí
+                                                Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td class="txt-oflo">Medical Pro WP Theme</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, Hai Bà Trưng, Phường Tân Phú, Gò Vấp, Quận 3, TP
+                                                Hồ Chí Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td class="txt-oflo">Hosting press html</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, ABC, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td class="txt-oflo">Digital Agency PSD</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, XYZ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td class="txt-oflo">Helping Hands WP Theme</td>
+                                            <td>MEMBER</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, LKJ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- Bảng account thể hiện thông tin Customer -->
+                <!-- ============================================================== -->
+
+                <!-- -------------------------------- -->
+                <!-- Bảng thể hiện thông tin Provider -->
+                <!-- -------------------------------- -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3">
+                                <h3 class="box-title mb-0">Danh sách tài khoản</h3>
+                                <!-- Phân loại bảng Customer và Provider -->
+                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                                    <select class="form-select shadow-none row border-top">
+                                        <option>Customer</option>
+                                        <option>Provider</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table no-wrap table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Tên</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Số điện thoại</th>
+                                            <th class="border-top-0">Địa chỉ</th>
+                                            <th class="border-top-0">Tên doanh nghiệp</th>
+                                            <th class="border-top-0">Mã số thuế</th>
+                                            <th class="border-top-0">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="txt-oflo">Elite admin</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="address-col">123, ABC, Phường
+                                                Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, Nguyễn Hữu Cảnh, Phường Tân Phú, Quận 3, TP Hồ Chí
+                                                Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td>EXTENDED</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, Trần văn Đức lệ, Phường Tân Phú, Quận 3, TP Hồ Chí
+                                                Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td class="txt-oflo">Medical Pro WP Theme</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, Hai Bà Trưng, Phường Tân Phú, Gò Vấp, Quận 3, TP
+                                                Hồ Chí Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td class="txt-oflo">Hosting press html</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, ABC, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td class="txt-oflo">Digital Agency PSD</td>
+                                            <td>aaa@gmail.com</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, XYZ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td class="txt-oflo">Helping Hands WP Theme</td>
+                                            <td>MEMBER</td>
+                                            <td><span class="">0123456789</span></td>
+                                            <td class="txt-oflo">123, LKJ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
+                                            <td>Grap</td>
+                                            <td>12346</td>
+                                            <td class="txt-oflo">
+                                                <button type="button" class="btn btn-outline-success">Sửa</button>
+                                                <button type="button" class="btn btn-outline-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- -------------------------------- -->
+                            <!-- Bảng thể hiện thông tin Provider -->
+                            <!-- -------------------------------- -->
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bảng Account Provider và Customer -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
             <!-- End Logo Website -->
             <!-- ============================================================== -->
-
-
-            <!-- ============================================================== -->
-            <!-- Thanh Topbar chứa Search và Admin -->
-            <!-- ============================================================== -->
-            <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                <ul class="navbar-nav ms-auto d-flex align-items-center">
-
-                    <!-- ============================================================== -->
-                    <!-- Search -->
-                    <!-- ============================================================== -->
-                    <li class=" in">
-                        <form role="search" class="app-search d-none d-md-block me-3">
-                            <input type="text" placeholder="Search..." class="form-control mt-0">
-                            <a href="" class="active">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </form>
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- Admin profile -->
-                    <!-- ============================================================== -->
-                    <!-- <li>
-                        <a class="profile-pic" href="#" style="display: flex; align-items: center;">
-                            <i class="fa-solid fa-circle-user"></i><span
-                                class="text-white font-medium">Steave</span></a>
-                    </li> -->
-                    {{ template "admin_logout_form" . }}
-                </ul>
-            </div>
-            <!-- ============================================================== -->
-            <!-- Thanh Topbar chứa Search và Admin -->
-            <!-- ============================================================== -->
-        </nav>
-    </header>
-    <!-- ============================================================== -->
-    <!-- End Topbar header -->
-    <!-- ============================================================== -->
-
-
-    <!-- ============================================================== -->
-    <!-- Tính năng Admin -->
-    <!-- ============================================================== -->
-    {{template "admin_navbar".}}
-    <!-- ============================================================== -->
-    <!-- End Tính năng Admin -->
-    <!-- ============================================================== -->
-
-
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
-    <div class="page-wrapper">
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Tổng quát về Customer và Provider của hệ thống -->
-            <!-- ============================================================== -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">Số người dùng</h3>
-                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li>
-                                <div id="sparklinedash"><i width="67" height="30"
-                                                           class="fa-solid fa-circle-user"></i>
-                                </div>
-                            </li>
-                            <li class="ms-auto"><span class="counter text-success">659</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="white-box analytics-info">
-                        <h3 class="box-title">Số nhà cung cấp dịch vụ</h3>
-                        <ul class="list-inline two-part d-flex align-items-center mb-0">
-                            <li>
-                                <div id="sparklinedash"><i width="67" height="30"
-                                                           class="fa-solid fa-circle-user"></i>
-                                </div>
-                            </li>
-                            <li class="ms-auto"><span class="counter text-purple">869</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- Tổng quát về Customer và Provider của hệ thống -->
-            <!-- ============================================================== -->
-
-
-            <!-- ============================================================== -->
-            <!-- Bảng account thể hiện thông tin Customer -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="white-box">
-                        <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Danh sách tài khoản</h3>
-                            <!-- Phân loại bảng Customer và Provider -->
-                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                <select class="form-select shadow-none row border-top">
-                                    <option>Customer</option>
-                                    <option>Provider</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table no-wrap table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">#</th>
-                                    <th class="border-top-0">Tên</th>
-                                    <th class="border-top-0">Email</th>
-                                    <th class="border-top-0">Số điện thoại</th>
-                                    <th class="border-top-0">Địa chỉ</th>
-                                    <th class="border-top-0">Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, ABC, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="txt-oflo">Real Homes WP Theme</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, Nguyễn Hữu Cảnh, Phường Tân Phú, Quận 3, TP Hồ Chí
-                                        Minh
-                                    </td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="txt-oflo">Ample Admin</td>
-                                    <td>EXTENDED</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, Trần văn Đức lệ, Phường Tân Phú, Quận 3, TP Hồ Chí
-                                        Minh
-                                    </td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="txt-oflo">Medical Pro WP Theme</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, Hai Bà Trưng, Phường Tân Phú, Gò Vấp, Quận 3, TP
-                                        Hồ Chí Minh
-                                    </td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="txt-oflo">Hosting press html</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, ABC, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="txt-oflo">Digital Agency PSD</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, XYZ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="txt-oflo">Helping Hands WP Theme</td>
-                                    <td>MEMBER</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, LKJ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- Bảng account thể hiện thông tin Customer -->
-            <!-- ============================================================== -->
-
-            <!-- -------------------------------- -->
-            <!-- Bảng thể hiện thông tin Provider -->
-            <!-- -------------------------------- -->
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="white-box">
-                        <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Danh sách tài khoản</h3>
-                            <!-- Phân loại bảng Customer và Provider -->
-                            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                <select class="form-select shadow-none row border-top">
-                                    <option>Customer</option>
-                                    <option>Provider</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table no-wrap table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">#</th>
-                                    <th class="border-top-0">Tên</th>
-                                    <th class="border-top-0">Email</th>
-                                    <th class="border-top-0">Số điện thoại</th>
-                                    <th class="border-top-0">Địa chỉ</th>
-                                    <th class="border-top-0">Tên doanh nghiệp</th>
-                                    <th class="border-top-0">Mã số thuế</th>
-                                    <th class="border-top-0">Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="txt-oflo">Elite admin</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="address-col">123, ABC, Phường
-                                        Tân Phú, Quận 3, TP Hồ Chí Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="txt-oflo">Real Homes WP Theme</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, Nguyễn Hữu Cảnh, Phường Tân Phú, Quận 3, TP Hồ Chí
-                                        Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="txt-oflo">Ample Admin</td>
-                                    <td>EXTENDED</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, Trần văn Đức lệ, Phường Tân Phú, Quận 3, TP Hồ Chí
-                                        Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="txt-oflo">Medical Pro WP Theme</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, Hai Bà Trưng, Phường Tân Phú, Gò Vấp, Quận 3, TP
-                                        Hồ Chí Minh
-                                    </td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="txt-oflo">Hosting press html</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, ABC, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="txt-oflo">Digital Agency PSD</td>
-                                    <td>aaa@gmail.com</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, XYZ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="txt-oflo">Helping Hands WP Theme</td>
-                                    <td>MEMBER</td>
-                                    <td><span class="">0123456789</span></td>
-                                    <td class="txt-oflo">123, LKJ, Phường Tân Phú, Quận 3, TP Hồ Chí Minh</td>
-                                    <td>Grap</td>
-                                    <td>12346</td>
-                                    <td class="txt-oflo">
-                                        <button type="button" class="btn btn-outline-success">Sửa</button>
-                                        <button type="button" class="btn btn-outline-danger">Xóa</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- -------------------------------- -->
-                        <!-- Bảng thể hiện thông tin Provider -->
-                        <!-- -------------------------------- -->
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bảng Account Provider và Customer -->
-            <!-- ============================================================== -->
         </div>
-    </div>
-</div>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
 
-<!-- ============================================================== -->
-<!-- All Jquery -->
-<!-- ============================================================== -->
-<script src="/static/js/jquery.min.js"></script>
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="/static/js/jquery.min.js"></script>
 
-<!-- Bootstrap tether Core JavaScript -->
-<script src="/static/js/bootstrap.bundle.min.js"></script>
-<script src="/static/js/app-style-switcher.js"></script>
-<script src="/static/js/jquery.sparkline.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="/static/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/js/app-style-switcher.js"></script>
+        <script src="/static/js/jquery.sparkline.min.js"></script>
 
-<!--Wave Effects -->
-<script src="/static/js/waves.js"></script>
+        <!--Wave Effects -->
+        <script src="/static/js/waves.js"></script>
 
-<!--Menu sidebar -->
-<script src="/static/js/sidebarmenu.js"></script>
+        <!--Menu sidebar -->
+        <script src="/static/js/sidebarmenu.js"></script>
 
-<!--Custom JavaScript -->
-<script src="/static/js/custom.js"></script>
+        <!--Custom JavaScript -->
+        <script src="/static/js/custom.js"></script>
 
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

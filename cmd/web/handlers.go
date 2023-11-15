@@ -1233,6 +1233,7 @@ func (app *application) pageNotFound(w http.ResponseWriter) {
 func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http.Request) {
 	adminID := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
 	adminEmail, err := app.store.GetAdminEmailByID(r.Context(), adminID)
+	fmt.Println("adminEmail", adminEmail)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -1241,6 +1242,7 @@ func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http
 	data := app.newTemplateData(r)
 
 	data.AdminEmail = adminEmail
+	fmt.Println(data.AdminEmail)
 
 	totalCustomer, err := app.store.GetCustomerNumber(r.Context())
 	if err != nil {

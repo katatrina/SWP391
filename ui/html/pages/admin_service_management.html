@@ -42,11 +42,11 @@
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
+                <!-- ============================================================== -->
                 <div class="navbar-header" data-logobg="skin6">
-                    <!-- ============================================================== -->
-                    <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/admin/dashboard">
                         <!-- Ảnh -->
                         <b class="logo-icon">
                             <img src="/static/img/Login-banner.png" alt="homepage" />
@@ -59,6 +59,7 @@
                             </p>
                         </span>
                     </a>
+
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                 </div>
@@ -66,12 +67,31 @@
                 <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
                 <!-- ============================================================== -->
 
-
                 <!-- ============================================================== -->
                 <!-- Thanh Topbar chứa Search và Admin -->
                 <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class=" in">
+                            <form role="search" class="app-search d-none d-md-block me-3">
+                                <input type="text" placeholder="Search..." class="form-control mt-0">
+                                <a href="" class="active">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </form>
+                        </li>
+
+                        <!-- ============================================================== -->
+                        <!-- Admin Profile -->
+                        <!-- ============================================================== -->
+                        <li>
+                            <a class="profile-pic" href="#" style="display: flex; align-items: center;">
+                                <i class="fa-solid fa-circle-user"></i><span
+                                    class="text-white font-medium">Steave</span></a>
+                        </li>
                         {{ template "admin_logout_form" . }}
                     </ul>
                 </div>
@@ -80,6 +100,7 @@
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
+
 
 
         <!-- ============================================================== -->
@@ -100,41 +121,9 @@
                     <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="card white-box p-0">
                             <div class="card-body">
-                                <h3 class="box-title mb-0">Các dịch vụ đang chờ duyệt</h3>
+                                <h3 class="box-title mb-0">Các dịch vụ gần đây</h3>
                             </div>
                             <div class="comment-widgets">
-                                <!-- Comment Row -->
-                                {{ range .InActiveServices }}
-                                <div class="service d-flex flex-row comment-row p-3 mt-0">
-                                    <!-- Service-Img -->
-                                    <div class="p-2"><img src="{{ .ImagePath }}" alt="service-img">
-                                    </div>
-                                    <!-- Service-Img -->
-
-                                    <div class="comment-text ps-2 ps-md-3 w-100">
-                                        <!-- Service name -->
-                                        <h5 class="font-medium">{{ .Title }}</h5>
-                                        <!-- Service name -->
-
-                                        <!-- Service desc -->
-                                        <span class="mb-3 d-block">{{ .Description }}</span>
-                                        <!-- Service desc -->
-
-                                        <!-- Provider name -->
-                                        <div class="comment-footer d-md-flex align-items-center">
-                                            <span class="badge bg-primary rounded">Nhà cung cấp</span>
-                                            <span class="provider-name">{{ . }}</span>
-                                            <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
-                                        </div>
-                                        <!-- Provider name -->
-
-                                        <div class="button">
-                                            <button type="button" class="btn btn-outline-success">Chấp thuận</button>
-                                            <button type="button" class="btn btn-outline-danger">Từ chối</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ end }}
                                 <!-- Comment Row -->
                                 <div class="service d-flex flex-row comment-row p-3 mt-0">
                                     <!-- Service-Img -->
@@ -154,9 +143,25 @@
 
                                         <!-- Provider name -->
                                         <div class="comment-footer d-md-flex align-items-center">
-                                            <span class="badge bg-primary rounded">Nhà cung cấp</span>
+                                            <span class="badge bg-info rounded">Nhà cung cấp</span>
                                             <span class="provider-name">FPT</span>
                                             <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div>
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-primary rounded">Danh mục</span>
+                                            <span class="provider-name">asd</span>
+                                            <!-- <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div> -->
+                                        </div>
+                                        <!-- Provider name -->
+
+                                        <!-- Provider name -->
+                                        <div class="comment-footer d-md-flex align-items-center">
+                                            <span class="badge bg-success rounded">Giá</span>
+                                            <span class="provider-name">20000</span>
+                                            <!-- <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">April 14, 2021</div> -->
                                         </div>
                                         <!-- Provider name -->
 

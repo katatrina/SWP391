@@ -252,8 +252,8 @@ func TestCreateService(t *testing.T) {
 
 	// Service 20
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
-		Title:             "Dịch vụ tắm gọi",
-		Description:       "Dịch vụ tắm gọi của chúng tôi là trải nghiệm spa tuyệt vời dành cho chim cảnh của bạn. Đội ngũ chăm sóc tận tâm sẽ chăm sóc từng chi tiết trong quá trình tắm, sử dụng các sản phẩm chăm sóc chất lượng cao để làm sạch và nuôi dưỡng lông. Dịch vụ này không chỉ mang lại cho chim cảnh vẻ sạch sẽ và lông mềm mại, mà còn tạo ra một trải nghiệm thư giãn và dễ chịu, giúp tăng cường tinh thần và sức khỏe chung của loài chim cưng.",
+		Title:             "Dịch vụ tắm gội",
+		Description:       "Dịch vụ tắm gội của chúng tôi là trải nghiệm spa tuyệt vời dành cho chim cảnh của bạn. Đội ngũ chăm sóc tận tâm sẽ chăm sóc từng chi tiết trong quá trình tắm, sử dụng các sản phẩm chăm sóc chất lượng cao để làm sạch và nuôi dưỡng lông. Dịch vụ này không chỉ mang lại cho chim cảnh vẻ sạch sẽ và lông mềm mại, mà còn tạo ra một trải nghiệm thư giãn và dễ chịu, giúp tăng cường tinh thần và sức khỏe chung của loài chim cưng.",
 		Price:             200_000,
 		ImagePath:         "/static/img/services_img/gromming-2.png",
 		CategoryID:        categoryIDs[3],
@@ -285,10 +285,10 @@ func TestCreateService(t *testing.T) {
 
 	// Service 23
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
-		Title:             "",
-		Description:       "",
+		Title:             "Cắt & giũa móng cho chim",
+		Description:       "Dịch vụ Cắt & Giũa Móng Cho Chim là một dịch vụ chăm sóc và duy trì sức khỏe cho các loại chim cảnh, như các loại chim cảnh như vẹt, chích chòe, hay các loại chim khác trong môi trường nuôi nhốt. Dịch vụ này tập trung vào việc chăm sóc móng của chim, một phần quan trọng để đảm bảo sự thoải mái và an toàn cho chúng.",
 		Price:             200_000,
-		ImagePath:         "",
+		ImagePath:         "/static/img/services_img/gromming-5.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[4].ID,
 	})
