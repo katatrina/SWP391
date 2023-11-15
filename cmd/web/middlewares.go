@@ -28,6 +28,25 @@ func (app *application) requireAuthentication(next http.Handler) http.Handler {
 
 func (app *application) authenticate(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		adminID := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
+
+		if adminID != 0 {
+			isAdmin, err := app.store.IsAdminByID(r.Context(), adminID)
+			if err != nil {
+				app.serverError(w, err)
+				return
+			}
+
+			if isAdmin {
+				ctx := context.WithValue(r.Context(), isAdminContextKey, true)
+				r = r.WithContext(ctx)
+			}
+
+			next.ServeHTTP(w, r)
+
+			return
+		}
+
 		id := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
 		if id == 0 {
 			next.ServeHTTP(w, r)

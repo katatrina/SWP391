@@ -12,3 +12,8 @@ SELECT EXISTS(SELECT 1 FROM admin WHERE email = $1) AS "exists";
 SELECT *
 FROM admin
 WHERE email = $1;
+
+-- name: GetAdminEmailByID :one
+SELECT email
+FROM admin
+WHERE id = $1;

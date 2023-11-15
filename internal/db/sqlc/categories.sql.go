@@ -31,7 +31,7 @@ func (q *Queries) GetCategoryBySlug(ctx context.Context, slug string) (Category,
 const getServiceNumberByCategoryID = `-- name: GetServiceNumberByCategoryID :one
 SELECT COUNT(*)
 FROM services
-WHERE category_id = $1
+WHERE category_id = $1 AND status = 'active'
 `
 
 func (q *Queries) GetServiceNumberByCategoryID(ctx context.Context, categoryID int32) (int64, error) {

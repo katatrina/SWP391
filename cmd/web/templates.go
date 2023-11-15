@@ -21,6 +21,7 @@ type templateData struct {
 	Flash               string
 	IsAuthenticated     bool
 	IsProvider          bool
+	IsAdmin             bool
 	ProviderDetail      sqlc.ProviderDetail
 	ProviderInfo        sqlc.GetProviderDetailsByServiceIDRow
 	Service             sqlc.Service
@@ -37,6 +38,7 @@ type templateData struct {
 	HighlightedButtonID int32
 	IsUserUsedService   bool
 	AdminDashboard      AdminDashboard
+	AdminEmail          string
 }
 
 type AdminDashboard struct {
@@ -77,6 +79,7 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 		Flash:           app.sessionManager.PopString(r.Context(), "flash"),
 		IsAuthenticated: app.isAuthenticated(r),
 		IsProvider:      app.isProvider(r),
+		IsAdmin:         app.isAdmin(r),
 	}
 }
 

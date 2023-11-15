@@ -85,16 +85,16 @@
                                 class="text-white font-medium">Steave</span>
                         </a>
                     </li> -->
-                    <form action="">
+                    <form action="/admin/logout" method="POST">
                         <div class="admin_header btn-group">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
                                     data-bs-display="static"
                                     aria-expanded="false">
-                                <i class="ti-user"></i><span class="text-white font-medium">Steave</span>
+                                <i class="ti-user"></i><span class="text-white font-medium">{{ .AdminEmail }}</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                 <li>
-                                    <button class="dropdown-item" type="button">Đăng xuất</button>
+                                    <button class="dropdown-item" type="submit">Đăng xuất</button>
                                 </li>
                             </ul>
                         </div>
@@ -232,56 +232,6 @@
                                     <td class="txt-oflo">{{ .TotalService }}</td>
 
                                 </tr>
-                                <!--                                        <tr>-->
-                                <!--                                            <td>2</td>-->
-                                <!--                                            <td class="txt-oflo"><img src="/static/img/nutrition-category.jpg" alt=""-->
-                                <!--                                                    srcset="">-->
-                                <!--                                                Dinh dưỡng và thức ăn-->
-                                <!--                                            </td>-->
-                                <!--                                            <td>63.000.000vnd</td>-->
-                                <!--                                            <td class="txt-oflo">18</td>-->
-
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <td>3</td>-->
-                                <!--                                            <td class="txt-oflo"><img src="/static/img/healthcare-category.jpg" alt=""-->
-                                <!--                                                    srcset="">-->
-                                <!--                                                Y tế và chăm sóc sức khỏe-->
-                                <!--                                            </td>-->
-                                <!--                                            <td>63.000.000vnd</td>-->
-                                <!--                                            <td class="txt-oflo">18</td>-->
-
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <td>4</td>-->
-                                <!--                                            <td class="txt-oflo"><img src="/static/img/categories-grooming.jpg" alt=""-->
-                                <!--                                                    srcset="">-->
-                                <!--                                                Grooming-->
-                                <!--                                            </td>-->
-                                <!--                                            <td>63.000.000vnd</td>-->
-                                <!--                                            <td class="txt-oflo">18</td>-->
-
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <td>5</td>-->
-                                <!--                                            <td class="txt-oflo"><img src="/static/img/training-category.jpg" alt=""-->
-                                <!--                                                    srcset="">-->
-                                <!--                                                Đào tạo và huấn luyện-->
-                                <!--                                            </td>-->
-                                <!--                                            <td>63.000.000vnd</td>-->
-                                <!--                                            <td class="txt-oflo">18</td>-->
-
-                                <!--                                        </tr>-->
-                                <!--                                        <tr>-->
-                                <!--                                            <td>6</td>-->
-                                <!--                                            <td class="txt-oflo"><img src="/static/img/others-category.png" alt=""-->
-                                <!--                                                    srcset="">-->
-                                <!--                                                Khác-->
-                                <!--                                            </td>-->
-                                <!--                                            <td>63.000.000vnd</td>-->
-                                <!--                                            <td class="txt-oflo">18</td>-->
-
-                                <!--                                        </tr>-->
                                 {{ end }}
                                 </tbody>
                             </table>

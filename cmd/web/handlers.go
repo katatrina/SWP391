@@ -41,6 +41,11 @@ func (app *application) displayMainSignupPage(w http.ResponseWriter, r *http.Req
 		return
 	}
 
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "signup.html", data)
@@ -61,6 +66,11 @@ func (app *application) displaySignupCustomerPage(w http.ResponseWriter, r *http
 		return
 	}
 
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Form = customerSignupFormResult{}
 
@@ -70,6 +80,11 @@ func (app *application) displaySignupCustomerPage(w http.ResponseWriter, r *http
 func (app *application) doSignupCustomer(w http.ResponseWriter, r *http.Request) {
 	if app.isAuthenticated(r) {
 		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
 		return
 	}
 
@@ -159,6 +174,11 @@ func (app *application) displaySignupProviderPage(w http.ResponseWriter, r *http
 		return
 	}
 
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Form = providerSignupFormResult{}
 
@@ -168,6 +188,11 @@ func (app *application) displaySignupProviderPage(w http.ResponseWriter, r *http
 func (app *application) doSignupProvider(w http.ResponseWriter, r *http.Request) {
 	if app.isAuthenticated(r) {
 		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
 		return
 	}
 
@@ -256,6 +281,11 @@ func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Form = userLoginFormResult{}
 
@@ -265,6 +295,11 @@ func (app *application) displayUserLoginPage(w http.ResponseWriter, r *http.Requ
 func (app *application) doLoginUser(w http.ResponseWriter, r *http.Request) {
 	if app.isAuthenticated(r) {
 		http.Redirect(w, r, "/account/view", http.StatusSeeOther)
+		return
+	}
+
+	if app.isAdmin(r) {
+		http.Redirect(w, r, "/admin/dashboard", http.StatusSeeOther)
 		return
 	}
 
@@ -1183,7 +1218,16 @@ func (app *application) pageNotFound(w http.ResponseWriter) {
 }
 
 func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http.Request) {
+	adminID := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
+	adminEmail, err := app.store.GetAdminEmailByID(r.Context(), adminID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
+
+	data.AdminEmail = adminEmail
 
 	totalCustomer, err := app.store.GetCustomerNumber(r.Context())
 	if err != nil {
@@ -1252,4 +1296,18 @@ func (app *application) displayAdminManageServicePage(w http.ResponseWriter, r *
 	data := app.newTemplateData(r)
 
 	app.render(w, http.StatusOK, "admin_service_management.html", data)
+}
+
+func (app *application) doLogoutAdmin(w http.ResponseWriter, r *http.Request) {
+	err := app.sessionManager.RenewToken(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	app.sessionManager.Remove(r.Context(), "authenticatedAdminID")
+
+	app.sessionManager.Put(r.Context(), "flash", "Bạn đã đăng xuất thành công!")
+
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }

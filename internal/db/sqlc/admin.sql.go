@@ -37,6 +37,19 @@ func (q *Queries) GetAdminByEmail(ctx context.Context, email string) (Admin, err
 	return i, err
 }
 
+const getAdminEmailByID = `-- name: GetAdminEmailByID :one
+SELECT email
+FROM admin
+WHERE id = $1
+`
+
+func (q *Queries) GetAdminEmailByID(ctx context.Context, id int32) (string, error) {
+	row := q.db.QueryRowContext(ctx, getAdminEmailByID, id)
+	var email string
+	err := row.Scan(&email)
+	return email, err
+}
+
 const isAdminByEmail = `-- name: IsAdminByEmail :one
 SELECT EXISTS(SELECT 1 FROM admin WHERE email = $1) AS "exists"
 `

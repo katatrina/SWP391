@@ -16,4 +16,4 @@ WHERE slug = $1 LIMIT 1;
 -- name: GetServiceNumberByCategoryID :one
 SELECT COUNT(*)
 FROM services
-WHERE category_id = $1;
+WHERE category_id = $1 AND status = 'active';
