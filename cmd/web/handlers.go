@@ -1302,6 +1302,28 @@ func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http
 func (app *application) displayAdminManageAccountPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 
+	adminID := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
+	adminEmail, err := app.store.GetAdminEmailByID(r.Context(), adminID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data.AdminEmail = adminEmail
+
+	customers, err := app.store.ListCustomers(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data.Customers = customers
+
+	providers, err := app.store.GetProviders(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data.Providers = providers
+
 	app.render(w, http.StatusOK, "admin_account_management.html", data)
 }
 
@@ -1380,8 +1402,6 @@ func (app *application) handleInactiveService(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	fmt.Printf("%+v\n", form)
-
 	if form.RejectReason != "" {
 		err = app.store.UpdateServiceStatus(r.Context(), sqlc.UpdateServiceStatusParams{
 			Status:       "rejected",
@@ -1407,4 +1427,39 @@ func (app *application) handleInactiveService(w http.ResponseWriter, r *http.Req
 	}
 
 	http.Redirect(w, r, "/admin/manage-service", http.StatusSeeOther)
+}
+
+func (app *application) handleDeleteAccount(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	userID := r.PostForm.Get("user_id")
+
+	deleteUserID, err := strconv.ParseInt(userID, 10, 32)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	err = app.store.DeleteAccount(r.Context(), int32(deleteUserID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	isExists, err := app.store.IsUserExist(r.Context(), int32(deleteUserID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	if isExists {
+		app.serverError(w, errors.New("user still exists"))
+		return
+	}
+
+	http.Redirect(w, r, "/admin/manage-account", http.StatusSeeOther)
 }

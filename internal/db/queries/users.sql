@@ -89,3 +89,28 @@ WHERE role_id = (SELECT id FROM roles WHERE name = 'customer');
 SELECT COUNT(*)
 FROM users
 WHERE role_id = (SELECT id FROM roles WHERE name = 'provider');
+
+-- name: ListCustomers :many
+SELECT *
+FROM users
+WHERE role_id = (SELECT id FROM roles WHERE name = 'customer')
+ORDER BY created_at DESC;
+
+-- name: GetProviders :many
+SELECT u.id,
+       u.full_name,
+       u.email,
+       u.phone,
+       u.address,
+       u.created_at,
+       pd.company_name,
+       pd.tax_code
+FROM users u
+         JOIN provider_details pd ON u.id = pd.provider_id
+WHERE u.role_id = (SELECT id FROM roles WHERE name = 'provider')
+ORDER BY u.created_at DESC;
+
+-- name: DeleteAccount :exec
+DELETE
+FROM users
+WHERE id = $1;

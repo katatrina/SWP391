@@ -13,6 +13,7 @@ var functionTemplates = template.FuncMap{
 	"humanDate":   humanDate,
 	"formatPrice": formatVietnamesePrice,
 	"formatDate":  formatVietnameseDate,
+	"plusOne":     plusOne,
 }
 
 type templateData struct {
@@ -40,6 +41,8 @@ type templateData struct {
 	AdminDashboard      AdminDashboard
 	AdminEmail          string
 	InactiveServices    []InactiveService
+	Customers           []sqlc.User
+	Providers           []sqlc.GetProvidersRow
 }
 
 type InactiveService struct {
