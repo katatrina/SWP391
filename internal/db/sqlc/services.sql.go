@@ -35,6 +35,19 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 	return err
 }
 
+const getCategoryNameByServiceID = `-- name: GetCategoryNameByServiceID :one
+SELECT name
+FROM categories
+WHERE id = (SELECT category_id FROM services WHERE services.id = $1)
+`
+
+func (q *Queries) GetCategoryNameByServiceID(ctx context.Context, id int32) (string, error) {
+	row := q.db.QueryRowContext(ctx, getCategoryNameByServiceID, id)
+	var name string
+	err := row.Scan(&name)
+	return name, err
+}
+
 const getCompanyNameByServiceID = `-- name: GetCompanyNameByServiceID :one
 SELECT company_name
 FROM provider_details

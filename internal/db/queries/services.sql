@@ -59,3 +59,8 @@ SELECT *
 FROM services
 WHERE status = 'inactive'
 ORDER BY created_at DESC;
+
+-- name: GetCategoryNameByServiceID :one
+SELECT name
+FROM categories
+WHERE id = (SELECT category_id FROM services WHERE services.id = $1);

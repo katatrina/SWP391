@@ -1233,7 +1233,6 @@ func (app *application) pageNotFound(w http.ResponseWriter) {
 func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http.Request) {
 	adminID := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
 	adminEmail, err := app.store.GetAdminEmailByID(r.Context(), adminID)
-	fmt.Println("adminEmail", adminEmail)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -1242,7 +1241,6 @@ func (app *application) displayAdminDashboardPage(w http.ResponseWriter, r *http
 	data := app.newTemplateData(r)
 
 	data.AdminEmail = adminEmail
-	fmt.Println(data.AdminEmail)
 
 	totalCustomer, err := app.store.GetCustomerNumber(r.Context())
 	if err != nil {
@@ -1308,12 +1306,45 @@ func (app *application) displayAdminManageAccountPage(w http.ResponseWriter, r *
 }
 
 func (app *application) displayAdminManageServicePage(w http.ResponseWriter, r *http.Request) {
-	data := app.newTemplateData(r)
-
-	inactiveServices, err := app.store.ListInactiveServices(r.Context())
+	adminID := app.sessionManager.GetInt32(r.Context(), "authenticatedAdminID")
+	adminEmail, err := app.store.GetAdminEmailByID(r.Context(), adminID)
 	if err != nil {
 		app.serverError(w, err)
 		return
+	}
+
+	data := app.newTemplateData(r)
+
+	data.AdminEmail = adminEmail
+
+	services, err := app.store.ListInactiveServices(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	inactiveServices := make([]InactiveService, 0, len(services))
+
+	for _, service := range services {
+		providerCompanyName, err := app.store.GetCompanyNameByServiceID(r.Context(), service.ID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		categoryName, err := app.store.GetCategoryNameByServiceID(r.Context(), service.ID)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
+		inactiveService := InactiveService{
+			Service:             service,
+			CategoryName:        categoryName,
+			ProviderCompanyName: providerCompanyName,
+		}
+
+		inactiveServices = append(inactiveServices, inactiveService)
 	}
 
 	data.InactiveServices = inactiveServices
