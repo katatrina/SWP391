@@ -14,6 +14,7 @@ var functionTemplates = template.FuncMap{
 	"formatPrice": formatVietnamesePrice,
 	"formatDate":  formatVietnameseDate,
 	"plusOne":     plusOne,
+	"shortenDesc": shortenDescription,
 }
 
 type templateData struct {

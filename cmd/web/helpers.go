@@ -58,6 +58,14 @@ func plusOne(x, y int) int {
 	return x + y
 }
 
+func shortenDescription(description string) string {
+	if len(description) > 100 {
+		return description[:50] + "..."
+	}
+
+	return description
+}
+
 func (app *application) render(w http.ResponseWriter, status int, page string, data *templateData) {
 	ts, ok := app.templateCache[page]
 	if !ok {
