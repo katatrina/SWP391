@@ -46,7 +46,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Sửa chữa & Nâng cấp lồng chim",
 		Description:       "Dịch vụ Nâng cấp lồng chim cũ mang lại sự mới mẻ và hiện đại cho lồng chim đã sử dụng, bằng cách thêm các tính năng như đèn trang trí, hệ thống lọc không khí, nhằm cải thiện môi trường sống và tăng cường sự thoải mái cho chim cảnh. Điều này không chỉ tiết kiệm chi phí mà còn tối ưu hóa trải nghiệm cho cả chủ nhân và chim nuôi.",
-		Price:             500_000 - 1_000_000,
+		Price:             1_000_000,
 		ImagePath:         "/static/img/services_img/phu-kien-2.png",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[1].ID,
@@ -57,7 +57,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Sửa chữa và thay mới đồ chơi",
 		Description:       "Dịch vụ Sửa chữa và thay mới đồ chơi cho chim cung cấp giải pháp kỹ thuật chuyên nghiệp để sửa chữa hoặc thay thế các đồ chơi đã hỏng hoặc xuống cấp trong lồng chim. Chuyên gia sẽ đảm bảo rằng đồ chơi mới không chỉ đáp ứng nhu cầu giải trí của chim mà còn đảm bảo an toàn và khích lệ hoạt động tinh thần tích cực của chúng.",
-		Price:             299_000 - 399_000,
+		Price:             399_000,
 		ImagePath:         "/static/img/services_img/phu-kien-3.png",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[2].ID,
@@ -126,7 +126,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Tư vấn dinh dưỡng cho chim theo yêu cầu",
 		Description:       "Dịch vụ Tư vấn dinh dưỡng cho chim mang đến sự chuyên nghiệp và thông tin chính xác về việc lựa chọn thức ăn phù hợp cho loài chim cảnh. Chuyên gia dinh dưỡng sẽ cung cấp hướng dẫn chi tiết, đáp ứng đúng nhu cầu dinh dưỡng của từng loại chim, giúp chủ nhân hiểu rõ và quản lý chế độ ăn sao cho chim có được sức khỏe và sinh sản tốt nhất.",
-		Price:             199_000 - 299_000,
+		Price:             299_000,
 		ImagePath:         "/static/img/services_img/dinh-duong-3.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[2].ID,
@@ -148,7 +148,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Hỗ trợ tư vấn dinh dưỡng cho chim cảnh theo mùa",
 		Description:       "Dịch vụ Hỗ trợ Tư vấn dinh dưỡng theo mùa cung cấp sự linh hoạt và tư vấn đặc biệt, điều chỉnh chế độ ăn cho chim theo các yếu tố biến đổi theo mùa vụ. Chuyên gia sẽ hướng dẫn chủ nhân về sự thay đổi cần thiết trong dinh dưỡng để đảm bảo rằng chim nhận được các dạng thức ăn phù hợp với nhu cầu thay đổi của chúng qua từng mùa. Điều này giúp duy trì sức khỏe và sự phát triển ổn định của loài chim trong mọi điều kiện thời tiết.",
-		Price:             200_000 - 400_000,
+		Price:             400_000,
 		ImagePath:         "/static/img/services_img/dinh-duong-5.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[4].ID,
@@ -159,7 +159,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Hướng dẫn xây dựng khóa biểu dinh dưỡng theo yêu cầu",
 		Description:       "Hướng dẫn xây dựng khóa biểu dinh dưỡng theo yêu cầu cung cấp bước hướng dẫn chi tiết để tạo ra một lịch trình ăn cho chim chính xác với nhu cầu dinh dưỡng và lối sống của chúng. Hướng dẫn này sẽ giúp chủ nhân xây dựng một bảng chế độ ăn đa dạng và phù hợp, đồng thời lập kế hoạch điều chỉnh theo yêu cầu cụ thể của từng loại chim để duy trì sức khỏe tốt nhất và giảm nguy cơ các vấn đề dinh dưỡng.",
-		Price:             200_000 - 300_000,
+		Price:             300_000,
 		ImagePath:         "/static/img/services_img/dinh-duong-6.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[5].ID,
@@ -195,7 +195,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Khám bệnh & điều trị tại nhà",
 		Description:       "Dịch vụ Khám bệnh tại nhà mang đến sự thuận tiện cho chủ nhân và chim cảnh bằng cách đưa bác sĩ thú y đến tận nơi để thực hiện kiểm tra sức khỏe và chẩn đoán tình trạng y tế của chim. Quá trình này giảm stress cho loài chim và tạo điều kiện thuận lợi cho việc chăm sóc và điều trị khi cần thiết.",
-		Price:             500_000 - 1_000_000,
+		Price:             1_000_000,
 		ImagePath:         "/static/img/services_img/suc-khoe-3.png",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[2].ID,
@@ -217,7 +217,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Dịch vụ điều trị thường niên",
 		Description:       "Chương trình Dịch vụ Điều trị Thường niên của chúng tôi là cam kết duy trì sức khỏe tốt nhất cho chim cảnh của bạn. Chúng tôi sẽ thực hiện kiểm tra định kỳ, tiêm phòng, và cung cấp các liệu pháp y tế cần thiết để ngăn chặn các vấn đề sức khỏe potentional. Đội ngũ bác sĩ thú y chuyên nghiệp của chúng tôi sẽ tư vấn và xây dựng kế hoạch điều trị phù hợp với nhu cầu riêng biệt của loài chim cưng, để đảm bảo chúng luôn duy trì một tình trạng sức khỏe và hạnh phúc toàn diện.",
-		Price:             1_500_000 - 2_000_000,
+		Price:             2_000_000,
 		ImagePath:         "/static/img/services_img/suc-khoe-5.jfif",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[4].ID,
@@ -275,7 +275,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Gromming tại nhà",
 		Description:       "Dịch vụ Grooming Chim Cảnh Tại Nhà là sự kết hợp hoàn hảo giữa chăm sóc chuyên nghiệp và tiện ích tại ngôi nhà của bạn. Đội ngũ chăm sóc tận tâm của chúng tôi sẽ đến địa điểm của bạn với đầy đủ thiết bị và kỹ năng để biến việc làm đẹp cho chim cảnh thành một trải nghiệm thuận tiện và thoải mái. Từ tắm gội, tỉa lông, đến chăm sóc móng, chúng tôi cam kết mang đến vẻ đẹp tối ưu cho loài chim cưng của bạn, mà không cần chúng phải rời khỏi tổ ấm ưa thích của mình. Hãy để chúng tôi tạo nên một trải nghiệm làm đẹp tốt nhất cho chim cảnh của bạn ngay tại ngôi nhà của mình.",
-		Price:             200_000 - 600_000,
+		Price:             600_000,
 		ImagePath:         "/static/img/services_img/gromming-4.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[3].ID,
@@ -413,7 +413,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Dịch vụ Chăm sóc Tận Nơi cho Chim Cảnh",
 		Description:       "Dịch vụ Chăm sóc Tận Nơi cho Chim Cảnh là sự lựa chọn hoàn hảo để đảm bảo thú cưng của bạn nhận được sự chăm sóc tốt nhất ngay tại tổ ấm của chúng. Đội ngũ chuyên gia chăm sóc sẽ đến trực tiếp tại nhà bạn, cung cấp dịch vụ chu đáo, bao gồm việc cung cấp thức ăn, vận động, và tận tâm chăm sóc để đảm bảo sự thoải mái và hạnh phúc cho thú cưng trong môi trường quen thuộc của chúng.",
-		Price:             200_000,
+		Price:             500_000,
 		ImagePath:         "/static/img/services_img/other-4.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[3].ID,
@@ -424,7 +424,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Tân trang khuôn viên nhà thành sân chơi cho chim cảnh",
 		Description:       "Dịch vụ Biến Đổi Khu Vực Nhà Thành Sân Chơi cho Chim Cảnh mang đến trải nghiệm tận hưởng cho thú cưng và chủ nhân. Chúng tôi chuyển đổi không gian nhà bạn thành một sân chơi đa dạng với đủ hoạt động giải trí và vận động cho chim cảnh của bạn. Từ các khu vực leo lên, đến những nơi ẩn náu và đồ chơi kích thích, mỗi góc của sân chơi đều được thiết kế để kích thích sự tò mò và niềm vui cho thú cưng của bạn. Đồng thời, không gian cũng được tối ưu hóa để tạo điều kiện sống an toàn và thoải mái nhất cho chim cảnh yêu quý của bạn.",
-		Price:             200_000,
+		Price:             300_000,
 		ImagePath:         "/static/img/services_img/other-5.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[4].ID,

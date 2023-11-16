@@ -86,11 +86,12 @@ body {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 12px;
 }
 
 .card-body .card-text {
     font-size: 18px;
-    font-weight: 500;
+    margin: 0;
 }
 
 .container .service-card {
@@ -108,8 +109,8 @@ body {
 
 .container .service-card .card-item img {
     width: auto;
-    height: auto;
-    object-fit: contain;
+    height: 230px;
+    object-fit: cover;
 }
 
 .container .service-card .card-body {
@@ -162,6 +163,8 @@ body {
     margin-bottom: 20px;
 }
 
+.statistic-wrapper:last-child {}
+
 .statistic {
     padding: 0;
     margin: 0;
@@ -188,4 +191,9 @@ body {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 0.8em;
+}
+
+.waiting p {
+    font-weight: 500;
+    font-size: 18px;
 }

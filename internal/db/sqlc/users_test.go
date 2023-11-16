@@ -11,7 +11,7 @@ func createFakeCustomer(t *testing.T) {
 	err := testStore.CreateCustomerTx(context.Background(), CreateCustomerParams{
 		FullName: "Nguyen Huu Tung",
 		Email:    "tung@gmail.com",
-		Phone:    "0268101010",
+		Phone:    "064892159",
 		Address:  "167 lê đại hành",
 		Password: "123456",
 	})

@@ -36,7 +36,7 @@
 
 
         <!-- Banner -->
-        <div class="banner">
+        <!-- <div class="banner">
             <img src="/static/img/Bird-banner.jpg" alt="Service Banner" class="banner-service">
             <div class="banner-text">
                 <h2>Dịch vụ</h2>
@@ -50,23 +50,23 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End Banner -->
 
 
         <!-- Content -->
         <div class="container">
             <div class="row">
-                <div class="col-xs-6 col-md-3 col-lg-3">
+                <div class="col-xs-6 col-md-3 col-lg-4">
                     <div class="statistic-wrapper">
                         <div class="statistic">
                             <i class="fa-solid fa-coins" style="color: #f8fc1d;"></i>
                             <div class="number">12vnd</div>
-                            <div class="header text-muted">Doanh thu</div>
+                            <div class="header text-muted">Tổng doanh thu</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-3 col-lg-3">
+                <!-- <div class="col-xs-6 col-md-3 col-lg-3">
                     <div class="statistic-wrapper">
                         <div class="statistic">
                             <i class="fa-regular fa-star" style="color: #10c668;"></i>
@@ -74,22 +74,22 @@
                             <div class="header text-muted">Số lượt đánh giá</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-6 col-md-3 col-lg-3">
+                </div> -->
+                <div class="col-xs-6 col-md-3 col-lg-4">
                     <div class="statistic-wrapper">
                         <div class="statistic">
                             <i class="fa-solid fa-feather-pointed" style="color: #19cad7;"></i>
                             <div class="number">120</div>
-                            <div class="header text-muted">Tổng dịch vụ</div>
+                            <div class="header text-muted">Tổng dịch vụ đã đăng</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-3 col-lg-3">
+                <div class="col-xs-6 col-md-3 col-lg-4">
                     <div class="statistic-wrapper">
                         <div class="statistic">
                             <i class="fa-solid fa-cart-shopping" style="color: #21e465;"></i>
                             <div class="number">120</div>
-                            <div class="header text-muted">Số đơn hàng</div>
+                            <div class="header text-muted">Số đơn hàng hoàn thành</div>
                         </div>
                     </div>
                 </div>
@@ -125,25 +125,47 @@
                                 {{range .Services}}
                                 <!-- Item -->
                                 <div class="col-md-3 item">
+
                                     <div class="service-card">
                                         <div class="card-item card">
                                             <img src="{{.ImagePath}}" class="card-img-top" alt="Ser-Pic-1">
                                             <!-- <img src="/ui/static/img/banner.jpg" class="card-img-top" alt="Ser-Pic-1"> -->
                                             <div class="card-body">
-                                                <h5 class="card-title text-center">{{.Title}}</h5>
+                                                <h6 style="font-weight: 500;"
+                                                    class="card-title text-center text-success">{{.Title}}</h6>
                                                 <p class="card-text">{{ shortenDesc .Description}}</p>
-                                                <div class="card-bottom">
-                                                    <p class="card-text text-left">Giá: ₫{{.Price}} VND</p>
-                                                    <!-- Form Delete Service -->
-                                                    <form action="" method="post">
+                                                <form action="" method="post">
+                                                    <div class="card-bottom">
+                                                        <p style="font-weight: 300;" class="card-text text-left">Giá:
+                                                            ₫{{.Price}} VND</p>
+                                                        <!-- Form Delete Service -->
                                                         <button type="button" class="btn btn-outline-danger">Xóa dịch
                                                             vụ</button>
-                                                    </form>
-                                                    <!-- Form Delete Service -->
+                                                        <!-- Form Delete Service -->
+                                                    </div>
+                                                </form>
+                                                <form action="" method="post">
+                                                    <!-- Chỉnh sửa  -->
+                                                    <div class="card-bottom">
+                                                        <p style="font-weight: 300;" class="card-text text-left">Giá:
+                                                            ₫{{.Price}} VND</p>
+                                                        <!-- Form Delete Service -->
+                                                        <button type="button" class="btn btn-outline-info">Chỉnh
+                                                            sửa</button>
+                                                        <!-- Form Delete Service -->
+                                                    </div>
+                                                </form>
+                                                <div class="waiting">
+                                                    <p class="text-warning">Đang chờ duyệt</p>
+                                                    <p class="text-success">Đã duyệt</p>
+                                                    <p class="text-danger">Không được duyệt</p>
+                                                    <p class="text-danger">Lý do: <span class="text-dark">KO phù
+                                                            hợp</span></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                                 <!-- Item -->
                                 {{else}}
