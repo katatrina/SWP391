@@ -50,7 +50,7 @@ type templateData struct {
 type ProviderDashboard struct {
 	TotalServices        int64
 	TotalCompletedOrders int64
-	TotalRevenue         int64
+	TotalRevenue         int32
 }
 
 type InactiveService struct {

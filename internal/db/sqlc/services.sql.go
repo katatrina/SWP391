@@ -215,6 +215,48 @@ func (q *Queries) IsUserUsedService(ctx context.Context, arg IsUserUsedServicePa
 	return exists, err
 }
 
+const listActiveServicesByProviderID = `-- name: ListActiveServicesByProviderID :many
+SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
+FROM services
+WHERE status = 'active'
+  AND owned_by_provider_id = $1
+ORDER BY created_at DESC
+`
+
+func (q *Queries) ListActiveServicesByProviderID(ctx context.Context, ownedByProviderID int32) ([]Service, error) {
+	rows, err := q.db.QueryContext(ctx, listActiveServicesByProviderID, ownedByProviderID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Service{}
+	for rows.Next() {
+		var i Service
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Description,
+			&i.Price,
+			&i.ImagePath,
+			&i.CategoryID,
+			&i.OwnedByProviderID,
+			&i.Status,
+			&i.RejectReason,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listInactiveServices = `-- name: ListInactiveServices :many
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
@@ -340,7 +382,7 @@ func (q *Queries) ListServices(ctx context.Context, ownedByProviderID int32) ([]
 
 const updateServiceStatus = `-- name: UpdateServiceStatus :exec
 UPDATE services
-SET status = $1,
+SET status        = $1,
     reject_reason = $2
 WHERE id = $3
 `

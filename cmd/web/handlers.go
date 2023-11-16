@@ -459,12 +459,18 @@ func (app *application) listProviderServices(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	activeServices, err := app.store.ListActiveServicesByProviderID(r.Context(), providerID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	data := app.newTemplateData(r)
 	data.Services = services
 
 	var providerDashboard ProviderDashboard
 
-	providerDashboard.TotalServices = int64(len(services))
+	providerDashboard.TotalServices = int64(len(activeServices))
 
 	providerDashboard.TotalCompletedOrders, err = app.store.CountCompletedOrdersByProviderID(r.Context(), providerID)
 	if err != nil {
@@ -472,11 +478,14 @@ func (app *application) listProviderServices(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	providerDashboard.TotalRevenue, err = app.store.GetTotalRevenueByProviderID(r.Context(), providerID)
+	revenueResult, err := app.store.GetTotalRevenueByProviderID(r.Context(), providerID)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
+	providerDashboard.TotalRevenue = int32(revenueResult)
+
+	data.ProviderDashBoard = providerDashboard
 
 	app.render(w, http.StatusOK, "provider_services.html", data)
 }

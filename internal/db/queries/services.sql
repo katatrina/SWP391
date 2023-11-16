@@ -67,6 +67,13 @@ WHERE id = (SELECT category_id FROM services WHERE services.id = $1);
 
 -- name: UpdateServiceStatus :exec
 UPDATE services
-SET status = $1,
+SET status        = $1,
     reject_reason = $2
 WHERE id = $3;
+
+-- name: ListActiveServicesByProviderID :many
+SELECT *
+FROM services
+WHERE status = 'active'
+  AND owned_by_provider_id = $1
+ORDER BY created_at DESC;
