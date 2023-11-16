@@ -10,11 +10,12 @@ import (
 )
 
 var functionTemplates = template.FuncMap{
-	"humanDate":   humanDate,
-	"formatPrice": formatVietnamesePrice,
-	"formatDate":  formatVietnameseDate,
-	"plusOne":     plusOne,
-	"shortenDesc": shortenDescription,
+	"humanDate":     humanDate,
+	"formatPrice":   formatVietnamesePrice,
+	"formatDate":    formatVietnameseDate,
+	"plusOne":       plusOne,
+	"shortenDesc":   shortenDescription,
+	"formatPrice64": formatVietnamesePrice64,
 }
 
 type templateData struct {
@@ -50,7 +51,7 @@ type templateData struct {
 type ProviderDashboard struct {
 	TotalServices        int64
 	TotalCompletedOrders int64
-	TotalRevenue         int32
+	TotalRevenue         int64
 }
 
 type InactiveService struct {

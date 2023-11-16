@@ -2,6 +2,7 @@ package sqlc
 
 import (
 	"context"
+	"golang.org/x/crypto/bcrypt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -137,12 +138,12 @@ func createUser(t *testing.T) {
 	createFakeProvider(t)
 }
 
-//func TestCreateAdmin(t *testing.T) {
-//	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
-//
-//	err := testStore.CreateAdmin(context.Background(), CreateAdminParams{
-//		Email:    "admin2@gmail.com",
-//		Password: string(hashedPassword),
-//	})
-//	require.NoError(t, err)
-//}
+func TestCreateAdmin(t *testing.T) {
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
+
+	err := testStore.CreateAdmin(context.Background(), CreateAdminParams{
+		Email:    "admin@gmail.com",
+		Password: string(hashedPassword),
+	})
+	require.NoError(t, err)
+}

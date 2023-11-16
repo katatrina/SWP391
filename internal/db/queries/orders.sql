@@ -132,7 +132,7 @@ WHERE seller_id = $1
   AND status_id = (SELECT id FROM order_status WHERE code = 'completed');
 
 -- name: GetTotalRevenueByProviderID :one
-SELECT SUM(grand_total)
+SELECT COALESCE(SUM(grand_total), 0)
 FROM orders
 WHERE seller_id = $1
   AND status_id = (SELECT id FROM order_status WHERE code = 'completed');

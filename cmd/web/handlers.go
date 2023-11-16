@@ -483,7 +483,14 @@ func (app *application) listProviderServices(w http.ResponseWriter, r *http.Requ
 		app.serverError(w, err)
 		return
 	}
-	providerDashboard.TotalRevenue = int32(revenueResult)
+	//providerDashboard.TotalRevenue, ok := revenueResult.(int32)
+	revenue, ok := revenueResult.(int64)
+	if !ok {
+		app.serverError(w, errors.New("cannot convert revenueResult to int64"))
+		return
+	}
+
+	providerDashboard.TotalRevenue = revenue
 
 	data.ProviderDashBoard = providerDashboard
 

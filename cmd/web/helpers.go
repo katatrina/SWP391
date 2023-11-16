@@ -50,6 +50,27 @@ func formatVietnamesePrice(price int32) string {
 	return formattedPrice
 }
 
+func formatVietnamesePrice64(price int64) string {
+	priceStr := fmt.Sprintf("%d", price)
+	formattedPrice := ""
+
+	length := len(priceStr)
+	remainder := length % 3
+
+	if remainder > 0 {
+		formattedPrice += priceStr[:remainder] + "."
+	}
+
+	for i := remainder; i < length; i += 3 {
+		formattedPrice += priceStr[i:i+3] + "."
+	}
+
+	// Remove the trailing dot and add the currency symbol if needed
+	formattedPrice = strings.TrimRight(formattedPrice, ".")
+
+	return formattedPrice
+}
+
 func formatVietnameseDate(t time.Time) string {
 	return t.Format("15:04 02/01/2006")
 }

@@ -531,17 +531,17 @@ func (q *Queries) GetSellOrdersWithStatusCode(ctx context.Context, arg GetSellOr
 }
 
 const getTotalRevenueByProviderID = `-- name: GetTotalRevenueByProviderID :one
-SELECT SUM(grand_total)
+SELECT COALESCE(SUM(grand_total), 0)
 FROM orders
 WHERE seller_id = $1
   AND status_id = (SELECT id FROM order_status WHERE code = 'completed')
 `
 
-func (q *Queries) GetTotalRevenueByProviderID(ctx context.Context, sellerID int32) (int64, error) {
+func (q *Queries) GetTotalRevenueByProviderID(ctx context.Context, sellerID int32) (interface{}, error) {
 	row := q.db.QueryRowContext(ctx, getTotalRevenueByProviderID, sellerID)
-	var sum int64
-	err := row.Scan(&sum)
-	return sum, err
+	var coalesce interface{}
+	err := row.Scan(&coalesce)
+	return coalesce, err
 }
 
 const updateOrderStatus = `-- name: UpdateOrderStatus :exec
