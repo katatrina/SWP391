@@ -92,7 +92,12 @@ main {}
 
 .order-status {
     padding: 0 0 0 10px;
-    display: block;
+    display: flex;
+}
+
+.order-status-detail {
+    border-left: 1px solid;
+    padding-left: 12px;
 }
 
 .order-status span {

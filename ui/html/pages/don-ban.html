@@ -118,12 +118,16 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
                                 </div>
                                 <!-- Thông tin id của dịch vụ -->
                                 <div class="order-status">
-                                    <span>MÃ ĐƠN HÀNG:</span>
-                                    <span>{{ . }}</span>
+                                    <span style="padding-right: 16px;display: flex;align-items: center;">{{
+                                        $order.Order.StatusDetail }}</span>
+                                    <div class="order-status-detail">
+                                        <span>MÃ ĐƠN HÀNG:</span>
+                                        <span>{{ . }}</span>
 
-                                    <!-- Ngày đặt dịch vụ -->
-                                    <div class="order-date">
-                                        <span>Ngày tạo đơn hàng: {{ formatDate $order.Order.CreatedAt }}</span>
+                                        <!-- Ngày đặt dịch vụ -->
+                                        <div class="order-date">
+                                            <span>Ngày tạo đơn hàng: {{ formatDate $order.Order.CreatedAt }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -252,6 +256,8 @@ cho vòng lặp duyệt từ thẻ div class: "container" rồi lặp lại 1 th
     </div>
     <div>&nbsp;</div>
     {{ end }}
+
+    &nbsp;
 
     <!-- Footer -->
     {{template "footer" .}}
