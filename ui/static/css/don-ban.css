@@ -253,6 +253,11 @@ main {}
     justify-content: flex-end;
 }
 
+.button-bottom {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .order-button {
     display: flex;
     width: 100%;

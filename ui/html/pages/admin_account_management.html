@@ -7,9 +7,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords"
-          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
     <meta name="description"
-          content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title>Bird Servc Central</title>
 
@@ -24,205 +24,209 @@
 </head>
 
 <body>
-<!-- ============================================================== -->
-<!-- Preloader - style you can find in spinners.css -->
-<!-- ============================================================== -->
-<div class="preloader">
-    <div class="lds-ripple">
-        <div class="lds-pos"></div>
-        <div class="lds-pos"></div>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
     </div>
-</div>
-<!-- ============================================================== -->
-<!-- Main wrapper -->
-<!-- ============================================================== -->
-<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-     data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
     <!-- ============================================================== -->
-    <!-- Topbar header -->
+    <!-- Main wrapper -->
     <!-- ============================================================== -->
-    <header class="topbar" data-navbarbg="skin5">
-        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-            <!-- ============================================================== -->
-            <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
-            <!-- ============================================================== -->
-            <div class="navbar-header" data-logobg="skin6">
-                <a class="navbar-brand" href="/admin/dashboard">
-                    <!-- Ảnh -->
-                    <b class="logo-icon">
-                        <img src="/static/img/Login-banner.png" alt="homepage"/>
-                    </b>
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <!-- ============================================================== -->
+                <!-- Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
+                <!-- ============================================================== -->
+                <div class="navbar-header" data-logobg="skin6">
+                    <a class="navbar-brand" href="/admin/dashboard">
+                        <!-- Ảnh -->
+                        <b class="logo-icon">
+                            <img src="/static/img/Login-banner.png" alt="homepage" />
+                        </b>
 
-                    <!-- Tên Website -->
-                    <span class="logo-text">
+                        <!-- Tên Website -->
+                        <span class="logo-text">
                             <p>
                                 Bird Serve Central
                             </p>
                         </span>
-                </a>
+                    </a>
 
-                <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                   href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
-            <!-- ============================================================== -->
+                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                        href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Thanh Topbar chứa Icon và Tên Website Bird Servc Central -->
+                <!-- ============================================================== -->
 
-            <!-- ============================================================== -->
-            <!-- Thanh Topbar chứa Search và Admin -->
-            <!-- ============================================================== -->
-            <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                <ul class="navbar-nav ms-auto d-flex align-items-center">
-                    <!-- ============================================================== -->
-                    <!-- Admin profile -->
-                    <!-- ============================================================== -->
-                    <!-- <li>
+                <!-- ============================================================== -->
+                <!-- Thanh Topbar chứa Search và Admin -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
+                        <!-- ============================================================== -->
+                        <!-- Admin profile -->
+                        <!-- ============================================================== -->
+                        <!-- <li>
                             <a class="profile-pic" href="#">
                                 <i class="fa-solid fa-circle-user"></i><span
                                     class="text-white font-medium">Steave</span>
                             </a>
                         </li> -->
-                    {{template "admin_logout_form" .}}
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!-- ============================================================== -->
-    <!-- End Topbar header -->
-    <!-- ============================================================== -->
+                        {{template "admin_logout_form" .}}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
 
 
-    <!-- ============================================================== -->
-    <!-- Tính năng Admin -->
-    <!-- ============================================================== -->
-    {{template "admin_navbar".}}
-    <!-- ============================================================== -->
-    <!-- End Tính năng Admin -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Tính năng Admin -->
+        <!-- ============================================================== -->
+        {{template "admin_navbar".}}
+        <!-- ============================================================== -->
+        <!-- End Tính năng Admin -->
+        <!-- ============================================================== -->
 
 
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
 
-    <div class="page-wrapper">
-        <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Bảng account thể hiện thông tin Customer -->
-            <!-- ============================================================== -->
-            {{ with .Flash }}
-            <p>
-                {{ . }}
-            </p>
-            {{ end }}
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bảng account thể hiện thông tin Customer -->
+                <!-- ============================================================== -->
+                {{ with .Flash }}
+                <p>
+                    {{ . }}
+                </p>
+                {{ end }}
 
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="white-box">
-                        <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Danh sách tài khoản khách hàng</h3>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table no-wrap table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">#</th>
-                                    <th class="border-top-0">Tên khách hàng</th>
-                                    <th class="border-top-0">Email</th>
-                                    <th class="border-top-0">Số điện thoại</th>
-                                    <th class="border-top-0">Địa chỉ</th>
-                                    <th class="border-top-0">Ngày lập tài khoản</th>
-                                    <th class="border-top-0">Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{ range $index, $customer := .Customers }}
-                                <tr>
-                                    <td>{{ plusOne $index 1 }}</td>
-                                    <td class="txt-oflo">{{ $customer.FullName }}</td>
-                                    <td>{{ $customer.Email }}</td>
-                                    <td><span class="">{{ $customer.Phone }}</span></td>
-                                    <td class="txt-oflo">{{ $customer.Address }}</td>
-                                    <td class="txt-oflo">{{ formatDate $customer.CreatedAt }}</td>
-                                    <form id="form-{{ $customer.ID }}" action="/admin/manage-account/delete" method="POST">
-                                        <td class="txt-oflo">
-                                            <button type="button" onclick="confirmDelete('{{ $customer.ID }}')" class="btn btn-outline-danger">Xóa</button>
-                                        </td>
-                                    </form>
-                                </tr>
-                                {{ end }}
-                                </tbody>
-                            </table>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3">
+                                <h3 class="box-title mb-0">Danh sách tài khoản khách hàng</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table no-wrap table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Tên khách hàng</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Số điện thoại</th>
+                                            <th class="border-top-0">Địa chỉ</th>
+                                            <th class="border-top-0">Ngày lập tài khoản</th>
+                                            <th class="border-top-0">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{ range $index, $customer := .Customers }}
+                                        <tr>
+                                            <td>{{ plusOne $index 1 }}</td>
+                                            <td class="txt-oflo">{{ $customer.FullName }}</td>
+                                            <td>{{ $customer.Email }}</td>
+                                            <td><span class="">{{ $customer.Phone }}</span></td>
+                                            <td class="txt-oflo">{{ $customer.Address }}</td>
+                                            <td class="txt-oflo">{{ formatDate $customer.CreatedAt }}</td>
+                                            <form id="form-{{ $customer.ID }}" action="/admin/manage-account/delete"
+                                                method="POST">
+                                                <td class="txt-oflo">
+                                                    <button type="button" onclick="confirmDelete('{{ $customer.ID }}')"
+                                                        class="btn btn-outline-danger">Xóa</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        {{ end }}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- Bảng account thể hiện thông tin Customer -->
-            <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Bảng account thể hiện thông tin Customer -->
+                <!-- ============================================================== -->
 
-            <!-- -------------------------------- -->
-            <!-- Bảng thể hiện thông tin Provider -->
-            <!-- -------------------------------- -->
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="white-box">
-                        <div class="d-md-flex mb-3">
-                            <h3 class="box-title mb-0">Danh sách tài khoản nhà cung cấp</h3>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table no-wrap table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="border-top-0">#</th>
-                                    <th class="border-top-0">Tên chủ sở hữu</th>
-                                    <th class="border-top-0">Email</th>
-                                    <th class="border-top-0">Số điện thoại</th>
-                                    <th class="border-top-0">Địa chỉ</th>
-                                    <th class="border-top-0">Tên doanh nghiệp</th>
-                                    <th class="border-top-0">Mã số thuế</th>
-                                    <th class="border-top-0">Ngày lập tài khoản</th>
-                                    <th class="border-top-0">Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{ range $index, $provider := .Providers }}
-                                <tr>
-                                    <td>{{ plusOne $index 1 }}</td>
-                                    <td class="txt-oflo">{{ $provider.FullName }}</td>
-                                    <td>{{ $provider.Email }}</td>
-                                    <td><span class="">{{ $provider.Phone }}</span></td>
-                                    <td class="address-col">{{ $provider.Address }}
-                                    </td>
-                                    <td>{{ $provider.CompanyName }}</td>
-                                    <td>{{ $provider.TaxCode }}</td>
-                                    <td class="txt-oflo">{{ formatDate $provider.CreatedAt }}</td>
+                <!-- -------------------------------- -->
+                <!-- Bảng thể hiện thông tin Provider -->
+                <!-- -------------------------------- -->
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <div class="d-md-flex mb-3">
+                                <h3 class="box-title mb-0">Danh sách tài khoản nhà cung cấp</h3>
+                            </div>
+                            <div style="overflow-x:scroll;" class="table-responsive">
+                                <table style="overflow-x:scroll;" class="table no-wrap table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Tên chủ sở hữu</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Số điện thoại</th>
+                                            <th class="border-top-0">Địa chỉ</th>
+                                            <th class="border-top-0">Tên doanh nghiệp</th>
+                                            <th class="border-top-0">Mã số thuế</th>
+                                            <th class="border-top-0">Ngày lập tài khoản</th>
+                                            <th class="border-top-0">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{ range $index, $provider := .Providers }}
+                                        <tr>
+                                            <td>{{ plusOne $index 1 }}</td>
+                                            <td class="txt-oflo">{{ $provider.FullName }}</td>
+                                            <td>{{ $provider.Email }}</td>
+                                            <td><span class="">{{ $provider.Phone }}</span></td>
+                                            <td class="address-col">{{ $provider.Address
+                                                }}                                            </td>
+                                            <td>{{ $provider.CompanyName }}</td>
+                                            <td>{{ $provider.TaxCode }}</td>
+                                            <td class="txt-oflo">{{ formatDate $provider.CreatedAt }}</td>
 
-                                    <form id="form-{{ $provider.ID }}" action="/admin/manage-account/delete" method="POST">
-                                        <td class="txt-oflo">
-                                            <button type="button" onclick="confirmDelete('{{ $provider.ID }}')" class="btn btn-outline-danger">Xóa</button>
-                                        </td>
-                                    </form>
-                                </tr>
-                                {{ end }}
-                                </tbody>
-                            </table>
+                                            <form id="form-{{ $provider.ID }}" action="/admin/manage-account/delete"
+                                                method="POST">
+                                                <td class="txt-oflo">
+                                                    <button type="button" onclick="confirmDelete('{{ $provider.ID }}')"
+                                                        class="btn btn-outline-danger">Xóa</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        {{ end }}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- -------------------------------- -->
+                            <!-- Bảng thể hiện thông tin Provider -->
+                            <!-- -------------------------------- -->
                         </div>
-                        <!-- -------------------------------- -->
-                        <!-- Bảng thể hiện thông tin Provider -->
-                        <!-- -------------------------------- -->
                     </div>
                 </div>
+                <!-- ============================================================== -->
+                <!-- End Bảng Account Provider và Customer -->
+                <!-- ============================================================== -->
             </div>
             <!-- ============================================================== -->
-            <!-- End Bảng Account Provider và Customer -->
+            <!-- End Logo Website -->
             <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Logo Website -->
-        <!-- ============================================================== -->
     </div>
-</div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -251,7 +255,7 @@
 
     <script>
         function confirmDelete(user_id) {
-            if(confirm("Bạn có chắc chắn muốn xóa tài khoản này?")) {
+            if (confirm("Bạn có chắc chắn muốn xóa tài khoản này?")) {
                 let myForm = document.getElementById("form-" + user_id);
 
                 let inputElement = document.createElement("input");

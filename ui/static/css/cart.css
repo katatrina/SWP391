@@ -22,27 +22,27 @@
 }
 
 .header {
-        display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            color: #f13232;
-            font-weight: 300;
-            width: 100%;
-            text-align: center;
-            text-transform: uppercase;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #fefb3f;
+    font-weight: 300;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .header i {
-        padding-right: 16px;
-            border-right: 1px solid;
-            font-size: 1.5rem;
+    padding-right: 16px;
+    border-right: 1px solid;
+    font-size: 1.5rem;
 }
 
 .header p {
     font-size: 1.5rem;
     padding-left: 16px;
     margin: 0;
-    font-weight: 200;
+    font-weight: 700;
 }
 
 /* Table */
