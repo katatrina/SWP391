@@ -138,6 +138,9 @@ func (store *Store) CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) 
 			return err
 		}
 
+		fmt.Println("BuyerID:", order.BuyerID)
+		fmt.Println("SellerID:", order.SellerID)
+
 		for i, cartItem := range arg.CartItems {
 			randomOrderItemID := randomOrderID.String() + "-" + fmt.Sprintf("%d", i+1)
 
