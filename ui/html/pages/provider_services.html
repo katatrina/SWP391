@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/static/icon/themify-icons.css">
 
     <!-- Online Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- NavBar CSS -->
     <link rel="stylesheet" href="/static/css/navbar.css">
@@ -30,166 +30,171 @@
 </head>
 
 <body>
-    <div id="main">
-        <!-- Nav -->
-        {{template "navbar" .}}
+<div id="main">
+    <!-- Nav -->
+    {{template "navbar" .}}
 
 
-        <!-- Banner -->
-        <!-- <div class="banner">
-            <img src="/static/img/Bird-banner.jpg" alt="Service Banner" class="banner-service">
-            <div class="banner-text">
-                <h2>Dịch vụ</h2>
-                <div class="banner-sub-text">
-                    <button>
-                        <a href="/">Trang chủ</a>
-                    </button>
-                    <p> / </p>
-                    <button>
-                        <a href="#">Dịch vụ của tôi</a>
-                    </button>
+    <!-- Banner -->
+    <!-- <div class="banner">
+        <img src="/static/img/Bird-banner.jpg" alt="Service Banner" class="banner-service">
+        <div class="banner-text">
+            <h2>Dịch vụ</h2>
+            <div class="banner-sub-text">
+                <button>
+                    <a href="/">Trang chủ</a>
+                </button>
+                <p> / </p>
+                <button>
+                    <a href="#">Dịch vụ của tôi</a>
+                </button>
+            </div>
+        </div>
+    </div> -->
+    <!-- End Banner -->
+
+
+    <!-- Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-md-3 col-lg-4">
+                <div class="statistic-wrapper">
+                    <div class="statistic">
+                        <i class="fa-solid fa-coins" style="color: #f8fc1d;"></i>
+                        <div class="number">{{ .ProviderDashBoard.TotalRevenue }}</div>
+                        <div class="header text-muted">Tổng doanh thu</div>
+                    </div>
                 </div>
             </div>
-        </div> -->
-        <!-- End Banner -->
-
-
-        <!-- Content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-md-3 col-lg-4">
-                    <div class="statistic-wrapper">
-                        <div class="statistic">
-                            <i class="fa-solid fa-coins" style="color: #f8fc1d;"></i>
-                            <div class="number">12vnd</div>
-                            <div class="header text-muted">Tổng doanh thu</div>
-                        </div>
+            <!-- <div class="col-xs-6 col-md-3 col-lg-3">
+                <div class="statistic-wrapper">
+                    <div class="statistic">
+                        <i class="fa-regular fa-star" style="color: #10c668;"></i>
+                        <div class="number">120</div>
+                        <div class="header text-muted">Số lượt đánh giá</div>
                     </div>
                 </div>
-                <!-- <div class="col-xs-6 col-md-3 col-lg-3">
-                    <div class="statistic-wrapper">
-                        <div class="statistic">
-                            <i class="fa-regular fa-star" style="color: #10c668;"></i>
-                            <div class="number">120</div>
-                            <div class="header text-muted">Số lượt đánh giá</div>
-                        </div>
-                    </div>
-                </div> -->
-                <div class="col-xs-6 col-md-3 col-lg-4">
-                    <div class="statistic-wrapper">
-                        <div class="statistic">
-                            <i class="fa-solid fa-feather-pointed" style="color: #19cad7;"></i>
-                            <div class="number">120</div>
-                            <div class="header text-muted">Tổng dịch vụ đã đăng</div>
-                        </div>
+            </div> -->
+            <div class="col-xs-6 col-md-3 col-lg-4">
+                <div class="statistic-wrapper">
+                    <div class="statistic">
+                        <i class="fa-solid fa-feather-pointed" style="color: #19cad7;"></i>
+                        <div class="number">{{ .ProviderDashBoard.TotalServices }}</div>
+                        <div class="header text-muted">Tổng dịch vụ đã đăng</div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-md-3 col-lg-4">
-                    <div class="statistic-wrapper">
-                        <div class="statistic">
-                            <i class="fa-solid fa-cart-shopping" style="color: #21e465;"></i>
-                            <div class="number">120</div>
-                            <div class="header text-muted">Số đơn hàng hoàn thành</div>
-                        </div>
+            </div>
+            <div class="col-xs-6 col-md-3 col-lg-4">
+                <div class="statistic-wrapper">
+                    <div class="statistic">
+                        <i class="fa-solid fa-cart-shopping" style="color: #21e465;"></i>
+                        <div class="number">{{ .ProviderDashBoard.TotalCompletedOrders }}</div>
+                        <div class="header text-muted">Số đơn hàng hoàn thành</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="container">
-            <div class="row gutters">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <!-- Top -->
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-right float-end">
-                                        <button type="button" id="submit" name="submit" class="btn btn-success"><a
-                                                href="/service/create">Tạo một dịch vụ mới</a></button>
-                                    </div>
-                                    <div class="text-center float-start">
-                                        <h3 style="color: #198754; font-family: sans-serif; font-weight: 400;">CÁC DỊCH
-                                            VỤ CỦA TÔI</h3>
-                                    </div>
-                                    <!-- Đã Tạo dịch vụ Thành công -->
-                                    {{if .Flash}}
-                                    <div class="flash"><i class="ti-check"></i>{{.Flash}}</div>
-                                    {{end}}
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <!-- Top -->
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right float-end">
+                                    <button type="button" id="submit" name="submit" class="btn btn-success"><a
+                                            href="/service/create">Tạo một dịch vụ mới</a></button>
                                 </div>
+                                <div class="text-center float-start">
+                                    <h3 style="color: #198754; font-family: sans-serif; font-weight: 400;">CÁC DỊCH
+                                        VỤ CỦA TÔI</h3>
+                                </div>
+                                <!-- Đã Tạo dịch vụ Thành công -->
+                                {{if .Flash}}
+                                <div class="flash"><i class="ti-check"></i>{{.Flash}}</div>
+                                {{end}}
                             </div>
-                            <!-- Top -->
-                            <div class="">&nbsp;</div>
-                            <!-- Body -->
-                            <div class="row">
-                                {{range .Services}}
-                                <!-- Item -->
-                                <div class="col-md-3 item">
+                        </div>
+                        <!-- Top -->
+                        <div class="">&nbsp;</div>
+                        <!-- Body -->
+                        <div class="row">
+                            {{range .Services}}
+                            <!-- Item -->
+                            <div class="col-md-3 item">
 
-                                    <div class="service-card">
-                                        <div class="card-item card">
-                                            <img src="{{.ImagePath}}" class="card-img-top" alt="Ser-Pic-1">
-                                            <!-- <img src="/ui/static/img/banner.jpg" class="card-img-top" alt="Ser-Pic-1"> -->
-                                            <div class="card-body">
-                                                <h6 style="font-weight: 500;"
-                                                    class="card-title text-center text-success">{{.Title}}</h6>
-                                                <p class="card-text">{{ shortenDesc .Description}}</p>
-                                                <form action="" method="post">
-                                                    <div class="card-bottom">
-                                                        <p style="font-weight: 300;" class="card-text text-left">Giá:
-                                                            ₫{{.Price}} VND</p>
-                                                        <!-- Form Delete Service -->
-                                                        <button type="button" class="btn btn-outline-danger">Xóa dịch
-                                                            vụ</button>
-                                                        <!-- Form Delete Service -->
-                                                    </div>
-                                                </form>
-                                                <form action="" method="post">
-                                                    <!-- Chỉnh sửa  -->
-                                                    <div class="card-bottom">
-                                                        <p style="font-weight: 300;" class="card-text text-left">Giá:
-                                                            ₫{{.Price}} VND</p>
-                                                        <!-- Form Delete Service -->
-                                                        <button type="button" class="btn btn-outline-info">Chỉnh
-                                                            sửa</button>
-                                                        <!-- Form Delete Service -->
-                                                    </div>
-                                                </form>
-                                                <div class="waiting">
-                                                    <p class="text-warning">Đang chờ duyệt</p>
-                                                    <p class="text-success">Đã duyệt</p>
-                                                    <p class="text-danger">Không được duyệt</p>
-                                                    <p class="text-danger">Lý do: <span class="text-dark">KO phù
-                                                            hợp</span></p>
+                                <div class="service-card">
+                                    <div class="card-item card">
+                                        <img src="{{.ImagePath}}" class="card-img-top" alt="Ser-Pic-1">
+                                        <!-- <img src="/ui/static/img/banner.jpg" class="card-img-top" alt="Ser-Pic-1"> -->
+                                        <div class="card-body">
+                                            <h6 style="font-weight: 500;"
+                                                class="card-title text-center text-success">{{.Title}}</h6>
+                                            <p class="card-text">{{ shortenDesc .Description}}</p>
+                                            <form action="" method="post">
+                                                <div class="card-bottom">
+                                                    <p style="font-weight: 300;" class="card-text text-left">Giá:
+                                                        ₫{{ formatPrice .Price}}</p>
+                                                    <!-- Form Delete Service -->
+                                                    <button type="button" class="btn btn-outline-danger">Xóa dịch
+                                                        vụ
+                                                    </button>
+                                                    <!-- Form Delete Service -->
                                                 </div>
+                                            </form>
+                                            <form action="" method="post">
+                                                <!-- Chỉnh sửa  -->
+                                                <div class="card-bottom">
+<!--                                                    <p style="font-weight: 300;" class="card-text text-left">Giá:-->
+<!--                                                        ₫{{ formatPrice .Price }}</p>-->
+                                                    <!-- Form Delete Service -->
+                                                    <button type="button" class="btn btn-outline-info">Chỉnh
+                                                        sửa
+                                                    </button>
+                                                    <!-- Form Delete Service -->
+                                                </div>
+                                            </form>
+                                            <div class="waiting">
+                                                {{ if eq .Status "inactive"}}
+                                                <p class="text-warning">Đang chờ duyệt</p>
+                                                {{else if eq .Status "active"}}
+                                                <p class="text-success">Đã duyệt</p>
+                                                {{else if eq .Status "rejected"}}
+                                                <p class="text-danger">Không được duyệt</p>
+                                                <p class="text-danger">Lý do: <span class="text-dark">{{ .RejectReason }}</span></p>
+                                                {{end}}
                                             </div>
                                         </div>
                                     </div>
-                                    </form>
                                 </div>
-                                <!-- Item -->
-                                {{else}}
-                                <p class="non-service">Bạn hiện chưa tạo dịch vụ nào.</p>
-                                {{end}}
-                                <!-- Thêm các card dịch vụ khác tại đây -->
+                                </form>
                             </div>
+                            <!-- Item -->
+                            {{else}}
+                            <p class="non-service">Bạn hiện chưa tạo dịch vụ nào.</p>
+                            {{end}}
+                            <!-- Thêm các card dịch vụ khác tại đây -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Content -->
-
-        <!-- Footer -->
-        {{template "footer" .}}
-
     </div>
+    <!-- End Content -->
 
-    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    {{template "footer" .}}
 
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
+</div>
+
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/e7aa93e476.js" crossorigin="anonymous"></script>
 </body>
 
 

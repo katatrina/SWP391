@@ -44,3 +44,11 @@ func IsAddressTooShort(value string) bool {
 func IsPasswordTooShort(value string) bool {
 	return len(value) < 8
 }
+
+func IsTitleValid(value string) bool {
+	return len(value) > 10 && len(value) < 150
+}
+
+func IsDescriptionValid(value string) bool {
+	return len(value) > 10 && len(value) < 500
+}

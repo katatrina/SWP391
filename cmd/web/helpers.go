@@ -60,7 +60,7 @@ func plusOne(x, y int) int {
 
 func shortenDescription(description string) string {
 	if len(description) > 100 {
-		return description[:50] + "..."
+		return description[:100] + "..."
 	}
 
 	return description

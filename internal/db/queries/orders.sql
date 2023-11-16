@@ -124,3 +124,15 @@ FROM order_items oi
          INNER JOIN services s ON s.id = oi.service_id
 WHERE s.category_id = (SELECT id FROM categories WHERE categories.id = $1)
   AND oi.order_id IN (SELECT uuid FROM orders WHERE status_id = (SELECT id FROM order_status WHERE code = 'completed'));
+
+-- name: CountCompletedOrdersByProviderID :one
+SELECT COUNT(*)
+FROM orders
+WHERE seller_id = $1
+  AND status_id = (SELECT id FROM order_status WHERE code = 'completed');
+
+-- name: GetTotalRevenueByProviderID :one
+SELECT SUM(grand_total)
+FROM orders
+WHERE seller_id = $1
+  AND status_id = (SELECT id FROM order_status WHERE code = 'completed');

@@ -78,6 +78,7 @@ func (app *application) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/service/create", advanced.ThenFunc(app.displayCreateServicePage))
 	router.Handler(http.MethodPost, "/service/create", advanced.ThenFunc(app.doCreateService))
+	router.Handler(http.MethodGet, "/service/edit", advanced.ThenFunc(app.displayEditServicePage))
 
 	router.Handler(http.MethodPost, "/order/update", advanced.ThenFunc(app.updateOrderStatus))
 

@@ -44,6 +44,13 @@ type templateData struct {
 	InactiveServices    []InactiveService
 	Customers           []sqlc.User
 	Providers           []sqlc.GetProvidersRow
+	ProviderDashBoard   ProviderDashboard
+}
+
+type ProviderDashboard struct {
+	TotalServices        int64
+	TotalCompletedOrders int64
+	TotalRevenue         int64
 }
 
 type InactiveService struct {

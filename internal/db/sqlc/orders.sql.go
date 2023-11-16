@@ -10,6 +10,20 @@ import (
 	"time"
 )
 
+const countCompletedOrdersByProviderID = `-- name: CountCompletedOrdersByProviderID :one
+SELECT COUNT(*)
+FROM orders
+WHERE seller_id = $1
+  AND status_id = (SELECT id FROM order_status WHERE code = 'completed')
+`
+
+func (q *Queries) CountCompletedOrdersByProviderID(ctx context.Context, sellerID int32) (int64, error) {
+	row := q.db.QueryRowContext(ctx, countCompletedOrdersByProviderID, sellerID)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const createOrder = `-- name: CreateOrder :one
 INSERT INTO orders (uuid, buyer_id, seller_id, status_id, payment_method)
 VALUES ($1, $2, $3, $4, $5) RETURNING uuid, buyer_id, seller_id, status_id, payment_method, grand_total, created_at
@@ -514,6 +528,20 @@ func (q *Queries) GetSellOrdersWithStatusCode(ctx context.Context, arg GetSellOr
 		return nil, err
 	}
 	return items, nil
+}
+
+const getTotalRevenueByProviderID = `-- name: GetTotalRevenueByProviderID :one
+SELECT SUM(grand_total)
+FROM orders
+WHERE seller_id = $1
+  AND status_id = (SELECT id FROM order_status WHERE code = 'completed')
+`
+
+func (q *Queries) GetTotalRevenueByProviderID(ctx context.Context, sellerID int32) (int64, error) {
+	row := q.db.QueryRowContext(ctx, getTotalRevenueByProviderID, sellerID)
+	var sum int64
+	err := row.Scan(&sum)
+	return sum, err
 }
 
 const updateOrderStatus = `-- name: UpdateOrderStatus :exec

@@ -462,6 +462,22 @@ func (app *application) listProviderServices(w http.ResponseWriter, r *http.Requ
 	data := app.newTemplateData(r)
 	data.Services = services
 
+	var providerDashboard ProviderDashboard
+
+	providerDashboard.TotalServices = int64(len(services))
+
+	providerDashboard.TotalCompletedOrders, err = app.store.CountCompletedOrdersByProviderID(r.Context(), providerID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	providerDashboard.TotalRevenue, err = app.store.GetTotalRevenueByProviderID(r.Context(), providerID)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
 	app.render(w, http.StatusOK, "provider_services.html", data)
 }
 
@@ -482,6 +498,7 @@ func (app *application) displayCreateServicePage(w http.ResponseWriter, r *http.
 
 	data := app.newTemplateData(r)
 	data.Categories = categories
+	data.Form = createServiceFormResult{}
 
 	app.render(w, http.StatusOK, "create_service.html", data)
 }
@@ -493,6 +510,18 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		app.clientError(w, http.StatusBadRequest)
 		return
+	}
+
+	if !validator.IsTitleValid(form.Title) {
+		form.AddFieldError("title", "Tiêu đề không hợp lệ. Độ dài phải từ 10 đến 150 ký tự.")
+	}
+
+	if !validator.IsDescriptionValid(form.Description) {
+		form.AddFieldError("description", "Mô tả không hợp lệ. Độ dài phải từ 10 đến 500 ký tự.")
+	}
+
+	if form.Price < 1_000 || form.Price > 1_000_000_000 {
+		form.AddFieldError("price", "Giá tiền không hợp lệ. Giá tiền phải từ ₫1.000 đến ₫1.000.000.000.")
 	}
 
 	file, header, err := r.FormFile("image")
@@ -507,8 +536,17 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 	// TODO: Validate form fields more detailed and display error messages in HTML.
 
 	if !form.IsNoErrors() {
+		categories, err := app.store.ListCategories(r.Context())
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+
 		data := app.newTemplateData(r)
 		data.Form = form
+		data.Categories = categories
+
+		fmt.Printf("%+v\n", data.Form)
 
 		app.render(w, http.StatusUnprocessableEntity, "create_service.html", data)
 		return
@@ -539,9 +577,44 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	app.sessionManager.Put(r.Context(), "flash", "Bạn đã tạo dịch vụ thành công!")
+	app.sessionManager.Put(r.Context(), "flash", "Đã yêu cầu tạo dịch vụ thành công. Vui lòng chờ quản trị viên phê duyệt.")
 
 	http.Redirect(w, r, "/account/my-services", http.StatusSeeOther)
+}
+
+func (app *application) displayEditServicePage(w http.ResponseWriter, r *http.Request) {
+	userID := app.sessionManager.GetInt32(r.Context(), "authenticatedUserID")
+
+	params := httprouter.ParamsFromContext(r.Context())
+
+	serviceID, err := strconv.ParseInt(params.ByName("id"), 10, 32)
+	if err != nil {
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	service, err := app.store.GetServiceByID(r.Context(), int32(serviceID))
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	if service.OwnedByProviderID != userID {
+		app.clientError(w, http.StatusForbidden)
+		return
+	}
+
+	categories, err := app.store.ListCategories(r.Context())
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	data := app.newTemplateData(r)
+	data.Service = service
+	data.Categories = categories
+
+	app.render(w, http.StatusOK, "edit_service.html", data)
 }
 
 func (app *application) displayServicesByCategoryPage(w http.ResponseWriter, r *http.Request) {
