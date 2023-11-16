@@ -134,29 +134,6 @@
                                             <h6 style="font-weight: 500;"
                                                 class="card-title text-center text-success">{{.Title}}</h6>
                                             <p class="card-text">{{ shortenDesc .Description}}</p>
-                                            <form action="" method="post">
-                                                <div class="card-bottom">
-                                                    <p style="font-weight: 300;" class="card-text text-left">Giá:
-                                                        ₫{{ formatPrice .Price}}</p>
-                                                    <!-- Form Delete Service -->
-                                                    <button type="button" class="btn btn-outline-danger">Xóa dịch
-                                                        vụ
-                                                    </button>
-                                                    <!-- Form Delete Service -->
-                                                </div>
-                                            </form>
-                                            <form action="" method="post">
-                                                <!-- Chỉnh sửa  -->
-                                                <div class="card-bottom">
-<!--                                                    <p style="font-weight: 300;" class="card-text text-left">Giá:-->
-<!--                                                        ₫{{ formatPrice .Price }}</p>-->
-                                                    <!-- Form Delete Service -->
-                                                    <button type="button" class="btn btn-outline-info">Chỉnh
-                                                        sửa
-                                                    </button>
-                                                    <!-- Form Delete Service -->
-                                                </div>
-                                            </form>
                                             <div class="waiting">
                                                 {{ if eq .Status "inactive"}}
                                                 <p class="text-warning">Đang chờ duyệt</p>

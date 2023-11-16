@@ -154,7 +154,7 @@
 .card {
     box-shadow: none;
     transition: 0.3s;
-    width: 15rem;
+    width: 16rem;
     border: none;
     margin-bottom: 16px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -219,4 +219,8 @@
 .card-title {
     padding: 12px;
     margin: 0;
+}
+
+.service .col {
+    padding-right: 0;
 }
