@@ -1195,13 +1195,14 @@ func (app *application) displaySellOrdersPage(w http.ResponseWriter, r *http.Req
 	data.OrderStatuses = orderStatuses
 	data.HighlightedButtonID = int32(parsedInt)
 	data.SortedOrders = sortedOrders
+	data.CurrentOrderStatusID = categoryStatusID
 
 	app.render(w, http.StatusOK, "don-ban.html", data)
 }
 
 type updateOrderStatusFormResult struct {
 	OrderID           string `form:"order_id"`
-	UpdatedStatusID   int32  `form:"updated_status_id"`
+	CurrentStatusID   int32  `form:"current_status_id"`
 	UpdatedStatusCode string `form:"updated_status_code"`
 }
 
@@ -1223,7 +1224,7 @@ func (app *application) updateOrderStatus(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/my-orders/identity/seller?type=%v", form.UpdatedStatusID), http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/my-orders/identity/seller?type=%v", form.CurrentStatusID), http.StatusSeeOther)
 }
 
 type createServiceFeedbackFormResult struct {

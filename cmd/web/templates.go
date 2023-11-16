@@ -19,33 +19,34 @@ var functionTemplates = template.FuncMap{
 }
 
 type templateData struct {
-	CurrentYear         int
-	Form                any
-	Flash               string
-	IsAuthenticated     bool
-	IsProvider          bool
-	IsAdmin             bool
-	ProviderDetail      sqlc.ProviderDetail
-	ProviderInfo        sqlc.GetProviderDetailsByServiceIDRow
-	Service             sqlc.Service
-	Services            []sqlc.Service
-	ServiceFeedbacks    []sqlc.ListServiceFeedbacksRow
-	User                sqlc.User
-	Categories          []sqlc.Category
-	Cart                Cart
-	PurchaseOrders      map[string]PurchaseOrder
-	SellOrders          map[string]SellOrder
-	SortedOrders        []string
-	OrderStatuses       []sqlc.OrderStatus
-	HighlightedButtonID int32
-	HighlightedCategory string
-	IsUserUsedService   bool
-	AdminDashboard      AdminDashboard
-	AdminEmail          string
-	InactiveServices    []InactiveService
-	Customers           []sqlc.User
-	Providers           []sqlc.GetProvidersRow
-	ProviderDashBoard   ProviderDashboard
+	CurrentYear          int
+	Form                 any
+	Flash                string
+	IsAuthenticated      bool
+	IsProvider           bool
+	IsAdmin              bool
+	ProviderDetail       sqlc.ProviderDetail
+	ProviderInfo         sqlc.GetProviderDetailsByServiceIDRow
+	Service              sqlc.Service
+	Services             []sqlc.Service
+	ServiceFeedbacks     []sqlc.ListServiceFeedbacksRow
+	User                 sqlc.User
+	Categories           []sqlc.Category
+	Cart                 Cart
+	PurchaseOrders       map[string]PurchaseOrder
+	SellOrders           map[string]SellOrder
+	SortedOrders         []string
+	OrderStatuses        []sqlc.OrderStatus
+	HighlightedButtonID  int32
+	HighlightedCategory  string
+	CurrentOrderStatusID string
+	IsUserUsedService    bool
+	AdminDashboard       AdminDashboard
+	AdminEmail           string
+	InactiveServices     []InactiveService
+	Customers            []sqlc.User
+	Providers            []sqlc.GetProvidersRow
+	ProviderDashBoard    ProviderDashboard
 }
 
 type ProviderDashboard struct {
