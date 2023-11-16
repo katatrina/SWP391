@@ -297,7 +297,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Tạo ảnh đẹp cho chim cảnh",
 		Description:       "Làm thú cưng trở nên lôi cuốn và đẹp hơn bao giờ hết với dịch vụ Tạo Ảnh Đẹp Cho Chim Cảnh. Chúng tôi không chỉ làm đẹp thú cưng của bạn mà còn ghi lại những khoảnh khắc đáng yêu và độc đáo qua ống kính chuyên nghiệp.",
-		Price:             49_000 - 99_000,
+		Price:             99_000,
 		ImagePath:         "/static/img/services_img/gromming-6.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[5].ID,
@@ -311,7 +311,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Huấn luyện theo yêu cầu",
 		Description:       "Huấn Luyện Chim Theo Yêu Cầu là dịch vụ linh hoạt và tùy chỉnh, được thiết kế để đáp ứng đầy đủ nhu cầu và mong muốn riêng biệt của chủ nhân và chim cảnh. Chúng tôi cung cấp một quy trình đào tạo cá nhân hóa, bắt đầu từ việc đánh giá tình hình hiện tại và mục tiêu mong muốn. Đội ngũ chuyên gia sẽ xây dựng một chương trình huấn luyện chuyên sâu, tập trung vào các kỹ năng cụ thể hoặc thách thức mà bạn muốn định hình cho chim của mình. Từ việc huấn luyện lệnh cơ bản đến các kỹ thuật biểu diễn nâng cao, chúng tôi cam kết đưa ra giải pháp hiệu quả và đem lại trải nghiệm huấn luyện tích cực cho cả chủ nhân và loài chim cưng.",
-		Price:             300_000 - 500_000,
+		Price:             200_000,
 		ImagePath:         "/static/img/services_img/trainning-1.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[0].ID,
@@ -355,7 +355,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Tư vấn và dạy huấn luyện chim cảnh",
 		Description:       "Dịch vụ Tư vấn và Dạy Huấn Luyện Chim Cảnh cung cấp sự chăm sóc toàn diện cho thú cưng, bao gồm tư vấn chăm sóc cơ bản, đánh giá hành vi, lập kế hoạch huấn luyện, và dạy kỹ năng cơ bản và nâng cao. Chúng tôi hỗ trợ giải quyết vấn đề hành vi và cung cấp tư vấn trực tuyến hoặc tận nơi, nhằm tạo ra một môi trường tích cực và giao tiếp tốt giữa chủ nhân và chim cảnh.",
-		Price:             200_000 - 500_000,
+		Price:             300_000,
 		ImagePath:         "/static/img/services_img/trainning-5.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[4].ID,
@@ -391,7 +391,7 @@ func TestCreateService(t *testing.T) {
 	err = testStore.CreateService(context.Background(), CreateServiceParams{
 		Title:             "Chăm sóc thú cưng trong thời gian chủ vắng mặt",
 		Description:       "Dịch vụ Chăm sóc thú cưng trong thời gian chủ vắng mặt là sự giải pháp đáng tin cậy để bảo đảm thú cưng của bạn nhận được sự chăm sóc tốt nhất khi bạn không thể ở bên. Chúng tôi đảm bảo thức ăn, vận động, và tình cảm đều được đáp ứng, mang lại sự an tâm cho bạn và sự thoải mái cho thú cưng của bạn trong suốt thời gian bạn vắng nhà.",
-		Price:             1_000_000 - 3_000_000,
+		Price:             2_000_000,
 		ImagePath:         "/static/img/services_img/other-2.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[1].ID,

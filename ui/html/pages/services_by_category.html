@@ -94,9 +94,11 @@
                                     <h5 class="card-title">{{.Title}}</h5>
                                 </a>
                                 <div class="card-bot">
-                                    <p class="">{{ formatPrice .Price}}vnd</p>
-                                    <form action="">
-                                        <button type="button" class="btn">
+                                    <p class="">₫{{ formatPrice .Price}}</p>
+                                    <form action="/cart/add" method="POST">
+                                        <button type="submit" class="btn">
+                                            <input type="hidden" name="service_id" value="{{.ID}}">
+                                            <input type="hidden" name="quantity" value="1">
                                             <i class="fa-solid fa-basket-shopping" style="color: #fd0808;"></i>
                                         </button>
                                     </form>
