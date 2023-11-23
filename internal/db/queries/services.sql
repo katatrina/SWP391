@@ -1,6 +1,6 @@
 -- name: CreateService :exec
-INSERT INTO services (title, description, price, image_path, category_id, owned_by_provider_id)
-VALUES ($1, $2, $3, $4, $5, $6);
+INSERT INTO services (title, description, price, image_path, category_id, owned_by_provider_id, status)
+VALUES ($1, $2, $3, $4, $5, $6, $7);
 
 -- name: ListServiceByProvider :many
 SELECT *
@@ -50,7 +50,7 @@ WHERE status = 'active';
 -- name: ListServices :many
 SELECT *
 FROM services
-WHERE status = 'inactive'
+WHERE status = 'active'
   and owned_by_provider_id != $1
 ORDER BY created_at DESC;
 

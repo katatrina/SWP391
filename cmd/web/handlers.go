@@ -586,6 +586,7 @@ func (app *application) doCreateService(w http.ResponseWriter, r *http.Request) 
 		CategoryID:        form.CategoryID,
 		ImagePath:         imagePath,
 		OwnedByProviderID: providerID,
+		Status:            "inactive",
 	})
 	if err != nil {
 		// TODO: Delete uploaded file from disk if creating service fails.

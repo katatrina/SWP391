@@ -69,7 +69,6 @@ CREATE TABLE "service_feedbacks"
     "id"         SERIAL PRIMARY KEY,
     "service_id" INTEGER     NOT NULL,
     "user_id"    INTEGER     NOT NULL,
-    "rating"     INTEGER     NOT NULL,
     "content"    VARCHAR     NOT NULL,
     "created_at" timestamptz NOT NULL DEFAULT (now())
 );

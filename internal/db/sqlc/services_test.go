@@ -39,6 +39,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/phu-kien.jpg",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[0].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -50,6 +51,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/phu-kien-2.png",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[1].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -61,6 +63,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/phu-kien-3.png",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[2].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -72,6 +75,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/phu-kien-4.jpg",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[3].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -83,6 +87,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/phu-kien-5.jfif",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[4].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -94,6 +99,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/phu-kien-6.jpg",
 		CategoryID:        categoryIDs[0],
 		OwnedByProviderID: providers[5].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -108,6 +114,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/dinh-duong-1.jpg",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[0].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -119,6 +126,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/dinh-duong-2.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[1].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -130,6 +138,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/dinh-duong-3.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[2].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -141,6 +150,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/dinh-duong-4.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[3].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -152,6 +162,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/dinh-duong-5.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[4].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -163,6 +174,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/dinh-duong-6.png",
 		CategoryID:        categoryIDs[1],
 		OwnedByProviderID: providers[5].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -177,6 +189,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/suc-khoe-1.png",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[0].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -188,6 +201,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/suc-khoe-2.png",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[1].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -199,6 +213,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/suc-khoe-3.png",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[2].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -210,6 +225,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/suc-khoe-4.png",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[3].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -221,6 +237,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/suc-khoe-5.jfif",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[4].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -232,6 +249,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/suc-khoe-6.png",
 		CategoryID:        categoryIDs[2],
 		OwnedByProviderID: providers[5].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -246,6 +264,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/gromming-1.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[0].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -257,6 +276,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/gromming-2.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[1].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -268,6 +288,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/gromming-3.jpg",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[2].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -279,6 +300,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/gromming-4.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[3].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -290,6 +312,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/gromming-5.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[4].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -301,6 +324,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/gromming-6.png",
 		CategoryID:        categoryIDs[3],
 		OwnedByProviderID: providers[5].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -315,6 +339,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/trainning-1.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[0].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -326,6 +351,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/trainning-2.png",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[1].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -337,6 +363,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/trainning-3.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[2].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -348,6 +375,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/trainning-4.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[3].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -359,6 +387,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/trainning-5.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[4].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -370,6 +399,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/trainning-6.jpg",
 		CategoryID:        categoryIDs[4],
 		OwnedByProviderID: providers[5].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -384,6 +414,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/other-1.png",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[0].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -395,6 +426,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/other-2.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[1].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -406,6 +438,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/other-3.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[2].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -417,6 +450,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/other-4.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[3].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -428,6 +462,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/other-5.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[4].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 
@@ -439,6 +474,7 @@ func TestCreateService(t *testing.T) {
 		ImagePath:         "/static/img/services_img/other-6.jpg",
 		CategoryID:        categoryIDs[5],
 		OwnedByProviderID: providers[5].ID,
+		Status:            "active",
 	})
 	require.NoError(t, err)
 	// -----------------------------------------------------

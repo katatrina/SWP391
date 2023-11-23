@@ -10,8 +10,8 @@ import (
 )
 
 const createService = `-- name: CreateService :exec
-INSERT INTO services (title, description, price, image_path, category_id, owned_by_provider_id)
-VALUES ($1, $2, $3, $4, $5, $6)
+INSERT INTO services (title, description, price, image_path, category_id, owned_by_provider_id, status)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
 `
 
 type CreateServiceParams struct {
@@ -21,6 +21,7 @@ type CreateServiceParams struct {
 	ImagePath         string `json:"image_path"`
 	CategoryID        int32  `json:"category_id"`
 	OwnedByProviderID int32  `json:"owned_by_provider_id"`
+	Status            string `json:"status"`
 }
 
 func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) error {
@@ -31,6 +32,7 @@ func (q *Queries) CreateService(ctx context.Context, arg CreateServiceParams) er
 		arg.ImagePath,
 		arg.CategoryID,
 		arg.OwnedByProviderID,
+		arg.Status,
 	)
 	return err
 }
@@ -341,7 +343,7 @@ func (q *Queries) ListServiceByProvider(ctx context.Context, ownedByProviderID i
 const listServices = `-- name: ListServices :many
 SELECT id, title, description, price, image_path, category_id, owned_by_provider_id, status, reject_reason, created_at
 FROM services
-WHERE status = 'inactive'
+WHERE status = 'active'
   and owned_by_provider_id != $1
 ORDER BY created_at DESC
 `
